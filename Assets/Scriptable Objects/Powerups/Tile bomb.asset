@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d641e528236e2684fb0b26691f411447, type: 3}
+  m_Name: Tile bomb
+  m_EditorClassIdentifier: 
+  powerType: 2
+  ingredientsNeeded:
+  - ingredient: {fileID: 11400000, guid: d75bb8165977999489eba68afccd9e16, type: 2}
+    amountNeeded: 3
+  - ingredient: {fileID: 11400000, guid: b14a3af4139243340a35b8d94ddf088d, type: 2}
+    amountNeeded: 1
+  potionSprite: {fileID: 21300000, guid: 77a72be95a76d50479de5b7ffdc4813c, type: 3}
+  potionDescription: Swaps between two sides of a tile

@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2266552957177309775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2266552957177309772}
+  - component: {fileID: 6071993705744280037}
+  - component: {fileID: 645016887058643625}
+  m_Layer: 9
+  m_Name: 12 ring Cell
+  m_TagString: Cell
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2266552957177309772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2266552957177309775}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1, y: 6.82, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6071993705744280037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2266552957177309775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb775f419b4ab446b481e941a4f7007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heldTile: {fileID: 0}
+  tileGFXParent: {fileID: 2266552957177309772}
+  isLocked: 0
+  leftCell: {fileID: 0}
+  rightCell: {fileID: 0}
+  leftSlice: {fileID: 0}
+  rightSlice: {fileID: 0}
+  goodConnectLeft: 0
+  goodConnectRight: 0
+  amountUnsuccessfullConnections: 0
+  maxDistanceToAnimate: 40
+  maxAnimateSpeed: 20
+--- !u!60 &645016887058643625
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2266552957177309775}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.9395635, y: 0.98380184}
+      - {x: 1.3262603, y: 1.1133823}
+      - {x: 0.7826251, y: 1.1849842}
+      - {x: -0.17698821, y: 1.234653}
+      - {x: -1.085598, y: 1.177731}
+      - {x: -1.6110476, y: 1.0994511}
+      - {x: -2.1121907, y: 0.9764371}
+      - {x: -1.5947672, y: -0.9723673}
+      - {x: -1.204451, y: -0.8668194}
+      - {x: -0.79639995, y: -0.8300533}
+      - {x: -0.087053545, y: -0.05050659}
+      - {x: 0.6082391, y: -0.8253751}
+      - {x: 1.0158305, y: -0.8806281}
+      - {x: 1.406118, y: -0.9893732}

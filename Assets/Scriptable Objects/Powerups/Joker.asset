@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d641e528236e2684fb0b26691f411447, type: 3}
+  m_Name: Joker
+  m_EditorClassIdentifier: 
+  powerType: 1
+  ingredientsNeeded:
+  - ingredient: {fileID: 11400000, guid: d75bb8165977999489eba68afccd9e16, type: 2}
+    amountNeeded: 3
+  - ingredient: {fileID: 11400000, guid: 3d9e2c3835b1bba48b38f4d1495918e7, type: 2}
+    amountNeeded: 7
+  - ingredient: {fileID: 11400000, guid: bedacf830abc5434fb663766d4d8aa1d, type: 2}
+    amountNeeded: 2
+  - ingredient: {fileID: 11400000, guid: 6a322758a050e0e488370ff14c495c47, type: 2}
+    amountNeeded: 10
+  - ingredient: {fileID: 11400000, guid: b0d86a6c17f432346aa2dab0e9dd20e2, type: 2}
+    amountNeeded: 10
+  potionSprite: {fileID: 21300000, guid: e6ba25e574d521246a3d687a16c7f81b, type: 3}
+  potionDescription: Turns a tile into a joker tile that matches everything

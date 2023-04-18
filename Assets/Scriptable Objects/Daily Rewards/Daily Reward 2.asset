@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 232c53c260d92f84ab12c9fe07a3d53f, type: 3}
+  m_Name: Daily Reward 2
+  m_EditorClassIdentifier: 
+  rewards:
+  - rewardData: {fileID: 11400000, guid: b3557703fcbf7af4a965e1446e7c252d, type: 2}
+    rewardSprite: {fileID: 1465239481, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
+    rewardAmount: 4
+  - rewardData: {fileID: 11400000, guid: 126ead5cf768eba44b9b3d15f0925f28, type: 2}
+    rewardSprite: {fileID: -1612417605, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
+    rewardAmount: 17
+  - rewardData: {fileID: 11400000, guid: d639a93a75de39d4e8c592ee9516469f, type: 2}
+    rewardSprite: {fileID: -1310715021, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
+    rewardAmount: 3
+  - rewardData: {fileID: 11400000, guid: 9a917876b69687140aefec3b7fa18ddd, type: 2}
+    rewardSprite: {fileID: 21300000, guid: e6ba25e574d521246a3d687a16c7f81b, type: 3}
+    rewardAmount: 9
+  - rewardData: {fileID: 11400000, guid: bd3ace27ca945de42947d1e967b038b5, type: 2}
+    rewardSprite: {fileID: 1324611575, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
+    rewardAmount: 11
+  - rewardData: {fileID: 11400000, guid: 93905a6df45e8e64abd4cb53b57ef326, type: 2}
+    rewardSprite: {fileID: 133197548, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
+    rewardAmount: 15
+  - rewardData: {fileID: 11400000, guid: b0d86a6c17f432346aa2dab0e9dd20e2, type: 2}
+    rewardSprite: {fileID: 1047063243, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
+    rewardAmount: 1
+  - rewardData: {fileID: 11400000, guid: 9048c6c0a44bf384f92aaf8afa5e4673, type: 2}
+    rewardSprite: {fileID: -1462360723, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
+    rewardAmount: 125
