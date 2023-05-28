@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum SubTileColor
 {
-    Purple,
     Blue,
-    Yellow,
     Green,
+    Orange,
     Pink,
+    Purple,
     Stone,
     NoColor,
     Joker,
 }
 public enum SubTileSymbol
 {
-    DragonFly,
-    Badger,
-    Ram,
-    Turtle,
+    Circle,
+    Cross,
+    Square,
+    Triangle,
     NoShape,
     Joker,
 }

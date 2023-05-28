@@ -7,7 +7,7 @@ using System.Linq;
 public class SliceSpriteSetter
 {
     public SliceConditionsEnums sliceEnum;
-    public Sprite[] slicePossibleSprites;
+    public Texture[] slicePossibleTextures;
 }
 public class Ring : MonoBehaviour
 {
@@ -55,7 +55,8 @@ public class Ring : MonoBehaviour
 
     public void SetSliceDisplay(Slice sliceData, int sliceIndex)
     {
-        SpriteRenderer sliceDisplayObject = Instantiate(sliceDisplayPrefab, ringSlices[sliceIndex].transform).GetComponent<SpriteRenderer>();
+        //SpriteRenderer sliceDisplayObject = Instantiate(sliceDisplayPrefab, ringSlices[sliceIndex].transform).GetComponent<SpriteRenderer>();
+        SliceDisplay3D sliceDisplayObject = Instantiate(sliceDisplayPrefab, ringSlices[sliceIndex].transform).GetComponent<SliceDisplay3D>();
 
         SliceSpriteSetter relaventSliceData = sliceDisplayArray.Where(x => x.sliceEnum == sliceData.connectionType).FirstOrDefault();
 
@@ -68,16 +69,16 @@ public class Ring : MonoBehaviour
         switch (sliceData.connectionType)
         {
             case SliceConditionsEnums.GeneralColor:
-                sliceDisplayObject.sprite = relaventSliceData.slicePossibleSprites[0];
+                sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
                 break;
             case SliceConditionsEnums.GeneralSymbol:
-                sliceDisplayObject.sprite = relaventSliceData.slicePossibleSprites[0];
+                sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
                 break;
             case SliceConditionsEnums.SpecificColor:
-                sliceDisplayObject.sprite = relaventSliceData.slicePossibleSprites[(int)sliceData.requiredColor];
+                sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredColor];
                 break;
             case SliceConditionsEnums.SpecificSymbol:
-                sliceDisplayObject.sprite = relaventSliceData.slicePossibleSprites[(int)sliceData.requiredSymbol];
+                sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredSymbol];
                 break;
             default:
                 Debug.LogError("Problem with slice generation");

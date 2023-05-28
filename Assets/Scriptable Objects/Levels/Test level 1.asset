@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
-  m_Name: Test level
+  m_Name: Test level 1
   m_EditorClassIdentifier: 
   worldName: 0
   levelNumInZone: 1
-  ringType: 1
+  ringType: 0
   beforeRingSpawnActions:
     m_PersistentCalls:
       m_Calls:
@@ -72,7 +72,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 0100000000000000
+  levelAvailableColors: 0300000002000000
   levelAvailablesymbols: 0100000000000000
   isRandomSlicePositions: 1
   slicesToSpawn:
