@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public abstract class CustomButtonParent : BasicUIElement, IPointerClickHandler
+public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler
 {
     /// <summary>
     /// only approachable/changable through code.
@@ -25,8 +25,9 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerClickHandler
 
     private void OnMouseDown()
     {
-        if (isInteractable && !UIManager.IS_DURING_TRANSITION)
+        if (isInteractable && !UIManager.IS_DURING_TRANSITION && !UIManager.IS_USING_UI)
         {
+            Debug.Log("HERE");
             // play click sound
             OnClickButton();
         }
@@ -34,18 +35,27 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerClickHandler
 
     public abstract void OnClickButton();
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
+    //public void OnPointerClick(PointerEventData eventData)
+    //{
+    //    if (isInteractable && !UIManager.IS_DURING_TRANSITION)
+    //    {
+    //        // play click sound
+    //        OnClickButton();
+    //    }
 
+    //}
+
+    public virtual void DeactivateSpecificButton(CustomButtonParent button)
+    {
+        button.isInteractable = false;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
         if (isInteractable && !UIManager.IS_DURING_TRANSITION)
         {
             // play click sound
             OnClickButton();
         }
-    }
-
-    public virtual void DeactivateSpecificButton(CustomButtonParent button)
-    {
-        button.isInteractable = false;
     }
 }

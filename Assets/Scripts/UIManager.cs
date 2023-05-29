@@ -425,7 +425,8 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             levelMapPopUp,
-            new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
+            //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(levelMapPopUp)},
             new ButtonActionIndexPair { index = 0, action = GameManager.instance.SetLevel });
 
         AddUIElement(levelMapPopUp);

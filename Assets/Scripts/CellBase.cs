@@ -10,10 +10,10 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
     // by default when we put a tile and there is no contested tile - it will be considered a "bad" connection
     // to prevent hightlights of "good connections".
-    [SerializeField] bool goodConnectLeft, goodConnectRight;
-    [SerializeField] int amountUnsuccessfullConnections;
+    [SerializeField] private bool goodConnectLeft, goodConnectRight;
+    [SerializeField] private int amountUnsuccessfullConnections;
 
-    Collider2D cellCollider;
+    [SerializeField] private BoxCollider cellCollider;
 
     //TEMP
 
@@ -24,9 +24,9 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
     // think about creating an action system here aswell for "on good connection" + "on bad connection" - look at gamemanger as example.
 
-    private void Awake()
+    private void OnValidate()
     {
-        cellCollider = GetComponent<Collider2D>();
+        cellCollider = GetComponent<BoxCollider>();
     }
 
     public override void RecieveTileDisplayer(TileParentLogic tileToPlace)
@@ -182,7 +182,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
             tileToPlace.SetPlaceTileData(true);
 
-            GameManager.gameRing.CallOnAddTileActions();
+            MapLogic.currentRing.CallOnAddTileActions();
 
             SymbolAndColorCollector.instance.AddColorsAndSymbolsToLists(tileToPlace);
 

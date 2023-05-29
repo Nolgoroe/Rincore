@@ -13,7 +13,7 @@ public class SliceActionVariations : ScriptableObject
         {
             sliceConnectionData.onGoodConnectionActions += () => sameIndexCell.SetAsLocked(true);
             sliceConnectionData.onGoodConnectionActions += () => leftNeighborCell.SetAsLocked(true);
-            GameManager.gameRing.ringSlices[spawnIndex].SetMidSprite(lockSprite);
+            MapLogic.currentRing.ringSlices[spawnIndex].SetMidSprite(lockSprite);
         }
     }
 

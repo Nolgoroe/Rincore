@@ -46,7 +46,8 @@ public class GeneralColorCondition : ConditonsData
 {
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        if (subTileCurrent.subTileColor == subTileContested.subTileColor)
+        if (subTileCurrent.subTileColor == subTileContested.subTileColor && subTileCurrent.subTileColor != SubTileColor.Stone
+            && subTileContested.subTileColor != SubTileColor.Stone)
         {
             return true;
         }

@@ -7,6 +7,7 @@ using System.Linq;
 public class SliceSpriteSetter
 {
     public SliceConditionsEnums sliceEnum;
+    public Mesh[] sliceMesh;
     public Texture[] slicePossibleTextures;
 }
 public class Ring : MonoBehaviour
@@ -70,20 +71,26 @@ public class Ring : MonoBehaviour
         {
             case SliceConditionsEnums.GeneralColor:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
+                sliceDisplayObject.limiterFiler.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.GeneralSymbol:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
+                sliceDisplayObject.limiterFiler.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.SpecificColor:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredColor];
+                sliceDisplayObject.limiterFiler.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.SpecificSymbol:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredSymbol];
+                sliceDisplayObject.limiterFiler.mesh = relaventSliceData.sliceMesh[(int)sliceData.requiredSymbol];
                 break;
             default:
                 Debug.LogError("Problem with slice generation");
                 break;
         }
+
+
     }
 
     private void OnAddTileToRing()

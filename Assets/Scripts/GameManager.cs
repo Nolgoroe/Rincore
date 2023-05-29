@@ -91,12 +91,12 @@ public class GameManager : MonoBehaviour
         //this is the only place in code where we add delegates to the actions of before, during and after ring.
         // this will not actually invoke the unity event functions - it will add it's invoked functions to the action in the order they are created.
         BeforeRingActions += () => currentLevel.beforeRingSpawnActions.Invoke();
-        BeforeRingActions += SpawnLevelBG;
+        //BeforeRingActions += SpawnLevelBG;
 
         RingActions += BuildLevel;
         RingActions += () => currentLevel.ringSpawnActions.Invoke();
 
-        AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
+        //AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
 
         SymbolAndColorCollector.instance.ResetData();
 
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
 
         // every level launch, no matter what, we launch the in level UI
         // we do this BEFORE setting the win level and end level actions
-        UIManager.instance.DisplayInLevelUI();
+        //UIManager.instance.DisplayInLevelUI();
 
         
         // actions after gameplay, on winning the level
@@ -149,22 +149,29 @@ public class GameManager : MonoBehaviour
         //// All of these should be part of the list "Before ring spawn actions" or "after...."???? (either? or? none?)
 
         // Spawn ring by type from level
-        gameRing = Instantiate(gameRingsPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<Ring>();
+        //gameRing = Instantiate(gameRingsPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<Ring>();
         if (!gameRing)
         {
             Debug.LogError("No ring!");
         }
-        gameRing.InitRing();
+        else
+        {
+            gameRing.InitRing();
+        }
 
         // Spawn clip by type from level (or a general clip)
-        gameClip = Instantiate(gameRingsClipPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<ClipManager>();
+
+        //AM HERE - NEED TO TAKE CARE OF CLIP NOW!
+        //gameClip = Instantiate(gameRingsClipPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<ClipManager>();
         if (!gameClip)
         {
             Debug.LogError("No Clip!");
         }
-
-        // Init clip - spawn according to rules
-        gameClip.InitClipManager();
+        else
+        {
+            // Init clip - spawn according to rules
+            gameClip.InitClipManager();
+        }
 
 
         //Spawn User Controls For Level
@@ -238,10 +245,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ClickOnLevelIconMapSetData(LevelSO levelSO, ClusterSO clusterSO, int inedxInCluster)
+    public void ClickOnLevelIconMapSetData(LevelSO levelSO, ClusterSO clusterSO, Ring ring, int inedxInCluster)
     {
         currentLevel = levelSO;
         tempcurrentlevel = levelSO; // this is temp
+        
+        gameRing = ring;
 
         currentClusterSO = clusterSO;
         currentIndexInCluster = inedxInCluster;

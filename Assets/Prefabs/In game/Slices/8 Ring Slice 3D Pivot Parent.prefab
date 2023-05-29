@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   connectionType: 0
-  requiredSymbol: 0
-  requiredColor: 0
+  requiredSymbol: 4
+  requiredColor: 6
   midIcon: {fileID: 5066739072187867003}
 --- !u!64 &2611655226303025996
 MeshCollider:
@@ -121,14 +121,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5469520590710225909}
-  m_LocalRotation: {x: 0, y: 0, z: 0.19080894, w: 0.9816273}
-  m_LocalPosition: {x: -1.0770001, y: 2.454002, z: -0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0.7}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7755692343396073973}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 22}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &5066739072187867003
 SpriteRenderer:
   m_ObjectHideFlags: 0

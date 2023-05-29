@@ -19,6 +19,21 @@ public class ClickableZoneCustomButton : CustomButtonParent
         }
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(enableButton());
+    }
+
+    private void OnDisable()
+    {
+        isInteractable = false;
+    }
+
+    private IEnumerator enableButton()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isInteractable = true;
+    }
     public override void OnClickButton()
     {
         buttonEvents?.Invoke();

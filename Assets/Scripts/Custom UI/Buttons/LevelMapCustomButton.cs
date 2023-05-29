@@ -9,8 +9,9 @@ using System.Linq;
 
 public class LevelMapCustomButton : CustomButtonParent
 {
-    [SerializeField] private LevelSO connectedLevelSO;
-    [SerializeField] private ClusterSO connectedCluster;
+    public LevelSO connectedLevelSO;
+    public ClusterSO connectedCluster;
+    public Ring connectedRing;
 
     [SerializeField] private int indexInCluster;
     public override void OnClickButton()
@@ -21,7 +22,7 @@ public class LevelMapCustomButton : CustomButtonParent
     //called from button
     public void ActionsOnClickLevel ()
     {
-        GameManager.instance.ClickOnLevelIconMapSetData(connectedLevelSO, connectedCluster, indexInCluster);
+        GameManager.instance.ClickOnLevelIconMapSetData(connectedLevelSO, connectedCluster, connectedRing, indexInCluster);
         UIManager.instance.DisplayLaunchLevelPopUp(connectedLevelSO);
     }
 
