@@ -50,6 +50,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AnimalsManager animalManager;
     [SerializeField] private PowerupManager powerupManager;
     [SerializeField] private DailyRewardsManager dailyRewardsManager;
+    //[SerializeField] private MapLogic mapLogic;
 
     [Header("Active screens")]
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
@@ -95,7 +96,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(DisplayLevelMap(false));
+        //StartCoroutine(DisplayLevelMap(false));
 
         //DisplayDailyRewardsWindow(); Enable if want to show Daily Rewards
     }
@@ -336,8 +337,10 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = DelegateAction(
             inLevelLastDealWarning,
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelLastDealWarning) },
-            new ButtonActionIndexPair { index = 1, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
-            new ButtonActionIndexPair { index = 1, action = GameManager.instance.CallRestartLevel });
+            new ButtonActionIndexPair { index = 0, action = () => ClipManager.canUseDeal = true },
+            //new ButtonActionIndexPair { index = 1, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
+            //new ButtonActionIndexPair { index = 1, action = GameManager.instance.CallRestartLevel });
+            new ButtonActionIndexPair { index = 1, action = DisplayInLevelLostMessage });
 
         inLevelLastDealWarning.OverrideSetMyElement(null, null, actions);
     }
@@ -348,10 +351,10 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelWinWindow,
-            new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
-            new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallNextLevel },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelMap(true)) },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
+            //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
+            //new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallNextLevel },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(/*true*/)) },
+            new ButtonActionIndexPair { index = 1, action = GameManager.instance.OnLevelExitWin });
 
         inLevelWinWindow.OverrideSetMyElement(GameManager.instance.ReturnStatueName(), null, actions);
 
@@ -377,9 +380,9 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelLostLevelMessage,
-            new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
-            new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelMap(true)) },
+            //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
+            //new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(/*true*/)) },
             new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
 
         inLevelLostLevelMessage.OverrideSetMyElement(null, null, actions);
@@ -391,7 +394,7 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelExitToMapQuesiton,
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelMap(true)) },
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelCluster(/*true*/)) },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelExitToMapQuesiton) });
 
@@ -404,7 +407,7 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelRestartLevelQuesiton,
-            new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
+            //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelRestartLevelQuesiton) });
 
@@ -426,8 +429,9 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = DelegateAction(
             levelMapPopUp,
             //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(levelMapPopUp)},
-            new ButtonActionIndexPair { index = 0, action = GameManager.instance.SetLevel });
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.AnimateLevelElements(true))},
+            new ButtonActionIndexPair { index = 0, action = GameManager.instance.SetLevel},
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(levelMapPopUp)});
 
         AddUIElement(levelMapPopUp);
 
@@ -482,31 +486,33 @@ public class UIManager : MonoBehaviour
         dailyRewardsWindow.OverrideSetMyElement(null, null, actions);
     }
 
-    private IEnumerator DisplayLevelMap(bool isFade)
+    private IEnumerator DisplayLevelCluster(/*bool isFade*/)
     {
-        if (isFade)
-        {
-            FadeInFadeWindow(true, MainScreens.Map);
-            yield return new WaitForSeconds(ReturnFadeTime(true, MainScreens.Map) + 0.1f);
-        }
+        yield return null;
+        //if (isFade)
+        //{
+        //    FadeInFadeWindow(true, MainScreens.Map);
+        //    yield return new WaitForSeconds(ReturnFadeTime(true, MainScreens.Map) + 0.1f);
+        //}
 
         CloseAllCurrentScreens(); // close all screens open before going to map
 
-        System.Action[] actions = DelegateAction(
-            generalMapUI,
-            new ButtonActionIndexPair { index = 0, action = DisplayAnimalAlbum },
-            new ButtonActionIndexPair { index = 1, action = DisplayPlayerWorkshop },
-            new ButtonActionIndexPair { index = 2, action = DisplayMapSettings });
+        StartCoroutine(GameManager.instance.AnimateLevelElements(false));
+        //System.Action[] actions = DelegateAction(
+        //    generalMapUI,
+        //    new ButtonActionIndexPair { index = 0, action = DisplayAnimalAlbum },
+        //    new ButtonActionIndexPair { index = 1, action = DisplayPlayerWorkshop },
+        //    new ButtonActionIndexPair { index = 2, action = DisplayMapSettings });
 
-        string tearsText = player.GetOwnedTears.ToString();
-        string rubiesText = player.GetOwnedRubies.ToString();
+        //string tearsText = player.GetOwnedTears.ToString();
+        //string rubiesText = player.GetOwnedRubies.ToString();
 
-        string[] texts = new string[] { tearsText, rubiesText };
+        //string[] texts = new string[] { tearsText, rubiesText };
 
-        AddUIElement(levelScrollRect);
-        AddUIElement(generalMapUI);
+        //AddUIElement(levelScrollRect);
+        //AddUIElement(generalMapUI);
 
-        generalMapUI.OverrideSetMyElement(texts, null, actions);
+        //generalMapUI.OverrideSetMyElement(texts, null, actions);
     }
 
     private void DisplayAnimalAlbum()
@@ -627,32 +633,32 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void FadeInFadeWindow(bool fadeIn, MainScreens mainScreen)
-    {
-        IS_DURING_TRANSITION = true;
+    //private void FadeInFadeWindow(bool fadeIn, MainScreens mainScreen)
+    //{
+    //    IS_DURING_TRANSITION = true;
 
-        float fadeInSpeed = ReturnFadeTime(fadeIn, mainScreen);
+    //    float fadeInSpeed = ReturnFadeTime(fadeIn, mainScreen);
 
-        CanvasGroup group = fadeWindow.group;
+    //    CanvasGroup group = fadeWindow.group;
 
-        float from = 0, to = 0;
+    //    float from = 0, to = 0;
 
 
-        group.alpha = fadeIn == true ? 0 : 1;
-        from = fadeIn == true ? 0 : 1;
-        to = fadeIn == true ? 1 : 0;
-        System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen, fadeInSpeed)) : OnEndFade;
+    //    group.alpha = fadeIn == true ? 0 : 1;
+    //    from = fadeIn == true ? 0 : 1;
+    //    to = fadeIn == true ? 1 : 0;
+    //    System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen, fadeInSpeed)) : OnEndFade;
 
-        fadeWindow.gameObject.SetActive(true);
+    //    fadeWindow.gameObject.SetActive(true);
 
-        fadeWindow.GeneralFloatValueTo(
-            group,
-            from,
-            to,
-            fadeInSpeed,
-            LeanTweenType.linear,
-            action);
-    }
+    //    fadeWindow.GeneralFloatValueTo(
+    //        group,
+    //        from,
+    //        to,
+    //        fadeInSpeed,
+    //        LeanTweenType.linear,
+    //        action);
+    //}
 
     private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen, float fadeTime)
     {
@@ -663,7 +669,7 @@ public class UIManager : MonoBehaviour
 
         yield return new WaitForSeconds(fadeTime);
 
-        FadeInFadeWindow(!fadeIn, mainScreen);
+        //FadeInFadeWindow(!fadeIn, mainScreen);
     }
 
     private void OnEndFade()

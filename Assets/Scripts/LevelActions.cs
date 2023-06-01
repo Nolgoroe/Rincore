@@ -175,7 +175,10 @@ public class LevelActions : ScriptableObject
             // when run, the lambda uses the final post-for-loop exit value of i, which wil be beyond the index range."
 
             //slice is the same for both "same index cell" and "left neighbor cell" - so no need to invoke event twice.
-            sameIndexCell.leftSlice.sliceData.onGoodConnectionActions += () => currentLevel.slicesToSpawn[tempInt].onConnectionEvents?.Invoke();
+
+            LevelSO currentLevelTemp = currentLevel;
+
+            sameIndexCell.leftSlice.sliceData.onGoodConnectionActions += () => currentLevelTemp.slicesToSpawn[tempInt].onConnectionEvents?.Invoke();
 
             sliceActions.SetOnConnectEventsSlice(sliceConnectionData, allSlices[i], sameIndexCell, leftNeighborCell, tempIndexArray[i]);
 

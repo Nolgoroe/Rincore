@@ -12,8 +12,8 @@ public class LevelMapCustomButton : CustomButtonParent
     public LevelSO connectedLevelSO;
     public ClusterSO connectedCluster;
     public Ring connectedRing;
+    public int indexInCluster;
 
-    [SerializeField] private int indexInCluster;
     public override void OnClickButton()
     {
         buttonEventsInspector?.Invoke();

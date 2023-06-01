@@ -150,7 +150,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
 
         float distanceFromTarget = Vector3.Distance(recievedTile.transform.localPosition, Vector3.zero);
-        
+
         if(distanceFromTarget > maxDistanceToAnimate)
         {
             recievedTile.transform.localPosition = Vector3.zero;
@@ -173,8 +173,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
         return amountUnsuccessfullConnections;
     }
 
-    public abstract bool DroppedOn(TileParentLogic tileToPlace);
-    public bool DroopedOnDispatch(TileParentLogic tileToPlace)
+    public abstract bool DroppedOn(TileParentLogic tileToPlace, Ring currentRing);
+    public bool DroopedOnDispatch(TileParentLogic tileToPlace, Ring currentRing)
     {
         if (!heldTile)
         {
@@ -182,7 +182,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
             tileToPlace.SetPlaceTileData(true);
 
-            MapLogic.currentRing.CallOnAddTileActions();
+            currentRing.CallOnAddTileActions();
 
             SymbolAndColorCollector.instance.AddColorsAndSymbolsToLists(tileToPlace);
 
@@ -223,4 +223,10 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
         cellCollider.enabled = !locked;
     }
 
+    public void ResetToDefault()
+    {
+        SetAsLocked(false);
+        goodConnectLeft = false;
+        goodConnectRight = false;
+    }
 }

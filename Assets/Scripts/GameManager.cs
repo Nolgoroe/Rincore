@@ -8,25 +8,31 @@ public class GameManager : MonoBehaviour
     const string ANIM_SET_RIVE = "Set Rive ";
     const string ANIM_CLEAR_RIVE = "Clear Rive ";
 
+    public static bool IS_IN_LEVEL;
+
     public static GameManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     [Header("Level setup Data")]
     [SerializeField] private ClusterSO currentClusterSO;
     [SerializeField] private int currentIndexInCluster;
 
+    [SerializeField] private Transform levelCameraParent = null;
+    [SerializeField] private Transform levelClipParent = null;
+    [SerializeField] private Animator cameraAnimatorController;
+    [SerializeField] private Animator clipAnimatorController;
+
    [Header("In game Data")]
     public static Ring gameRing;
     public static ClipManager gameClip;
     public static LevelSO currentLevel;
     public static InLevelUserControls gameControls;
-    public LevelSO tempcurrentlevel; //temp!
     public LevelSO nextLevel;
-    public ChestLogic summonedChest; //temp?
-    public ChestBarLogic chestBarLogic; //temp?
+    //public ChestLogic summonedChest; //temp?
+    //public ChestBarLogic chestBarLogic; //temp?
 
     [SerializeField] private AnimalStatueData currentLevelAnimalStatue; //temp?
     [SerializeField] private Animator currentLevelGeneralStatueAnimator;//temp?
-    [SerializeField] private bool isAnimalLevel;//temp?
+    [SerializeField] private bool isAnimalLevel;
 
     private System.Action BeforeRingActions;
     private System.Action RingActions;
@@ -45,6 +51,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LootManager lootManager;
     [SerializeField] private AnimalsManager animalsManager;
     [SerializeField] private Player player;
+    [SerializeField] private MapLogic mapLogic;
+    [SerializeField] private ClipManager clipManager;
 
     [SerializeField] private GameObject[] gameRingsPrefabs;
     [SerializeField] private GameObject[] gameRingsSlicePrefabs;
@@ -69,6 +77,7 @@ public class GameManager : MonoBehaviour
 
         //SetLevel(currentLevel);
 
+        gameClip = clipManager;
         LeanTween.init(5000);
     }
 
@@ -105,6 +114,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartLevel()
     {
+        IS_IN_LEVEL = true;
+
         isAnimalLevel = false; //maybe have a reset function
 
         yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
@@ -119,7 +130,7 @@ public class GameManager : MonoBehaviour
         AfterRingActions?.Invoke();
 
        
-        AddToEndlevelActions(DestroyOnLevelExit);
+        AddToEndlevelActions(OnLevelExitLose);
         AddToEndlevelActions(gameRing.ClearActions);
 
         // every level launch, no matter what, we launch the in level UI
@@ -128,17 +139,17 @@ public class GameManager : MonoBehaviour
 
         
         // actions after gameplay, on winning the level
-        WinLevelActions += AdvanceLevelStatue;
+        //WinLevelActions += AdvanceLevelStatue;
         WinLevelActions += UIManager.instance.DisplayInLevelWinWindow;
 
         if(currentClusterSO.isChestCluster)
         {
-            chestBarLogic.gameObject.SetActive(true);
-            WinLevelActions += chestBarLogic.AddToChestBar;
+            //chestBarLogic.gameObject.SetActive(true);
+            //WinLevelActions += chestBarLogic.AddToChestBar;
         }
         else
         {
-            chestBarLogic.gameObject.SetActive(false);
+            //chestBarLogic.gameObject.SetActive(false);
         }
         // actions after gameplay, on losing the level
         //LoseLevelActions += UIManager.instance.DisplayInLevelRingHasNonMatchingMessage;
@@ -156,12 +167,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            gameRing.InitRing();
+            gameRing.levelStartCollider.enabled = false;
+
+            //gameRing.InitRing();
         }
 
         // Spawn clip by type from level (or a general clip)
 
-        //AM HERE - NEED TO TAKE CARE OF CLIP NOW!
         //gameClip = Instantiate(gameRingsClipPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<ClipManager>();
         if (!gameClip)
         {
@@ -197,6 +209,34 @@ public class GameManager : MonoBehaviour
             levelBG.ChangeZoneToBlurryZoneDisplay();
         }
     }
+
+    public IEnumerator AnimateLevelElements(bool inLevel)
+    {
+        if(inLevel)
+        {
+            mapLogic.FixCamPosStartLevel(currentIndexInCluster);
+            levelClipParent.gameObject.SetActive(true);
+            cameraAnimatorController.SetTrigger("Camera In Level");
+            clipAnimatorController.SetTrigger("Clip In Level");
+        }
+        else
+        {
+            cameraAnimatorController.SetTrigger("Camera Out Level");
+            clipAnimatorController.SetTrigger("Clip Out Level");
+        }
+
+        mapLogic.ToggleRings(gameRing.transform, inLevel);
+
+        yield return new WaitForSeconds(0.4f);
+
+        if (!inLevel)
+        {
+            levelClipParent.gameObject.SetActive(false);
+        }
+
+        yield return new WaitForSeconds(1.2f);
+
+    }
     private void ClearLevelActions()// this must be added last to "endLevelActions"
     {
         BeforeRingActions = null;
@@ -224,6 +264,11 @@ public class GameManager : MonoBehaviour
         endLevelActions += ClearLevelActions;// this has to be the last added func
 
     }
+    private void RemoveFromEndlevelActions(System.Action actionToAdd)
+    {
+        endLevelActions -= actionToAdd;
+
+    }
 
 
     [ContextMenu("Restart")]
@@ -237,7 +282,7 @@ public class GameManager : MonoBehaviour
 
         for (int k = 0; k < 1; k++)
         {
-            DestroyOnLevelExit();
+            OnLevelExitLose();
 
             yield return new WaitForEndOfFrame();
 
@@ -248,7 +293,6 @@ public class GameManager : MonoBehaviour
     public void ClickOnLevelIconMapSetData(LevelSO levelSO, ClusterSO clusterSO, Ring ring, int inedxInCluster)
     {
         currentLevel = levelSO;
-        tempcurrentlevel = levelSO; // this is temp
         
         gameRing = ring;
 
@@ -271,7 +315,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
 
-        DestroyOnLevelExit();
+        OnLevelExitLose();
 
         currentLevel = nextLevel;
         currentIndexInCluster++;
@@ -376,17 +420,50 @@ public class GameManager : MonoBehaviour
     public void AdvanceLootChestAnimation() //go over this with Lior
     {
         //sequencer?
-        StartCoroutine(summonedChest.AfterGiveLoot());
+        //StartCoroutine(summonedChest.AfterGiveLoot());
     }
 
-    public void DestroyOnLevelExit()
+    public void OnLevelExitWin()
     {
-        lootManager.DestroyAllLootChildren();
+        for (int i = 0; i < inLevelParent.childCount; i++)
+        {
+            Destroy(inLevelParent.GetChild(i).gameObject);
+        }
+
+        gameClip.ResetClip();
+
+        IS_IN_LEVEL = false;
+
+        RemoveFromEndlevelActions(OnLevelExitLose);
+    }
+
+    public void OnLevelExitLose()
+    {
+        Destroy(gameRing.gameObject);
+
+        StartCoroutine(mapLogic.SpawnSpecificRingInCluster(currentIndexInCluster));
+        //lootManager.DestroyAllLootChildren();
 
         for (int i = 0; i < inLevelParent.childCount; i++)
         {
             Destroy(inLevelParent.GetChild(i).gameObject);
         }
+
+        gameClip.ResetClip();
+
+        IS_IN_LEVEL = false;
+        //for (int i = 0; i < gameRing.ringCells.Length; i++)
+        //{
+        //    if (gameRing.ringCells[i].heldTile)
+        //    {
+        //        Destroy(gameRing.ringCells[i].heldTile.gameObject);
+        //    }
+        //}
+
+        //for (int i = 0; i < gameRing.ringCells.Length; i++)
+        //{
+        //        gameRing.ringCells[i].ResetToDefault();
+        //}
     }
 
     /**/

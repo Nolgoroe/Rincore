@@ -14,6 +14,7 @@ public class Ring : MonoBehaviour
 {
     public CellBase[] ringCells;
     public Slice[] ringSlices;
+    public BoxCollider levelStartCollider;
 
     [SerializeField] private int filledCellsCount;
     [SerializeField] private int unsuccessfulConnectionsCount;
@@ -24,6 +25,7 @@ public class Ring : MonoBehaviour
     [SerializeField] private GameObject sliceDisplayPrefab; // move somewhere else?
 
     [SerializeField] private SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
+
     public void InitRing()
     {
         onAddTile += ChangeCellCountAndConnectionDataOnRemove;
@@ -34,7 +36,7 @@ public class Ring : MonoBehaviour
 
     public void SpawnTileInCell(int cellIndex, TileParentLogic tile, bool isLocked)
     {
-        ringCells[cellIndex].DroppedOn(tile);
+        ringCells[cellIndex].DroppedOn(tile, this);
         ringCells[cellIndex].SetAsLocked(isLocked);
     }
 
@@ -97,13 +99,13 @@ public class Ring : MonoBehaviour
     {
         filledCellsCount++;
 
-        if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount == 0)
+        if (filledCellsCount == ringCells.Length && unsuccessfulConnectionsCount == 0)
         {
             GameManager.instance.BroadcastWinLevelActions();
             Debug.Log("Win Level");
         }
 
-        if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount > 0)
+        if (filledCellsCount == ringCells.Length && unsuccessfulConnectionsCount > 0)
         {
             //GameManager.instance.BroadcastLoseLevelActions();
 

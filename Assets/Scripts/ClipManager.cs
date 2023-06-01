@@ -23,6 +23,8 @@ public class ClipManager : MonoBehaviour
     [SerializeField] private float timeToDarkenClip;
     [SerializeField] private Color darkTintedColor;
 
+    [SerializeField] public static bool canUseDeal;
+    [SerializeField] private float dealDelay;
     public void InitClipManager()
     {
         activeClipSlotsCount = slots.Length;
@@ -31,6 +33,8 @@ public class ClipManager : MonoBehaviour
         {
             SpawnRandomTileInSlot(slots[i]);
         }
+
+        canUseDeal = true;
     }
     public void RePopulateFirstEmpty()
     {
@@ -65,6 +69,9 @@ public class ClipManager : MonoBehaviour
     }
     private IEnumerator DealAction()
     {
+        if (!canUseDeal) yield break;
+
+        canUseDeal = false;
         if (activeClipSlotsCount - 1 == 0)
         {
             UIManager.instance.DisplayInLevelLastDealWarning();
@@ -106,22 +113,25 @@ public class ClipManager : MonoBehaviour
 
             yield return new WaitForSeconds(delayClipMove);
         }
+
+        yield return new WaitForSeconds(dealDelay);
+        canUseDeal = true;
     }
 
     private IEnumerator DeactivateClip(int index)
     {
         yield return new WaitForSeconds(delayDarkenClip);
 
-        Color fromColor = slots[index].GetComponent<SpriteRenderer>().color;
-        Color toColor = darkTintedColor;
+        //Color fromColor = slots[index].GetComponent<SpriteRenderer>().color;
+        //Color toColor = darkTintedColor;
 
-        LeanTween.value(slots[index].gameObject, fromColor, toColor, timeToDarkenClip).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
-        {
-            SpriteRenderer sr = slots[index].gameObject.GetComponent<SpriteRenderer>();
-            Color newColor = sr.color;
-            newColor = Color.Lerp(fromColor, toColor, val);
-            sr.color = newColor;
-        });
+        //LeanTween.value(slots[index].gameObject, fromColor, toColor, timeToDarkenClip).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
+        //{
+        //    SpriteRenderer sr = slots[index].gameObject.GetComponent<SpriteRenderer>();
+        //    Color newColor = sr.color;
+        //    newColor = Color.Lerp(fromColor, toColor, val);
+        //    sr.color = newColor;
+        //});
     }
 
     private void DestroySlotTiles()
@@ -133,5 +143,18 @@ public class ClipManager : MonoBehaviour
                 Destroy(slot.heldTile.gameObject);
             }
         }
+    }
+
+    public void ResetClip()
+    {
+        DestroySlotTiles();
+        activeClipSlotsCount = slots.Length;
+
+        foreach (ClipSlot slot in slots)
+        {
+            slot.tileGFXParent.localPosition = originalPiecePos;
+        }
+
+        canUseDeal = true;
     }
 }

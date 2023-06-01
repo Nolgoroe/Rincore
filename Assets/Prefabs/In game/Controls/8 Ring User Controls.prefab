@@ -50,11 +50,16 @@ MonoBehaviour:
   tileInsertingLayer:
     serializedVersion: 2
     m_Bits: 512
-  overlapRadius: 1
+  dealLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  overlapRadius: 0.3
+  overlapZDepth: 22
   pickupSpeed: 0.1
   tileFollowSpeed: 11
-  tileFollowOffset: {x: 0, y: 0, z: -1}
+  tileFollowOffset: {x: 0, y: 0, z: 21}
   currentTileToMove: {fileID: 0}
   tileOriginalHolder: {fileID: 0}
+  lastTileHolder: {fileID: 0}
   gameRing: {fileID: 0}
   gameClip: {fileID: 0}

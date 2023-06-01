@@ -172,7 +172,7 @@ public class LootManager : MonoBehaviour
 
     private void InstantiateLootDisplay(string[] texts, Sprite[] sprites, Transform target)
     {
-        UIElementDisplayerSegment displayer = Instantiate(lootDisplayPrefab, GameManager.instance.summonedChest.transform);
+        UIElementDisplayerSegment displayer = Instantiate(lootDisplayPrefab /*,GameManager.instance.summonedChest.transform*/);
 
         displayer.SetMyElement(texts, sprites);
 

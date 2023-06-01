@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ring12Cell : CellBase
 {
-    public override bool DroppedOn(TileParentLogic tileToPlace)
+    public override bool DroppedOn(TileParentLogic tileToPlace, Ring ring)
     {
         Tile tile12Ring = GameManager.gameClip.tileCreatorPreset.CreateTile(Tiletype.Normal12, tileToPlace.subTileLeft.subTileSymbol, tileToPlace.subTileRight.subTileSymbol, tileToPlace.subTileLeft.subTileColor, tileToPlace.subTileRight.subTileColor);
 
@@ -13,7 +13,7 @@ public class Ring12Cell : CellBase
         tile12Ring.transform.position = tileToPlace.transform.position;
         tile12Ring.transform.rotation = tileToPlace.transform.rotation;
 
-        if (DroopedOnDispatch(tile12Ring))
+        if (DroopedOnDispatch(tile12Ring, ring))
         {
             Destroy(tileToPlace.gameObject);
             return true;

@@ -27,7 +27,6 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler
     {
         if (isInteractable && !UIManager.IS_DURING_TRANSITION && !UIManager.IS_USING_UI)
         {
-            Debug.Log("HERE");
             // play click sound
             OnClickButton();
         }

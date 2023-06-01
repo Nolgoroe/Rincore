@@ -9,7 +9,7 @@ public class ChestLogic : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.summonedChest = this;
+        //GameManager.instance.summonedChest = this;
     }
     public void OnPressedChest()
     {

@@ -9,7 +9,9 @@ public class InLevelUserControls : MonoBehaviour
     [Header("Raycast data")]
     [SerializeField] private LayerMask tileGrabbingLayer;
     [SerializeField] private LayerMask tileInsertingLayer;
+    [SerializeField] private LayerMask dealLayer;
     [SerializeField] private float overlapRadius;
+    [SerializeField] private float overlapZDepth;
 
     [Header("Follow settings")]
     [SerializeField] private float pickupSpeed;
@@ -36,7 +38,7 @@ public class InLevelUserControls : MonoBehaviour
         bool canUseControls = !UIManager.IS_USING_UI && !UIManager.IS_DURING_TRANSITION;
 
         if (canUseControls)
-         {
+        {
             NormalControls();
             return;
         }
@@ -86,12 +88,30 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchBegin()
     {
-        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileGrabbingLayer);
+        //RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileGrabbingLayer);
+
+        //RaycastHit[] intersectionsArea = GetIntersectionsArea3D(touchPos, tileGrabbingLayer);
+        RaycastHit intersectionsArea = GetFirstIntersection3D(touchPos, tileGrabbingLayer);
+
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
-        if (intersectionsArea.Length > 0)
+        //if (intersectionsArea.Length > 0)
+        //{
+        //    TileHolder holder = intersectionsArea[0].transform.GetComponent<TileHolder>();
+
+        //    if (holder.heldTile)
+        //    {
+        //        GrabTile(holder);
+        //    }
+        //}
+        //else
+        //{
+        //    ReleaseData();
+        //}
+
+        if (intersectionsArea.transform)
         {
-            TileHolder holder = intersectionsArea[0].transform.GetComponent<TileHolder>();
+            TileHolder holder = intersectionsArea.transform.GetComponent<TileHolder>();
 
             if (holder.heldTile)
             {
@@ -114,7 +134,7 @@ public class InLevelUserControls : MonoBehaviour
             holder.OnRemoveTileDisplay();
             tileOriginalHolder = holder;
             grabbedObject.GrabTileFrom();
-            tileOriginalPos = currentTileToMove.transform.position;
+            tileOriginalPos = currentTileToMove.transform.localPosition;
 
             LeanTween.move(currentTileToMove.gameObject, TargetPosOffset(), pickupSpeed);
 
@@ -141,13 +161,15 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchEnd()
     {
-        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
+        //RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
+        //RaycastHit[] intersectionsArea = GetIntersectionsArea3D(touchPos, tileInsertingLayer);
+        RaycastHit intersection = GetFirstIntersection3D(touchPos, tileInsertingLayer);
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
-        if (intersectionsArea.Length > 0)
+        if (intersection.transform)
         {
             //IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
-            CellBase droopedOnObject = intersectionsArea[0].transform.GetComponent<CellBase>();
+            CellBase droopedOnObject = intersection.transform.GetComponent<CellBase>();
 
             if(droopedOnObject == null)
             {
@@ -163,7 +185,7 @@ public class InLevelUserControls : MonoBehaviour
                 return;
             }
 
-            if (!droopedOnObject.DroppedOn(currentTileToMove))
+            if (!droopedOnObject.DroppedOn(currentTileToMove, GameManager.gameRing))
             {
                 //can't place tile
 
@@ -171,7 +193,6 @@ public class InLevelUserControls : MonoBehaviour
             }
             else
             {
-                tileOriginalHolder.RemoveTile();
 
 
                 //If we enter here that means we actually succeeded placing the tile.
@@ -184,12 +205,62 @@ public class InLevelUserControls : MonoBehaviour
                     lastTileHolder = droopedOnObject;
                     return;
                 }
+                else
+                {
+                    tileOriginalHolder.RemoveTile();
+                }
             }
         }
         else
         {
             ReturnHome();
         }
+        //if (intersectionsArea.Length > 0)
+        //{
+        //    //IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
+        //    CellBase droopedOnObject = intersectionsArea[0].transform.GetComponent<CellBase>();
+
+        //    if(droopedOnObject == null)
+        //    {
+        //        Debug.LogError("no interface of type dropped on.");
+        //        return;
+        //    }
+
+        //    //don't place the tile if it's the last one and we have problems in ring
+        //    if (!droopedOnObject.heldTile && gameRing.LastPieceRingProblems())
+        //    {
+        //        UIManager.instance.DisplayInLevelRingHasNonMatchingMessage();
+
+        //        return;
+        //    }
+
+        //    if (!droopedOnObject.DroppedOn(currentTileToMove))
+        //    {
+        //        //can't place tile
+
+        //        ReturnHome();
+        //    }
+        //    else
+        //    {
+        //        tileOriginalHolder.RemoveTile();
+
+
+        //        //If we enter here that means we actually succeeded placing the tile.
+        //        //this does not mean that the tile is a good match! this is why we check to see if we have problems.
+        //        //we did the connection checks, so we must "remove" the tile if we have problems (use the "GrabTileFrom" sicne we know it has to be a cell)
+
+        //        if (gameRing.LastPieceRingProblems())
+        //        {
+        //            UIManager.instance.DisplayInLevelRingHasNonMatchingMessage();
+        //            lastTileHolder = droopedOnObject;
+        //            return;
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    ReturnHome();
+        //}
 
         ReleaseData();
     }
@@ -220,14 +291,44 @@ public class InLevelUserControls : MonoBehaviour
 
     }
 
+    private RaycastHit[] GetIntersectionsArea3D(Vector2 touchpos, LayerMask layerToHit)
+    {
+        Vector3 pointToCheck = touchPos;
+        pointToCheck.z = overlapZDepth;
+
+        Vector3 posCheck = Camera.main.ScreenToWorldPoint(pointToCheck);
+
+        RaycastHit[] hits = Physics.SphereCastAll(posCheck, overlapRadius, transform.right, 0, layerToHit);
+
+
+        return hits;
+    }
+    private RaycastHit GetFirstIntersection3D(Vector2 touchpos, LayerMask layerToHit)
+    {
+        RaycastHit hit;
+
+        Vector3 pointToCheck = touchPos;
+        Vector3 posCheck = Camera.main.ScreenToWorldPoint(pointToCheck);
+
+        Ray ray = Camera.main.ScreenPointToRay(pointToCheck);
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerToHit))
+        {
+            //Debug.Log("Did Hit");
+        }
+
+
+        return hit;
+    }
+
     private void RotateTileTowardsBoard()
     {
-        float difY = gameRing.transform.position.y - currentTileToMove.transform.position.y;
-        float difX = gameRing.transform.position.x - currentTileToMove.transform.position.x;
+        float difY = gameRing.transform.position.z - currentTileToMove.transform.position.z;
+        float difX = gameRing.transform.position.x + currentTileToMove.transform.position.x ;
 
         float angle = Mathf.Atan2(difY, difX) * Mathf.Rad2Deg;
 
-        currentTileToMove.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 90));
+        currentTileToMove.transform.rotation = Quaternion.Euler(new Vector3(0, angle + 90, 0));
     }
 
     private void ReturnHome()
@@ -242,12 +343,20 @@ public class InLevelUserControls : MonoBehaviour
 
         IGrabTileFrom grabbedObject = lastTileHolder.GetComponent<IGrabTileFrom>();
 
+        //if(tileOriginalHolder.heldTile)
+        //{
+        //    Destroy(tileOriginalHolder.heldTile.gameObject);
+        //    tileOriginalHolder.heldTile = null;
+        //}
+
         if(grabbedObject != null)
         {
             grabbedObject.GrabTileFrom();
         }
 
         tileOriginalHolder.RecieveTileDisplayer(currentTileToMove);
+
+        currentTileToMove = null;
     }
 
     private void ReleaseData()
@@ -255,13 +364,25 @@ public class InLevelUserControls : MonoBehaviour
         tileOriginalPos = Vector3.zero;
         currentTileToMove = null;
         tileOriginalHolder = null;
+
+        CheckDoDeal();
+    }
+
+    private void CheckDoDeal()
+    {
+        RaycastHit intersection = GetFirstIntersection3D(touchPos, dealLayer);
+
+        if(intersection.transform)
+        {
+            gameClip.CallDealAction();
+        }
     }
 
     private Vector3 TargetPosOffset()
     {
         float targetPosClacZ = tileOriginalPos.z + tileFollowOffset.z;
 
-        Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x + tileFollowOffset.x, touchPos.y + tileFollowOffset.y, targetPosClacZ));
+        Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x + tileFollowOffset.x, touchPos.y, targetPosClacZ));
 
         return targetPos;
     }
@@ -270,10 +391,11 @@ public class InLevelUserControls : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Vector3 pointToCheck = Input.mousePosition;
-        pointToCheck.z = 35;
+        pointToCheck.z = overlapZDepth;
 
         Vector3 posCheck = Camera.main.ScreenToWorldPoint(pointToCheck);
 
         Gizmos.DrawWireSphere(posCheck + transform.right * 0, overlapRadius);
+
     }
 }
