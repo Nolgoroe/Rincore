@@ -79,14 +79,22 @@ public class GameManager : MonoBehaviour
 
         gameClip = clipManager;
         LeanTween.init(5000);
+
+        mapLogic.InitMapLogic(currentClusterSO);
     }
 
+    
     private void Update()
     {
         //if(gameClip)
         //{
         //    Debug.Log("game clip is summoned");
         //}
+
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            BroadcastWinLevelActions();
+        }
     }
 
     //called from button click
@@ -225,7 +233,7 @@ public class GameManager : MonoBehaviour
             clipAnimatorController.SetTrigger("Clip Out Level");
         }
 
-        mapLogic.ToggleRings(gameRing.transform, inLevel);
+        mapLogic.ToggleRings(gameRing, inLevel);
 
         yield return new WaitForSeconds(0.4f);
 
@@ -432,9 +440,9 @@ public class GameManager : MonoBehaviour
 
         gameClip.ResetClip();
 
-        IS_IN_LEVEL = false;
-
         RemoveFromEndlevelActions(OnLevelExitLose);
+
+        StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster));
     }
 
     public void OnLevelExitLose()

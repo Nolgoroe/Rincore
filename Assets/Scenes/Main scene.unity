@@ -4003,7 +4003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c29556600f25e649b1e100bf269e13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentClusterSO: {fileID: 0}
+  currentClusterSO: {fileID: 11400000, guid: 623b466e0d8cda44f8c7cf335a282684, type: 2}
   currentIndexInCluster: 0
   levelCameraParent: {fileID: 1547789901}
   levelClipParent: {fileID: 1454515671}
@@ -20958,16 +20958,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0725d9f5a0059b940b872c74558f4006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCluster: {fileID: 11400000, guid: 623b466e0d8cda44f8c7cf335a282684, type: 2}
   mapRingPrefab: {fileID: 8748247812151222958, guid: 8fde8cda0a6ea9a44bd2df286af9b850,
     type: 3}
   ringsParent: {fileID: 1960824552}
   ringsOffset: 9.5
   instantiatedRings: []
+  allowScroll: 0
   dragSpeed: 0.7
   dragSpeedClampSpeed: 110
   elacitySpeed: 5
   levelCameraParent: {fileID: 1547789901}
+  waitMoveNextLevelTime: 1.5
+  moveNextLevelTime: 2
 --- !u!1001 &1967683537
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Test level 1
   m_EditorClassIdentifier: 
-  worldName: 0
+  worldName: 4
   levelNumInZone: 1
   ringType: 0
   beforeRingSpawnActions:
@@ -60,7 +60,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 0300000002000000
+  levelAvailableColors: 0000000001000000
   levelAvailablesymbols: 0100000000000000
   isRandomSlicePositions: 1
   slicesToSpawn:
@@ -71,16 +71,7 @@ MonoBehaviour:
     specificSliceIndex: 0
     specificSlicesColor: 0
     specificSlicesShape: 0
-    isLock: 0
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 0
+    isLock: 1
     RandomSliceValues: 0
   - sliceToSpawn: 3
     onConnectionEvents:
@@ -89,8 +80,8 @@ MonoBehaviour:
     specificSliceIndex: 0
     specificSlicesColor: 0
     specificSlicesShape: 0
-    isLock: 0
-    RandomSliceValues: 1
+    isLock: 1
+    RandomSliceValues: 0
   - sliceToSpawn: 4
     onConnectionEvents:
       m_PersistentCalls:
@@ -98,52 +89,8 @@ MonoBehaviour:
     specificSliceIndex: 0
     specificSlicesColor: 0
     specificSlicesShape: 0
-    isLock: 0
-    RandomSliceValues: 1
-  - sliceToSpawn: 4
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 0
-    RandomSliceValues: 1
-  - sliceToSpawn: 4
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 0
-    RandomSliceValues: 1
-  - sliceToSpawn: 3
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 0
-    RandomSliceValues: 1
-  - sliceToSpawn: 3
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 0
-    RandomSliceValues: 1
+    isLock: 1
+    RandomSliceValues: 0
   powerupsForLevel: 
-  stoneTiles:
-  - cellIndex: 0
-    randomValues: 1
-    rightTileSymbol: 0
-    leftTileSymbol: 0
-  - cellIndex: 1
-    randomValues: 1
-    rightTileSymbol: 0
-    leftTileSymbol: 0
+  stoneTiles: []
   arrayOfSpecificTilesInClip: []
