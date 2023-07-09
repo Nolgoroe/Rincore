@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Hierarchy
   m_RootView: {fileID: 3}
-  m_MinSize: {x: 875, y: 421}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -72,7 +72,7 @@ MonoBehaviour:
     y: 0
     width: 2560
     height: 1357.3334
-  m_MinSize: {x: 875, y: 421}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 47
+  controlID: 125
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -403,23 +403,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c28f0000
-      m_LastClickedID: 36802
-      m_ExpandedIDs: 36a5faff32e1faff6a3afbffbc54fbffc268fbff6079fbffa4aefbfffc64fcffc693fcffc893fcffce93fcff4a78fdff1c00ffff7c07ffff4694ffff32c7fffff0e1ffff42900000
+      m_SelectedIDs: d0f2ffff
+      m_LastClickedID: -3376
+      m_ExpandedIDs: f813ffffba48ffff5493ffffcaf2ffff30fbffffb26e0000326f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Reward Prefab (2)
-        m_OriginalName: Reward Prefab (2)
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -359320
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 4
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -655,9 +655,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 752.8305, y: 1414.7936, z: -62.368744}
+    m_Target: {x: 469.96014, y: 981.32654, z: 10.059814}
     speed: 2
-    m_Value: {x: 752.8305, y: 1414.7936, z: -62.368744}
+    m_Value: {x: 469.96014, y: 981.32654, z: 10.059814}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -706,11 +706,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.04244943, y: -0.0034834326, z: 0.0001498397, w: 0.9991682}
     speed: 2
-    m_Value: {x: 0.04394481, y: -0.0034829406, z: 0.00015505454, w: 0.9990279}
+    m_Value: {x: 0.042446222, y: -0.0034831692, z: 0.00014982838, w: 0.9990927}
   m_Size:
-    m_Target: 1083.5468
+    m_Target: 1518.0673
     speed: 2
-    m_Value: 1078.4933
+    m_Value: 1518.0673
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -2601,22 +2601,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Art/UI
+    - Assets/Art/UI/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 74
   m_LastFolders:
-  - Assets/Art/UI
+  - Assets/Art/UI/Prefabs
   m_LastFoldersGridSize: 74
   m_LastProjectPath: C:\Users\ester\Documents\Projects\Ringers\Ringcore\Rincore
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 655}
-    m_SelectedIDs: 58a40000
-    m_LastClickedID: 42072
-    m_ExpandedIDs: 000000004ca400004ea4000050a4000052a4000054a4000056a4000058a400005aa400005ca400005ea4000060a4000062a4000064a4000066a4000068a4000082a40000b0ad000000ca9a3bffffff7f
+    m_SelectedIDs: 928a0000
+    m_LastClickedID: 35474
+    m_ExpandedIDs: 00000000dc890000de890000e0890000e2890000e4890000e6890000e8890000ea890000ec890000ee890000f0890000f2890000f4890000f6890000f88900000a8a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2644,7 +2644,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004ca400004ea4000050a4000052a4000054a4000056a4000058a400005aa400005ca400005ea4000060a4000062a4000064a4000066a4000068a40000
+    m_ExpandedIDs: 00000000dc890000de890000e0890000e2890000e4890000e6890000e8890000ea890000ec890000ee890000f0890000f2890000f4890000f6890000f8890000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2675,18 +2675,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 368a0000143400001a340000203300002e8a00003c8900004c8a00000c6c0000c6a70000fca50000a8ad000000000000fea70000daad0000faad000056a80000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Circle1_7_02
-      m_OriginalName: Circle1_7_02
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 42950
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
