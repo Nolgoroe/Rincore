@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using GameAnalyticsSDK;
 public class GameManager : MonoBehaviour
 {
     const string ANIM_SET_RIVE = "Set Rive ";
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ClusterSO currentClusterSO;
     [SerializeField] private int currentIndexInCluster;
 
-    [SerializeField] private Transform levelCameraParent = null;
+    //[SerializeField] private Transform levelCameraParent = null;
     [SerializeField] private Transform levelClipParent = null;
     [SerializeField] private Animator cameraAnimatorController;
     [SerializeField] private Animator clipAnimatorController;
@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
 
         //SetLevel(currentLevel);
 
+        GameAnalytics.Initialize();
+
         gameClip = clipManager;
         LeanTween.init(5000);
 
@@ -100,6 +102,10 @@ public class GameManager : MonoBehaviour
     //called from button click
     public void SetLevel()
     {
+
+        GameAnalytics.NewDesignEvent("Testing GA 1", 0);
+        GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "World1", "Level: " + currentLevel.levelNumInZone.ToString());
+
         //first clean all subscribes if there are any.
         endLevelActions?.Invoke();
 
@@ -414,6 +420,11 @@ public class GameManager : MonoBehaviour
     public void BroadcastWinLevelActions()
     {
         WinLevelActions?.Invoke();
+
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "World1", currentLevel.levelNumInZone.ToString());
+
+        GameAnalytics.NewErrorEvent(GAErrorSeverity.Critical, "I am testing GA");
+
     }
     //public void BroadcastLoseLevelActions()
     //{
