@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
     [Header("Inspector actions and Data")]
     public ClusterSO[] allClusters;
 
+    public int testFirebase;
 
     private void Awake()
     {
@@ -83,6 +84,9 @@ public class GameManager : MonoBehaviour
         LeanTween.init(5000);
 
         mapLogic.InitMapLogic(currentClusterSO);
+
+
+        testFirebase = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("Key_1").DoubleValue;
     }
 
     
