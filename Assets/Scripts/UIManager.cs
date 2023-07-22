@@ -96,7 +96,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        //StartCoroutine(DisplayLevelMap(false));
+        StartCoroutine(DisplayLevelCluster(false));
 
         //DisplayDailyRewardsWindow(); Enable if want to show Daily Rewards
     }
@@ -294,24 +294,20 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Inside Level related actions
-    public void DisplayInLevelUI()
+    public void SetInLevelUIData()
     {
-        CloseAllCurrentScreens(); // close all screens open before level launch
+        //CloseAllCurrentScreens(); // close all screens open before level launch
 
         AddUIElement(inLevelUI);
 
         System.Action[] actions = DelegateAction(
             inLevelUI,
-            new ButtonActionIndexPair { index = 0, action = GameManager.gameClip.CallDealAction }, //deal action
-            new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks }, //potion 1 action
-            new ButtonActionIndexPair { index = 2, action = GameManager.TestButtonDelegationWorks }, //potion 2 action
-            new ButtonActionIndexPair { index = 3, action = GameManager.TestButtonDelegationWorks }, //potion 3 action
-            new ButtonActionIndexPair { index = 4, action = GameManager.TestButtonDelegationWorks }, //potion 4 action
-            new ButtonActionIndexPair { index = 5, action = DisplayInLevelSettings }, //Options button
-            new ButtonActionIndexPair { index = 6, action = SoundManager.instance.ToogleMusic }, //Music icon level
-            new ButtonActionIndexPair { index = 7, action = SoundManager.instance.ToggleSFX }, //SFX icon level
-            new ButtonActionIndexPair { index = 8, action = DisplayInLevelExitToMapQuestion }, //to level map icon
-            new ButtonActionIndexPair { index = 9, action = DisplayInLevelRestartLevelQuestion }); //restart level icon
+            new ButtonActionIndexPair { index = 0, action = DisplayInLevelSettings }, //Options button
+            new ButtonActionIndexPair { index = 1, action = SoundManager.instance.ToogleMusic }, //Music icon level
+            new ButtonActionIndexPair { index = 2, action = SoundManager.instance.ToggleSFX }, //SFX icon level
+            new ButtonActionIndexPair { index = 3, action = DisplayInLevelExitToMapQuestion }, //to level map icon
+            new ButtonActionIndexPair { index = 4, action = GameManager.TestButtonDelegationWorks }, //shop button
+            new ButtonActionIndexPair { index = 5, action = DisplayInLevelRestartLevelQuestion }); //restart button
 
 
         inLevelUI.OverrideSetMyElement(null, null, actions);
@@ -353,8 +349,9 @@ public class UIManager : MonoBehaviour
             inLevelWinWindow,
             //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             //new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallNextLevel },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(/*true*/)) },
-            new ButtonActionIndexPair { index = 1, action = GameManager.instance.OnLevelExitWin });
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
+            new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelWinWindow) },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitWin())});
 
         inLevelWinWindow.OverrideSetMyElement(GameManager.instance.ReturnStatueName(), null, actions);
 
@@ -382,7 +379,7 @@ public class UIManager : MonoBehaviour
             inLevelLostLevelMessage,
             //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             //new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(/*true*/)) },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
             new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
 
         inLevelLostLevelMessage.OverrideSetMyElement(null, null, actions);
@@ -394,8 +391,9 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelExitToMapQuesiton,
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelCluster(/*true*/)) },
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelCluster(true)) },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelExitToMapQuesiton) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelExitToMapQuesiton) });
 
         inLevelExitToMapQuesiton.OverrideSetMyElement(null, null, actions);
@@ -409,6 +407,7 @@ public class UIManager : MonoBehaviour
             inLevelRestartLevelQuesiton,
             //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelRestartLevelQuesiton) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelRestartLevelQuesiton) });
 
         inLevelRestartLevelQuesiton.OverrideSetMyElement(null, null, actions);
@@ -486,33 +485,25 @@ public class UIManager : MonoBehaviour
         dailyRewardsWindow.OverrideSetMyElement(null, null, actions);
     }
 
-    private IEnumerator DisplayLevelCluster(/*bool isFade*/)
+    private IEnumerator DisplayLevelCluster(bool isAnimate)
     {
-        yield return null;
-        //if (isFade)
-        //{
-        //    FadeInFadeWindow(true, MainScreens.Map);
-        //    yield return new WaitForSeconds(ReturnFadeTime(true, MainScreens.Map) + 0.1f);
-        //}
+        if(isAnimate)
+        {
+            yield return StartCoroutine(GameManager.instance.AnimateLevelElements(false));
+        }
 
         CloseAllCurrentScreens(); // close all screens open before going to map
 
-        StartCoroutine(GameManager.instance.AnimateLevelElements(false));
-        //System.Action[] actions = DelegateAction(
-        //    generalMapUI,
-        //    new ButtonActionIndexPair { index = 0, action = DisplayAnimalAlbum },
-        //    new ButtonActionIndexPair { index = 1, action = DisplayPlayerWorkshop },
-        //    new ButtonActionIndexPair { index = 2, action = DisplayMapSettings });
+        System.Action[] actions = DelegateAction(
+            generalMapUI,
+            new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
+            new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks });
 
-        //string tearsText = player.GetOwnedTears.ToString();
-        //string rubiesText = player.GetOwnedRubies.ToString();
+        string[] texts = new string[] { ("Cluster: " + GameManager.instance.currentCluster.clusterID).ToString()};
 
-        //string[] texts = new string[] { tearsText, rubiesText };
+        AddUIElement(generalMapUI);
 
-        //AddUIElement(levelScrollRect);
-        //AddUIElement(generalMapUI);
-
-        //generalMapUI.OverrideSetMyElement(texts, null, actions);
+        generalMapUI.OverrideSetMyElement(texts, null, actions);
     }
 
     private void DisplayAnimalAlbum()

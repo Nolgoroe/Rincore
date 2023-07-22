@@ -11,11 +11,16 @@ public class MapLogic : MonoBehaviour
     private ClusterSO currentCluster;
 
     [Header("Instantiate Data")]
-    [SerializeField] private GameObject mapRingPrefab;
+    [SerializeField] private GameObject[] mapRingPrefabs;
     [SerializeField] private Transform ringsParent;
-    [SerializeField] private float ringsOffset;
-
+    [SerializeField] private float distanceBetweenRings;
+    [SerializeField] private float startRingOffset;
     [SerializeField] private List<Ring> instantiatedRings;
+
+    [Header("Enter Level logic")]
+    [SerializeField] private float cameraTrailOffset;
+    [SerializeField] private float cameralevelOffset;
+    [SerializeField] private float endRingsVisibleLimit = 3;
 
     [Header("Scroll logic")]
     [SerializeField] private bool allowScroll;
@@ -25,6 +30,7 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private Transform levelCameraParent = null;
     [SerializeField] private float waitMoveNextLevelTime = 2;
     [SerializeField] private float moveNextLevelTime = 2;
+    [SerializeField] private float currentLevelCameraParentZPos;
 
 
     private Vector3 translation = Vector3.zero;
@@ -39,9 +45,9 @@ public class MapLogic : MonoBehaviour
 
         for (int i = 0; i < currentCluster.clusterLevels.Length; i++)
         {
-            GameObject go = Instantiate(mapRingPrefab, pos, Quaternion.identity, ringsParent);
+            GameObject go = Instantiate(mapRingPrefabs[i% mapRingPrefabs.Length], pos, Quaternion.identity, ringsParent);
             go.transform.localPosition = Vector3.zero;
-            pos.z = i * ringsOffset;
+            pos.z = (i * distanceBetweenRings) + startRingOffset;
             go.transform.localPosition = pos;
 
             go.TryGetComponent<Ring>(out currentRing);
@@ -84,9 +90,9 @@ public class MapLogic : MonoBehaviour
 
         Vector3 pos = Vector3.zero;
 
-        GameObject go = Instantiate(mapRingPrefab, pos, Quaternion.identity, ringsParent);
+        GameObject go = Instantiate(mapRingPrefabs[levelIndex % mapRingPrefabs.Length], pos, Quaternion.identity, ringsParent);
         go.transform.localPosition = Vector3.zero;
-        pos.z = levelIndex * ringsOffset;
+        pos.z = (levelIndex * distanceBetweenRings) + startRingOffset;
         go.transform.localPosition = pos;
 
         go.TryGetComponent<Ring>(out currentRing);
@@ -96,7 +102,11 @@ public class MapLogic : MonoBehaviour
             Debug.LogError("No ring");
             yield break;
         }
+        //currentRing.levelStartCollider.enabled = false; // so we can't immediatly click it as it spawns..
+
         currentRing.InitRing();
+
+        GameManager.instance.SetRingmanually(currentRing);
 
         currentLevel = currentCluster.clusterLevels[levelIndex];
         currentLevel.afterRingSpawnActions?.Invoke();
@@ -119,7 +129,7 @@ public class MapLogic : MonoBehaviour
         go.transform.SetSiblingIndex(levelIndex);
     }
 
-    private void ActivateSpecificRingCollider(int index)
+    public void ActivateSpecificRingCollider(int index)
     {
         instantiatedRings[index].levelStartCollider.enabled = true;
     }
@@ -169,7 +179,7 @@ public class MapLogic : MonoBehaviour
             }
         }
 
-        float clampZ = Mathf.Clamp(levelCameraParent.transform.position.z, ringsOffset * 2, ringsOffset * currentCluster.clusterLevels.Length);
+        float clampZ = Mathf.Clamp(levelCameraParent.transform.position.z, distanceBetweenRings * 2, distanceBetweenRings * currentCluster.clusterLevels.Length);
         // we do *2 in the minimum, since that is the position where we see the first three rings.
 
         levelCameraParent.transform.position = new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, clampZ);
@@ -177,9 +187,19 @@ public class MapLogic : MonoBehaviour
 
     public void FixCamPosStartLevel(int currentIndexInCluster)
     {
-        float ZPos = ringsOffset * (currentIndexInCluster + 2); // we do +2 here since we see 3 rings in the starts, so it's index 0, 1, 2.
+        currentLevelCameraParentZPos = levelCameraParent.transform.localPosition.z;
+
+        float ZPos = cameraTrailOffset * (currentIndexInCluster + 2) + cameralevelOffset; // we do +2 here since we see 3 rings in the starts, so it's index 0, 1, 2.
                                                                                // from this point on, every time we advance in the cluster, we will advance by ring offset (9.5 for now)
         LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, ZPos), 1.3f);
+    }
+    public IEnumerator FixCamPosEndLevel()
+    {
+        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, currentLevelCameraParentZPos), 1.3f);
+
+        yield return new WaitForSeconds(1.35f);
+
+        UIManager.IS_DURING_TRANSITION = false;
     }
 
     public void ToggleRings(Ring currentRing, bool inLevel)
@@ -208,9 +228,9 @@ public class MapLogic : MonoBehaviour
         endPos = Vector3.zero; // we reset the map move data before manually moving.
 
         yield return new WaitForSeconds(waitMoveNextLevelTime);
-        if(currentIndexInCluster < currentCluster.clusterLevels.Length -2 ) //we always want to make sure we don't move if we need the current + next ring. this keeps us in bounds
+        if(currentIndexInCluster < currentCluster.clusterLevels.Length - endRingsVisibleLimit) //we always want to make sure we don't move if we need the current + next ring. this keeps us in bounds
         {
-            float ZPos = levelCameraParent.transform.position.z + ringsOffset;
+            float ZPos = currentLevelCameraParentZPos + distanceBetweenRings;
 
             LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
         }

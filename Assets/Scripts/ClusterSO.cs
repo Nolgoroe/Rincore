@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Cluster", menuName = "ScriptableObjects/Create Cluster")]
 public class ClusterSO : ScriptableObject
 {
+    public int clusterID;
     public bool isChestCluster;
     public LevelSO[] clusterLevels;
     public List<LootTables> clusterLootTables;

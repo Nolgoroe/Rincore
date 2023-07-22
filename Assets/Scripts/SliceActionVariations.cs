@@ -13,7 +13,7 @@ public class SliceActionVariations : ScriptableObject
         {
             sliceConnectionData.onGoodConnectionActions += () => sameIndexCell.SetAsLocked(true);
             sliceConnectionData.onGoodConnectionActions += () => leftNeighborCell.SetAsLocked(true);
-            MapLogic.currentRing.ringSlices[spawnIndex].SetMidSprite(lockSprite);
+            MapLogic.currentRing.ringSlices[spawnIndex].SetMidSprite(lockSprite); // this is called on system init - when we start the map, each ring uses this the "current" ring we're summoning and it's info. DO NOT TOUCH!
         }
     }
 

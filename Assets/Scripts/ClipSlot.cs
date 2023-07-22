@@ -10,7 +10,7 @@ public class ClipSlot : TileHolder, IGrabTileFrom
 
         recievedTile.transform.localPosition = Vector3.zero;
         recievedTile.transform.localRotation = Quaternion.identity;
-        recievedTile.transform.localScale = Vector3.one;
+        //recievedTile.transform.localScale = Vector3.one;
 
         heldTile = recievedTile;
     }

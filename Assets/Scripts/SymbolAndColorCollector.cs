@@ -83,4 +83,18 @@ public class SymbolAndColorCollector : MonoBehaviour
             item.amount = 0;
         }
     }
+
+    public void DoTotalCheck()
+    {
+        Ring ring = GameManager.gameRing;
+        if (!ring) return;
+
+        foreach (CellBase cell in ring.ringCells)
+        {
+            if(cell.heldTile)
+            {
+                AddColorsAndSymbolsToLists(cell.heldTile);
+            }
+        }
+    }
 }

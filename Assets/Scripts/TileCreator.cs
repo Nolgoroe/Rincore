@@ -5,19 +5,20 @@ public enum SubTileColor
 {
     Blue,
     Green,
-    Orange,
-    Pink,
     Purple,
+    Red,
+    Yellow,
     Stone,
     NoColor,
     Joker,
 }
 public enum SubTileSymbol
 {
-    Circle,
-    Cross,
-    Square,
-    Triangle,
+    Cloud,
+    Lightning,
+    Moon,
+    Rainbow,
+    Sun,
     NoShape,
     Joker,
 }

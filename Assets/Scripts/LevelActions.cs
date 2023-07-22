@@ -19,7 +19,7 @@ public class LevelActions : ScriptableObject
     private LevelSO currentLevel = null;
     private Ring currentRing = null;
 
-    public void SetCurrentLevel()
+    public void SetCurrentLevel() // this is init - when we start the map, each ring uses this info to summon stone tiles and limiters. DO NOT TOUCH!
     {
         currentLevel = MapLogic.currentLevel;
         currentRing = MapLogic.currentRing;
@@ -47,7 +47,7 @@ public class LevelActions : ScriptableObject
                 Debug.LogError("Problem with stone tiles");
                 return;
             }
-
+            tile.transform.localPosition = currentRing.transform.localPosition;
             currentRing.SpawnTileInCell(stoneTile.cellIndex, tile, true);
         }
     }

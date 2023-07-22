@@ -335,7 +335,16 @@ public class InLevelUserControls : MonoBehaviour
     {
         LeanTween.cancel(currentTileToMove.gameObject);
 
-        tileOriginalHolder.RecieveTileDisplayer(currentTileToMove);
+        CellBase cellbasee = tileOriginalHolder as CellBase;
+
+        if(cellbasee)
+        {
+            cellbasee.DroppedOn(currentTileToMove, gameRing);
+        }
+        else
+        {
+            tileOriginalHolder.RecieveTileDisplayer(currentTileToMove);
+        }
     }
     public void ReturnHomeBadRingConnections()
     {

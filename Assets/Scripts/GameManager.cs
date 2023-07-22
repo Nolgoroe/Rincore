@@ -17,16 +17,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentIndexInCluster;
 
     //[SerializeField] private Transform levelCameraParent = null;
-    [SerializeField] private Transform levelClipParent = null;
+    [SerializeField] private Transform levelDecksParent = null;
     [SerializeField] private Animator cameraAnimatorController;
     [SerializeField] private Animator clipAnimatorController;
+    [SerializeField] private Animator potionDeckAnimatorController;
 
-   [Header("In game Data")]
+
+    [Header("Level Animation Data")]
+    [SerializeField] private float delayAfterLevelExit = 1.2f;
+    [SerializeField] private float delayClipAppear = 0.4f;
+    [SerializeField] private float timeClipEnter = 0.4f;
+    [SerializeField] private float delayClipHide = 0.4f;
+
+    [Header("In game Data")]
+    public LevelSO nextLevel;
     public static Ring gameRing;
     public static ClipManager gameClip;
     public static LevelSO currentLevel;
     public static InLevelUserControls gameControls;
-    public LevelSO nextLevel;
     //public ChestLogic summonedChest; //temp?
     //public ChestBarLogic chestBarLogic; //temp?
 
@@ -127,6 +135,7 @@ public class GameManager : MonoBehaviour
 
         SymbolAndColorCollector.instance.ResetData();
 
+
         StartCoroutine(StartLevel());
     }
 
@@ -136,7 +145,8 @@ public class GameManager : MonoBehaviour
 
         isAnimalLevel = false; //maybe have a reset function
 
-        yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
+        //yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
+        yield return new WaitForEndOfFrame();
 
         //Before Ring
         BeforeRingActions?.Invoke();
@@ -148,27 +158,25 @@ public class GameManager : MonoBehaviour
         AfterRingActions?.Invoke();
 
        
-        AddToEndlevelActions(OnLevelExitLose);
+        AddToEndlevelActions(() => StartCoroutine(OnLevelExit()));
         AddToEndlevelActions(gameRing.ClearActions);
-
-        // every level launch, no matter what, we launch the in level UI
-        // we do this BEFORE setting the win level and end level actions
-        //UIManager.instance.DisplayInLevelUI();
 
         
         // actions after gameplay, on winning the level
         //WinLevelActions += AdvanceLevelStatue;
         WinLevelActions += UIManager.instance.DisplayInLevelWinWindow;
 
-        if(currentClusterSO.isChestCluster)
-        {
-            //chestBarLogic.gameObject.SetActive(true);
-            //WinLevelActions += chestBarLogic.AddToChestBar;
-        }
-        else
-        {
-            //chestBarLogic.gameObject.SetActive(false);
-        }
+        SymbolAndColorCollector.instance.DoTotalCheck(); // we do this in case there are preplaced tiles that need to be counted.
+
+        //if(currentClusterSO.isChestCluster)
+        //{
+        //    //chestBarLogic.gameObject.SetActive(true);
+        //    //WinLevelActions += chestBarLogic.AddToChestBar;
+        //}
+        //else
+        //{
+        //    //chestBarLogic.gameObject.SetActive(false);
+        //}
         // actions after gameplay, on losing the level
         //LoseLevelActions += UIManager.instance.DisplayInLevelRingHasNonMatchingMessage;
     }
@@ -232,28 +240,48 @@ public class GameManager : MonoBehaviour
     {
         if(inLevel)
         {
+            UIManager.IS_DURING_TRANSITION = true;
+
             mapLogic.FixCamPosStartLevel(currentIndexInCluster);
-            levelClipParent.gameObject.SetActive(true);
             cameraAnimatorController.SetTrigger("Camera In Level");
+
+            yield return new WaitForSeconds(delayClipAppear);
+            levelDecksParent.gameObject.SetActive(true);
             clipAnimatorController.SetTrigger("Clip In Level");
+            potionDeckAnimatorController.SetTrigger("Potion In Level");
+
+            yield return new WaitForSeconds(timeClipEnter);
+            mapLogic.ToggleRings(gameRing, inLevel);
+
+
+            // every level launch, no matter what, we launch the in level UI after it enters the view.
+            // we do this BEFORE setting the win level and end level actions
+            // Maybe this should not be called here?
+            UIManager.instance.SetInLevelUIData();
+
+
+            UIManager.IS_DURING_TRANSITION = false;
         }
         else
         {
-            cameraAnimatorController.SetTrigger("Camera Out Level");
+            UIManager.IS_DURING_TRANSITION = true;
+
+            mapLogic.ToggleRings(gameRing, inLevel);
+
             clipAnimatorController.SetTrigger("Clip Out Level");
+            potionDeckAnimatorController.SetTrigger("Potion Out Level");
+
+            yield return new WaitForSeconds(delayClipHide);
+
+            StartCoroutine(mapLogic.FixCamPosEndLevel());
+            cameraAnimatorController.SetTrigger("Camera Out Level");
         }
 
-        mapLogic.ToggleRings(gameRing, inLevel);
-
-        yield return new WaitForSeconds(0.4f);
 
         if (!inLevel)
         {
-            levelClipParent.gameObject.SetActive(false);
+            levelDecksParent.gameObject.SetActive(false);
         }
-
-        yield return new WaitForSeconds(1.2f);
-
     }
     private void ClearLevelActions()// this must be added last to "endLevelActions"
     {
@@ -296,15 +324,13 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator RestartLevel()
     {
-        yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
+        //yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
 
         for (int k = 0; k < 1; k++)
         {
-            OnLevelExitLose();
+           yield return StartCoroutine(OnLevelExit());
 
-            yield return new WaitForEndOfFrame();
-
-            SetLevel();
+           SetLevel();
         }
     }
 
@@ -316,6 +342,11 @@ public class GameManager : MonoBehaviour
 
         currentClusterSO = clusterSO;
         currentIndexInCluster = inedxInCluster;
+    }
+
+    public void SetRingmanually(Ring ring)
+    {
+        gameRing = ring;
     }
 
     public static void TestButtonDelegationWorks()
@@ -331,9 +362,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MoveToNextLevel()
     {
-        yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
+        //yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
 
-        OnLevelExitLose();
+        StartCoroutine(OnLevelExit());
 
         currentLevel = nextLevel;
         currentIndexInCluster++;
@@ -446,8 +477,13 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(summonedChest.AfterGiveLoot());
     }
 
-    public void OnLevelExitWin()
+    public IEnumerator OnLevelExitWin()
     {
+        gameRing.ClearActions();
+        ClearLevelActions();
+
+        yield return new WaitForEndOfFrame();
+
         for (int i = 0; i < inLevelParent.childCount; i++)
         {
             Destroy(inLevelParent.GetChild(i).gameObject);
@@ -455,16 +491,21 @@ public class GameManager : MonoBehaviour
 
         gameClip.ResetClip();
 
-        RemoveFromEndlevelActions(OnLevelExitLose);
+        StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
 
-        StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster));
+        IS_IN_LEVEL = false;
     }
 
-    public void OnLevelExitLose()
+    public IEnumerator OnLevelExit()
     {
+        ClearLevelActions();
+        gameRing.ClearActions();
+
+        yield return new WaitForEndOfFrame();
         Destroy(gameRing.gameObject);
 
-        StartCoroutine(mapLogic.SpawnSpecificRingInCluster(currentIndexInCluster));
+        yield return new WaitForEndOfFrame();
+        yield return StartCoroutine(mapLogic.SpawnSpecificRingInCluster(currentIndexInCluster));
         //lootManager.DestroyAllLootChildren();
 
         for (int i = 0; i < inLevelParent.childCount; i++)
@@ -475,6 +516,8 @@ public class GameManager : MonoBehaviour
         gameClip.ResetClip();
 
         IS_IN_LEVEL = false;
+
+        //yield return new WaitForSeconds(0.1f);
         //for (int i = 0; i < gameRing.ringCells.Length; i++)
         //{
         //    if (gameRing.ringCells[i].heldTile)

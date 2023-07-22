@@ -155,14 +155,14 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
         {
             recievedTile.transform.localPosition = Vector3.zero;
             recievedTile.transform.localRotation = Quaternion.Euler(Vector3.zero);
-            recievedTile.transform.localScale = Vector3.one;
+            //recievedTile.transform.localScale = Vector3.one;
         }
         else
         {
             float timeToAnimate = distanceFromTarget / maxAnimateSpeed;
             LeanTween.moveLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
             LeanTween.rotateLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
-            LeanTween.scale(recievedTile.gameObject, Vector3.one, timeToAnimate);
+            //LeanTween.scale(recievedTile.gameObject, Vector3.one, timeToAnimate);
         }
 
         heldTile = recievedTile;
@@ -208,7 +208,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
             SetConnectDataOnRemove(false, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);
         }
 
-        SymbolAndColorCollector.instance.AddColorsAndSymbolsToLists(heldTile);
+        SymbolAndColorCollector.instance.RemoveColorsAndSymbolsToLists(heldTile);
 
         heldTile = null;
 
