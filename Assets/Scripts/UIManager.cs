@@ -307,10 +307,11 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 2, action = SoundManager.instance.ToggleSFX }, //SFX icon level
             new ButtonActionIndexPair { index = 3, action = DisplayInLevelExitToMapQuestion }, //to level map icon
             new ButtonActionIndexPair { index = 4, action = GameManager.TestButtonDelegationWorks }, //shop button
-            new ButtonActionIndexPair { index = 5, action = DisplayInLevelRestartLevelQuestion }); //restart button
+            new ButtonActionIndexPair { index = 5, action = UndoSystem.instance.CallUndoAction }); //restart button
 
+        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnCurrentIndexInCluster() + 1)).ToString() };
 
-        inLevelUI.OverrideSetMyElement(null, null, actions);
+        inLevelUI.OverrideSetMyElement(texts, null, actions);
     }
 
     public void DisplayInLevelRingHasNonMatchingMessage()
@@ -487,7 +488,11 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator DisplayLevelCluster(bool isAnimate)
     {
-        if(isAnimate)
+        //everytime we go to map, no matter what - clear the undo system
+        UndoSystem.instance.ClearUndoSystem();
+
+
+        if (isAnimate)
         {
             yield return StartCoroutine(GameManager.instance.AnimateLevelElements(false));
         }
@@ -499,7 +504,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
             new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks });
 
-        string[] texts = new string[] { ("Cluster: " + GameManager.instance.currentCluster.clusterID).ToString()};
+        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnCurrentIndexInCluster() + 1)).ToString() };
 
         AddUIElement(generalMapUI);
 

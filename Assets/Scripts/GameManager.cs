@@ -247,17 +247,18 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(delayClipAppear);
             levelDecksParent.gameObject.SetActive(true);
+
+
+            // every level launch, no matter what, we launch the in level UI after it enters the view.
+            // we do this BEFORE setting the win level and end level actions
+            UIManager.instance.SetInLevelUIData();
+
             clipAnimatorController.SetTrigger("Clip In Level");
             potionDeckAnimatorController.SetTrigger("Potion In Level");
 
             yield return new WaitForSeconds(timeClipEnter);
             mapLogic.ToggleRings(gameRing, inLevel);
 
-
-            // every level launch, no matter what, we launch the in level UI after it enters the view.
-            // we do this BEFORE setting the win level and end level actions
-            // Maybe this should not be called here?
-            UIManager.instance.SetInLevelUIData();
 
 
             UIManager.IS_DURING_TRANSITION = false;

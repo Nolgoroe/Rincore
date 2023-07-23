@@ -15,7 +15,6 @@ public class ClipManager : MonoBehaviour
 
     [Header("Deal anim")]
     [SerializeField] private Vector3 piecesDealPositionsOut;
-    [SerializeField] private Vector3 originalPiecePos;
     [SerializeField] private float delayClipMove;
     [SerializeField] private float timeToAnimateMove;
     [SerializeField] private float waitTimeBeforeIn;
@@ -32,6 +31,8 @@ public class ClipManager : MonoBehaviour
         for (int i = 0; i < activeClipSlotsCount; i++)
         {
             SpawnRandomTileInSlot(slots[i]);
+
+            slots[i].originalSlotPos = slots[i].transform.localPosition;
         }
 
         canUseDeal = true;
@@ -78,6 +79,7 @@ public class ClipManager : MonoBehaviour
             yield break;
         }
 
+        UndoSystem.instance.RemoveEntriesOnDeal(slots[activeClipSlotsCount - 1]);
 
         StartCoroutine(DeactivateClip(activeClipSlotsCount - 1)); //darken the slot
 
@@ -109,7 +111,7 @@ public class ClipManager : MonoBehaviour
         {
             GameObject toMove = slots[i].tileGFXParent.gameObject;
 
-            LeanTween.move(toMove, originalPiecePos, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
+            LeanTween.move(toMove, slots[i].originalSlotPos, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
 
             yield return new WaitForSeconds(delayClipMove);
         }
@@ -152,7 +154,7 @@ public class ClipManager : MonoBehaviour
 
         foreach (ClipSlot slot in slots)
         {
-            slot.tileGFXParent.localPosition = originalPiecePos;
+            slot.transform.localPosition = slot.originalSlotPos;
         }
 
         canUseDeal = true;

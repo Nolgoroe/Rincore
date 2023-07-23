@@ -34,10 +34,12 @@ public class Ring : MonoBehaviour
         onRemoveTile += UpdateFilledAndConnectDataCount;
     }
 
-    public void SpawnTileInCell(int cellIndex, TileParentLogic tile, bool isLocked)
+    public void SpawnStoneTileInCell(int cellIndex, TileParentLogic tile, bool isStone)
     {
         ringCells[cellIndex].DroppedOn(tile, this);
-        ringCells[cellIndex].SetAsLocked(isLocked);
+        ringCells[cellIndex].SetAsLocked(isStone);
+        ringCells[cellIndex].SetAsStone(isStone);
+
     }
 
     public void CallOnAddTileActions()

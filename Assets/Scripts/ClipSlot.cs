@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ClipSlot : TileHolder, IGrabTileFrom
 {
+    public Vector3 originalSlotPos;
+
     public override void AcceptTileToHolder(TileParentLogic recievedTile)
     {
         recievedTile.transform.SetParent(tileGFXParent);

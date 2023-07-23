@@ -48,7 +48,7 @@ public class LevelActions : ScriptableObject
                 return;
             }
             tile.transform.localPosition = currentRing.transform.localPosition;
-            currentRing.SpawnTileInCell(stoneTile.cellIndex, tile, true);
+            currentRing.SpawnStoneTileInCell(stoneTile.cellIndex, tile, true);
         }
     }
 
@@ -317,10 +317,10 @@ public class LevelActions : ScriptableObject
         switch (currentLevel.ringType)
         {
             case Ringtype.ring8:
-                type = Tiletype.Stone8;
+                type = Tiletype.Corrupted8;
                 break;
             case Ringtype.ring12:
-                type = Tiletype.Stone12;
+                type = Tiletype.Corrupted12;
                 break;
             case Ringtype.NoType:
                 break;

@@ -222,7 +222,48 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
         cellCollider.enabled = !locked;
     }
+    public void SetAsStone(bool _isStone)
+    {
+        isLocked = _isStone;
+        isStone = _isStone;
 
+        cellCollider.enabled = !_isStone;
+    }
+
+    public bool CheckIsLockedLeft()
+    {
+        if (!heldTile) return false;
+
+        if(isStone)
+        {
+            return true;
+        }
+
+        if (!leftCell.heldTile)
+        {
+            return false;
+        }
+
+        return leftSlice.sliceData.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
+
+    }
+
+    public bool CheckIsLockedRight()
+    {
+        if (!heldTile) return false;
+
+        if (isStone)
+        {
+            return true;
+        }
+
+        if(!rightCell.heldTile)
+        {
+            return false;
+        }
+
+        return rightSlice.sliceData.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
+    }
     public void ResetToDefault()
     {
         SetAsLocked(false);

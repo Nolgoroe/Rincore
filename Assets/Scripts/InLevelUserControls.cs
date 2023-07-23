@@ -193,8 +193,6 @@ public class InLevelUserControls : MonoBehaviour
             }
             else
             {
-
-
                 //If we enter here that means we actually succeeded placing the tile.
                 //this does not mean that the tile is a good match! this is why we check to see if we have problems.
                 //we did the connection checks, so we must "remove" the tile if we have problems (use the "GrabTileFrom" sicne we know it has to be a cell)

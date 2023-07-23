@@ -26,8 +26,8 @@ public enum Tiletype
 {
     Normal,
     Normal12,
-    Stone8,
-    Stone12,
+    Corrupted8,
+    Corrupted12,
     NoType
 }
 public enum Ringtype
@@ -146,11 +146,11 @@ public class TileCreator : ScriptableObject
                 colorSymbolTexture = colorsToMats12[(int)tileColor].colorTex[(int)tileSymbol];
                 connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
                 break;
-            case Tiletype.Stone8:
+            case Tiletype.Corrupted8:
                 colorSymbolTexture = colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
                 connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
                 break;
-            case Tiletype.Stone12:
+            case Tiletype.Corrupted12:
                 colorSymbolTexture = colorsToMats12[(int)tileColor].colorTex[(int)tileSymbol];
                 connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
                 break;
