@@ -7,6 +7,7 @@ public class InLevelUserControls : MonoBehaviour
     // THINK ABOUT MAYBE CRATING INHERITENCE FOR "CONTROLS"
 
     [Header("Raycast data")]
+    [SerializeField] private LayerMask everythingLayer;
     [SerializeField] private LayerMask tileGrabbingLayer;
     [SerializeField] private LayerMask tileInsertingLayer;
     [SerializeField] private LayerMask dealLayer;
@@ -35,12 +36,17 @@ public class InLevelUserControls : MonoBehaviour
         // we use both isusingUI and isduringfade since we have some ui elements
         // as part of a ui object that we wat to not be able to click when were fadind
         // but do what to be able to click when using ui
-        bool canUseControls = !UIManager.IS_USING_UI && !UIManager.IS_DURING_TRANSITION;
+        bool canUseControls = !UIManager.IS_USING_UI && !UIManager.IS_DURING_TRANSITION && !PowerupManager.USING_POWER;
 
         if (canUseControls)
         {
             NormalControls();
             return;
+        }
+
+        if(PowerupManager.USING_POWER)
+        {
+            PowerUpControls();
         }
     }
 
@@ -86,6 +92,26 @@ public class InLevelUserControls : MonoBehaviour
 
     }
 
+    private void PowerUpControls()
+    {
+        Touch touch;
+
+        if (Input.touchCount > 0)
+        {
+            touch = Input.GetTouch(0);
+
+            touchPos = touch.position;
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Ended:
+                    OnTouchEndPower();
+                    break;
+            }
+        }
+
+    }
+
     private void OnTouchBegin()
     {
         //RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileGrabbingLayer);
@@ -113,14 +139,35 @@ public class InLevelUserControls : MonoBehaviour
         {
             TileHolder holder = intersectionsArea.transform.GetComponent<TileHolder>();
 
-            if (holder.heldTile)
+            if (holder.heldTile && !holder.isLocked && !holder.isStone)
             {
                 GrabTile(holder);
+            }
+            else
+            {
+                ReleaseData();
             }
         }
         else
         {
             ReleaseData();
+        }
+    }
+    private void OnTouchEndPower()
+    {
+        RaycastHit intersectionsArea = GetFirstIntersection3D(touchPos, everythingLayer);
+
+        if (intersectionsArea.transform)
+        {
+            IPowerUsable powerLogic = null;
+
+            intersectionsArea.transform.TryGetComponent<IPowerUsable>(out powerLogic);
+
+            PowerupManager.instance.InitPowerUsageData(intersectionsArea.transform, powerLogic);
+        }
+        else
+        {
+            ReleasePotionData();
         }
     }
 
@@ -373,6 +420,10 @@ public class InLevelUserControls : MonoBehaviour
         tileOriginalHolder = null;
 
         CheckDoDeal();
+    }
+    private void ReleasePotionData()
+    {
+        PowerupManager.instance.ResetPowerUpData();
     }
 
     private void CheckDoDeal()

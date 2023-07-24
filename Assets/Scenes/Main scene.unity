@@ -617,7 +617,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3081fefda84e5d4e9b3d92241de0962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  undoEntries: []
+  undoEntries:
+  - originalClipParent: {fileID: 0}
+    originalCell:
+      originalCellParent: {fileID: 0}
+      isLocked: 0
+      isStone: 0
+    currntCellParent: {fileID: 0}
+    movedTile: {fileID: 0}
 --- !u!1 &265687821
 GameObject:
   m_ObjectHideFlags: 0
@@ -3552,8 +3559,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9a917876b69687140aefec3b7fa18ddd, type: 2}
   - {fileID: 11400000, guid: 56fee7eabdb1ee84ca2595ac508ba240, type: 2}
   - {fileID: 11400000, guid: 749ef5803725c9b4f8b5812a0f0f469e, type: 2}
-  ownedPowerups: []
+  ownedPowerups:
+  - powerType: 0
+    amount: 0
   unlockedPowerups: 00000000010000000200000003000000
+  currentPowerUsing: 0
+  localObjectToUsePowerOn: {fileID: 0}
+  tile: {fileID: 0}
+  slice: {fileID: 0}
   selectedPotionRect: {fileID: 0}
   currentPotionSelected: {fileID: 0}
   currentNeededRubies: 0
@@ -4275,7 +4288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dabbbfb28d824c4ca6ed9ae4129376f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Configuration: {fileID: 0}
+  Configuration: {fileID: 11400000, guid: 6578305296edc5447b87b97bd14216d8, type: 2}
 --- !u!224 &1759698111 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3562539570788447719, guid: 01b7656aea8ecc14cb68dc453389f311,

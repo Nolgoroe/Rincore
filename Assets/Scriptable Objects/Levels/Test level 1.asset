@@ -73,61 +73,7 @@ MonoBehaviour:
     specificSlicesShape: 0
     isLock: 1
     RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
+  - sliceToSpawn: 1
     onConnectionEvents:
       m_PersistentCalls:
         m_Calls: []
@@ -139,7 +85,15 @@ MonoBehaviour:
   powerupsForLevel: 
   stoneTiles:
   - cellIndex: 0
-    randomValues: 1
+    randomValues: 0
     rightTileSymbol: 0
-    leftTileSymbol: 0
+    leftTileSymbol: 1
+  - cellIndex: 1
+    randomValues: 0
+    rightTileSymbol: 2
+    leftTileSymbol: 3
+  - cellIndex: 2
+    randomValues: 0
+    rightTileSymbol: 0
+    leftTileSymbol: 4
   arrayOfSpecificTilesInClip: []

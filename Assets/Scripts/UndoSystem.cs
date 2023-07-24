@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [Serializable]
 public class OriginalCellData
@@ -53,6 +54,9 @@ public class UndoSystem : MonoBehaviour
         cellBase.GrabTileFrom();
         yield return new WaitForEndOfFrame();
 
+        cellBase.ResetLockData();
+
+
         if (undoEntries[lastIndex].originalCell.originalCellParent) // meaning we went from cell to cell
         {
             // we call directly to the dispatch since we don't need the "extra" actions here in the data
@@ -88,13 +92,6 @@ public class UndoSystem : MonoBehaviour
             }
         }
 
-        if(cellBase.isLocked)
-        {
-            cellBase.SetAsLocked(false);
-            cellBase.leftCell.SetAsLocked(cellBase.leftCell.CheckIsLockedLeft());
-            cellBase.rightCell.SetAsLocked(cellBase.rightCell.CheckIsLockedRight()); 
-        }
-
         undoEntries.RemoveAt(lastIndex);
     }
 
@@ -107,6 +104,13 @@ public class UndoSystem : MonoBehaviour
                 undoEntries.RemoveAt(i);
             }
         }
+    }
+
+    public void RemoveSpecificEntryTile(TileParentLogic tile)
+    {
+        UndoEntry entry = undoEntries.Where(i => i.movedTile == tile).SingleOrDefault();
+
+        undoEntries.Remove(entry);
     }
 
     public void AddNewUndoEntry(Transform originalParent, Transform currentParent, TileParentLogic piece)

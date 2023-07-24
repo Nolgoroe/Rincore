@@ -182,7 +182,7 @@ public class LevelActions : ScriptableObject
 
             sliceActions.SetOnConnectEventsSlice(sliceConnectionData, allSlices[i], sameIndexCell, leftNeighborCell, tempIndexArray[i]);
 
-            currentRing.ringSlices[tempIndexArray[i]].InitSlice(sliceConnectionData, allSlices[i].sliceToSpawn, symbol, color, allSlices[i].isLock);
+            currentRing.ringSlices[tempIndexArray[i]].InitSlice(sliceConnectionData, allSlices[i].sliceToSpawn, symbol, color, sameIndexCell, leftNeighborCell, allSlices[i].isLock);
 
 
             // summon slice displays under slice transforms;

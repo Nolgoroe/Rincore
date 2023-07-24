@@ -18,12 +18,37 @@ public class OwnedPowersAndAmounts
 }
 public class PowerupManager : MonoBehaviour
 {
+    public static bool USING_POWER;
+
+
+    public static PowerupManager instance;
+
     [Header("Owned")]
     [SerializeField] private List<PowerupScriptableObject> allPowerups;
 
     [Header("General")]
-    public List<OwnedPowersAndAmounts> ownedPowerups;
+    [SerializeField] private List<OwnedPowersAndAmounts> ownedPowerups;
     public List<PowerupType> unlockedPowerups;
+
+
+
+
+
+
+
+    [Header("Gameplay Usge")]
+    [SerializeField] private PowerupType currentPowerUsing;
+    [SerializeField] private Transform localObjectToUsePowerOn = null;
+    [SerializeField] private IPowerUsable currentPowerLogic = null;
+    [SerializeField] private TileParentLogic tile = null;
+    [SerializeField] private Slice slice = null;
+
+
+
+
+
+
+
 
     [Header("Live Crafting")]
     [SerializeField] private RectTransform selectedPotionRect;
@@ -43,6 +68,11 @@ public class PowerupManager : MonoBehaviour
 
     [Header("General refrences")]
     [SerializeField] private Player player; //go over with Lior, do we need the whole player?
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -361,5 +391,64 @@ public class PowerupManager : MonoBehaviour
             temoVar.amount++;
         }
         Debug.Log("Added this power: " + powerType.ToString());
+    }
+
+
+    //Powerup zone
+
+    public void InitPowerUsageData(Transform objectToUsePowerOn, IPowerUsable powerLogic)
+    {
+        if(!objectToUsePowerOn || powerLogic == null)
+        {
+            Debug.LogError("Error in power up usage init");
+            return;
+        }
+
+        localObjectToUsePowerOn = objectToUsePowerOn;
+        currentPowerLogic = powerLogic;
+
+        ChoosePowerToUse();
+    }
+
+    private void ChoosePowerToUse()
+    {
+        switch (currentPowerUsing)
+        {
+            case PowerupType.Switch:
+                currentPowerLogic.SwitchPower();
+                break;
+            case PowerupType.Bomb:
+                currentPowerLogic.BombPower();
+                break;
+            case PowerupType.RefreshTiles:
+                break;
+            case PowerupType.Joker:
+                break;
+            default:
+                break;
+        }
+
+
+        ResetPowerUpData();
+    }
+
+    public void ResetPowerUpData()
+    {
+        currentPowerUsing = PowerupType.None;
+        localObjectToUsePowerOn = null;
+        currentPowerLogic = null;
+        tile = null;
+        slice = null;
+
+
+
+
+        USING_POWER = false;
+    }
+
+    [ContextMenu("Power Now")]
+    public void UsePower()
+    {
+        USING_POWER = true;
     }
 }

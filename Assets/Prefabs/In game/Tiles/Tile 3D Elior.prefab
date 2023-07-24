@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5342122103885285705}
   - component: {fileID: 9046847827293456108}
   - component: {fileID: 6514504566280008230}
-  - component: {fileID: 865386899470713564}
   m_Layer: 0
   m_Name: Right_Wing_Tile
   m_TagString: Untagged
@@ -84,20 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &865386899470713564
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4713253488634106867}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1799427054985060694, guid: 8a32670abc34bf6479f7d5161df053d2, type: 3}
 --- !u!1 &6462596968642343376
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,6 +94,7 @@ GameObject:
   - component: {fileID: 947335850332170252}
   - component: {fileID: 7444105959984863147}
   - component: {fileID: 4352376101892258244}
+  - component: {fileID: 8384118059359262225}
   m_Layer: 7
   m_Name: Tile 3D Elior
   m_TagString: MainPiece
@@ -153,6 +139,7 @@ MonoBehaviour:
     subTileSymbol: 4
     subTileColor: 5
     subtileMesh: {fileID: 6514504566280008230}
+  cellParent: {fileID: 0}
   partOfBoard: 0
 --- !u!114 &4352376101892258244
 MonoBehaviour:
@@ -170,6 +157,19 @@ MonoBehaviour:
   Duration: 0.3
   Speed: 7
   ResetPosition: 1
+--- !u!65 &8384118059359262225
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6462596968642343376}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.1159136, y: 0.6690943, z: 0.69754565}
+  m_Center: {x: -0.03128802, y: 0.008793592, z: 0.021550534}
 --- !u!1 &8667297901085478605
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +181,6 @@ GameObject:
   - component: {fileID: 8287675725599741047}
   - component: {fileID: 4948443051703868370}
   - component: {fileID: 7154128490506219288}
-  - component: {fileID: 2379797879542045913}
   m_Layer: 0
   m_Name: Left_Wing_Tile
   m_TagString: Untagged
@@ -254,17 +253,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2379797879542045913
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8667297901085478605}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1799427054985060694, guid: 8a32670abc34bf6479f7d5161df053d2, type: 3}

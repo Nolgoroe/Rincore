@@ -5,9 +5,10 @@ using UnityEngine;
 public enum PowerupType
 {
     Switch,
+    Bomb,
+    RefreshTiles,
     Joker,
-    TileBomb,
-    SliceBomb,
+    None
 }
 
 [System.Serializable]

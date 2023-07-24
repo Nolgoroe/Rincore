@@ -64,6 +64,15 @@ MonoBehaviour:
   levelAvailablesymbols: 0100000000000000
   isRandomSlicePositions: 1
   slicesToSpawn:
+  - sliceToSpawn: 2
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 0
+    specificSlicesColor: 0
+    specificSlicesShape: 0
+    isLock: 1
+    RandomSliceValues: 0
   - sliceToSpawn: 1
     onConnectionEvents:
       m_PersistentCalls:
@@ -80,6 +89,42 @@ MonoBehaviour:
     specificSliceIndex: 0
     specificSlicesColor: 0
     specificSlicesShape: 0
+    isLock: 1
+    RandomSliceValues: 0
+  - sliceToSpawn: 4
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 0
+    specificSlicesColor: 0
+    specificSlicesShape: 4
+    isLock: 1
+    RandomSliceValues: 0
+  - sliceToSpawn: 4
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 0
+    specificSlicesColor: 0
+    specificSlicesShape: 3
+    isLock: 1
+    RandomSliceValues: 0
+  - sliceToSpawn: 4
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 0
+    specificSlicesColor: 0
+    specificSlicesShape: 2
+    isLock: 1
+    RandomSliceValues: 0
+  - sliceToSpawn: 4
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 0
+    specificSlicesColor: 0
+    specificSlicesShape: 1
     isLock: 1
     RandomSliceValues: 0
   - sliceToSpawn: 4

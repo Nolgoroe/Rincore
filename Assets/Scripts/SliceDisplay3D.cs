@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class SliceDisplay3D : MonoBehaviour
 {
-    public MeshFilter limiterFiler;
+    public MeshFilter limiterFilter;
     public MeshRenderer limiterRenderer;
 }

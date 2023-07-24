@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7755692343396073973}
   - component: {fileID: 7750409176973760160}
   - component: {fileID: 2611655226303025996}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 8 Ring Slice 3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672502576790329653}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0.195, z: 1.682}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50,6 +50,9 @@ MonoBehaviour:
   connectionType: 0
   requiredSymbol: 4
   requiredColor: 6
+  sameIndexCell: {fileID: 0}
+  leftNeighborCell: {fileID: 0}
+  connectedDisplay: {fileID: 0}
   midIcon: {fileID: 5066739072187867003}
 --- !u!64 &2611655226303025996
 MeshCollider:
@@ -64,7 +67,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2033549237174223918, guid: 62c038d4f5728934d95206cad18cdf08, type: 3}
+  m_Mesh: {fileID: -8369410669342162140, guid: f90a466dc128f494782f68fa9ac87b60, type: 3}
 --- !u!1 &4662112037594521334
 GameObject:
   m_ObjectHideFlags: 0

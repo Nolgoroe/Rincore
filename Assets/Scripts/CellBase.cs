@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CellBase : TileHolder, IGrabTileFrom
+public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 {
     public CellBase leftCell, rightCell;
 
@@ -13,7 +13,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
     [SerializeField] private bool goodConnectLeft, goodConnectRight;
     [SerializeField] private int amountUnsuccessfullConnections;
 
-    [SerializeField] private BoxCollider cellCollider;
+    //[SerializeField] private BoxCollider cellCollider;
 
     //TEMP
 
@@ -26,7 +26,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
     private void OnValidate()
     {
-        cellCollider = GetComponent<BoxCollider>();
+        //cellCollider = GetComponent<BoxCollider>();
     }
 
     public override void RecieveTileDisplayer(TileParentLogic tileToPlace)
@@ -180,7 +180,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
         {
             RecieveTileDisplayer(tileToPlace);
 
-            tileToPlace.SetPlaceTileData(true);
+            tileToPlace.SetPlaceTileData(true, this);
 
             currentRing.CallOnAddTileActions();
 
@@ -194,6 +194,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
     public void GrabTileFrom()
     {
+        ResetLockData();
+
         OnRemoveTileDisplay();
 
         amountUnsuccessfullConnections = 0;
@@ -220,17 +222,29 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
     {
         isLocked = locked;
 
-        cellCollider.enabled = !locked;
+        //cellCollider.enabled = !locked;
     }
     public void SetAsStone(bool _isStone)
     {
         isLocked = _isStone;
         isStone = _isStone;
 
-        cellCollider.enabled = !_isStone;
+        //cellCollider.enabled = !_isStone;
     }
 
-    public bool CheckIsLockedLeft()
+    public void ResetLockData()
+    {
+        // this is called only when we grab a tile from this cell
+
+        if (isLocked)
+        {
+            isLocked = false; // the one i'm in currently is not locked anymore - this will be true if when we place this tile again it's connected well with a limiter
+            leftCell.SetAsLocked(leftCell.CheckIsLockedLeft()); // we check if the right and left cells should stay locked
+            rightCell.SetAsLocked(rightCell.CheckIsLockedRight()); // we check if the right and left cells should stay locked
+        }
+    }
+
+    private bool CheckIsLockedLeft()
     {
         if (!heldTile) return false;
 
@@ -248,7 +262,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
     }
 
-    public bool CheckIsLockedRight()
+    private bool CheckIsLockedRight()
     {
         if (!heldTile) return false;
 
@@ -264,10 +278,26 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
         return rightSlice.sliceData.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
     }
+
+
+
+
+
     public void ResetToDefault()
     {
+        TileParentLogic heldTemp = heldTile;
+
+        UndoSystem.instance.RemoveSpecificEntryTile(heldTile);
+
+        GrabTileFrom();
+
         SetAsLocked(false);
+        SetAsStone(false);
         goodConnectLeft = false;
         goodConnectRight = false;
+
+        amountUnsuccessfullConnections = 0;
+
+        Destroy(heldTemp.gameObject);
     }
 }

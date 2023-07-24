@@ -63,6 +63,10 @@ public class Ring : MonoBehaviour
         //SpriteRenderer sliceDisplayObject = Instantiate(sliceDisplayPrefab, ringSlices[sliceIndex].transform).GetComponent<SpriteRenderer>();
         SliceDisplay3D sliceDisplayObject = Instantiate(sliceDisplayPrefab, ringSlices[sliceIndex].transform).GetComponent<SliceDisplay3D>();
 
+        if (!sliceDisplayObject) return;
+
+        sliceData.connectedDisplay = sliceDisplayObject;
+
         SliceSpriteSetter relaventSliceData = sliceDisplayArray.Where(x => x.sliceEnum == sliceData.connectionType).FirstOrDefault();
 
         if(relaventSliceData == null)
@@ -75,19 +79,19 @@ public class Ring : MonoBehaviour
         {
             case SliceConditionsEnums.GeneralColor:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
-                sliceDisplayObject.limiterFiler.mesh = relaventSliceData.sliceMesh[0];
+                //sliceDisplayObject.limiterFilter.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.GeneralSymbol:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
-                sliceDisplayObject.limiterFiler.mesh = relaventSliceData.sliceMesh[0];
+                //sliceDisplayObject.limiterFilter.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.SpecificColor:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredColor];
-                sliceDisplayObject.limiterFiler.mesh = relaventSliceData.sliceMesh[0];
+                //sliceDisplayObject.limiterFilter.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.SpecificSymbol:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredSymbol];
-                sliceDisplayObject.limiterFiler.mesh = relaventSliceData.sliceMesh[(int)sliceData.requiredSymbol];
+                //sliceDisplayObject.limiterFilter.mesh = relaventSliceData.sliceMesh[(int)sliceData.requiredSymbol];
                 break;
             default:
                 Debug.LogError("Problem with slice generation");

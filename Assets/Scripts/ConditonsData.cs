@@ -27,7 +27,7 @@ public class ColorAndShapeCondition : ConditonsData
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        if(subTileCurrent.subTileColor == subTileContested.subTileColor)
+        if(subTileCurrent.subTileColor != SubTileColor.Stone && subTileContested.subTileColor != SubTileColor.Stone && subTileCurrent.subTileColor == subTileContested.subTileColor)
         {
             return true;
         }
