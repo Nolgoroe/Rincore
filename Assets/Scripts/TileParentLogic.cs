@@ -19,7 +19,7 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     public abstract void SetPlaceTileData(bool place, CellBase cellParent);
     public abstract void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor);
 
-    public abstract void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture, Texture connectionTexture);
+    public abstract void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture/*, Texture connectionTexture*/);
     public virtual void SetSubtilesConnectedGFX(bool isGoodConnect, SubTileData ownSubTile, SubTileData contestedSubTile)
     {
         Material matToChangeOwn = ownSubTile.subtileMesh.material;
@@ -39,7 +39,7 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         Material mat = null;
 
         Texture tempColorSymbolTex = null;
-        Texture tempConnectionTex = null;
+        //Texture tempConnectionTex = null;
         SubTileSymbol newSymbol;
         SubTileColor newColor;
 
@@ -48,13 +48,13 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
 
         mat = subTileLeft.subtileMesh.material;
-        tempColorSymbolTex = mat.GetTexture("Tile_Albedo_Map");
-        tempConnectionTex = mat.GetTexture("MatchedSymbolTex");
+        tempColorSymbolTex = mat.GetTexture("_BaseMap");
+        //tempConnectionTex = mat.GetTexture("MatchedSymbolTex");
         mat = subTileRight.subtileMesh.material;
 
         // we cash a pair of textures to make this code a tiny bit more readable - rethink later.
-        SetTileSpawnDisplayByTextures(subTileLeft, mat.GetTexture("Tile_Albedo_Map"), mat.GetTexture("MatchedSymbolTex")); // left to right
-        SetTileSpawnDisplayByTextures(subTileRight, tempColorSymbolTex, tempConnectionTex); // right to cached left
+        SetTileSpawnDisplayByTextures(subTileLeft, mat.GetTexture("_BaseMap")/*, mat.GetTexture("MatchedSymbolTex")*/); // left to right
+        SetTileSpawnDisplayByTextures(subTileRight, tempColorSymbolTex/*, tempConnectionTex*/); // right to cached left
 
         subTileLeft.subTileSymbol = subTileRight.subTileSymbol;
         subTileLeft.subTileColor = subTileRight.subTileColor;

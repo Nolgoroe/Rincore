@@ -16,11 +16,11 @@ public class Tile : TileParentLogic
         subTile.subTileColor = resultColor;
     }
 
-    public override void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture, Texture connectionTexture)
+    public override void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture/*, Texture connectionTexture*/)
     {
         Material matToChange = subTile.subtileMesh.material;
 
-        matToChange.SetTexture("Tile_Albedo_Map", colorSymbolTexture);
-        matToChange.SetTexture("MatchedSymbolTex", connectionTexture);
+        matToChange.SetTexture("_BaseMap", colorSymbolTexture);
+        //matToChange.SetTexture("MatchedSymbolTex", connectionTexture);
     }
 }

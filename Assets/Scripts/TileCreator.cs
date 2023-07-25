@@ -75,12 +75,12 @@ public class TileCreator : ScriptableObject
         //data set, then decide on textures, then display set - Left
         tile.SetSubTileSpawnData(tile.subTileLeft, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
         Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0], tempArray[1]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0]);
 
         //data set, then decide on textures, then display set - Right
         tile.SetSubTileSpawnData(tile.subTileRight, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
         tempArray = ReturnTexturesByData(tile.subTileRight, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0], tempArray[1]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0]);
 
         return tile;
     }
@@ -91,12 +91,12 @@ public class TileCreator : ScriptableObject
         //data set, then decide on textures, then display set - Left
         tile.SetSubTileSpawnData(tile.subTileLeft, symbolLeft, colorLeft);
         Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0], tempArray[1]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0]);
 
         //data set, then decide on textures, then display set - Right
         tile.SetSubTileSpawnData(tile.subTileRight, symbolRight, colorRight);
         tempArray = ReturnTexturesByData(tile.subTileRight, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0], tempArray[1]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0]);
 
         return tile;
     }
@@ -134,25 +134,25 @@ public class TileCreator : ScriptableObject
         SubTileColor tileColor = tileData.subTileColor;
 
         Texture colorSymbolTexture = null;
-        Texture connectionTex = null;
+        //Texture connectionTex = null;
 
         switch (tileType)
         {
             case Tiletype.Normal:
                 colorSymbolTexture = colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
-                connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
+                //connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Normal12:
                 colorSymbolTexture = colorsToMats12[(int)tileColor].colorTex[(int)tileSymbol];
-                connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
+                //connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Corrupted8:
                 colorSymbolTexture = colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
-                connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
+                //connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Corrupted12:
                 colorSymbolTexture = colorsToMats12[(int)tileColor].colorTex[(int)tileSymbol];
-                connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
+               // connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.NoType:
                 break;
@@ -160,7 +160,7 @@ public class TileCreator : ScriptableObject
                 break;
         }
 
-        return new Texture[] { colorSymbolTexture, connectionTex };
+        return new Texture[] { colorSymbolTexture/*, connectionTex*/ };
     }
 
 
