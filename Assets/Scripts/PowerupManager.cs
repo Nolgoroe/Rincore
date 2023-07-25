@@ -42,6 +42,8 @@ public class PowerupManager : MonoBehaviour
     [SerializeField] private IPowerUsable currentPowerLogic = null;
     [SerializeField] private TileParentLogic tile = null;
     [SerializeField] private Slice slice = null;
+    [SerializeField] private GameObject potionDisplayPrefab;
+    [SerializeField] private Transform[] potionPositions;
 
 
 
@@ -421,8 +423,10 @@ public class PowerupManager : MonoBehaviour
                 currentPowerLogic.BombPower();
                 break;
             case PowerupType.RefreshTiles:
+                RenewClipManager();
                 break;
             case PowerupType.Joker:
+                currentPowerLogic.JokerPower();
                 break;
             default:
                 break;
@@ -450,5 +454,59 @@ public class PowerupManager : MonoBehaviour
     public void UsePower()
     {
         USING_POWER = true;
+
+        if(currentPowerUsing == PowerupType.RefreshTiles)
+        {
+            ChoosePowerToUse();
+        }
+    }
+
+    private void RenewClipManager()
+    {
+        GameManager.gameClip.RenewClip();
+    }
+
+    public void SpawnPotions()
+    {
+        for (int i = 0; i < ownedPowerups.Count; i++)
+        {
+            if (i > potionPositions.Length - 1)
+            {
+                Debug.Log("have more powerups than po sitions");
+                return;
+            }
+
+            PowerupScriptableObject chosenPower = allPowerups.Where(k => k.powerType == ownedPowerups[i].powerType).SingleOrDefault();
+            if (!chosenPower)
+            {
+                Debug.LogError("No power SO!");
+                return;
+            }
+
+
+            GameObject go = Instantiate(potionDisplayPrefab, potionPositions[i]);
+            ImageTextHolderHelper potionImage = null;
+
+            go.TryGetComponent<ImageTextHolderHelper>(out potionImage);
+
+            if(potionImage)
+            {
+                potionImage.SetDisplay(chosenPower.potionSprite, ownedPowerups[i].amount.ToString());
+            }
+        }
+    }
+
+    public void DestroyPotions()
+    {
+        for (int i = 0; i < potionPositions.Length; i++)
+        {
+            if(potionPositions[i].childCount > 0)
+            {
+                for (int k = 0; k < potionPositions[i].childCount; i++)
+                {
+                    Destroy(potionPositions[i].transform.GetChild(k).gameObject);
+                }
+            }
+        }
     }
 }

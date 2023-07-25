@@ -147,7 +147,7 @@ public class ClipManager : MonoBehaviour
         }
     }
 
-    public void ResetClip()
+    public void DestroyClipData()
     {
         DestroySlotTiles();
         activeClipSlotsCount = slots.Length;
@@ -155,6 +155,20 @@ public class ClipManager : MonoBehaviour
         foreach (ClipSlot slot in slots)
         {
             slot.transform.localPosition = slot.originalSlotPos;
+        }
+
+        canUseDeal = true;
+    }
+
+    public void RenewClip()
+    {
+        DestroyClipData();
+
+        for (int i = 0; i < activeClipSlotsCount; i++)
+        {
+            SpawnRandomTileInSlot(slots[i]);
+
+            slots[i].originalSlotPos = slots[i].transform.localPosition;
         }
 
         canUseDeal = true;

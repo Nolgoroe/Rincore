@@ -488,14 +488,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator DisplayLevelCluster(bool isAnimate)
     {
-        //everytime we go to map, no matter what - clear the undo system
-        UndoSystem.instance.ClearUndoSystem();
-
-
-        if (isAnimate)
-        {
-            yield return StartCoroutine(GameManager.instance.AnimateLevelElements(false));
-        }
+        yield return StartCoroutine(OnGoToLevelMapLogic(isAnimate));
 
         CloseAllCurrentScreens(); // close all screens open before going to map
 
@@ -509,6 +502,19 @@ public class UIManager : MonoBehaviour
         AddUIElement(generalMapUI);
 
         generalMapUI.OverrideSetMyElement(texts, null, actions);
+    }
+
+    private IEnumerator OnGoToLevelMapLogic(bool isAnimate)
+    {
+        //everytime we go to map, no matter what - clear the undo system
+        UndoSystem.instance.ClearUndoSystem();
+        powerupManager.DestroyPotions();
+
+        if (isAnimate)
+        {
+            yield return StartCoroutine(GameManager.instance.AnimateLevelElements(false));
+        }
+
     }
 
     private void DisplayAnimalAlbum()

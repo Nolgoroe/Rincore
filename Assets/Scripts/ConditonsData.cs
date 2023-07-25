@@ -27,11 +27,31 @@ public class ColorAndShapeCondition : ConditonsData
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        if(subTileCurrent.subTileColor != SubTileColor.Stone && subTileContested.subTileColor != SubTileColor.Stone && subTileCurrent.subTileColor == subTileContested.subTileColor)
+
+        if(subTileCurrent.subTileColor == SubTileColor.Joker || subTileContested.subTileColor == SubTileColor.Joker)
         {
             return true;
         }
 
+        //if we are stone color - check symbol.
+        if (subTileCurrent.subTileColor == SubTileColor.Stone || subTileContested.subTileColor != SubTileColor.Stone)
+        {
+            if (subTileCurrent.subTileSymbol == subTileContested.subTileSymbol)
+            {
+                return true;
+            }
+
+
+            return false;
+        }
+
+        // if we are "normal" tile color
+        if (subTileCurrent.subTileColor == subTileContested.subTileColor)
+        {
+            return true;
+        }
+
+        //if we are "normal" tile symbol
         if(subTileCurrent.subTileSymbol == subTileContested.subTileSymbol)
         {
             return true;
@@ -46,6 +66,11 @@ public class GeneralColorCondition : ConditonsData
 {
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
+        if (subTileCurrent.subTileColor == SubTileColor.Joker || subTileContested.subTileColor == SubTileColor.Joker)
+        {
+            return true;
+        }
+
         if (subTileCurrent.subTileColor == subTileContested.subTileColor && subTileCurrent.subTileColor != SubTileColor.Stone
             && subTileContested.subTileColor != SubTileColor.Stone)
         {
@@ -61,6 +86,11 @@ public class GeneralSymbolCondition : ConditonsData
 {
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
+        if (subTileCurrent.subTileSymbol == SubTileSymbol.Joker || subTileContested.subTileSymbol == SubTileSymbol.Joker)
+        {
+            return true;
+        }
+
         if (subTileCurrent.subTileSymbol == subTileContested.subTileSymbol)
         {
             return true;
@@ -77,6 +107,11 @@ public class SpecificColorCondition : ConditonsData
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
+        if (subTileCurrent.subTileColor == SubTileColor.Joker || subTileContested.subTileColor == SubTileColor.Joker)
+        {
+            return true;
+        }
+
         if (subTileCurrent.subTileColor == requiredColor && subTileContested.subTileColor == requiredColor)
         {
             return true;
@@ -93,6 +128,11 @@ public class SpecificSymbolCondition : ConditonsData
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
+        if (subTileCurrent.subTileSymbol == SubTileSymbol.Joker || subTileContested.subTileSymbol == SubTileSymbol.Joker)
+        {
+            return true;
+        }
+
         if (subTileCurrent.subTileSymbol == requiredSymbol && subTileContested.subTileSymbol == requiredSymbol)
         {
             return true;

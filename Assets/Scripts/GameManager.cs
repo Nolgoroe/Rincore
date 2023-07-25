@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private MapLogic mapLogic;
     [SerializeField] private ClipManager clipManager;
+    [SerializeField] private PowerupManager powerupManager;
 
     [SerializeField] private GameObject[] gameRingsPrefabs;
     [SerializeField] private GameObject[] gameRingsSlicePrefabs;
@@ -223,6 +224,9 @@ public class GameManager : MonoBehaviour
         gameControls.InitUserControls(gameRing, gameClip);
 
         //Init slices that pass information to cells (run 2)
+
+
+        powerupManager.SpawnPotions();
     }
 
     private void SpawnLevelBG()
@@ -490,7 +494,7 @@ public class GameManager : MonoBehaviour
             Destroy(inLevelParent.GetChild(i).gameObject);
         }
 
-        gameClip.ResetClip();
+        gameClip.DestroyClipData();
 
         StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
 
@@ -514,7 +518,7 @@ public class GameManager : MonoBehaviour
             Destroy(inLevelParent.GetChild(i).gameObject);
         }
 
-        gameClip.ResetClip();
+        gameClip.DestroyClipData();
 
         IS_IN_LEVEL = false;
 

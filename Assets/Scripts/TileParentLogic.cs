@@ -22,11 +22,11 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     public abstract void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture/*, Texture connectionTexture*/);
     public virtual void SetSubtilesConnectedGFX(bool isGoodConnect, SubTileData ownSubTile, SubTileData contestedSubTile)
     {
-        Material matToChangeOwn = ownSubTile.subtileMesh.material;
-        Material matToChangeContested = contestedSubTile.subtileMesh.material;
+        //Material matToChangeOwn = ownSubTile.subtileMesh.material;
+        //Material matToChangeContested = contestedSubTile.subtileMesh.material;
 
-        matToChangeOwn.SetInt("Is_Piece_Match", isGoodConnect? 1 : 0);
-        matToChangeContested.SetInt("Is_Piece_Match", isGoodConnect ? 1 : 0);
+        //matToChangeOwn.SetInt("Is_Piece_Match", isGoodConnect? 1 : 0);
+        //matToChangeContested.SetInt("Is_Piece_Match", isGoodConnect ? 1 : 0);
     }
 
     public void SwitchPower()
@@ -39,7 +39,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         Material mat = null;
 
         Texture tempColorSymbolTex = null;
-        //Texture tempConnectionTex = null;
         SubTileSymbol newSymbol;
         SubTileColor newColor;
 
@@ -49,12 +48,11 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
         mat = subTileLeft.subtileMesh.material;
         tempColorSymbolTex = mat.GetTexture("_BaseMap");
-        //tempConnectionTex = mat.GetTexture("MatchedSymbolTex");
         mat = subTileRight.subtileMesh.material;
 
         // we cash a pair of textures to make this code a tiny bit more readable - rethink later.
-        SetTileSpawnDisplayByTextures(subTileLeft, mat.GetTexture("_BaseMap")/*, mat.GetTexture("MatchedSymbolTex")*/); // left to right
-        SetTileSpawnDisplayByTextures(subTileRight, tempColorSymbolTex/*, tempConnectionTex*/); // right to cached left
+        SetTileSpawnDisplayByTextures(subTileLeft, mat.GetTexture("_BaseMap")); // left to right
+        SetTileSpawnDisplayByTextures(subTileRight, tempColorSymbolTex); // right to cached left
 
         subTileLeft.subTileSymbol = subTileRight.subTileSymbol;
         subTileLeft.subTileColor = subTileRight.subTileColor;
@@ -79,6 +77,28 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     public void JokerPower()
     {
+        if (cellParent)
+        {
+            cellParent.GrabTileFrom();
+        }
+
+        Texture tex = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker);
+
+        Material mat = null;
+        mat = subTileLeft.subtileMesh.material;
+        SetTileSpawnDisplayByTextures(subTileLeft, tex);
+        SetTileSpawnDisplayByTextures(subTileRight, tex);
+
+        subTileLeft.subTileColor = SubTileColor.Joker;
+        subTileLeft.subTileSymbol = SubTileSymbol.Joker;
+
+        subTileRight.subTileColor = SubTileColor.Joker;
+        subTileRight.subTileSymbol = SubTileSymbol.Joker;
+
+        if (cellParent)
+        {
+            cellParent.DroppedOn(this, GameManager.gameRing);
+        }
     }
 
     /// set subtile display function (maybe materials)

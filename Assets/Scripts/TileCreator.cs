@@ -59,6 +59,7 @@ public class TileCreator : ScriptableObject
     [SerializeField] private SymbolToMat[] symbolToMat;
     [SerializeField] private ColorsAndMats[] colorsToMats12;
     [SerializeField] private SymbolToMat[] symbolToMat12;
+    [SerializeField] private Texture jokerTex;
 
     [SerializeField] private GameObject[] tilePrefabs;
 
@@ -163,5 +164,30 @@ public class TileCreator : ScriptableObject
         return new Texture[] { colorSymbolTexture/*, connectionTex*/ };
     }
 
+    public Texture returnSpecificTex(SubTileColor tileColor, SubTileSymbol tileSymbol)
+    {
+        switch (tileColor)
+        {
+            case SubTileColor.Blue:
+                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+            case SubTileColor.Green:
+                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+            case SubTileColor.Purple:
+                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+            case SubTileColor.Red:
+                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+            case SubTileColor.Yellow:
+                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+            case SubTileColor.Stone:
+                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+            case SubTileColor.NoColor:
+                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+            case SubTileColor.Joker:
+                return jokerTex;
+            default:
+                break;
+        }
 
+        return null;
+    }
 }
