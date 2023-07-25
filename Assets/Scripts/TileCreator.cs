@@ -5,8 +5,8 @@ public enum SubTileColor
 {
     Blue,
     Green,
-    Purple,
-    Red,
+    Orange,
+    Pink,
     Yellow,
     Stone,
     NoColor,
@@ -172,9 +172,9 @@ public class TileCreator : ScriptableObject
                 return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
             case SubTileColor.Green:
                 return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
-            case SubTileColor.Purple:
+            case SubTileColor.Orange:
                 return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
-            case SubTileColor.Red:
+            case SubTileColor.Pink:
                 return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
             case SubTileColor.Yellow:
                 return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];

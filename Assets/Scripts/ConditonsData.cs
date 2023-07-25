@@ -34,7 +34,7 @@ public class ColorAndShapeCondition : ConditonsData
         }
 
         //if we are stone color - check symbol.
-        if (subTileCurrent.subTileColor == SubTileColor.Stone || subTileContested.subTileColor != SubTileColor.Stone)
+        if (subTileCurrent.subTileColor == SubTileColor.Stone || subTileContested.subTileColor == SubTileColor.Stone)
         {
             if (subTileCurrent.subTileSymbol == subTileContested.subTileSymbol)
             {

@@ -155,14 +155,14 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         {
             recievedTile.transform.localPosition = Vector3.zero;
             recievedTile.transform.localRotation = Quaternion.Euler(Vector3.zero);
-            //recievedTile.transform.localScale = Vector3.one;
+            recievedTile.transform.localScale = GameManager.GENERAL_TILE_SIZE;
         }
         else
         {
             float timeToAnimate = distanceFromTarget / maxAnimateSpeed;
             LeanTween.moveLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
             LeanTween.rotateLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
-            //LeanTween.scale(recievedTile.gameObject, Vector3.one, timeToAnimate);
+            LeanTween.scale(recievedTile.gameObject, GameManager.GENERAL_TILE_SIZE, timeToAnimate);
         }
 
         heldTile = recievedTile;
@@ -253,12 +253,19 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             return true;
         }
 
-        if (!leftCell.heldTile)
+        if (!leftCell.heldTile) // checks to see if theres a slice that might lock from the left
         {
             return false;
         }
 
-        return leftSlice.sliceData.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
+        if(leftSlice.isLock)
+        {
+            return leftSlice.sliceData.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight); // check to see if the slice from the left locks
+        }
+        else
+        {
+            return false;
+        }
 
     }
 
@@ -271,12 +278,19 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             return true;
         }
 
-        if(!rightCell.heldTile)
+        if(!rightCell.heldTile)// checks to see if theres a slice that might lock from the right
         {
             return false;
         }
 
-        return rightSlice.sliceData.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
+        if(rightSlice.isLock)
+        {
+            return rightSlice.sliceData.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft); // check to see if the slice from the right locks
+        }
+        else
+        {
+            return false;
+        }
     }
 
 

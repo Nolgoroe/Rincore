@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public static bool IS_IN_LEVEL;
 
+    public static Vector3 GENERAL_TILE_SIZE = new Vector3(1, 1, 1); 
     public static GameManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     [Header("Level setup Data")]

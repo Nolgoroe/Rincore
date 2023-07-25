@@ -29,6 +29,8 @@ public class PowerupManager : MonoBehaviour
     [Header("General")]
     [SerializeField] private List<OwnedPowersAndAmounts> ownedPowerups;
     public List<PowerupType> unlockedPowerups;
+    [SerializeField] private Transform[] potionPositions;
+    [SerializeField] private GameObject potionDisplayPrefab;
 
 
 
@@ -38,14 +40,10 @@ public class PowerupManager : MonoBehaviour
 
     [Header("Gameplay Usge")]
     [SerializeField] private PowerupType currentPowerUsing;
-    [SerializeField] private Transform localObjectToUsePowerOn = null;
     [SerializeField] private IPowerUsable currentPowerLogic = null;
-    [SerializeField] private TileParentLogic tile = null;
-    [SerializeField] private Slice slice = null;
-    [SerializeField] private GameObject potionDisplayPrefab;
-    [SerializeField] private Transform[] potionPositions;
-
-
+    [SerializeField] private OwnedPowersAndAmounts currentPowerData = null;
+    [SerializeField] private ImageTextHolderHelper currentPotionDisplay = null;
+    [SerializeField] private Transform localObjectToUsePowerOn = null;
 
 
 
@@ -65,11 +63,11 @@ public class PowerupManager : MonoBehaviour
     [SerializeField] private PotionIngredientSegment potionMaterialPrefab;
     [SerializeField] private Transform[] potionsMaterialZones;
     [SerializeField] private Transform potionButtonsParent;
-    [SerializeField] private UIElementDisplayerSegment buyPotionScreenMaterialPrefab; // go over with lior
-    [SerializeField] private Transform buyPotionScreenMaterialParent; // go over with lior
+    [SerializeField] private UIElementDisplayerSegment buyPotionScreenMaterialPrefab; 
+    [SerializeField] private Transform buyPotionScreenMaterialParent; 
 
     [Header("General refrences")]
-    [SerializeField] private Player player; //go over with Lior, do we need the whole player?
+    [SerializeField] private Player player; 
 
     private void Awake()
     {
@@ -412,58 +410,30 @@ public class PowerupManager : MonoBehaviour
         ChoosePowerToUse();
     }
 
-    private void ChoosePowerToUse()
-    {
-        switch (currentPowerUsing)
-        {
-            case PowerupType.Switch:
-                currentPowerLogic.SwitchPower();
-                break;
-            case PowerupType.Bomb:
-                currentPowerLogic.BombPower();
-                break;
-            case PowerupType.RefreshTiles:
-                RenewClipManager();
-                break;
-            case PowerupType.Joker:
-                currentPowerLogic.JokerPower();
-                break;
-            default:
-                break;
-        }
-
-
-        ResetPowerUpData();
-    }
 
     public void ResetPowerUpData()
     {
         currentPowerUsing = PowerupType.None;
-        localObjectToUsePowerOn = null;
         currentPowerLogic = null;
-        tile = null;
-        slice = null;
-
-
+        currentPowerData = null;
+        currentPotionDisplay = null;
+        localObjectToUsePowerOn = null;
 
 
         USING_POWER = false;
     }
 
-    [ContextMenu("Power Now")]
-    public void UsePower()
-    {
-        USING_POWER = true;
-
-        if(currentPowerUsing == PowerupType.RefreshTiles)
-        {
-            ChoosePowerToUse();
-        }
-    }
 
     private void RenewClipManager()
     {
-        GameManager.gameClip.RenewClip();
+        if(GameManager.gameClip.RenewClip())
+        {
+            PowerSucceededUsing();
+        }
+        else
+        {
+            ResetPowerUpData();
+        }
     }
 
     public void SpawnPotions()
@@ -493,6 +463,21 @@ public class PowerupManager : MonoBehaviour
             {
                 potionImage.SetDisplay(chosenPower.potionSprite, ownedPowerups[i].amount.ToString());
             }
+
+
+
+            Button potionButton = null;
+
+            go.TryGetComponent<Button>(out potionButton);
+
+            int tempIndex = i; // we do this since action subsccribing remembers the value in a memory unity.
+            // meaning in this case it would have remembered the last value of the iterator (i)
+
+            if (potionButton)
+            {
+                potionButton.onClick.AddListener(() => StartCoroutine(SetUsingPotion(ownedPowerups[tempIndex], potionImage)));
+            }
+
         }
     }
 
@@ -502,11 +487,75 @@ public class PowerupManager : MonoBehaviour
         {
             if(potionPositions[i].childCount > 0)
             {
-                for (int k = 0; k < potionPositions[i].childCount; i++)
+                for (int k = 0; k < potionPositions[i].childCount; k++)
                 {
                     Destroy(potionPositions[i].transform.GetChild(k).gameObject);
                 }
             }
         }
     }
+
+    private IEnumerator SetUsingPotion(OwnedPowersAndAmounts ownedPower, ImageTextHolderHelper potionImage)
+    {
+        if (currentPowerUsing == ownedPower.powerType) yield break;
+
+        if(ownedPower.amount == 0)
+        {
+            Debug.Log("No more uses!");
+            yield break;
+        }
+
+        currentPowerData = ownedPower;
+        currentPowerUsing = ownedPower.powerType;
+        currentPotionDisplay = potionImage;
+
+        yield return new WaitForEndOfFrame(); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
+        UsePower();
+    }
+
+    private void UsePower()
+    {
+        USING_POWER = true;
+
+        if (currentPowerUsing == PowerupType.RefreshTiles)
+        {
+            ChoosePowerToUse();
+        }
+    }
+
+    public void PowerSucceededUsing()
+    {
+        if(currentPowerData != null)
+        {
+            currentPowerData.amount--;
+            currentPotionDisplay.connectedText.text = currentPowerData.amount.ToString();
+            if (currentPowerData.amount == 0)
+            {
+                Destroy(currentPotionDisplay.gameObject);
+            }
+        }
+
+        ResetPowerUpData();
+    }
+    private void ChoosePowerToUse()
+    {
+        switch (currentPowerUsing)
+        {
+            case PowerupType.Switch:
+                currentPowerLogic.SwitchPower();
+                break;
+            case PowerupType.Bomb:
+                currentPowerLogic.BombPower();
+                break;
+            case PowerupType.RefreshTiles:
+                RenewClipManager();
+                break;
+            case PowerupType.Joker:
+                currentPowerLogic.JokerPower();
+                break;
+            default:
+                break;
+        }
+    }
+
 }

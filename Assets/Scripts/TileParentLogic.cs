@@ -64,6 +64,8 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         {
             cellParent.DroppedOn(this, GameManager.gameRing);
         }
+
+        PowerupManager.instance.PowerSucceededUsing();
     }
 
     public void BombPower()
@@ -71,6 +73,11 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         if(cellParent)
         {
             cellParent.ResetToDefault();
+            PowerupManager.instance.PowerSucceededUsing();
+        }
+        else
+        {
+            PowerupManager.instance.ResetPowerUpData(); // release power directly - no success
         }
     }
 
@@ -99,6 +106,9 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         {
             cellParent.DroppedOn(this, GameManager.gameRing);
         }
+
+
+        PowerupManager.instance.PowerSucceededUsing();
     }
 
     /// set subtile display function (maybe materials)

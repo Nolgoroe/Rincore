@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d641e528236e2684fb0b26691f411447, type: 3}
-  m_Name: Tile bomb
+  m_Name: Refresh Board
   m_EditorClassIdentifier: 
   powerType: 2
   ingredientsNeeded:
@@ -19,4 +19,4 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: b14a3af4139243340a35b8d94ddf088d, type: 2}
     amountNeeded: 1
   potionSprite: {fileID: 21300000, guid: 77a72be95a76d50479de5b7ffdc4813c, type: 3}
-  potionDescription: Swaps between two sides of a tile
+  potionDescription: Refresh

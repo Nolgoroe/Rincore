@@ -61,7 +61,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   levelAvailableColors: 0000000001000000
-  levelAvailablesymbols: 0100000000000000
+  levelAvailablesymbols: 0000000001000000
   isRandomSlicePositions: 1
   slicesToSpawn:
   - sliceToSpawn: 2
@@ -83,17 +83,5 @@ MonoBehaviour:
     isLock: 1
     RandomSliceValues: 0
   powerupsForLevel: 
-  stoneTiles:
-  - cellIndex: 0
-    randomValues: 0
-    rightTileSymbol: 0
-    leftTileSymbol: 1
-  - cellIndex: 1
-    randomValues: 0
-    rightTileSymbol: 2
-    leftTileSymbol: 3
-  - cellIndex: 2
-    randomValues: 0
-    rightTileSymbol: 0
-    leftTileSymbol: 4
+  stoneTiles: []
   arrayOfSpecificTilesInClip: []

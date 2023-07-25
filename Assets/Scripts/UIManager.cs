@@ -337,6 +337,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 0, action = () => ClipManager.canUseDeal = true },
             //new ButtonActionIndexPair { index = 1, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             //new ButtonActionIndexPair { index = 1, action = GameManager.instance.CallRestartLevel });
+            new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelLastDealWarning) },
             new ButtonActionIndexPair { index = 1, action = DisplayInLevelLostMessage });
 
         inLevelLastDealWarning.OverrideSetMyElement(null, null, actions);

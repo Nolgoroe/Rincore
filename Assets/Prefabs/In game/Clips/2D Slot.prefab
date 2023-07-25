@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 861138728317422851}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 2.045, y: -1.787, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 150, y: 150.00005, z: 150}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,6 +48,8 @@ MonoBehaviour:
   heldTile: {fileID: 0}
   tileGFXParent: {fileID: 861138728317422848}
   isLocked: 0
+  isStone: 0
+  originalSlotPos: {x: 0, y: 0, z: 0}
 --- !u!65 &861138728317422849
 BoxCollider:
   m_ObjectHideFlags: 0

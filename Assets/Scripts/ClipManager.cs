@@ -160,8 +160,10 @@ public class ClipManager : MonoBehaviour
         canUseDeal = true;
     }
 
-    public void RenewClip()
+    public bool RenewClip()
     {
+        if (activeClipSlotsCount == slots.Length) return false;
+
         DestroyClipData();
 
         for (int i = 0; i < activeClipSlotsCount; i++)
@@ -172,5 +174,8 @@ public class ClipManager : MonoBehaviour
         }
 
         canUseDeal = true;
+
+
+        return true;
     }
 }

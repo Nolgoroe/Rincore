@@ -23,6 +23,7 @@ public class Slice : MonoBehaviour, IPowerUsable
     public SubTileColor requiredColor;
     public CellBase sameIndexCell;
     public CellBase leftNeighborCell;
+    public bool isLock;
 
     [Header("Dynamic Data")]
     public SliceDisplay3D connectedDisplay;
@@ -31,7 +32,7 @@ public class Slice : MonoBehaviour, IPowerUsable
     //TEMP - will maybe change to lock sprite animation.
     [SerializeField] private SpriteRenderer midIcon;
 
-    public void InitSlice(ConditonsData data, SliceConditionsEnums type, SubTileSymbol symbol, SubTileColor color, CellBase _sameIndexCell, CellBase _leftNeighborCell,  bool isLock)
+    public void InitSlice(ConditonsData data, SliceConditionsEnums type, SubTileSymbol symbol, SubTileColor color, CellBase _sameIndexCell, CellBase _leftNeighborCell,  bool _isLock)
     {
         sliceData = data;
         connectionType = type;
@@ -39,6 +40,7 @@ public class Slice : MonoBehaviour, IPowerUsable
         requiredColor = color;
         sameIndexCell = _sameIndexCell;
         leftNeighborCell = _leftNeighborCell;
+        isLock = _isLock;
     }
 
     private void DestroySliceData()
@@ -57,14 +59,23 @@ public class Slice : MonoBehaviour, IPowerUsable
 
         InitSlice(sliceData, connectionType, requiredSymbol, requiredColor, sameIndexCell, leftNeighborCell, false);
 
-        //refresh all data by manually grabbing and placing each tile
-        TileParentLogic tile = sameIndexCell.heldTile;
-        sameIndexCell.GrabTileFrom();
-        sameIndexCell.DroppedOn(tile, GameManager.gameRing);
 
-        tile = leftNeighborCell.heldTile;
-        leftNeighborCell.GrabTileFrom();
-        leftNeighborCell.DroppedOn(tile, GameManager.gameRing);
+        if(sameIndexCell.heldTile)
+        {
+            //refresh all data by manually grabbing and placing each tile
+            TileParentLogic tile = sameIndexCell.heldTile;
+            sameIndexCell.GrabTileFrom();
+            sameIndexCell.DroppedOn(tile, GameManager.gameRing);
+        }
+
+        if (leftNeighborCell.heldTile)
+        {            
+            //refresh all data by manually grabbing and placing each tile
+            TileParentLogic tile = leftNeighborCell.heldTile;
+            tile = leftNeighborCell.heldTile;
+            leftNeighborCell.GrabTileFrom();
+            leftNeighborCell.DroppedOn(tile, GameManager.gameRing);
+        }
 
     }
 
@@ -87,6 +98,6 @@ public class Slice : MonoBehaviour, IPowerUsable
     public void BombPower()
     {
         DestroySliceData();
+        PowerupManager.instance.PowerSucceededUsing();
     }
-
 }
