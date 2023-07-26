@@ -331,12 +331,12 @@ public class LevelActions : ScriptableObject
         return type;
     }
 
-    public void CallLevelSetupData()
-    {
-        //called from level actions events
+    //public void CallLevelSetupData()
+    //{
+    //    //called from level actions events
 
-        GameManager.instance.LevelSetupData();
-    }
+    //    GameManager.instance.LevelSetupData();
+    //}
 
     public void CallSpawnLevelStatue()
     {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using GameAnalyticsSDK;
+using System;
+
 public class GameManager : MonoBehaviour
 {
     const string ANIM_SET_RIVE = "Set Rive ";
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("Level setup Data")]
     [SerializeField] private ClusterSO currentClusterSO;
     [SerializeField] private int currentIndexInCluster;
+    [SerializeField] private int currentMaxLevelReached;
 
     //[SerializeField] private Transform levelCameraParent = null;
     [SerializeField] private Transform levelDecksParent = null;
@@ -25,7 +28,7 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Level Animation Data")]
-    [SerializeField] private float delayAfterLevelExit = 1.2f;
+    //[SerializeField] private float delayAfterLevelExit = 1.2f;
     [SerializeField] private float delayClipAppear = 0.4f;
     [SerializeField] private float timeClipEnter = 0.4f;
     [SerializeField] private float delayClipHide = 0.4f;
@@ -93,6 +96,7 @@ public class GameManager : MonoBehaviour
         gameClip = clipManager;
         LeanTween.init(5000);
 
+
         mapLogic.InitMapLogic(currentClusterSO);
 
 
@@ -159,14 +163,22 @@ public class GameManager : MonoBehaviour
         //After Ring
         AfterRingActions?.Invoke();
 
-       
-        AddToEndlevelActions(() => StartCoroutine(OnLevelExit()));
-        AddToEndlevelActions(gameRing.ClearActions);
 
-        
+        //AddToEndlevelActions(() => StartCoroutine(OnLevelExitLose()));
+        AddToEndlevelActions(ClearLevelActions);
+
         // actions after gameplay, on winning the level
         //WinLevelActions += AdvanceLevelStatue;
-        WinLevelActions += UIManager.instance.DisplayInLevelWinWindow;
+
+        if (currentIndexInCluster + 1 == currentClusterSO.clusterLevels.Length)
+        {
+            WinLevelActions += () => StartCoroutine(InitClusterTransfer());
+        }
+        else
+        {
+            WinLevelActions += SetDataOnWin;
+            WinLevelActions += () => StartCoroutine(OnLevelExitWin(false));
+        }
 
         SymbolAndColorCollector.instance.DoTotalCheck(); // we do this in case there are preplaced tiles that need to be counted.
 
@@ -181,6 +193,11 @@ public class GameManager : MonoBehaviour
         //}
         // actions after gameplay, on losing the level
         //LoseLevelActions += UIManager.instance.DisplayInLevelRingHasNonMatchingMessage;
+    }
+
+    private void SetDataOnWin()
+    {
+        currentIndexInCluster++;
     }
 
     private void BuildLevel()
@@ -228,6 +245,8 @@ public class GameManager : MonoBehaviour
 
 
         powerupManager.SpawnPotions();
+
+        currentMaxLevelReached = currentLevel.levelNumInZone;
     }
 
     private void SpawnLevelBG()
@@ -306,6 +325,14 @@ public class GameManager : MonoBehaviour
         endLevelActions?.Invoke();
     }
 
+    public IEnumerator InitiateDestrtuctionOfCluster()
+    {
+        yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
+        Debug.Log("Initiating destruction");
+        //endLevelActions?.Invoke();
+
+    }
+
     // This function makes sure that we have "ClearLevelActions" set as the last action to be made
     private void AddToEndlevelActions(System.Action actionToAdd)
     {
@@ -334,20 +361,20 @@ public class GameManager : MonoBehaviour
 
         for (int k = 0; k < 1; k++)
         {
-           yield return StartCoroutine(OnLevelExit());
+           yield return StartCoroutine(OnLevelExitReset());
 
            SetLevel();
         }
     }
 
-    public void ClickOnLevelIconMapSetData(LevelSO levelSO, ClusterSO clusterSO, Ring ring, int inedxInCluster)
+    public void ClickOnLevelIconMapSetData(LevelPresetData data)
     {
-        currentLevel = levelSO;
+        currentLevel = data.connectedLevelSO;
         
-        gameRing = ring;
+        gameRing = data.connectedRing;
 
-        currentClusterSO = clusterSO;
-        currentIndexInCluster = inedxInCluster;
+        currentClusterSO = data.connectedCluster;
+        currentIndexInCluster = data.indexInCluster;
     }
 
     public void SetRingmanually(Ring ring)
@@ -361,37 +388,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Works!");
     }
 
-    public void CallNextLevel()
-    {
-        StartCoroutine(MoveToNextLevel());
-    }
 
-    private IEnumerator MoveToNextLevel()
-    {
-        //yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
-
-        StartCoroutine(OnLevelExit());
-
-        currentLevel = nextLevel;
-        currentIndexInCluster++;
-        LevelSetupData();
-        yield return new WaitForEndOfFrame();
-
-        SetLevel();
-    }
-
-    public void LevelSetupData()
-    {
-        //called from level actions events
-        if (ReturnIsLastLevelInCluster())
-        {
-            nextLevel = null;
-        }
-        else
-        {
-            nextLevel = currentClusterSO.clusterLevels[currentIndexInCluster + 1];
-        }
-    }
 
     public void SpawnLevelStatue()
     {
@@ -457,7 +454,15 @@ public class GameManager : MonoBehaviour
     {
         return currentIndexInCluster;
     }
+    public int ReturnLastLevelIndexReached()
+    {
+        return currentMaxLevelReached;
+    }
 
+    public LevelSO ReturnCurrentLevelSO()
+    {
+        return currentClusterSO.clusterLevels[currentIndexInCluster];
+    }
     public void BroadcastWinLevelActions()
     {
         WinLevelActions?.Invoke();
@@ -483,8 +488,54 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(summonedChest.AfterGiveLoot());
     }
 
-    public IEnumerator OnLevelExitWin()
+
+    public IEnumerator OnLevelExitReset()
     {
+        ClearLevelActions();
+        gameRing.ClearActions();
+
+        bool isAtStartOfCluster = currentIndexInCluster == 0 ? true : false;
+
+        RestartClusterData();
+
+        yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
+
+        yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster)); // move to start of cluster
+
+
+        foreach (var ring in mapLogic.publicInstantiatedRings)
+        {
+            Destroy(ring.gameObject);
+            yield return new WaitForEndOfFrame();
+        }
+
+        mapLogic.ResetMapData();
+
+
+        //yield return StartCoroutine(mapLogic.SpawnSpecificRingInCluster(currentIndexInCluster));
+
+        for (int i = 0; i < inLevelParent.childCount; i++)
+        {
+            Destroy(inLevelParent.GetChild(i).gameObject);
+        }
+
+        gameClip.DestroyClipData();
+
+        IS_IN_LEVEL = false;
+
+
+        mapLogic.InitMapLogic(currentClusterSO);
+
+        yield return new WaitForSeconds(0.4f); // temp hardcoded buffer
+
+        StartCoroutine(InitStartLevel());
+    }
+
+
+    public IEnumerator OnLevelExitWin(bool isClusterEnd)
+    {
+        StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
+
         gameRing.ClearActions();
         ClearLevelActions();
 
@@ -497,22 +548,84 @@ public class GameManager : MonoBehaviour
 
         gameClip.DestroyClipData();
 
-        StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
-
         IS_IN_LEVEL = false;
+
+        if (!isClusterEnd)
+        {
+            yield return StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
+
+            StartCoroutine(InitStartLevel());
+        }
     }
 
-    public IEnumerator OnLevelExit()
+    //public void CallNextLevel()
+    //{
+    //    StartCoroutine(MoveToNextLevel());
+    //}
+
+
+    public bool LevelSetupData()
     {
+        LevelMapCustomButton levelButton = null;
+
+        mapLogic.publicInstantiatedRings[currentIndexInCluster].TryGetComponent<LevelMapCustomButton>(out levelButton);
+
+        if(!levelButton)
+        {
+            Debug.Log("Each level should have a level map custom button script attached to it.");
+            return false;
+        }
+
+        levelButton.AutomatiTransferLevel();
+
+
+
+
+        return true;
+
+        ////called from level actions events
+        //if (ReturnIsLastLevelInCluster())
+        //{
+        //    nextLevel = null;
+        //}
+        //else
+        //{
+        //    nextLevel = currentClusterSO.clusterLevels[currentIndexInCluster];
+        //}
+    }
+
+    private void RestartClusterData()
+    {
+        currentIndexInCluster = 0;
+    }
+
+    private IEnumerator InitStartLevel()
+    {
+        if (LevelSetupData())
+        {
+            StartCoroutine(AnimateLevelElements(true));
+
+            yield return new WaitForEndOfFrame();
+            SetLevel();
+        }
+    }
+
+
+
+    private IEnumerator InitClusterTransfer()
+    {
+
+
         ClearLevelActions();
         gameRing.ClearActions();
 
-        yield return new WaitForEndOfFrame();
-        Destroy(gameRing.gameObject);
+        bool isAtStartOfCluster = currentIndexInCluster == 0 ? true : false;
 
-        yield return new WaitForEndOfFrame();
-        yield return StartCoroutine(mapLogic.SpawnSpecificRingInCluster(currentIndexInCluster));
-        //lootManager.DestroyAllLootChildren();
+        RestartClusterData();
+
+        yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
+
+        yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster)); // move to start of cluster
 
         for (int i = 0; i < inLevelParent.childCount; i++)
         {
@@ -523,21 +636,22 @@ public class GameManager : MonoBehaviour
 
         IS_IN_LEVEL = false;
 
-        //yield return new WaitForSeconds(0.1f);
-        //for (int i = 0; i < gameRing.ringCells.Length; i++)
-        //{
-        //    if (gameRing.ringCells[i].heldTile)
-        //    {
-        //        Destroy(gameRing.ringCells[i].heldTile.gameObject);
-        //    }
-        //}
 
-        //for (int i = 0; i < gameRing.ringCells.Length; i++)
-        //{
-        //        gameRing.ringCells[i].ResetToDefault();
-        //}
+
+
+
+        int nextClusterIndex = currentClusterSO.clusterID + 1;
+
+        if(nextClusterIndex >= allClusters.Length)
+        {
+            Debug.LogError("No next cluster!");
+            yield break;
+        }
+
+        currentClusterSO = allClusters[nextClusterIndex];
+
+        mapLogic.CallClusterTransfer(allClusters[nextClusterIndex]);
     }
-
     /**/
     // GETTERS!
     /**/

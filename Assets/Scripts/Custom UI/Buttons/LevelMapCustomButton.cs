@@ -6,24 +6,34 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEditor;
 using System.Linq;
+using System;
 
-public class LevelMapCustomButton : CustomButtonParent
+[Serializable]
+public class LevelPresetData
 {
     public LevelSO connectedLevelSO;
     public ClusterSO connectedCluster;
     public Ring connectedRing;
     public int indexInCluster;
-
+}
+public class LevelMapCustomButton : CustomButtonParent
+{
+    public LevelPresetData data;
     public override void OnClickButton()
     {
         buttonEventsInspector?.Invoke();
     }
 
     //called from button
-    public void ActionsOnClickLevel ()
+    public void AutomatiTransferLevel ()
     {
-        GameManager.instance.ClickOnLevelIconMapSetData(connectedLevelSO, connectedCluster, connectedRing, indexInCluster);
-        UIManager.instance.DisplayLaunchLevelPopUp(connectedLevelSO);
+        GameManager.instance.ClickOnLevelIconMapSetData(data);
+    }
+
+    public void ActionsOnClickLevel()
+    {
+        GameManager.instance.ClickOnLevelIconMapSetData(data);
+        UIManager.instance.DisplayLaunchLevelPopUp(data.connectedLevelSO);
     }
 
     public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions = null)
@@ -39,10 +49,10 @@ public class LevelMapCustomButton : CustomButtonParent
         {
             for (int i = 0; i < cluster.clusterLevels.Length; i++)
             {
-                if(cluster.clusterLevels[i] == connectedLevelSO)
+                if(cluster.clusterLevels[i] == data.connectedLevelSO)
                 {
-                    connectedCluster = cluster;
-                    indexInCluster = i;
+                    data.connectedCluster = cluster;
+                    data.indexInCluster = i;
                 }
             }
         }

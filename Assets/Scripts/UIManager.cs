@@ -309,7 +309,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 4, action = GameManager.TestButtonDelegationWorks }, //shop button
             new ButtonActionIndexPair { index = 5, action = UndoSystem.instance.CallUndoAction }); //restart button
 
-        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnCurrentIndexInCluster() + 1)).ToString() };
+        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached())).ToString() };
 
         inLevelUI.OverrideSetMyElement(texts, null, actions);
     }
@@ -353,7 +353,7 @@ public class UIManager : MonoBehaviour
             //new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallNextLevel },
             new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelWinWindow) },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitWin())});
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitWin(false))});
 
         inLevelWinWindow.OverrideSetMyElement(GameManager.instance.ReturnStatueName(), null, actions);
 
@@ -381,7 +381,9 @@ public class UIManager : MonoBehaviour
             inLevelLostLevelMessage,
             //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             //new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
+            //new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitReset()) },
+            new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelLostLevelMessage) },
             new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
 
         inLevelLostLevelMessage.OverrideSetMyElement(null, null, actions);
@@ -393,7 +395,8 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelExitToMapQuesiton,
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelCluster(true)) },
+            //new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelCluster(true)) },
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.OnLevelExitReset()) },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) },
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelExitToMapQuesiton) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelExitToMapQuesiton) });
@@ -487,21 +490,30 @@ public class UIManager : MonoBehaviour
         dailyRewardsWindow.OverrideSetMyElement(null, null, actions);
     }
 
-    private IEnumerator DisplayLevelCluster(bool isAnimate)
+    public IEnumerator DisplayLevelCluster(bool isAnimate)
     {
-        yield return StartCoroutine(OnGoToLevelMapLogic(isAnimate));
-
-        CloseAllCurrentScreens(); // close all screens open before going to map
 
         System.Action[] actions = DelegateAction(
             generalMapUI,
             new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
             new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks });
 
-        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnCurrentIndexInCluster() + 1)).ToString() };
+        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached() + 1)).ToString() };
+
+        generalMapUI.OverrideSetMyElement(texts, null, actions);
+
+        yield return StartCoroutine(OnGoToLevelMapLogic(isAnimate));
+
+        CloseAllCurrentScreens(); // close all screens open before going to map
+
 
         AddUIElement(generalMapUI);
 
+
+        //if(isAnimate)
+        //{
+        //    yield return new WaitForSeconds(2); // this is the time it takes to move to next level on map - for now it's hardcoded.
+        //}
         generalMapUI.OverrideSetMyElement(texts, null, actions);
     }
 

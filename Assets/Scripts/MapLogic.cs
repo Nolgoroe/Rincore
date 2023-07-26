@@ -15,6 +15,8 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private Transform ringsParent;
     [SerializeField] private float distanceBetweenRings;
     [SerializeField] private float startRingOffset;
+    [SerializeField] private float nextClusterSummonOffset;
+    [SerializeField] private float currentClusterSummonOffset;
     [SerializeField] private List<Ring> instantiatedRings;
 
     [Header("Enter Level logic")]
@@ -28,10 +30,26 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private float dragSpeedClampSpeed = 120;
     [SerializeField] private float elacitySpeed = 100;
     [SerializeField] private Transform levelCameraParent = null;
+
+    [Header("Enter Level Animation")]
     [SerializeField] private float waitMoveNextLevelTime = 2;
+    [SerializeField] private float waitMoveStartCluster = 2;
+
+    [SerializeField] private float angleIntoLevelTime = 1.5f;
     [SerializeField] private float moveNextLevelTime = 2;
+
+    [SerializeField] private float moveCameraInLevelTime = 1;
+    [SerializeField] private float moveCameraOutLevelTime = 1;
+
+    [SerializeField] private float originalClusterCameraParentPos;
+    [SerializeField] private float distanceCameraFirstRing = 29;
     [SerializeField] private float currentLevelCameraParentZPos;
 
+
+    [Header("Transition cluster Animation")]
+    [SerializeField] private float delayBetweenRings;
+    [SerializeField] private float moveZAmount;
+    [SerializeField] private float ringMoveTime;
 
     private Vector3 translation = Vector3.zero;
     private Vector2 deltaPos = Vector2.zero;
@@ -47,7 +65,7 @@ public class MapLogic : MonoBehaviour
         {
             GameObject go = Instantiate(mapRingPrefabs[i% mapRingPrefabs.Length], pos, Quaternion.identity, ringsParent);
             go.transform.localPosition = Vector3.zero;
-            pos.z = (i * distanceBetweenRings) + startRingOffset;
+            pos.z = (i * distanceBetweenRings) + startRingOffset + currentClusterSummonOffset;
             go.transform.localPosition = pos;
 
             go.TryGetComponent<Ring>(out currentRing);
@@ -71,16 +89,20 @@ public class MapLogic : MonoBehaviour
                 return;
             }
 
-            customButton.connectedLevelSO = currentLevel;
-            customButton.connectedCluster = currentCluster;
-            customButton.connectedRing = currentRing;
-            customButton.indexInCluster = i;
+            customButton.data.connectedLevelSO = currentLevel;
+            customButton.data.connectedCluster = currentCluster;
+            customButton.data.connectedRing = currentRing;
+            customButton.data.indexInCluster = i;
 
             instantiatedRings.Add(currentRing);
         }
 
 
-        ActivateSpecificRingCollider(0); //TEMP
+        // initializes the main camera's position compared to first ring created
+        // we subtract currentClusterSummonOffset since we want the camera to always be reset to it's original distance - which is where the rings will be after animations.
+        originalClusterCameraParentPos = instantiatedRings[0].transform.localPosition.z + distanceCameraFirstRing - currentClusterSummonOffset; 
+
+        ToggleSpecificRingCollider(0, true); //TEMP
     }
 
     public IEnumerator SpawnSpecificRingInCluster(int levelIndex)
@@ -119,19 +141,19 @@ public class MapLogic : MonoBehaviour
             yield break;
         }
 
-        customButton.connectedLevelSO = currentLevel;
-        customButton.connectedCluster = currentCluster;
-        customButton.connectedRing = currentRing;
-        customButton.indexInCluster = levelIndex;
+        customButton.data.connectedLevelSO = currentLevel;
+        customButton.data.connectedCluster = currentCluster;
+        customButton.data.connectedRing = currentRing;
+        customButton.data.indexInCluster = levelIndex;
 
         instantiatedRings.Insert(levelIndex, currentRing);
 
         go.transform.SetSiblingIndex(levelIndex);
     }
 
-    public void ActivateSpecificRingCollider(int index)
+    public void ToggleSpecificRingCollider(int index, bool active)
     {
-        instantiatedRings[index].levelStartCollider.enabled = true;
+        instantiatedRings[index].levelStartCollider.enabled = active;
     }
 
     private void Update()
@@ -187,17 +209,21 @@ public class MapLogic : MonoBehaviour
 
     public void FixCamPosStartLevel(int currentIndexInCluster)
     {
+        //this function sets the "IN LEVEL" camera's position so that we can clearly see the whole ring as we play
+
         currentLevelCameraParentZPos = levelCameraParent.transform.localPosition.z;
 
-        float ZPos = cameraTrailOffset * (currentIndexInCluster + 2) + cameralevelOffset; // we do +2 here since we see 3 rings in the starts, so it's index 0, 1, 2.
+        float ZPos = cameraTrailOffset * (currentIndexInCluster + 1) + distanceBetweenRings + cameralevelOffset; // we do +2 here since we see 3 rings in the starts, so it's index 0, 1, 2.
                                                                                // from this point on, every time we advance in the cluster, we will advance by ring offset (9.5 for now)
-        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, ZPos), 1.3f);
+        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, ZPos), moveCameraInLevelTime);
     }
     public IEnumerator FixCamPosEndLevel()
     {
-        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, currentLevelCameraParentZPos), 1.3f);
+        //this function sets the map camera's position to it's original pos (for this level) so that we can continue animations from there
 
-        yield return new WaitForSeconds(1.35f);
+        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, currentLevelCameraParentZPos), moveCameraOutLevelTime);
+
+        yield return new WaitForSeconds(moveCameraOutLevelTime + 0.5f);
 
         UIManager.IS_DURING_TRANSITION = false;
     }
@@ -225,6 +251,9 @@ public class MapLogic : MonoBehaviour
 
     public IEnumerator CameraTransitionNextLevel(int currentIndexInCluster)
     {
+        //this function moves the camera to a "start point" from which we can activate the enter level animation
+
+
         endPos = Vector3.zero; // we reset the map move data before manually moving.
 
         yield return new WaitForSeconds(waitMoveNextLevelTime);
@@ -237,10 +266,92 @@ public class MapLogic : MonoBehaviour
 
         GameManager.IS_IN_LEVEL = false;
 
-        if (currentIndexInCluster + 1 != currentCluster.clusterLevels.Length) //if next level in cluster is not out of bounds
+        yield return new WaitForSeconds(angleIntoLevelTime);
+        ToggleSpecificRingCollider(currentIndexInCluster, false);
+
+
+    }
+
+    public IEnumerator CameraTransitionClusterStart(bool isAtStart) 
+    {
+        //this function moves the camera to the cluster's "start point" from which we can activate the enter first level animation
+
+        endPos = Vector3.zero; // we reset the map move data before manually moving.
+
+        if(!isAtStart)
         {
-            yield return new WaitForSeconds(moveNextLevelTime);
-            ActivateSpecificRingCollider(currentIndexInCluster + 1);
+            yield return new WaitForSeconds(waitMoveStartCluster);
+        }
+
+        float ZPos = originalClusterCameraParentPos;
+
+        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
+
+        GameManager.IS_IN_LEVEL = false;
+
+        yield return new WaitForSeconds(angleIntoLevelTime);
+    }
+
+
+
+    public void ResetMapData()
+    {
+        instantiatedRings.Clear();
+    }
+
+    public void CallClusterTransfer(ClusterSO newCluster)
+    {
+        StartCoroutine(ClusterTransfer(newCluster));
+    }
+
+    private IEnumerator ClusterTransfer(ClusterSO newCluster)
+    {
+        yield return StartCoroutine(MoveRings(true)); // move current rings
+
+        currentClusterSummonOffset = nextClusterSummonOffset;
+
+        ResetMapData();
+
+        yield return new WaitForEndOfFrame();
+
+        InitMapLogic(newCluster); // summon new tings with offset
+
+        yield return new WaitForEndOfFrame();
+
+
+        currentClusterSummonOffset = 0; // reset offset for next time
+
+        yield return StartCoroutine(MoveRings(false)); // move new rings
+    }
+
+    private IEnumerator MoveRings(bool destroyAtEnd)
+    {
+        for (int i = 0; i < instantiatedRings.Count; i++)
+        {
+            GameObject go = instantiatedRings[i].gameObject;
+
+            LeanTween.move(go,
+                new Vector3(go.transform.position.x,
+                go.transform.position.y,
+                go.transform.position.z + moveZAmount),
+                ringMoveTime)
+                .setEase(LeanTweenType.easeInCubic)
+                .setOnComplete(() => AtEndMove(go, destroyAtEnd));
+            yield return new WaitForSeconds(delayBetweenRings);
         }
     }
+
+    private void AtEndMove(GameObject ring, bool destroyAtEnd)
+    {
+        if (destroyAtEnd)
+        {
+            Destroy(ring.gameObject);
+        }
+    }
+
+    /**/
+    // GETTERS!
+    /**/
+
+    public List<Ring> publicInstantiatedRings => instantiatedRings;
 }
