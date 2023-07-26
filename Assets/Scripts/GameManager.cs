@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ClusterSO currentClusterSO;
     [SerializeField] private int currentIndexInCluster;
     [SerializeField] private int currentMaxLevelReached;
+    [SerializeField] private int currentMaxClusterReached;
 
     //[SerializeField] private Transform levelCameraParent = null;
     [SerializeField] private Transform levelDecksParent = null;
@@ -534,7 +535,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator OnLevelExitWin(bool isClusterEnd)
     {
-        StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
+        yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
         gameRing.ClearActions();
         ClearLevelActions();
@@ -639,7 +640,6 @@ public class GameManager : MonoBehaviour
 
 
 
-
         int nextClusterIndex = currentClusterSO.clusterID + 1;
 
         if(nextClusterIndex >= allClusters.Length)
@@ -647,6 +647,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No next cluster!");
             yield break;
         }
+
+        currentMaxClusterReached = nextClusterIndex;
 
         currentClusterSO = allClusters[nextClusterIndex];
 

@@ -1435,6 +1435,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentClusterSO: {fileID: 11400000, guid: 623b466e0d8cda44f8c7cf335a282684, type: 2}
   currentIndexInCluster: 0
+  currentMaxLevelReached: 0
+  currentMaxClusterReached: 0
   levelDecksParent: {fileID: 1454515671}
   cameraAnimatorController: {fileID: 68747135}
   clipAnimatorController: {fileID: 1759698116}
@@ -2904,6 +2906,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2177450032102811066}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1152870907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1152870908}
+  - component: {fileID: 1152870909}
+  m_Layer: 0
+  m_Name: Fps counter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1152870908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152870907}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1597827925}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1152870909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152870907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48965c3abe3507c408a5e66b028d2a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateInterval: 0.5
+  posX: 100
+  posY: 2250
+  sizex: 150
+  sizeY: 100
+  fontSize: 25
 --- !u!1 &1153811988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4042,6 +4094,7 @@ Transform:
   - {fileID: 1599497383}
   - {fileID: 394263544}
   - {fileID: 227520772}
+  - {fileID: 1152870908}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4688,6 +4741,7 @@ MonoBehaviour:
   moveCameraInLevelTime: 1
   moveCameraOutLevelTime: 1
   originalClusterCameraParentPos: 0
+  distanceCameraFirstRing: 29
   currentLevelCameraParentZPos: 0
   delayBetweenRings: 0.2
   moveZAmount: -40
