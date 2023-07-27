@@ -329,7 +329,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0, b: 0.8291087, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -3604,13 +3604,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 749ef5803725c9b4f8b5812a0f0f469e, type: 2}
   ownedPowerups:
   - powerType: 0
-    amount: 3
+    amount: 30
   - powerType: 1
-    amount: 3
+    amount: 30
   - powerType: 2
-    amount: 3
+    amount: 30
   - powerType: 3
-    amount: 3
+    amount: 30
   unlockedPowerups: 00000000010000000200000003000000
   potionPositions:
   - {fileID: 836303165}

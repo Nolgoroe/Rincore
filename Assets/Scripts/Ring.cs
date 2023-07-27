@@ -26,6 +26,11 @@ public class Ring : MonoBehaviour
 
     [SerializeField] private SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
 
+
+
+    [Header("Inspector Actions")]
+    public GameObject tilePrefab;
+
     public void InitRing()
     {
         onAddTile += ChangeCellCountAndConnectionDataOnRemove;
@@ -176,4 +181,21 @@ public class Ring : MonoBehaviour
 
     }
 
+    [ContextMenu("Auto summon cell tiles")]
+    private void AutoSummonCellTiles()
+    {
+        foreach (var cell in ringCells)
+        {
+            GameObject go = Instantiate(tilePrefab, cell.transform);
+        }
+    }
+
+    [ContextMenu("Auto Destroy cell tiles")]
+    private void AutoDestroyCellTiles()
+    {
+        foreach (var cell in ringCells)
+        {
+            Destroy(cell.transform.GetChild(0).gameObject);
+        }
+    }
 }

@@ -8,6 +8,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 
     public Slice leftSlice, rightSlice;
 
+    public ImageSwapHelper connectVFXLeft, connectVFXRight;
+
     // by default when we put a tile and there is no contested tile - it will be considered a "bad" connection
     // to prevent hightlights of "good connections".
     [SerializeField] private bool goodConnectLeft, goodConnectRight;
@@ -41,11 +43,13 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         if (leftCell.heldTile)
         {
             heldTile.SetSubtilesConnectedGFX(false, heldTile.subTileLeft, leftCell.heldTile.subTileRight);
+            connectVFXLeft.gameObject.SetActive(false);
         }
 
         if (rightCell.heldTile)
         {
             heldTile.SetSubtilesConnectedGFX(false, heldTile.subTileRight, rightCell.heldTile.subTileLeft);
+            connectVFXRight.gameObject.SetActive(false);
         }
     }
 
@@ -61,6 +65,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 
         if (leftCell.heldTile)
         {
+            connectVFXLeft.gameObject.SetActive(true);
+
             good = leftSlice.sliceData.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
             if (!good)
             {
@@ -70,9 +76,15 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 
             SetConnectDataOnPlace(good, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
         }
+        else
+        {
+            connectVFXLeft.gameObject.SetActive(false);
+        }
 
         if (rightCell.heldTile)
         {
+            connectVFXRight.gameObject.SetActive(true);
+
             good = rightSlice.sliceData.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
             if (!good)
             {
@@ -81,6 +93,10 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             }
 
             SetConnectDataOnPlace(good, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);     
+        }
+        else
+        {
+            connectVFXRight.gameObject.SetActive(false);
         }
     }
 
@@ -98,6 +114,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             {
                 leftCell.amountUnsuccessfullConnections++;
             }
+
         }
         else
         {
@@ -111,11 +128,43 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             }
         }
 
+
+        SetConnectionVFX(isGood, isLeft);
+
         if (isGood)
         {
             mySlice.sliceData.onGoodConnectionActions?.Invoke();
         }
     }
+
+    private void SetConnectionVFX(bool isGood, bool isLeft)
+    {
+        if(isLeft)
+        {
+            if (isGood)
+            {
+                connectVFXLeft.SetActivatedChild(); // set as good connection
+            }
+            else
+            {
+                connectVFXLeft.SetDeActivatedChild(); // set as bad connection
+            }
+
+        }
+        else
+        {
+            if (isGood)
+            {
+                connectVFXRight.SetActivatedChild(); // set as good connection
+            }
+            else
+            {
+                connectVFXRight.SetDeActivatedChild(); // set as bad connection
+            }
+
+        }
+    }
+
     private void SetConnectDataOnRemove(bool isGood, bool isLeft, SubTileData mySubtile, SubTileData contestedSubTile, Slice mySlice)
     {
         if (isLeft)
@@ -238,10 +287,6 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 
         if (isLocked)
         {
-            isLocked = false; // the one i'm in currently is not locked anymore - this will be true if when we place this tile again it's connected well with a limiter
-            leftCell.SetAsLocked(leftCell.CheckIsLockedLeft()); // we check if the right and left cells should stay locked
-            rightCell.SetAsLocked(rightCell.CheckIsLockedRight()); // we check if the right and left cells should stay locked
-
             //current cell data
             if (leftSlice.isLock)
             {
@@ -252,6 +297,11 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             {
                 rightSlice.DoLockAnim(false);
             }
+
+            isLocked = false; // the one i'm in currently is not locked anymore - this will be true if when we place this tile again it's connected well with a limiter
+            leftCell.SetAsLocked(leftCell.CheckIsLockedLeft()); // we check if the right and left cells should stay locked
+            rightCell.SetAsLocked(rightCell.CheckIsLockedRight()); // we check if the right and left cells should stay locked
+
         }
     }
 
@@ -324,15 +374,5 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         amountUnsuccessfullConnections = 0;
 
         Destroy(heldTemp.gameObject);
-
-        if (leftSlice.isLock)
-        {
-            leftSlice.DoLockAnim(false);
-        }
-
-        if (rightSlice.isLock)
-        {
-            rightSlice.DoLockAnim(false);
-        }
     }
 }

@@ -92,11 +92,13 @@ public class Slice : MonoBehaviour, IPowerUsable
 
         if(isLock)
         {
-            lockIconAnim.SetTrigger("LockNow");
+            lockIconAnim.SetTrigger("Lock Now");
+            lockIconAnim.ResetTrigger("Unlock Now");
         }
         else
         {
             lockIconAnim.SetTrigger("Unlock Now");
+            lockIconAnim.ResetTrigger("Lock Now");
         }
     }
 

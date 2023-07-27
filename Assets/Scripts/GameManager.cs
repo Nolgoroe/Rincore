@@ -615,8 +615,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InitClusterTransfer()
     {
-
-
         ClearLevelActions();
         gameRing.ClearActions();
 
@@ -654,6 +652,9 @@ public class GameManager : MonoBehaviour
 
         mapLogic.CallClusterTransfer(allClusters[nextClusterIndex]);
     }
+
+
+
     /**/
     // GETTERS!
     /**/

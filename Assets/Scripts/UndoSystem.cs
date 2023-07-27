@@ -108,9 +108,9 @@ public class UndoSystem : MonoBehaviour
 
     public void RemoveSpecificEntryTile(TileParentLogic tile)
     {
-        UndoEntry entry = undoEntries.Where(i => i.movedTile == tile).SingleOrDefault();
+        //List<UndoEntry> entries = undoEntries.Where(i => i.movedTile == tile).ToList();
 
-        undoEntries.Remove(entry);
+        undoEntries.RemoveAll(i => i.movedTile == tile);
     }
 
     public void AddNewUndoEntry(Transform originalParent, Transform currentParent, TileParentLogic piece)
