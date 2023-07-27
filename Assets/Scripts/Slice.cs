@@ -30,7 +30,7 @@ public class Slice : MonoBehaviour, IPowerUsable
 
     [Header("temp here?")]
     //TEMP - will maybe change to lock sprite animation.
-    [SerializeField] private SpriteRenderer midIcon;
+    [SerializeField] private Animator lockIconAnim;
 
     public void InitSlice(ConditonsData data, SliceConditionsEnums type, SubTileSymbol symbol, SubTileColor color, CellBase _sameIndexCell, CellBase _leftNeighborCell,  bool _isLock)
     {
@@ -52,9 +52,9 @@ public class Slice : MonoBehaviour, IPowerUsable
         requiredSymbol = SubTileSymbol.NoShape;
         requiredColor = SubTileColor.NoColor;
 
-        if (midIcon.gameObject.activeInHierarchy) // TEMP
+        if (lockIconAnim.gameObject.activeInHierarchy) // TEMP
         {
-            midIcon.gameObject.SetActive(false);
+            lockIconAnim.gameObject.SetActive(false);
         }
 
         InitSlice(sliceData, connectionType, requiredSymbol, requiredColor, sameIndexCell, leftNeighborCell, false);
@@ -81,8 +81,23 @@ public class Slice : MonoBehaviour, IPowerUsable
 
     public void SetMidSprite(Sprite sprite)
     {
-        midIcon.sprite = sprite;
-        midIcon.gameObject.SetActive(true);
+        //lockIcon.sprite = sprite;
+
+        lockIconAnim.gameObject.SetActive(true);
+    }
+
+    public void DoLockAnim(bool isLock)
+    {
+        Debug.Log("Am in here");
+
+        if(isLock)
+        {
+            lockIconAnim.SetTrigger("LockNow");
+        }
+        else
+        {
+            lockIconAnim.SetTrigger("Unlock Now");
+        }
     }
 
     public bool CheckHasSliceData()

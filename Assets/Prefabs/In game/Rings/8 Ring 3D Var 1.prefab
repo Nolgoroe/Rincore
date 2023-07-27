@@ -507,8 +507,8 @@ MonoBehaviour:
     slicePossibleTextures:
     - {fileID: 2800000, guid: 8e652200d76ddfd43b4cf942975f6914, type: 3}
     - {fileID: 2800000, guid: 0de728c842c472f45828a1325d6e98de, type: 3}
-    - {fileID: 2800000, guid: 8edfe46888c5b8d409f3af30e3528afd, type: 3}
-    - {fileID: 2800000, guid: 3c643b4d161a071498b58ee7a289a075, type: 3}
+    - {fileID: 2800000, guid: 8ab9a2c39b08ab247a8073df8c4c445d, type: 3}
+    - {fileID: 2800000, guid: 84c0c56edae89134dba1e167c3192cd2, type: 3}
     - {fileID: 2800000, guid: e5e35e69a54455a48b643b6bba3f4b99, type: 3}
   - sliceEnum: 4
     sliceMesh:
@@ -608,10 +608,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isUseOnce: 1
-  connectedLevelSO: {fileID: 11400000, guid: 2252b973e6cdd544f95352cb822b2fda, type: 2}
-  connectedCluster: {fileID: 11400000, guid: 623b466e0d8cda44f8c7cf335a282684, type: 2}
-  connectedRing: {fileID: 0}
-  indexInCluster: 0
+  data:
+    connectedLevelSO: {fileID: 0}
+    connectedCluster: {fileID: 0}
+    connectedRing: {fileID: 0}
+    indexInCluster: 0
 --- !u!1001 &527716427722208911
 PrefabInstance:
   m_ObjectHideFlags: 0

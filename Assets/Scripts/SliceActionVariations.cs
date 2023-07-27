@@ -7,13 +7,14 @@ public class SliceActionVariations : ScriptableObject
 {
     [SerializeField] private Sprite lockSprite;
 
-    public void SetOnConnectEventsSlice(ConditonsData sliceConnectionData, sliceToSpawnDataStruct sliceData, CellBase sameIndexCell, CellBase leftNeighborCell, int spawnIndex)
+    public void SetOnConnectEventsSlice(ConditonsData sliceConnectionData, sliceToSpawnDataStruct sliceData, CellBase sameIndexCell, CellBase leftNeighborCell, Slice slice)
     {
         if (sliceData.isLock)
         {
             sliceConnectionData.onGoodConnectionActions += () => sameIndexCell.SetAsLocked(true);
             sliceConnectionData.onGoodConnectionActions += () => leftNeighborCell.SetAsLocked(true);
-            MapLogic.currentRing.ringSlices[spawnIndex].SetMidSprite(lockSprite); // this is called on system init - when we start the map, each ring uses this the "current" ring we're summoning and it's info. DO NOT TOUCH!
+            sliceConnectionData.onGoodConnectionActions += () => slice.DoLockAnim(true);
+            slice.SetMidSprite(lockSprite); // this is called on system init - when we start the map, each ring uses this the "current" ring we're summoning and it's info. DO NOT TOUCH!
         }
     }
 

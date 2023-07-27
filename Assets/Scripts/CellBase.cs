@@ -241,6 +241,17 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             isLocked = false; // the one i'm in currently is not locked anymore - this will be true if when we place this tile again it's connected well with a limiter
             leftCell.SetAsLocked(leftCell.CheckIsLockedLeft()); // we check if the right and left cells should stay locked
             rightCell.SetAsLocked(rightCell.CheckIsLockedRight()); // we check if the right and left cells should stay locked
+
+            //current cell data
+            if (leftSlice.isLock)
+            {
+                leftSlice.DoLockAnim(false);
+            }
+
+            if (rightSlice.isLock)
+            {
+                rightSlice.DoLockAnim(false);
+            }
         }
     }
 
@@ -313,5 +324,15 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         amountUnsuccessfullConnections = 0;
 
         Destroy(heldTemp.gameObject);
+
+        if (leftSlice.isLock)
+        {
+            leftSlice.DoLockAnim(false);
+        }
+
+        if (rightSlice.isLock)
+        {
+            rightSlice.DoLockAnim(false);
+        }
     }
 }

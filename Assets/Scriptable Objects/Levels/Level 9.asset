@@ -60,25 +60,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 000000000100000002000000
-  levelAvailablesymbols: 0000000003000000
+  levelAvailableColors: 010000000200000004000000
+  levelAvailablesymbols: 0100000003000000
   isRandomSlicePositions: 1
+  isLevelColorOnly: 0
   slicesToSpawn:
-  - sliceToSpawn: 2
+  - sliceToSpawn: 3
     onConnectionEvents:
       m_PersistentCalls:
         m_Calls: []
-    specificSliceIndex: 1
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 5
-    specificSlicesColor: 0
+    specificSliceIndex: 2
+    specificSlicesColor: 4
     specificSlicesShape: 0
     isLock: 1
     RandomSliceValues: 0

@@ -60,28 +60,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 000000000200000004000000
-  levelAvailablesymbols: 0000000002000000
+  levelAvailableColors: 0100000002000000
+  levelAvailablesymbols: 05000000
   isRandomSlicePositions: 1
-  slicesToSpawn:
-  - sliceToSpawn: 1
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 1
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 1
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 5
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
+  isLevelColorOnly: 1
+  slicesToSpawn: []
   powerupsForLevel: 
   stoneTiles: []
   arrayOfSpecificTilesInClip: []

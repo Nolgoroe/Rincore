@@ -25,49 +25,81 @@ public class LevelActions : ScriptableObject
         currentRing = MapLogic.currentRing;
     }
 
-    public void SummonStoneTiles()
+    public void SummonStoneTiles() //predetermined tiles on board
     {
-        SubTileColor[] availableColors = new SubTileColor[] { SubTileColor.Stone };
+        SubTileColor[] availableColors = null;
+
+        Tiletype type;
+
 
         foreach (stoneTileDataStruct stoneTile in currentLevel.stoneTiles)
         {
+
+            if (stoneTile.isStone)
+            {
+                availableColors = new SubTileColor[] { SubTileColor.Stone };
+
+                type = returnTileTypeStone();
+            }
+            else
+            {
+                availableColors = currentLevel.levelAvailableColors;
+
+                type = Tiletype.Normal;
+            }
+
             Tile tile = null;
 
             if (stoneTile.randomValues)
             {
-                tile = tileCreatorPreset.CreateTile(returnTileTypeStone(), currentLevel.levelAvailablesymbols, availableColors);
+                tile = tileCreatorPreset.CreateTile(type, currentLevel.levelAvailablesymbols, availableColors);
             }
             else
             {
-                tile = tileCreatorPreset.CreateTile(returnTileTypeStone(), stoneTile.leftTileSymbol, stoneTile.rightTileSymbol, SubTileColor.Stone, SubTileColor.Stone);
+                tile = tileCreatorPreset.CreateTile(type, stoneTile.leftTileSymbol, stoneTile.rightTileSymbol, stoneTile.leftTileColor, stoneTile.rightTileColor);
             }
 
-            if(!tile)
+            if (!tile)
             {
                 Debug.LogError("Problem with stone tiles");
                 return;
             }
             tile.transform.localPosition = currentRing.transform.localPosition;
-            currentRing.SpawnStoneTileInCell(stoneTile.cellIndex, tile, true);
+            currentRing.SpawnStoneTileInCell(stoneTile.cellIndex, tile, stoneTile.isStone);
         }
     }
 
     public void SummonSlices()
     {
+        CheckSetDefaultSliceConditions();
+
         tempIndexArray = new List<int>();
 
         currentSummonIndex = -1;
 
         List<sliceToSpawnDataStruct> allSlices = currentLevel.slicesToSpawn.ToList();
 
+        if (allSlices.Count == 0) return;
+
+
         ringSlicesList = new List<Slice>();
         ringSlicesList.AddRange(currentRing.ringSlices);
 
 
-        // first summon is always random on ring
-        currentSummonIndex = Random.Range(0, ringSlicesList.Count);
-        tempIndexArray.Add(currentSummonIndex);
-        ringSlicesList.Remove(currentRing.ringSlices[currentSummonIndex]);
+
+        if (!currentLevel.isRandomSlicePositions)
+        {
+            // take the first slice data
+            currentSummonIndex = allSlices[0].specificSliceIndex;
+            tempIndexArray.Add(currentSummonIndex);
+            ringSlicesList.Remove(currentRing.ringSlices[currentSummonIndex]);
+        }
+        else
+        {
+            currentSummonIndex = Random.Range(0, ringSlicesList.Count);
+            tempIndexArray.Add(currentSummonIndex);
+            ringSlicesList.Remove(currentRing.ringSlices[currentSummonIndex]);
+        }
 
         // this for takes care of deciding indexes for slices
         // start at index k = 1 since we already summoned first slice
@@ -87,7 +119,6 @@ public class LevelActions : ScriptableObject
                     currentSummonIndex -= currentRing.ringSlices.Length;
                 }
             }
-
 
             tempIndexArray.Add(currentSummonIndex);
 
@@ -180,7 +211,7 @@ public class LevelActions : ScriptableObject
 
             sameIndexCell.leftSlice.sliceData.onGoodConnectionActions += () => currentLevelTemp.slicesToSpawn[tempInt].onConnectionEvents?.Invoke();
 
-            sliceActions.SetOnConnectEventsSlice(sliceConnectionData, allSlices[i], sameIndexCell, leftNeighborCell, tempIndexArray[i]);
+            sliceActions.SetOnConnectEventsSlice(sliceConnectionData, allSlices[i], sameIndexCell, leftNeighborCell, sameIndexCell.leftSlice);
 
             currentRing.ringSlices[tempIndexArray[i]].InitSlice(sliceConnectionData, allSlices[i].sliceToSpawn, symbol, color, sameIndexCell, leftNeighborCell, allSlices[i].isLock);
 
@@ -191,6 +222,21 @@ public class LevelActions : ScriptableObject
         }
     }
     
+    private void CheckSetDefaultSliceConditions()
+    {
+        if (currentLevel.isLevelColorOnly)
+        {
+            // make sure the default of all is color connection
+            ConditonsData sliceConnectionData = null;
+            sliceConnectionData = new GeneralColorCondition();
+
+            foreach (var slice in currentRing.ringSlices)
+            {
+                slice.sliceData = sliceConnectionData;
+            }
+        }
+    }
+
     private CellBase GetLeftOfCell(int index)
     {
         index -= 1;

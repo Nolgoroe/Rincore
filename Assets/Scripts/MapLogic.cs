@@ -18,6 +18,10 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private float nextClusterSummonOffset;
     [SerializeField] private float currentClusterSummonOffset;
     [SerializeField] private List<Ring> instantiatedRings;
+    [SerializeField] private List<GameObject> allTreeVariants;
+    private List<GameObject> currentTreeVariantsSummoned;
+
+
 
     [Header("Enter Level logic")]
     [SerializeField] private float cameraTrailOffset;
@@ -37,7 +41,7 @@ public class MapLogic : MonoBehaviour
 
     [SerializeField] private float angleIntoLevelTime = 1.5f;
     [SerializeField] private float moveNextLevelTime = 2;
-
+ 
     [SerializeField] private float moveCameraInLevelTime = 1;
     [SerializeField] private float moveCameraOutLevelTime = 1;
 
@@ -57,6 +61,9 @@ public class MapLogic : MonoBehaviour
 
     public void InitMapLogic(ClusterSO cluster)
     {
+        currentTreeVariantsSummoned = new List<GameObject>();
+        currentTreeVariantsSummoned.AddRange(allTreeVariants);
+
         currentCluster = cluster;
 
         Vector3 pos = Vector3.zero;
@@ -95,6 +102,8 @@ public class MapLogic : MonoBehaviour
             customButton.data.indexInCluster = i;
 
             instantiatedRings.Add(currentRing);
+
+            SummonTreeVariant(go.transform);
         }
 
 
@@ -349,6 +358,14 @@ public class MapLogic : MonoBehaviour
         }
     }
 
+    private void SummonTreeVariant(Transform parent)
+    {
+        int index = Random.Range(0, currentTreeVariantsSummoned.Count);
+
+        GameObject go = Instantiate(currentTreeVariantsSummoned[index], parent);
+
+        currentTreeVariantsSummoned.RemoveAt(index);
+    }
     /**/
     // GETTERS!
     /**/

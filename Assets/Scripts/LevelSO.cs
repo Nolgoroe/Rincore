@@ -33,8 +33,11 @@ public class stoneTileDataStruct
 {
     public int cellIndex;
     public bool randomValues;
+    public bool isStone;
     public SubTileSymbol rightTileSymbol;
     public SubTileSymbol leftTileSymbol;
+    public SubTileColor rightTileColor;
+    public SubTileColor leftTileColor;
 }
 
 [CreateAssetMenu(fileName = "Level", menuName ="ScriptableObjects/Create Level")]
@@ -55,6 +58,7 @@ public class LevelSO : ScriptableObject
 
     [Header("Slices")]
     public bool isRandomSlicePositions;
+    public bool isLevelColorOnly;
     //public bool allowRepeatSlices;
     public sliceToSpawnDataStruct[] slicesToSpawn;
 

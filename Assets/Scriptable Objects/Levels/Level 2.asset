@@ -60,19 +60,60 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 000000000100000002000000
-  levelAvailablesymbols: 0000000001000000
+  levelAvailableColors: 000000000300000004000000
+  levelAvailablesymbols: 05000000
   isRandomSlicePositions: 1
-  slicesToSpawn:
-  - sliceToSpawn: 3
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 2
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 1
+  isLevelColorOnly: 1
+  slicesToSpawn: []
   powerupsForLevel: 
-  stoneTiles: []
+  stoneTiles:
+  - cellIndex: 0
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 5
+    leftTileSymbol: 5
+    rightTileColor: 4
+    leftTileColor: 4
+  - cellIndex: 1
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 5
+    leftTileSymbol: 5
+    rightTileColor: 4
+    leftTileColor: 3
+  - cellIndex: 2
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 5
+    leftTileSymbol: 5
+    rightTileColor: 0
+    leftTileColor: 0
+  - cellIndex: 3
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 5
+    leftTileSymbol: 5
+    rightTileColor: 0
+    leftTileColor: 4
+  - cellIndex: 5
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 5
+    leftTileSymbol: 5
+    rightTileColor: 4
+    leftTileColor: 0
+  - cellIndex: 6
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 5
+    leftTileSymbol: 5
+    rightTileColor: 3
+    leftTileColor: 3
+  - cellIndex: 7
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 5
+    leftTileSymbol: 5
+    rightTileColor: 3
+    leftTileColor: 4
   arrayOfSpecificTilesInClip: []

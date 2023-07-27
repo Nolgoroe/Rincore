@@ -52,8 +52,9 @@ MonoBehaviour:
   requiredColor: 6
   sameIndexCell: {fileID: 0}
   leftNeighborCell: {fileID: 0}
+  isLock: 0
   connectedDisplay: {fileID: 0}
-  midIcon: {fileID: 5066739072187867003}
+  lockIconAnim: {fileID: 8048263533783476814}
 --- !u!64 &2611655226303025996
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -110,6 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5416401202178820584}
   - component: {fileID: 5066739072187867003}
+  - component: {fileID: 8048263533783476814}
   m_Layer: 0
   m_Name: Lock Sprite
   m_TagString: Untagged
@@ -125,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5469520590710225909}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.622, z: 0.7}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.7}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -173,7 +175,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 974674505, guid: 4da6e3555e4417d46857f780b0322f9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -184,3 +186,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8048263533783476814
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5469520590710225909}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 574964f49bfa1434db545d1871a52cb5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
