@@ -43,7 +43,7 @@ MonoBehaviour:
     width: 3072
     height: 1654.4
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Scene
   m_RootView: {fileID: 5}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 8096}
   vertical: 0
-  controlID: 9687
+  controlID: 74
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 7867
+  controlID: 97
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 7868
+  controlID: 83
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 7994
+  controlID: 84
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -385,7 +385,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 1438fcff6e3efcff4a89fcffae89fcffea89fcff268afcffce8afcff588cfcff0099fcffa4a3fcffa884ffffaa84fffffcf7ffff10f8ffff24f8ffff38f8ffff4cf8ffff60f8ffff74f8ffff88f8ffff9cf8ffffb0f8ffffc4f8ffffd8f8ffffecf8ffff00f9ffff14f9ffffbcf9ffff2efbffff807000001a710000327100009c720000e2720000
+      m_ExpandedIDs: 78f8ffff80f9ffff2efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -635,9 +635,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -4.184, y: 0.90756524, z: 12.826}
+    m_Target: {x: -0.9397173, y: 0.84448695, z: 2.907832}
     speed: 2
-    m_Value: {x: -4.184, y: 0.90756524, z: 12.826}
+    m_Value: {x: -0.9397173, y: 0.84448695, z: 2.907832}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -684,13 +684,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.27338186, y: 0.0048968745, z: -0.0013487559, w: -0.96193314}
+    m_Target: {x: -0.120896034, y: 0.84693265, z: -0.21742322, w: -0.4700307}
     speed: 2
-    m_Value: {x: -0.27192795, y: 0.0048987, z: -0.0013413551, w: -0.9623043}
+    m_Value: {x: -0.119909674, y: 0.8489915, z: -0.21795282, w: -0.46618858}
   m_Size:
-    m_Target: 26.55219
+    m_Target: 14.802458
     speed: 2
-    m_Value: 26.501284
+    m_Value: 14.351085
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -757,22 +757,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Art/3D/Tamir/NEW
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Art/3D/Tamir/NEW
   m_LastFoldersGridSize: 96
   m_LastProjectPath: A:\_Projects_\Tiltan\CloverBite\Ringers_Core\Rincore
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f27a0000
-    m_LastClickedID: 31474
-    m_ExpandedIDs: 00000000867800008a7800008c7800008e780000b87a0000187b0000
+    m_SelectedIDs: 607b0000
+    m_LastClickedID: 31584
+    m_ExpandedIDs: 00000000e2780000e4780000e6780000e8780000ea780000ec780000907a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -800,7 +800,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000086780000887800008a7800008c7800008e780000
+    m_ExpandedIDs: 00000000e2780000e4780000e6780000e8780000ea780000ec780000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -950,6 +950,7 @@ MonoBehaviour:
     m_KeySerializationHelper:
     - {fileID: -8918356334635822198, guid: 1444783e15e878f48915adf26f76176f, type: 2}
     - {fileID: -1724446243484915840, guid: 7c1fd124dc12cb14996264547c61adb8, type: 2}
+    - {fileID: -6333581549558867500, guid: 0839e6f3ab78b8844a261d7902ede6de, type: 2}
     m_ValueSerializationHelper:
     - e00: 1
       e01: 0
@@ -975,6 +976,22 @@ MonoBehaviour:
       e11: 1
       e12: 0
       e13: -80
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
       e20: 0
       e21: 0
       e22: 1
