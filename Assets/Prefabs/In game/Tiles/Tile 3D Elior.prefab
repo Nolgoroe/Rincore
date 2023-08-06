@@ -132,10 +132,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subTileLeft:
+    isRight: 0
     subTileSymbol: 4
     subTileColor: 6
     subtileMesh: {fileID: 7154128490506219288}
   subTileRight:
+    isRight: 1
     subTileSymbol: 4
     subTileColor: 6
     subtileMesh: {fileID: 6514504566280008230}

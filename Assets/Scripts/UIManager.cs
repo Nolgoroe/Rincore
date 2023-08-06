@@ -307,7 +307,8 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 2, action = SoundManager.instance.ToggleSFX }, //SFX icon level
             new ButtonActionIndexPair { index = 3, action = DisplayInLevelExitToMapQuestion }, //to level map icon
             new ButtonActionIndexPair { index = 4, action = GameManager.TestButtonDelegationWorks }, //shop button
-            new ButtonActionIndexPair { index = 5, action = UndoSystem.instance.CallUndoAction }); //restart button
+            new ButtonActionIndexPair { index = 5, action = GameManager.gameClip.CallDealAction}, //deal button
+            new ButtonActionIndexPair { index = 6, action = UndoSystem.instance.CallUndoAction }); //restart button
 
         string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached())).ToString() };
 

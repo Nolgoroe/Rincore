@@ -419,22 +419,22 @@ public class InLevelUserControls : MonoBehaviour
         currentTileToMove = null;
         tileOriginalHolder = null;
 
-        CheckDoDeal();
+        //CheckDoDeal();
     }
     private void ReleasePotionData()
     {
         PowerupManager.instance.ResetPowerUpData();
     }
 
-    private void CheckDoDeal()
-    {
-        RaycastHit intersection = GetFirstIntersection3D(touchPos, dealLayer);
+    //private void CheckDoDeal()
+    //{
+    //    RaycastHit intersection = GetFirstIntersection3D(touchPos, dealLayer);
 
-        if(intersection.transform)
-        {
-            gameClip.CallDealAction();
-        }
-    }
+    //    if(intersection.transform)
+    //    {
+    //        gameClip.CallDealAction();
+    //    }
+    //}
 
     private Vector3 TargetPosOffset()
     {

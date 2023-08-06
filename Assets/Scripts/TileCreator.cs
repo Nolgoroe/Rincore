@@ -38,10 +38,17 @@ public enum Ringtype
 }
 
 [System.Serializable]
+public class TextureHolder
+{
+
+}
+
+[System.Serializable]
 public class ColorsAndMats
 {
     public SubTileColor matColor;
-    public Texture[] colorTex;
+    public Texture[] colorTexLeft;
+    public Texture[] colorTexRight;
 }
 
 [System.Serializable]
@@ -140,20 +147,51 @@ public class TileCreator : ScriptableObject
         switch (tileType)
         {
             case Tiletype.Normal:
-                colorSymbolTexture = colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                if(tileData.isRight)
+                {
+                    colorSymbolTexture = colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    colorSymbolTexture = colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
                 //connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Normal12:
-                colorSymbolTexture = colorsToMats12[(int)tileColor].colorTex[(int)tileSymbol];
+                if (tileData.isRight)
+                {
+                    colorSymbolTexture = colorsToMats12[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    colorSymbolTexture = colorsToMats12[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
+
                 //connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Corrupted8:
-                colorSymbolTexture = colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                if (tileData.isRight)
+                {
+                    colorSymbolTexture = colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    colorSymbolTexture = colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
+
                 //connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Corrupted12:
-                colorSymbolTexture = colorsToMats12[(int)tileColor].colorTex[(int)tileSymbol];
-               // connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
+                if (tileData.isRight)
+                {
+                    colorSymbolTexture = colorsToMats12[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    colorSymbolTexture = colorsToMats12[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
+
+                // connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.NoType:
                 break;
@@ -169,19 +207,19 @@ public class TileCreator : ScriptableObject
         switch (tileColor)
         {
             case SubTileColor.Blue:
-                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
             case SubTileColor.Green:
-                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
             case SubTileColor.Orange:
-                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
             case SubTileColor.Pink:
-                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
             case SubTileColor.Yellow:
-                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
             case SubTileColor.Stone:
-                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
             case SubTileColor.NoColor:
-                return colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
             case SubTileColor.Joker:
                 return jokerTex;
             default:

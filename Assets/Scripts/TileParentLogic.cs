@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class SubTileData
 {
+    public bool isRight;
     public SubTileSymbol subTileSymbol;
     public SubTileColor subTileColor;
     public MeshRenderer subtileMesh;
