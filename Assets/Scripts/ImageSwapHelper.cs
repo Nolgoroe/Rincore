@@ -16,7 +16,6 @@ public class ImageSwapHelper : MonoBehaviour
     {
         TryGetComponent<SpriteRenderer>(out connectedRenderer);
         TryGetComponent<Image>(out connectedImage);
-
     }
 
     public void SetActivatedChild()

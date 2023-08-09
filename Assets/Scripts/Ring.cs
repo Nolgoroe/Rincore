@@ -12,6 +12,9 @@ public class SliceSpriteSetter
 }
 public class Ring : MonoBehaviour
 {
+    public static Animator currentLeadingAnimator;
+
+
     public CellBase[] ringCells;
     public Slice[] ringSlices;
     public BoxCollider levelStartCollider;
@@ -196,6 +199,14 @@ public class Ring : MonoBehaviour
         foreach (var cell in ringCells)
         {
             Destroy(cell.transform.GetChild(0).gameObject);
+        }
+    }
+
+    public void CheckUpdateLeadingConnectionAnimator(Animator anim)
+    {
+        if(currentLeadingAnimator == null)
+        {
+            currentLeadingAnimator = anim;
         }
     }
 }

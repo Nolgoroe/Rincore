@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
     {
 
         GameAnalytics.NewDesignEvent("Testing GA 1", 0);
-        GameAnalytics.NewProgressionEvent (GAProgressionStatus.Start, "World1", "Level: " + currentLevel.levelNumInZone.ToString());
 
         //first clean all subscribes if there are any.
         endLevelActions?.Invoke();
@@ -151,6 +150,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartLevel()
     {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "World1", "Level: " + currentLevel.levelNumInZone.ToString());
+
         IS_IN_LEVEL = true;
 
         isAnimalLevel = false; //maybe have a reset function
