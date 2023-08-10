@@ -18,6 +18,7 @@ public class Ring : MonoBehaviour
     public CellBase[] ringCells;
     public Slice[] ringSlices;
     public BoxCollider levelStartCollider;
+    public GameObject lockedDarkOverlay;
 
     [SerializeField] private int filledCellsCount;
     [SerializeField] private int unsuccessfulConnectionsCount;

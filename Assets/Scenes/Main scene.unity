@@ -1461,18 +1461,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336934189}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1946968816}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 540, y: 1170}
-  m_SizeDelta: {x: 1080, y: 2340}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &336934191
 MonoBehaviour:
@@ -3710,7 +3710,7 @@ PrefabInstance:
     - target: {fileID: 6916429061797608794, guid: 86bdb252685143f47aa42261f0b01e82,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6916429061797608794, guid: 86bdb252685143f47aa42261f0b01e82,
         type: 3}
@@ -5425,6 +5425,7 @@ MonoBehaviour:
   - {fileID: 4218637726568650453, guid: 673cdbb75e756ba41bf4bd4605ba4fc1, type: 3}
   - {fileID: 6150459067022962529, guid: d0ac1090fd750f543841dc1b643751e7, type: 3}
   - {fileID: 1202423789064791099, guid: ecab3799a600e024694a77642d6a694f, type: 3}
+  waitBeforeUnlock: 1.5
   cameraTrailOffset: 9.8
   cameralevelOffset: 3.95
   endRingsVisibleLimit: 0

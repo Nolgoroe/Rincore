@@ -100,8 +100,8 @@ public class GameManager : MonoBehaviour
         gameClip = clipManager;
         LeanTween.init(5000);
 
-
         mapLogic.InitMapLogic(currentClusterSO);
+        StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
 
         testFirebase = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("Key_1").DoubleValue;
@@ -203,6 +203,8 @@ public class GameManager : MonoBehaviour
     private void SetDataOnWin()
     {
         currentIndexInCluster++;
+
+        StartCoroutine(mapLogic.HideRingDarkOverlay(currentIndexInCluster)); //unlock dark overlay of next level
     }
 
     private void BuildLevel()
@@ -528,8 +530,8 @@ public class GameManager : MonoBehaviour
 
         IS_IN_LEVEL = false;
 
-
         mapLogic.InitMapLogic(currentClusterSO);
+        StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
         yield return new WaitForSeconds(0.4f); // temp hardcoded buffer
 
@@ -656,7 +658,6 @@ public class GameManager : MonoBehaviour
 
         mapLogic.CallClusterTransfer(allClusters[nextClusterIndex]);
     }
-
 
 
     /**/
