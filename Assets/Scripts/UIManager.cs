@@ -67,6 +67,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AnimalAlbumCustonWindow animalAlbumWindow;
     [SerializeField] private BasicCustomUIWindow animalAlbumRewardWidnow;
     [SerializeField] private DailyRewardsCustomWindow dailyRewardsWindow;
+    [SerializeField] private BasicCustomButton playButton;
 
     [Header("In level Screen")]
     [SerializeField] private BasicCustomUIWindow inLevelUI;
@@ -493,11 +494,13 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator DisplayLevelCluster(bool isAnimate)
     {
-
         System.Action[] actions = DelegateAction(
             generalMapUI,
             new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
-            new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks });
+            new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks },
+            new ButtonActionIndexPair { index = 2, action = () => StartCoroutine(GameManager.instance.AnimateLevelElements(true)) },
+            new ButtonActionIndexPair { index = 2, action = () => HideSpecificButton(generalMapUI.ButtonRefrences[2]) },
+            new ButtonActionIndexPair { index = 2, action = GameManager.instance.SetLevel });
 
         string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached() + 1)).ToString() };
 
@@ -585,17 +588,26 @@ public class UIManager : MonoBehaviour
 
     private void DisplayMapSettings()
     {
-        //called from button
+        // options for this screen get thier actions from the DisplayInLevelUI
+        if (generalSettings.gameObject.activeInHierarchy)
+        {
+            CloseElement(generalSettings);
+            return;
+        }
+        else
+        {
+            AddUIElement(generalSettings);
+        }
 
-        AddUIElement(generalSettings);
+        //called from button
 
         System.Action[] actions = DelegateAction(
             generalSettings,
             new ButtonActionIndexPair { index = 0, action = SoundManager.instance.ToogleMusic },
             new ButtonActionIndexPair { index = 1, action = SoundManager.instance.ToggleSFX });
 
-        string[] texts = new string[] { "Name of player: Avishy" };
-        generalSettings.OverrideSetMyElement(texts, null, actions);
+        //string[] texts = new string[] { "Name of player: Avishy" };
+        generalSettings.OverrideSetMyElement(null, null, actions);
     }
 
     private void DisplayPlayerWorkshop()
@@ -728,6 +740,15 @@ public class UIManager : MonoBehaviour
         return da.Length > 0 ? da[0].Description : value.ToString();
     }
 
+
+    public void HideSpecificButton(CustomButtonParent button)
+    {
+        button.gameObject.SetActive(false);
+    }
+    public void ShowSpecificButton(CustomButtonParent button)
+    {
+        button.gameObject.SetActive(true);
+    }
     #endregion
 
 
@@ -745,4 +766,10 @@ public class UIManager : MonoBehaviour
     }
 
 #endif
+
+
+
+
+
+    public BasicCustomButton publicPlayButton => playButton;
 }

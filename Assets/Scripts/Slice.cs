@@ -88,7 +88,7 @@ public class Slice : MonoBehaviour, IPowerUsable
 
     public void DoLockAnim(bool isLock)
     {
-        Debug.Log("Am in here");
+        //Debug.Log("Am in here");
 
         if(isLock)
         {

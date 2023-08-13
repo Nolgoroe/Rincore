@@ -33,7 +33,7 @@ public class LevelMapCustomButton : CustomButtonParent
     public void ActionsOnClickLevel()
     {
         GameManager.instance.ClickOnLevelIconMapSetData(data);
-        UIManager.instance.DisplayLaunchLevelPopUp(data.connectedLevelSO);
+        //UIManager.instance.DisplayLaunchLevelPopUp(data.connectedLevelSO);
     }
 
     public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions = null)

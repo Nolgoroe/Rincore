@@ -80,6 +80,9 @@ public class TileCreator : ScriptableObject
             return null;
         }
 
+        tile.tileType = tileType;
+
+
         //data set, then decide on textures, then display set - Left
         tile.SetSubTileSpawnData(tile.subTileLeft, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
         Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
@@ -95,6 +98,14 @@ public class TileCreator : ScriptableObject
     public Tile CreateTile(Tiletype tileType, SubTileSymbol symbolLeft, SubTileSymbol symbolRight, SubTileColor colorLeft, SubTileColor colorRight)
     {
         Tile tile = Instantiate(tilePrefabs[(int)tileType]).GetComponent<Tile>();
+
+        if (tile == null)
+        {
+            Debug.LogError("Error with tile generation");
+            return null;
+        }
+
+        tile.tileType = tileType;
 
         //data set, then decide on textures, then display set - Left
         tile.SetSubTileSpawnData(tile.subTileLeft, symbolLeft, colorLeft);
@@ -136,7 +147,7 @@ public class TileCreator : ScriptableObject
         return randomColor;
     }
 
-    private Texture[] ReturnTexturesByData(SubTileData tileData, Tiletype tileType)
+    public Texture[] ReturnTexturesByData(SubTileData tileData, Tiletype tileType)
     {
         SubTileSymbol tileSymbol = tileData.subTileSymbol;
         SubTileColor tileColor = tileData.subTileColor;

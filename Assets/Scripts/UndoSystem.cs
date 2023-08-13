@@ -85,6 +85,7 @@ public class UndoSystem : MonoBehaviour
                 undoEntries[lastIndex].movedTile.transform.SetParent(undoEntries[lastIndex].originalClipParent.transform);
 
                 undoEntries[lastIndex].movedTile.transform.localPosition = Vector3.zero;
+                undoEntries[lastIndex].movedTile.transform.localScale = Vector3.one;
                 undoEntries[lastIndex].movedTile.transform.localRotation = Quaternion.identity;
 
                 undoEntries[lastIndex].movedTile.partOfBoard = false;

@@ -16,6 +16,7 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     public SubTileData subTileLeft, subTileRight;
     public CellBase cellParent;
     public bool partOfBoard;
+    public Tiletype tileType;
 
     public abstract void SetPlaceTileData(bool place, CellBase cellParent);
     public abstract void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor);
@@ -32,34 +33,35 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     public void SwitchPower()
     {
-        if(cellParent)
+
+        if(CheckBothSidesSame())
+        {
+            PowerupManager.instance.ResetPowerUpData(); // release power directly - no success
+            return;
+        }
+
+        if (cellParent)
         {
             cellParent.GrabTileFrom();
         }
 
-        Material mat = null;
-
-        Texture tempColorSymbolTex = null;
         SubTileSymbol newSymbol;
         SubTileColor newColor;
 
         newSymbol = subTileLeft.subTileSymbol;
         newColor = subTileLeft.subTileColor;
 
-
-        mat = subTileLeft.subtileMesh.material;
-        tempColorSymbolTex = mat.GetTexture("_BaseMap");
-        mat = subTileRight.subtileMesh.material;
-
-        // we cash a pair of textures to make this code a tiny bit more readable - rethink later.
-        SetTileSpawnDisplayByTextures(subTileLeft, mat.GetTexture("_BaseMap")); // left to right
-        SetTileSpawnDisplayByTextures(subTileRight, tempColorSymbolTex); // right to cached left
-
         subTileLeft.subTileSymbol = subTileRight.subTileSymbol;
         subTileLeft.subTileColor = subTileRight.subTileColor;
 
         subTileRight.subTileSymbol = newSymbol;
         subTileRight.subTileColor = newColor;
+
+        Texture[] tempArray = GameManager.gameClip.tileCreatorPreset.ReturnTexturesByData(subTileLeft, tileType);
+        SetTileSpawnDisplayByTextures(subTileLeft, tempArray[0]);
+
+        tempArray = GameManager.gameClip.tileCreatorPreset.ReturnTexturesByData(subTileRight, tileType);
+        SetTileSpawnDisplayByTextures(subTileRight, tempArray[0]); 
 
         if (cellParent)
         {
@@ -113,4 +115,11 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     }
 
     /// set subtile display function (maybe materials)
+    
+
+    private bool CheckBothSidesSame()
+    {
+        return subTileLeft.subTileColor == subTileRight.subTileColor &&
+            subTileLeft.subTileSymbol == subTileRight.subTileSymbol;
+    }
 }

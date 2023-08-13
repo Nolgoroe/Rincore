@@ -101,6 +101,8 @@ public class GameManager : MonoBehaviour
         LeanTween.init(5000);
 
         mapLogic.InitMapLogic(currentClusterSO);
+        UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
+
         StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
 

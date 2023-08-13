@@ -11,6 +11,7 @@ public class MapLogic : MonoBehaviour
 
     [Header("Instantiate Data")]
     [SerializeField] private GameObject[] mapRingPrefabs;
+    [SerializeField] private GameObject lastPiecePrefab;
     [SerializeField] private Transform ringsParent;
     [SerializeField] private float distanceBetweenRings;
     [SerializeField] private float startRingOffset;
@@ -55,6 +56,7 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private float delayBetweenRings;
     [SerializeField] private float moveZAmount;
     [SerializeField] private float ringMoveTime;
+    [SerializeField] private float waitTimeBeforePlayButton;
 
     private Vector3 translation = Vector3.zero;
     private Vector2 deltaPos = Vector2.zero;
@@ -107,6 +109,12 @@ public class MapLogic : MonoBehaviour
             SummonTreeVariant(go.transform);
         }
 
+        int tempnum = currentCluster.clusterLevels.Length;
+
+        GameObject lastPiece = Instantiate(lastPiecePrefab, pos, Quaternion.identity, ringsParent);
+        lastPiece.transform.localPosition = Vector3.zero;
+        pos.z = (tempnum * distanceBetweenRings) + startRingOffset + currentClusterSummonOffset;
+        lastPiece.transform.localPosition = pos;
 
         // initializes the main camera's position compared to first ring created
         // we subtract currentClusterSummonOffset since we want the camera to always be reset to it's original distance - which is where the rings will be after animations.
@@ -316,7 +324,7 @@ public class MapLogic : MonoBehaviour
 
     private IEnumerator ClusterTransfer(ClusterSO newCluster)
     {
-        yield return StartCoroutine(MoveRings(true)); // move current rings
+        yield return StartCoroutine(MoveParts(true)); // move current rings
 
         currentClusterSummonOffset = nextClusterSummonOffset;
 
@@ -324,20 +332,23 @@ public class MapLogic : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        InitMapLogic(newCluster); // summon new tings with offset
+        InitMapLogic(newCluster); // summon new rings with offset
 
         yield return new WaitForEndOfFrame();
 
 
         currentClusterSummonOffset = 0; // reset offset for next time
 
-        yield return StartCoroutine(MoveRings(false)); // move new rings
+        yield return StartCoroutine(MoveParts(false)); // move new rings
 
 
         ShowRingDarkOverlay();
+
+        yield return new WaitForSeconds(waitTimeBeforePlayButton);
+        UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
     }
 
-    private IEnumerator MoveRings(bool destroyAtEnd)
+    private IEnumerator MoveParts(bool destroyAtEnd)
     {
         for (int i = 0; i < instantiatedRings.Count; i++)
         {
