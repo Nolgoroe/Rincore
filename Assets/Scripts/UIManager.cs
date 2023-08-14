@@ -92,6 +92,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
     [SerializeField] private RefWorldDisplayCombo[] worldImageReferenceCombo;
 
+    [Header("Monetization Screens")]
+    [SerializeField] private BasicCustomUIWindow bundleWindow;
+
+
     private void Awake()
     {
         instance = this;
@@ -316,7 +320,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 1, action = SoundManager.instance.ToogleMusic }, //Music icon level
             new ButtonActionIndexPair { index = 2, action = SoundManager.instance.ToggleSFX }, //SFX icon level
             new ButtonActionIndexPair { index = 3, action = DisplayInLevelExitToMapQuestion }, //to level map icon
-            new ButtonActionIndexPair { index = 4, action = GameManager.TestButtonDelegationWorks }, //shop button
+            new ButtonActionIndexPair { index = 4, action = DisplayBundleScreen }, //shop button
             new ButtonActionIndexPair { index = 5, action = GameManager.gameClip.CallDealAction}, //deal button
             new ButtonActionIndexPair { index = 6, action = UndoSystem.instance.CallUndoAction }); //restart button
 
@@ -431,6 +435,24 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region Monetization actions
+
+    public void DisplayBundleScreen()
+    {
+        AddUIElement(bundleWindow);
+
+        System.Action[] actions = DelegateAction(
+            inLevelUI,
+            new ButtonActionIndexPair { index = 0, action = GameManager.TestButtonDelegationWorks }, 
+            new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks }, 
+            new ButtonActionIndexPair { index = 2, action = GameManager.TestButtonDelegationWorks }, 
+            new ButtonActionIndexPair { index = 3, action = GameManager.TestButtonDelegationWorks }, 
+            new ButtonActionIndexPair { index = 4, action = () => CloseElement(bundleWindow) }); 
+
+        bundleWindow.OverrideSetMyElement(null, null, actions);
+    }
+
+    #endregion
     //why is this here?
     public void ContinueAfterChest()
     {
@@ -508,7 +530,7 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = DelegateAction(
             generalMapUI,
             new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
-            new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks });
+            new ButtonActionIndexPair { index = 1, action = DisplayBundleScreen });
 
         string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached() + 1)).ToString() };
 

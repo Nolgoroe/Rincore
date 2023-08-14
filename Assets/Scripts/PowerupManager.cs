@@ -502,6 +502,7 @@ public class PowerupManager : MonoBehaviour
         if(ownedPower.amount == 0)
         {
             Debug.Log("No more uses!");
+            UIManager.instance.DisplayBundleScreen();
             yield break;
         }
 
@@ -529,10 +530,10 @@ public class PowerupManager : MonoBehaviour
         {
             currentPowerData.amount--;
             currentPotionDisplay.SetTextCustom(currentPowerData.amount.ToString());
-            if (currentPowerData.amount == 0)
-            {
-                Destroy(currentPotionDisplay.gameObject);
-            }
+            //if (currentPowerData.amount == 0)
+            //{
+            //    Destroy(currentPotionDisplay.gameObject);
+            //}
         }
 
         ResetPowerUpData();
