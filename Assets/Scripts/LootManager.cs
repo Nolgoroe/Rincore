@@ -33,14 +33,24 @@ public class LootManager : MonoBehaviour
     [SerializeField] private float lootMoveSpeed;
     [SerializeField] private float delayBetweenLootDisplays;
 
+    [SerializeField] private GameObject rewardPrefab;
+    [SerializeField] private Transform[] rewardsPoses;
+
     [Header("temp?")]
-    [SerializeField] private Transform[] lootPositions;
+    //[SerializeField] private Transform[] lootPositions;
     [SerializeField] private int currentLootPos;
 
     private void Start()
     {
         ingredientsToGive = new List<LootToRecieve>();
     }
+
+    [ContextMenu("DO THIS")]
+    public void TEMPFUNC()
+    {
+        ManageLootReward(GameManager.instance.currentCluster);
+    }
+
 
     public void ManageLootReward(ClusterSO cluster)
     {
@@ -64,7 +74,7 @@ public class LootManager : MonoBehaviour
             }
         }
 
-        GiveLootToPlayer(); //go over this with Lior
+        GiveLootToPlayer();
     }
 
     private void UnpackToRubiesChest(LootTables lootTable)
@@ -135,7 +145,7 @@ public class LootManager : MonoBehaviour
             string[] texts = new string[] { currentRubiesToGive.ToString() };
             Sprite[] sprites = new Sprite[] { rubySprite };
 
-            InstantiateLootDisplay(texts, sprites, lootPositions[currentLootPos]);
+            InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
 
             yield return new WaitForSeconds(delayBetweenLootDisplays);
         }
@@ -146,15 +156,15 @@ public class LootManager : MonoBehaviour
             {
                 currentLootPos++;
 
-                if (currentLootPos == lootPositions.Length)
-                {
-                    currentLootPos = 0;
-                }
+                //if (currentLootPos == lootPositions.Length)
+                //{
+                //    currentLootPos = 0;
+                //}
 
                 string[] texts = new string[] { loot.amount.ToString() };
                 Sprite[] sprites = new Sprite[] { loot.ingredient.ingredientSprite };
 
-                InstantiateLootDisplay(texts, sprites, lootPositions[currentLootPos]);
+                InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
 
                 yield return new WaitForSeconds(delayBetweenLootDisplays);
 
@@ -172,16 +182,16 @@ public class LootManager : MonoBehaviour
 
     private void InstantiateLootDisplay(string[] texts, Sprite[] sprites, Transform target)
     {
-        UIElementDisplayerSegment displayer = Instantiate(lootDisplayPrefab /*,GameManager.instance.summonedChest.transform*/);
+        UIElementDisplayerSegment displayer = Instantiate(lootDisplayPrefab, target);
 
         displayer.SetMyElement(texts, sprites);
 
-        LeanTween.move(displayer.gameObject, lootPositions[currentLootPos], lootMoveSpeed).setOnComplete(() => displayer.transform.parent = target);
+        //LeanTween.move(displayer.gameObject, lootPositions[currentLootPos], lootMoveSpeed).setOnComplete(() => displayer.transform.parent = target);
     }
 
     public void DestroyAllLootChildren()
     {
-        foreach (Transform lootPos in lootPositions)
+        foreach (Transform lootPos in rewardsPoses)
         {
             for (int i = 0; i < lootPos.childCount; i++)
             {

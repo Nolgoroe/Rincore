@@ -161,7 +161,6 @@ MonoBehaviour:
   - {fileID: 1159144667726085509}
   - {fileID: 391224367298716020}
   levelStartCollider: {fileID: 5596531221671988013}
-  lockedDarkOverlay: {fileID: 3154114320814649793}
   filledCellsCount: 0
   unsuccessfulConnectionsCount: 0
   sliceDisplayPrefab: {fileID: 8395454025887951022, guid: d0012994f9e15ca44ae29580cd5c7e4b,
@@ -1334,19 +1333,13 @@ PrefabInstance:
     - target: {fileID: 3775957368832911025, guid: 763126227b8d7c74dbcff6583319b9b7,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 763126227b8d7c74dbcff6583319b9b7, type: 3}
 --- !u!4 &334301023013774565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1945804051524744085, guid: 763126227b8d7c74dbcff6583319b9b7,
-    type: 3}
-  m_PrefabInstance: {fileID: 2279753229861181296}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3154114320814649793 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3775957368832911025, guid: 763126227b8d7c74dbcff6583319b9b7,
     type: 3}
   m_PrefabInstance: {fileID: 2279753229861181296}
   m_PrefabAsset: {fileID: 0}

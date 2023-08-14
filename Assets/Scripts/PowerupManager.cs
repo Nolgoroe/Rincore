@@ -42,7 +42,7 @@ public class PowerupManager : MonoBehaviour
     [SerializeField] private PowerupType currentPowerUsing;
     [SerializeField] private IPowerUsable currentPowerLogic = null;
     [SerializeField] private OwnedPowersAndAmounts currentPowerData = null;
-    [SerializeField] private ImageTextHolderHelper currentPotionDisplay = null;
+    [SerializeField] private PotionInLevelHelper currentPotionDisplay = null;
     [SerializeField] private Transform localObjectToUsePowerOn = null;
 
 
@@ -455,27 +455,27 @@ public class PowerupManager : MonoBehaviour
 
 
             GameObject go = Instantiate(potionDisplayPrefab, potionPositions[i]);
-            ImageTextHolderHelper potionImage = null;
+            PotionInLevelHelper potionData = null;
 
-            go.TryGetComponent<ImageTextHolderHelper>(out potionImage);
+            go.TryGetComponent<PotionInLevelHelper>(out potionData);
 
-            if(potionImage)
+            if(potionData)
             {
-                potionImage.SetDisplay(chosenPower.potionSprite, ownedPowerups[i].amount.ToString());
+                potionData.SetPotionDisplay(ownedPowerups[i].amount.ToString(), chosenPower.potionSprite.texture);
             }
 
 
 
-            Button potionButton = null;
+            BasicCustomButton potionButton = null;
 
-            go.TryGetComponent<Button>(out potionButton);
+            go.TryGetComponent<BasicCustomButton>(out potionButton);
 
             int tempIndex = i; // we do this since action subsccribing remembers the value in a memory unity.
             // meaning in this case it would have remembered the last value of the iterator (i)
 
             if (potionButton)
             {
-                potionButton.onClick.AddListener(() => StartCoroutine(SetUsingPotion(ownedPowerups[tempIndex], potionImage)));
+                potionButton.buttonEvents += () => StartCoroutine(SetUsingPotion(ownedPowerups[tempIndex], potionData));
             }
 
         }
@@ -495,7 +495,7 @@ public class PowerupManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SetUsingPotion(OwnedPowersAndAmounts ownedPower, ImageTextHolderHelper potionImage)
+    private IEnumerator SetUsingPotion(OwnedPowersAndAmounts ownedPower, PotionInLevelHelper potionHelper)
     {
         if (currentPowerUsing == ownedPower.powerType) yield break;
 
@@ -507,9 +507,9 @@ public class PowerupManager : MonoBehaviour
 
         currentPowerData = ownedPower;
         currentPowerUsing = ownedPower.powerType;
-        currentPotionDisplay = potionImage;
+        currentPotionDisplay = potionHelper;
 
-        yield return new WaitForEndOfFrame(); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
+        yield return new WaitForSeconds(0.3f); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
         UsePower();
     }
 
@@ -528,7 +528,7 @@ public class PowerupManager : MonoBehaviour
         if(currentPowerData != null)
         {
             currentPowerData.amount--;
-            currentPotionDisplay.connectedText.text = currentPowerData.amount.ToString();
+            currentPotionDisplay.SetTextCustom(currentPowerData.amount.ToString());
             if (currentPowerData.amount == 0)
             {
                 Destroy(currentPotionDisplay.gameObject);

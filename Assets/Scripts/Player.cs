@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
     {
         ownedRubies += amount;
 
-        UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
+        //UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Added: " + amount + " " + "To Rubies!");
     }
 
@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
     {
         ownedRubies -= amount;
 
-        UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
+        //UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Removed: " + amount + " " + "To Rubies!");
     }
     public void AddTears(int amount)
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
             ownedTears = maxOwnedTears;
         }
 
-        UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
+        //UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Added: " + amount + " " + "To Tears!");
     }
     private void AddToIngredientsComboByType(Ingredients toAdd)

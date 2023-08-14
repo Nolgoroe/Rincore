@@ -342,10 +342,13 @@ public class MapLogic : MonoBehaviour
         yield return StartCoroutine(MoveParts(false)); // move new rings
 
 
-        ShowRingDarkOverlay();
+        //ShowRingDarkOverlay();
 
         yield return new WaitForSeconds(waitTimeBeforePlayButton);
-        UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
+        StartCoroutine(GameManager.instance.InitStartLevel(false));
+
+        //UIManager.instance.DisplayOverallMapUI();
+        //UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
     }
 
     private IEnumerator MoveParts(bool destroyAtEnd)
@@ -382,54 +385,54 @@ public class MapLogic : MonoBehaviour
         currentTreeVariantsSummoned.RemoveAt(index);
     }
 
-    public IEnumerator HideRingDarkOverlay(int currentIndexInCluster)
-    {
-        yield return new WaitForEndOfFrame();
+    //public IEnumerator HideRingDarkOverlay(int currentIndexInCluster)
+    //{
+    //    yield return new WaitForEndOfFrame();
 
-        SpriteRenderer lockedRenderer = instantiatedRings[currentIndexInCluster].lockedDarkOverlay.GetComponent<SpriteRenderer>();
+    //    SpriteRenderer lockedRenderer = instantiatedRings[currentIndexInCluster].lockedDarkOverlay.GetComponent<SpriteRenderer>();
 
-        if (currentIndexInCluster == 0)
-        {
-            lockedRenderer.color = new Color(lockedRenderer.color.r, lockedRenderer.color.g, lockedRenderer.color.b, 0);
-            yield break;
+    //    if (currentIndexInCluster == 0)
+    //    {
+    //        lockedRenderer.color = new Color(lockedRenderer.color.r, lockedRenderer.color.g, lockedRenderer.color.b, 0);
+    //        yield break;
 
-        }
-
-
-        yield return new WaitForSeconds(waitBeforeUnlock);
-
-        LeanTween.value(lockedRenderer.gameObject, 0.55f, 0, 2).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
-        {
-            Color newColor = lockedRenderer.color;
-            newColor.a = val;
-            lockedRenderer.color = newColor;
-        });
-    }
-
-    public void ShowRingDarkOverlay()
-    {
-        for (int i = 0; i < instantiatedRings.Count; i++)
-        {
-            if(i == 0 )
-            {
-                StartCoroutine(HideRingDarkOverlay(0));
-                continue;
-            }
-
-            SpriteRenderer renderer = instantiatedRings[i].lockedDarkOverlay.GetComponent<SpriteRenderer>();
-
-            renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.55f);
+    //    }
 
 
-            //LeanTween.value(renderer.gameObject, 0, 0.55f, 2).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
-            //{
-            //    Color newColor = renderer.color;
-            //    newColor.a = val;
-            //    renderer.color = newColor;
-            //});
-        }
+    //    yield return new WaitForSeconds(waitBeforeUnlock);
 
-    }
+    //    LeanTween.value(lockedRenderer.gameObject, 0.55f, 0, 2).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
+    //    {
+    //        Color newColor = lockedRenderer.color;
+    //        newColor.a = val;
+    //        lockedRenderer.color = newColor;
+    //    });
+    //}
+
+    //public void ShowRingDarkOverlay()
+    //{
+    //    for (int i = 0; i < instantiatedRings.Count; i++)
+    //    {
+    //        if(i == 0 )
+    //        {
+    //            StartCoroutine(HideRingDarkOverlay(0));
+    //            continue;
+    //        }
+
+    //        SpriteRenderer renderer = instantiatedRings[i].lockedDarkOverlay.GetComponent<SpriteRenderer>();
+
+    //        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.55f);
+
+
+    //        //LeanTween.value(renderer.gameObject, 0, 0.55f, 2).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
+    //        //{
+    //        //    Color newColor = renderer.color;
+    //        //    newColor.a = val;
+    //        //    renderer.color = newColor;
+    //        //});
+    //    }
+
+    //}
 
     /**/
     // GETTERS!

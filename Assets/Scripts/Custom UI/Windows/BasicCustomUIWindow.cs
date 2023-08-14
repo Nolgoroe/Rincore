@@ -16,8 +16,11 @@ public class BasicCustomUIWindow : CustomWindowParent
 
             for (int i = 0; i < ButtonRefrences.Length; i++)
             {
-                ButtonRefrences[i].buttonEvents += actions[i];
-                ButtonRefrences[i].isInteractable = true;
+                if(ButtonRefrences[i] != null)
+                {
+                    ButtonRefrences[i].buttonEvents += actions[i];
+                    ButtonRefrences[i].isInteractable = true;
+                }
             }
         }
     }

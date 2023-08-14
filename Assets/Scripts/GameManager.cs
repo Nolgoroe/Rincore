@@ -101,9 +101,9 @@ public class GameManager : MonoBehaviour
         LeanTween.init(5000);
 
         mapLogic.InitMapLogic(currentClusterSO);
-        UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
+        //UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
 
-        StartCoroutine(mapLogic.HideRingDarkOverlay(0));
+        //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
 
         testFirebase = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("Key_1").DoubleValue;
@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
     {
         currentIndexInCluster++;
 
-        StartCoroutine(mapLogic.HideRingDarkOverlay(currentIndexInCluster)); //unlock dark overlay of next level
+        //StartCoroutine(mapLogic.HideRingDarkOverlay(currentIndexInCluster)); //unlock dark overlay of next level
     }
 
     private void BuildLevel()
@@ -370,9 +370,7 @@ public class GameManager : MonoBehaviour
 
         for (int k = 0; k < 1; k++)
         {
-           yield return StartCoroutine(OnLevelExitReset());
-
-           SetLevel();
+           yield return StartCoroutine(OnLevelExitResetLevel());
         }
     }
 
@@ -489,7 +487,7 @@ public class GameManager : MonoBehaviour
     public void AdvanceGiveLootFromManager()
     {
         //sequencer?
-        lootManager.ManageLootReward(currentClusterSO); //go over this with Lior
+        //lootManager.ManageLootReward(currentClusterSO); //go over this with Lior
     }
     public void AdvanceLootChestAnimation() //go over this with Lior
     {
@@ -498,7 +496,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public IEnumerator OnLevelExitReset()
+    public IEnumerator OnLevelExitResetSystem()
     {
         ClearLevelActions();
         gameRing.ClearActions();
@@ -511,7 +509,6 @@ public class GameManager : MonoBehaviour
 
         yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster)); // move to start of cluster
 
-
         foreach (var ring in mapLogic.publicInstantiatedRings)
         {
             Destroy(ring.gameObject);
@@ -520,8 +517,6 @@ public class GameManager : MonoBehaviour
 
         mapLogic.ResetMapData();
 
-
-        //yield return StartCoroutine(mapLogic.SpawnSpecificRingInCluster(currentIndexInCluster));
 
         for (int i = 0; i < inLevelParent.childCount; i++)
         {
@@ -533,11 +528,31 @@ public class GameManager : MonoBehaviour
         IS_IN_LEVEL = false;
 
         mapLogic.InitMapLogic(currentClusterSO);
-        StartCoroutine(mapLogic.HideRingDarkOverlay(0));
+        //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
         yield return new WaitForSeconds(0.4f); // temp hardcoded buffer
 
-        StartCoroutine(InitStartLevel());
+        StartCoroutine(InitStartLevel(false));
+    }
+
+    public IEnumerator OnLevelExitResetLevel()
+    {
+        ClearLevelActions();
+        gameRing.ClearActions();
+
+        Destroy(mapLogic.publicInstantiatedRings[currentIndexInCluster].gameObject);
+        yield return new WaitForEndOfFrame();
+
+        yield return StartCoroutine(mapLogic.SpawnSpecificRingInCluster(currentIndexInCluster));
+
+        for (int i = 0; i < inLevelParent.childCount; i++)
+        {
+            Destroy(inLevelParent.GetChild(i).gameObject);
+        }
+
+        gameClip.DestroyClipData();
+
+        StartCoroutine(InitStartLevel(true));
     }
 
 
@@ -563,7 +578,7 @@ public class GameManager : MonoBehaviour
         {
             yield return StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
 
-            StartCoroutine(InitStartLevel());
+            StartCoroutine(InitStartLevel(false));
         }
     }
 
@@ -608,11 +623,14 @@ public class GameManager : MonoBehaviour
         currentIndexInCluster = 0;
     }
 
-    private IEnumerator InitStartLevel()
+    public IEnumerator InitStartLevel(bool restart)
     {
         if (LevelSetupData())
         {
-            StartCoroutine(AnimateLevelElements(true));
+            if(!restart)
+            {
+                StartCoroutine(AnimateLevelElements(true));
+            }
 
             yield return new WaitForEndOfFrame();
             SetLevel();
@@ -654,11 +672,14 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
+        UIManager.instance.DisplayInLevelWinWindow();
+        lootManager.TEMPFUNC();
+
         currentMaxClusterReached = nextClusterIndex;
 
         currentClusterSO = allClusters[nextClusterIndex];
 
-        mapLogic.CallClusterTransfer(allClusters[nextClusterIndex]);
+
     }
 
 

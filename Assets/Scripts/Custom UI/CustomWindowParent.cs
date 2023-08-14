@@ -11,7 +11,10 @@ public abstract class CustomWindowParent : BasicUIElement
     {
         foreach (CustomButtonParent button in ButtonRefrences)
         {
-            button.buttonEvents = null;
+            if(button != null)
+            {
+                button.buttonEvents = null;
+            }
         }
     }
     public virtual void ActivateSpecificButton(CustomButtonParent button)

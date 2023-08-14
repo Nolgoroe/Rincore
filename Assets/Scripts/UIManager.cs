@@ -50,7 +50,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AnimalsManager animalManager;
     [SerializeField] private PowerupManager powerupManager;
     [SerializeField] private DailyRewardsManager dailyRewardsManager;
-    //[SerializeField] private MapLogic mapLogic;
+    [SerializeField] private MapLogic mapLogic;
+    [SerializeField] private LootManager lootManager;
 
     [Header("Active screens")]
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
@@ -64,6 +65,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private LevelMapPopupCustomWindow levelMapPopUp;
     [SerializeField] private BasicCustomUIWindow generalSettings;
     [SerializeField] private BasicCustomUIWindow generalMapUI;
+    [SerializeField] private BasicCustomUIWindow overAllMapUI;
     [SerializeField] private AnimalAlbumCustonWindow animalAlbumWindow;
     [SerializeField] private BasicCustomUIWindow animalAlbumRewardWidnow;
     [SerializeField] private DailyRewardsCustomWindow dailyRewardsWindow;
@@ -97,9 +99,16 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(DisplayLevelCluster(false));
+        StartCoroutine(InitGameUI());
+
 
         //DisplayDailyRewardsWindow(); Enable if want to show Daily Rewards
+    }
+
+    private IEnumerator InitGameUI()
+    {
+        yield return StartCoroutine(DisplayLevelCluster(false));
+        DisplayOverallMapUI(); // - Temp??
     }
 
     private void OnValidate()
@@ -347,17 +356,17 @@ public class UIManager : MonoBehaviour
 
     public void DisplayInLevelWinWindow()
     {
-        DeactiavteAllCustomButtons();
+        //DeactiavteAllCustomButtons();
 
         System.Action[] actions = DelegateAction(
             inLevelWinWindow,
-            //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
-            //new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallNextLevel },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
-            new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelWinWindow) },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitWin(false))});
+            new ButtonActionIndexPair { index = 0, action = GameManager.TestButtonDelegationWorks },
+            new ButtonActionIndexPair { index = 1, action = () => mapLogic.CallClusterTransfer(GameManager.instance.currentCluster) },//the new cluster is already set from the gamemanager before the win screen appears
+            new ButtonActionIndexPair { index = 1, action = () => lootManager.DestroyAllLootChildren() },
+            new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelWinWindow) });
+            //new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitWin(false))});
 
-        inLevelWinWindow.OverrideSetMyElement(GameManager.instance.ReturnStatueName(), null, actions);
+        inLevelWinWindow.OverrideSetMyElement(null, null, actions);
 
         AddUIElement(inLevelWinWindow);
     }
@@ -382,9 +391,10 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = DelegateAction(
             inLevelLostLevelMessage,
             //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
-            //new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
+            new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelLostLevelMessage) },
             //new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitReset()) },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitResetSystem()) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelLostLevelMessage) },
             new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
 
@@ -398,7 +408,7 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = DelegateAction(
             inLevelExitToMapQuesiton,
             //new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelCluster(true)) },
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.OnLevelExitReset()) },
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.OnLevelExitResetSystem()) },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) },
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelExitToMapQuesiton) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelExitToMapQuesiton) });
@@ -424,7 +434,7 @@ public class UIManager : MonoBehaviour
     //why is this here?
     public void ContinueAfterChest()
     {
-        inLevelWinWindow.ManuallyShowOnlyToHudButton();
+        //inLevelWinWindow.ManuallyShowOnlyToHudButton();
     }
 
     #region Level map related actions
@@ -494,13 +504,11 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator DisplayLevelCluster(bool isAnimate)
     {
+
         System.Action[] actions = DelegateAction(
             generalMapUI,
             new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
-            new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks },
-            new ButtonActionIndexPair { index = 2, action = () => StartCoroutine(GameManager.instance.AnimateLevelElements(true)) },
-            new ButtonActionIndexPair { index = 2, action = () => HideSpecificButton(generalMapUI.ButtonRefrences[2]) },
-            new ButtonActionIndexPair { index = 2, action = GameManager.instance.SetLevel });
+            new ButtonActionIndexPair { index = 1, action = GameManager.TestButtonDelegationWorks });
 
         string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached() + 1)).ToString() };
 
@@ -518,9 +526,22 @@ public class UIManager : MonoBehaviour
         //{
         //    yield return new WaitForSeconds(2); // this is the time it takes to move to next level on map - for now it's hardcoded.
         //}
-        generalMapUI.OverrideSetMyElement(texts, null, actions);
+        //generalMapUI.OverrideSetMyElement(texts, null, actions);
     }
 
+    public void DisplayOverallMapUI()
+    {
+        System.Action[] actions = DelegateAction(
+            overAllMapUI,
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.AnimateLevelElements(true)) },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(overAllMapUI) },
+            new ButtonActionIndexPair { index = 0, action = GameManager.instance.SetLevel });
+
+
+        AddUIElement(overAllMapUI);
+
+        overAllMapUI.OverrideSetMyElement(null, null, actions);
+    }
     private IEnumerator OnGoToLevelMapLogic(bool isAnimate)
     {
         //everytime we go to map, no matter what - clear the undo system

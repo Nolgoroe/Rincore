@@ -234,7 +234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1430774478313450897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -286,11 +286,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  FlowerRect: {fileID: 142687580860236874}
-  timeToReveaFlowers: 3
-  timeToReveaButtons: 3
-  nextLevelButton: {fileID: 7448248793710670238}
-  toMapButton: {fileID: 7724850763122712729}
 --- !u!225 &7059053641691130316
 CanvasGroup:
   m_ObjectHideFlags: 0
