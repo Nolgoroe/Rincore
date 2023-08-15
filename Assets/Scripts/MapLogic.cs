@@ -18,6 +18,7 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private float nextClusterSummonOffset;
     [SerializeField] private float currentClusterSummonOffset;
     [SerializeField] private List<Ring> instantiatedRings;
+    [SerializeField] private List<LevelPresetData> instantiatedRingsData;
     [SerializeField] private List<GameObject> allTreeVariants;
 
 

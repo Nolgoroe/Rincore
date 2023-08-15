@@ -91,7 +91,6 @@ public class GameManager : MonoBehaviour
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
         // consider changing Sigleton access to something else.
 
-        //currentLevel = tempcurrentlevel;
 
         //SetLevel(currentLevel);
 
@@ -105,11 +104,18 @@ public class GameManager : MonoBehaviour
 
         //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
+        LevelMapCustomButton levelData;
+        mapLogic.publicInstantiatedRings[0].TryGetComponent<LevelMapCustomButton>(out levelData);//Temp!!!!
+
+        if (levelData != null)
+        {
+            ClickOnLevelIconMapSetData(levelData.data);
+        }
 
         testFirebase = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("Key_1").DoubleValue;
     }
 
-    
+
     private void Update()
     {
         //if(gameClip)
