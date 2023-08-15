@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class ClipManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class ClipManager : MonoBehaviour
 
     [Header("Slots Zone")]
     [SerializeField] private ClipSlot[] slots;
+    [SerializeField] private Image[] slotDisplays;
 
     [Header("Required refrences")]
     public TileCreator tileCreatorPreset;
@@ -81,7 +83,7 @@ public class ClipManager : MonoBehaviour
 
         UndoSystem.instance.RemoveEntriesOnDeal(slots[activeClipSlotsCount - 1]);
 
-        StartCoroutine(DeactivateClip(activeClipSlotsCount - 1)); //darken the slot
+        StartCoroutine(DeactivateClipSlot(activeClipSlotsCount - 1)); //darken the slot
 
         // move the tile GFX parent out of screen
         for (int i = 0; i < activeClipSlotsCount; i++)
@@ -120,20 +122,35 @@ public class ClipManager : MonoBehaviour
         canUseDeal = true;
     }
 
-    private IEnumerator DeactivateClip(int index)
+    private IEnumerator DeactivateClipSlot(int index)
     {
         yield return new WaitForSeconds(delayDarkenClip);
 
-        //Color fromColor = slots[index].GetComponent<SpriteRenderer>().color;
-        //Color toColor = darkTintedColor;
+        Color fromColor = slotDisplays[index].GetComponent<Image>().color;
+        Color toColor = darkTintedColor;
 
-        //LeanTween.value(slots[index].gameObject, fromColor, toColor, timeToDarkenClip).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
-        //{
-        //    SpriteRenderer sr = slots[index].gameObject.GetComponent<SpriteRenderer>();
-        //    Color newColor = sr.color;
-        //    newColor = Color.Lerp(fromColor, toColor, val);
-        //    sr.color = newColor;
-        //});
+        LeanTween.value(slotDisplays[index].gameObject, fromColor, toColor, timeToDarkenClip).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
+        {
+            Image sr = slotDisplays[index].gameObject.GetComponent<Image>();
+            Color newColor = sr.color;
+            newColor = Color.Lerp(fromColor, toColor, val);
+            sr.color = newColor;
+        });
+    }
+    private IEnumerator ActivateClipSlot(int index)
+    {
+        yield return new WaitForSeconds(delayDarkenClip);
+
+        Color fromColor = slotDisplays[index].GetComponent<Image>().color;
+        Color toColor = Color.white;
+
+        LeanTween.value(slotDisplays[index].gameObject, fromColor, toColor, timeToDarkenClip).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
+        {
+            Image sr = slotDisplays[index].gameObject.GetComponent<Image>();
+            Color newColor = sr.color;
+            newColor = Color.Lerp(fromColor, toColor, val);
+            sr.color = newColor;
+        });
     }
 
     private void DestroySlotTiles()
@@ -171,6 +188,8 @@ public class ClipManager : MonoBehaviour
             SpawnRandomTileInSlot(slots[i]);
 
             slots[i].originalSlotPos = slots[i].transform.localPosition;
+
+            StartCoroutine(ActivateClipSlot(i));
         }
 
         canUseDeal = true;
