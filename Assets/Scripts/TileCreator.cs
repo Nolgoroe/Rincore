@@ -66,7 +66,8 @@ public class TileCreator : ScriptableObject
     [SerializeField] private SymbolToMat[] symbolToMat;
     [SerializeField] private ColorsAndMats[] colorsToMats12;
     [SerializeField] private SymbolToMat[] symbolToMat12;
-    [SerializeField] private Texture jokerTex;
+    [SerializeField] private Texture jokerTexLeft, jokerTexRight;
+    [SerializeField] private Material jokerMat;
 
     [SerializeField] private GameObject[] tilePrefabs;
 
@@ -213,30 +214,104 @@ public class TileCreator : ScriptableObject
         return new Texture[] { colorSymbolTexture/*, connectionTex*/ };
     }
 
-    public Texture returnSpecificTex(SubTileColor tileColor, SubTileSymbol tileSymbol)
+    public Texture returnSpecificTex(SubTileColor tileColor, SubTileSymbol tileSymbol, bool isRight)
     {
         switch (tileColor)
         {
             case SubTileColor.Blue:
-                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                if(isRight)
+                {
+                    return colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
             case SubTileColor.Green:
-                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                if (isRight)
+                {
+                    return colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
+
             case SubTileColor.Orange:
-                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                if (isRight)
+                {
+                    return colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
+
             case SubTileColor.Pink:
-                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                if (isRight)
+                {
+                    return colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
+
             case SubTileColor.Yellow:
-                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                if (isRight)
+                {
+                    return colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
+
             case SubTileColor.Stone:
-                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                if (isRight)
+                {
+                    return colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+
+                }
+
             case SubTileColor.NoColor:
-                return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                if (isRight)
+                {
+                    return colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                }
+                else
+                {
+                    return colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                }
+
             case SubTileColor.Joker:
-                return jokerTex;
+                if (isRight)
+                {
+                    return jokerTexRight;
+                }
+                else
+                {
+                    return jokerTexLeft;
+                }
+
             default:
                 break;
         }
 
         return null;
     }
+
+
+
+
+
+
+
+
+
+    public Material getjokerMat => jokerMat;
 }

@@ -28,7 +28,7 @@ public class IngredientPlusMainTypeCombo
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int ownedRubies;
+    [SerializeField] private int ownedCoins;
     [SerializeField] private int ownedTears;
     [SerializeField] private int maxOwnedTears;
 
@@ -100,17 +100,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void AddRubies(int amount)
+    public void AddCoins(int amount)
     {
-        ownedRubies += amount;
+        ownedCoins += amount;
 
         //UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Added: " + amount + " " + "To Rubies!");
     }
 
-    public void RemoveRubies(int amount)
+    public void RemoveCoins(int amount)
     {
-        ownedRubies -= amount;
+        ownedCoins -= amount;
 
         //UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Removed: " + amount + " " + "To Rubies!");
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
     /**/
     // GETTERS!
     /**/
-    public int GetOwnedRubies => ownedRubies;
+    public int GetOwnedCoins => ownedCoins;
     public int GetOwnedTears => ownedTears;
     public bool GetHasMaxTears => CheckHasMaxTears();
     public List<IngredientPlusMainTypeCombo> returnOwnedIngredientsByType => ingredientsToMainTypes;

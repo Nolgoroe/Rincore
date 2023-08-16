@@ -115,6 +115,7 @@ public class Slice : MonoBehaviour, IPowerUsable
     public void BombPower()
     {
         DestroySliceData();
-        PowerupManager.instance.PowerSucceededUsing();
+        StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
+        //PowerupManager.instance.PowerSucceededUsing();
     }
 }

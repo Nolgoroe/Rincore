@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class ClickableZoneCustomButton : CustomButtonParent
 {
     [SerializeField] private BasicUIElement connectedParent;
+    [SerializeField] private float timeWaitEnableClick = 0.5f;
+
 
     private void OnValidate()
     {
@@ -31,7 +33,7 @@ public class ClickableZoneCustomButton : CustomButtonParent
 
     private IEnumerator enableButton()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(timeWaitEnableClick);
         isInteractable = true;
     }
     public override void OnClickButton()

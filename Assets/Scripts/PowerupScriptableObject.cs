@@ -24,6 +24,8 @@ public class PowerupScriptableObject : ScriptableObject
     public PowerupType powerType;
     public IngredientsNeeded[] ingredientsNeeded;
     public Sprite potionSprite;
+    public Sprite potionMaterialMap;
+    public int price;
     [TextArea(3, 7)]
     public string potionDescription;
 }

@@ -199,7 +199,7 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         Debug.Log("Gave player rewards");
 
         int amountOfReward = localAnimalManager.RollAmountOfReward();
-        localPlayer.AddRubies(amountOfReward);
+        localPlayer.AddCoins(amountOfReward);
         UIManager.instance.DisplayAnimalAlbumReward(amountOfReward);
     }
 

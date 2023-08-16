@@ -21,6 +21,5 @@ public class Tile : TileParentLogic
         Material matToChange = subTile.subtileMesh.material;
 
         matToChange.SetTexture("_BaseMap", colorSymbolTexture);
-        //matToChange.SetTexture("MatchedSymbolTex", connectionTexture);
     }
 }

@@ -7,8 +7,11 @@ public class PotionInLevelHelper : MonoBehaviour
 {
     [SerializeField] private MeshRenderer connectedRenderer;
     [SerializeField] private TMP_Text connectedText;
+    [SerializeField] private TMP_Text priceText;
+    [SerializeField] private BasicCustomUIWindow buyWidndow;
+    public BasicCustomButton buyButton;
 
-    public void SetPotionDisplay(string in_text, Texture in_Tex)
+    public void SetPotionDisplay(string in_text, string in_Price_Text, Texture in_Tex)
     {
         if (connectedRenderer)
         {
@@ -19,10 +22,27 @@ public class PotionInLevelHelper : MonoBehaviour
         {
             connectedText.text = in_text;
         }
+
+        if (priceText)
+        {
+            priceText.text = in_Price_Text;
+        }
     }
 
     public void SetTextCustom(string in_text)
     {
         connectedText.text = in_text;
+    }
+
+    public void ToggleHoverWindow(bool isActive)
+    {
+        if(isActive)
+        {
+            UIManager.instance.AddUIElement(buyWidndow);
+        }
+        else
+        {
+            UIManager.instance.CloseElement(buyWidndow);
+        }
     }
 }

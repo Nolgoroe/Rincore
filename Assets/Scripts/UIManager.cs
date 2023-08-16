@@ -5,10 +5,8 @@ using UnityEngine;
 using UnityEditor;
 #endif
 using UnityEngine.UI;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
-using System.Linq;
 using System.ComponentModel;
+using TMPro;
 
 [System.Serializable]
 public class WorldDisplayCombo
@@ -44,6 +42,7 @@ public class UIManager : MonoBehaviour
 
     public static bool IS_USING_UI;
     public static bool IS_DURING_TRANSITION;
+    public static bool IS_DURING_POTION_USAGE;
 
     [Header("General refrences")] // ask Lior if this section is ok for the long run
     [SerializeField] private Player player;
@@ -73,6 +72,7 @@ public class UIManager : MonoBehaviour
 
     [Header("In level Screen")]
     [SerializeField] private BasicCustomUIWindow inLevelUI;
+    [SerializeField] private BasicCustomUIWindow inLevelPotionUsage;
     [SerializeField] private BasicCustomUIWindow inLevelSettingsWindow;
     [SerializeField] private BasicCustomUIWindow inLevelNonMatchTilesMessage;
     [SerializeField] private BasicCustomUIWindow inLevelLostLevelMessage;
@@ -95,6 +95,11 @@ public class UIManager : MonoBehaviour
     [Header("Monetization Screens")]
     [SerializeField] private BasicCustomUIWindow bundleWindow;
 
+    [Header("Coin counter")]
+    [SerializeField] private TMP_Text coinText;
+    [SerializeField] private int CountFPS = 30;
+    [SerializeField] private float Duration = 1f;
+    [SerializeField] private string NumberFormat = "N0";
 
     private void Awake()
     {
@@ -204,7 +209,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void AddUIElement(BasicUIElement UIElement)
+    public void AddUIElement(BasicUIElement UIElement)
     {
         if (UIElement.isSolo)
         {
@@ -305,6 +310,54 @@ public class UIManager : MonoBehaviour
         DeactiavteAllCustomButtons();
         button.isInteractable = true;
     }
+
+
+    public IEnumerator CounterText(int currentValue, int newValue, TMP_Text in_Text)
+    {
+        WaitForSeconds Wait = new WaitForSeconds(1f / CountFPS);
+        int previousValue = currentValue;
+        int stepAmount;
+
+        if (newValue - previousValue < 0)
+        {
+            stepAmount = Mathf.FloorToInt((newValue - previousValue) / (CountFPS * Duration)); // newValue = -20, previousValue = 0. CountFPS = 30, and Duration = 1; (-20- 0) / (30*1) // -0.66667 (ceiltoint)-> 0
+        }
+        else
+        {
+            stepAmount = Mathf.CeilToInt((newValue - previousValue) / (CountFPS * Duration)); // newValue = 20, previousValue = 0. CountFPS = 30, and Duration = 1; (20- 0) / (30*1) // 0.66667 (floortoint)-> 0
+        }
+
+        if (previousValue < newValue)
+        {
+            while (previousValue < newValue)
+            {
+                previousValue += stepAmount;
+                if (previousValue > newValue)
+                {
+                    previousValue = newValue;
+                }
+
+                in_Text.SetText(previousValue.ToString(NumberFormat));
+
+                yield return Wait;
+            }
+        }
+        else
+        {
+            while (previousValue > newValue)
+            {
+                previousValue += stepAmount;
+                if (previousValue < newValue)
+                {
+                    previousValue = newValue;
+                }
+
+                in_Text.SetText(previousValue.ToString(NumberFormat));
+
+                yield return Wait;
+            }
+        }
+    }
     #endregion
 
     #region Inside Level related actions
@@ -375,6 +428,22 @@ public class UIManager : MonoBehaviour
         AddUIElement(inLevelWinWindow);
     }
 
+    public IEnumerator DisplayPotionUsageWindow()
+    {
+        IS_DURING_POTION_USAGE = true;
+
+        Sprite[] sprites = new Sprite[] { powerupManager.publicCurrentPowerSO.potionSprite };
+        string[] texts = new string[] { player.GetOwnedCoins.ToString() };
+
+        inLevelPotionUsage.OverrideSetMyElement(texts, sprites, null);
+
+        AddUIElement(inLevelPotionUsage);
+
+        yield return new WaitForSeconds(powerupManager.publicUsePotionTime);
+        CloseElement(inLevelPotionUsage);
+        IS_DURING_POTION_USAGE = false;
+    }
+
     private void DisplayInLevelSettings()
     {
         // options for this screen get thier actions from the DisplayInLevelUI
@@ -433,6 +502,7 @@ public class UIManager : MonoBehaviour
 
         inLevelRestartLevelQuesiton.OverrideSetMyElement(null, null, actions);
     }
+
     #endregion
 
     #region Monetization actions
@@ -494,7 +564,7 @@ public class UIManager : MonoBehaviour
 
         AddUIElement(buyPotionWindow);
 
-        bool hasEnoughRubies = player.GetOwnedRubies >= neededRubies;
+        bool hasEnoughRubies = player.GetOwnedCoins >= neededRubies;
         string[] texsts = new string[] { neededRubies.ToString() };
 
         buyPotionWindow.OverrideSetMyElement(texsts, null, actions);
@@ -578,7 +648,7 @@ public class UIManager : MonoBehaviour
     private void DisplayAnimalAlbum()
     {
         string tearsText = player.GetOwnedTears.ToString();
-        string rubiesText = player.GetOwnedRubies.ToString();
+        string rubiesText = player.GetOwnedCoins.ToString();
         string[] texts = new string[] { tearsText, rubiesText };
 
         System.Action[] actions = DelegateAction(
@@ -813,4 +883,5 @@ public class UIManager : MonoBehaviour
 
 
     public BasicCustomButton publicPlayButton => playButton;
+    public TMP_Text publicCoinText => coinText;
 }

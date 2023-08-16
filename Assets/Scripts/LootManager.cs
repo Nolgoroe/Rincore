@@ -124,7 +124,7 @@ public class LootManager : MonoBehaviour
     {
         if(currentRubiesToGive > 0)
         {
-            player.AddRubies(currentRubiesToGive);
+            player.AddCoins(currentRubiesToGive);
         }
 
         if(ingredientsToGive.Count > 0)

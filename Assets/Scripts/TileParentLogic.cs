@@ -68,7 +68,8 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
             cellParent.DroppedOn(this, GameManager.gameRing);
         }
 
-        PowerupManager.instance.PowerSucceededUsing();
+        StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
+        //PowerupManager.instance.PowerSucceededUsing();
     }
 
     public void BombPower()
@@ -76,7 +77,8 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         if(cellParent)
         {
             cellParent.ResetToDefault();
-            PowerupManager.instance.PowerSucceededUsing();
+            StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
+            //PowerupManager.instance.PowerSucceededUsing();
         }
         else
         {
@@ -87,17 +89,30 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     public void JokerPower()
     {
+
+        if(CheckAlreadyJoker())
+        {
+            PowerupManager.instance.ResetPowerUpData(); // release power directly - no success
+            return;
+        }
+
         if (cellParent)
         {
             cellParent.GrabTileFrom();
         }
 
-        Texture tex = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker);
+        Texture texLeft = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker, false);
+        Texture texRight = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker, true);
 
         Material mat = null;
-        mat = subTileLeft.subtileMesh.material;
-        SetTileSpawnDisplayByTextures(subTileLeft, tex);
-        SetTileSpawnDisplayByTextures(subTileRight, tex);
+        mat = GameManager.gameClip.tileCreatorPreset.getjokerMat;
+
+        subTileLeft.subtileMesh.material = mat;
+        subTileRight.subtileMesh.material = mat;
+
+
+        SetTileSpawnDisplayByTextures(subTileLeft, texLeft);
+        SetTileSpawnDisplayByTextures(subTileRight, texRight);
 
         subTileLeft.subTileColor = SubTileColor.Joker;
         subTileLeft.subTileSymbol = SubTileSymbol.Joker;
@@ -111,7 +126,8 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         }
 
 
-        PowerupManager.instance.PowerSucceededUsing();
+        StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
+        //PowerupManager.instance.PowerSucceededUsing();
     }
 
     /// set subtile display function (maybe materials)
@@ -121,5 +137,10 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     {
         return subTileLeft.subTileColor == subTileRight.subTileColor &&
             subTileLeft.subTileSymbol == subTileRight.subTileSymbol;
+    }
+    private bool CheckAlreadyJoker()
+    {
+        return subTileLeft.subTileColor == SubTileColor.Joker &&
+            subTileLeft.subTileSymbol == SubTileSymbol.Joker;
     }
 }

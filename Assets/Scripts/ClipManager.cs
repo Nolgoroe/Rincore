@@ -214,4 +214,9 @@ public class ClipManager : MonoBehaviour
             sr.color = Color.white;
         }
     }
+
+    public bool isFullClip()
+    {
+        return activeClipSlotsCount == slots.Length;
+    }
 }

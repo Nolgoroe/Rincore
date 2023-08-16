@@ -10,7 +10,7 @@ public class OwnedPowersAndAmounts
     public PowerupType powerType;
     public int amount;
 
-    public OwnedPowersAndAmounts(PowerupType _InPower, int _InAmount)
+    public OwnedPowersAndAmounts(PowerupType _InPower, int _InAmount, int in_Price)
     {
         powerType = _InPower;
         amount = _InAmount;
@@ -41,9 +41,12 @@ public class PowerupManager : MonoBehaviour
     [Header("Gameplay Usge")]
     [SerializeField] private PowerupType currentPowerUsing;
     [SerializeField] private IPowerUsable currentPowerLogic = null;
+    [SerializeField] private PowerupScriptableObject currentChosenPowerSO = null;
     [SerializeField] private OwnedPowersAndAmounts currentPowerData = null;
     [SerializeField] private PotionInLevelHelper currentPotionDisplay = null;
     [SerializeField] private Transform localObjectToUsePowerOn = null;
+    [SerializeField] private List<PotionInLevelHelper> spawnedHelpers;
+    [SerializeField] private float usePotionTime;
 
 
 
@@ -341,13 +344,13 @@ public class PowerupManager : MonoBehaviour
 
     public void BuyPotion()
     {
-        if (player.GetOwnedRubies < currentNeededRubies)
+        if (player.GetOwnedCoins < currentNeededRubies)
         {
             Debug.LogError("Not enough rubies!");
             return;
         }
 
-        player.RemoveRubies(currentNeededRubies);
+        player.RemoveCoins(currentNeededRubies);
 
         RemoveNeededIngredientsFromPlayerBuyAction();
 
@@ -358,7 +361,7 @@ public class PowerupManager : MonoBehaviour
 
         if(temoVar == null)
         {
-            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(currentPotionSelected.powerType, 1);
+            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(currentPotionSelected.powerType, 1, currentPotionSelected.price);
             ownedPowerups.Add(newPotion);
         }
         else
@@ -379,16 +382,23 @@ public class PowerupManager : MonoBehaviour
 
     public void AddPotion(PowerupType powerType)
     {
-        OwnedPowersAndAmounts temoVar = ownedPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
+        OwnedPowersAndAmounts tempVar = ownedPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
+        PowerupScriptableObject temoVar2 = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
 
-        if (temoVar == null)
+        if(temoVar2 == null)
         {
-            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(powerType, 1);
+            Debug.LogError("Problem here!");
+            return;
+        }
+
+        if (tempVar == null )
+        {
+            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(powerType, 1, temoVar2.price);
             ownedPowerups.Add(newPotion);
         }
         else
         {
-            temoVar.amount++;
+            tempVar.amount++;
         }
         Debug.Log("Added this power: " + powerType.ToString());
     }
@@ -407,7 +417,8 @@ public class PowerupManager : MonoBehaviour
         localObjectToUsePowerOn = objectToUsePowerOn;
         currentPowerLogic = powerLogic;
 
-        ChoosePowerToUse();
+        //StartCoroutine(ChoosePowerToUse(false));
+        ChoosePowerToUse(false);
     }
 
 
@@ -418,7 +429,7 @@ public class PowerupManager : MonoBehaviour
         currentPowerData = null;
         currentPotionDisplay = null;
         localObjectToUsePowerOn = null;
-
+        currentChosenPowerSO = null;
 
         USING_POWER = false;
     }
@@ -428,7 +439,8 @@ public class PowerupManager : MonoBehaviour
     {
         if(GameManager.gameClip.RenewClip())
         {
-            PowerSucceededUsing();
+            //PowerSucceededUsing();
+            StartCoroutine(PowerSucceededUsing());
         }
         else
         {
@@ -440,6 +452,13 @@ public class PowerupManager : MonoBehaviour
     {
         for (int i = 0; i < ownedPowerups.Count; i++)
         {
+
+            int tempIndex = i; // we do this since action subsccribing remembers the value in a memory unity.
+            // meaning in this case it would have remembered the last value of the iterator (i)
+
+
+
+
             if (i > potionPositions.Length - 1)
             {
                 Debug.Log("have more powerups than po sitions");
@@ -461,7 +480,12 @@ public class PowerupManager : MonoBehaviour
 
             if(potionData)
             {
-                potionData.SetPotionDisplay(ownedPowerups[i].amount.ToString(), chosenPower.potionSprite.texture);
+                potionData.buyButton.buttonEvents += () => StartCoroutine(CheckUseCoinsToUsePower(chosenPower, ownedPowerups[tempIndex], potionData));
+                //potionData.buyButton.buttonEvents += () => CheckUseCoinsToUsePower(chosenPower, ownedPowerups[tempIndex], potionData);
+
+                potionData.SetPotionDisplay(ownedPowerups[i].amount.ToString(), chosenPower.price.ToString(), chosenPower.potionMaterialMap.texture);
+
+                spawnedHelpers.Add(potionData);
             }
 
 
@@ -470,14 +494,11 @@ public class PowerupManager : MonoBehaviour
 
             go.TryGetComponent<BasicCustomButton>(out potionButton);
 
-            int tempIndex = i; // we do this since action subsccribing remembers the value in a memory unity.
-            // meaning in this case it would have remembered the last value of the iterator (i)
 
             if (potionButton)
             {
                 potionButton.buttonEvents += () => StartCoroutine(SetUsingPotion(ownedPowerups[tempIndex], potionData));
             }
-
         }
     }
 
@@ -493,53 +514,112 @@ public class PowerupManager : MonoBehaviour
                 }
             }
         }
+
+        spawnedHelpers.Clear();
     }
 
     private IEnumerator SetUsingPotion(OwnedPowersAndAmounts ownedPower, PotionInLevelHelper potionHelper)
     {
-        if (currentPowerUsing == ownedPower.powerType) yield break;
-
-        if(ownedPower.amount == 0)
+        if (currentPowerUsing != PowerupType.None)
         {
-            Debug.Log("No more uses!");
-            UIManager.instance.DisplayBundleScreen();
+            ResetPowerUpData();
+
+            foreach (var helper in spawnedHelpers)
+            {
+                helper.ToggleHoverWindow(false);
+            }
             yield break;
         }
 
+        if (ownedPower.amount == 0)
+        {
+            //if toggle a new window - close all others
+            foreach (var helper in spawnedHelpers)
+            {
+                helper.ToggleHoverWindow(false);
+            }
+
+            potionHelper.ToggleHoverWindow(true);
+            yield break;
+        }
+        else
+        {
+            //make sure there are no windows if trying to use a "good" potion
+            foreach (var helper in spawnedHelpers)
+            {
+                helper.ToggleHoverWindow(false);
+            }
+        }
+
+        currentChosenPowerSO = allPowerups.Where(k => k.powerType == ownedPower.powerType).SingleOrDefault();
         currentPowerData = ownedPower;
         currentPowerUsing = ownedPower.powerType;
         currentPotionDisplay = potionHelper;
 
-        yield return new WaitForSeconds(0.3f); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
-        UsePower();
+
+
+
+        //yield return new WaitForSeconds(0.1f); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
+        yield return new WaitForEndOfFrame();
+        UsePower(false);
     }
 
-    private void UsePower()
+    private void UsePower(bool is_Paid)
     {
         USING_POWER = true;
 
         if (currentPowerUsing == PowerupType.RefreshTiles)
         {
-            ChoosePowerToUse();
+            if (!GameManager.gameClip.isFullClip())
+            {
+                //StartCoroutine(ChoosePowerToUse(is_Paid));
+                ChoosePowerToUse(is_Paid);
+            }
+            else
+            {
+                ResetPowerUpData();
+            }
         }
     }
 
-    public void PowerSucceededUsing()
+    public IEnumerator PowerSucceededUsing()
     {
-        if(currentPowerData != null)
+        StartCoroutine(UIManager.instance.DisplayPotionUsageWindow());
+
+        if (currentPowerData.amount == 0)
+        {
+            yield return new WaitForSeconds(0.3f); //small delay for visual catchup
+            OnUseCoins();
+        }
+
+        if (currentPowerData != null)
         {
             currentPowerData.amount--;
+
+            if(currentPowerData.amount < 0)
+            {
+                currentPowerData.amount = 0;
+            }
+
             currentPotionDisplay.SetTextCustom(currentPowerData.amount.ToString());
-            //if (currentPowerData.amount == 0)
-            //{
-            //    Destroy(currentPotionDisplay.gameObject);
-            //}
+
+
         }
 
         ResetPowerUpData();
     }
-    private void ChoosePowerToUse()
+    private void ChoosePowerToUse(bool is_Paid)
     {
+        //StartCoroutine(UIManager.instance.DisplayPotionUsageWindow());
+
+        //if (is_Paid)
+        //{
+        //    yield return new WaitForSeconds(0.3f); //small delay for visual catchup
+        //    OnUseCoins();
+        //}
+
+        //yield return new WaitUntil(() => !UIManager.IS_DURING_POTION_USAGE);
+
         switch (currentPowerUsing)
         {
             case PowerupType.Switch:
@@ -559,4 +639,34 @@ public class PowerupManager : MonoBehaviour
         }
     }
 
+    private void OnUseCoins()
+    {
+        //Manage Coin Display and data
+        int currentCoins = player.GetOwnedCoins;
+        int newCoins = player.GetOwnedCoins - currentChosenPowerSO.price;
+        StartCoroutine(UIManager.instance.CounterText(currentCoins, newCoins, UIManager.instance.publicCoinText));
+        player.RemoveCoins(currentChosenPowerSO.price);
+    }
+    private IEnumerator CheckUseCoinsToUsePower(PowerupScriptableObject currentSO, OwnedPowersAndAmounts ownedPower, PotionInLevelHelper potionHelper)
+    {
+        if(player.GetOwnedCoins >= currentSO.price)
+        {
+            //yield return new WaitForSeconds(0.1f); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
+            yield return new WaitForEndOfFrame();
+
+            currentChosenPowerSO = allPowerups.Where(k => k.powerType == ownedPower.powerType).SingleOrDefault();
+            currentPowerData = ownedPower;
+            currentPowerUsing = ownedPower.powerType;
+            currentPotionDisplay = potionHelper;
+
+            UsePower(true);
+        }
+        else
+        {
+            UIManager.instance.DisplayBundleScreen();
+        }
+    }
+
+    public PowerupScriptableObject publicCurrentPowerSO => currentChosenPowerSO;
+    public float publicUsePotionTime => usePotionTime;
 }

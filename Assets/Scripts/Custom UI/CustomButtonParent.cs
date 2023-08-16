@@ -12,7 +12,6 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler
     /// </summary>
     public System.Action buttonEvents;
 
-
     /// <summary>
     /// this is not necessary, only if you want to use it, you can from the inspector.
     /// the actions connected to this are never reset! use this if you do not want the action to reset on window close
@@ -25,7 +24,10 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler
 
     private void OnMouseDown()
     {
-        if (isInteractable && !UIManager.IS_DURING_TRANSITION && !UIManager.IS_USING_UI)
+        if (isInteractable && 
+            !UIManager.IS_DURING_TRANSITION &&
+            !UIManager.IS_USING_UI && 
+            !UIManager.IS_DURING_POTION_USAGE)
         {
             // play click sound
             OnClickButton();

@@ -36,7 +36,10 @@ public class InLevelUserControls : MonoBehaviour
         // we use both isusingUI and isduringfade since we have some ui elements
         // as part of a ui object that we wat to not be able to click when were fadind
         // but do what to be able to click when using ui
-        bool canUseControls = !UIManager.IS_USING_UI && !UIManager.IS_DURING_TRANSITION && !PowerupManager.USING_POWER;
+        bool canUseControls = !UIManager.IS_DURING_POTION_USAGE && 
+            !UIManager.IS_USING_UI && 
+            !UIManager.IS_DURING_TRANSITION && 
+            !PowerupManager.USING_POWER;
 
         if (canUseControls)
         {
@@ -44,7 +47,7 @@ public class InLevelUserControls : MonoBehaviour
             return;
         }
 
-        if(PowerupManager.USING_POWER)
+        if(PowerupManager.USING_POWER && !UIManager.IS_DURING_POTION_USAGE)
         {
             PowerUpControls();
         }
@@ -104,8 +107,8 @@ public class InLevelUserControls : MonoBehaviour
 
             switch (touch.phase)
             {
-                case TouchPhase.Ended:
-                    OnTouchEndPower();
+                case TouchPhase.Began:
+                    OnTouchBeginPower();
                     break;
             }
         }
@@ -153,7 +156,7 @@ public class InLevelUserControls : MonoBehaviour
             ReleaseData();
         }
     }
-    private void OnTouchEndPower()
+    private void OnTouchBeginPower()
     {
         RaycastHit intersectionsArea = GetFirstIntersection3D(touchPos, everythingLayer);
 
