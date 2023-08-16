@@ -69,6 +69,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow animalAlbumRewardWidnow;
     [SerializeField] private DailyRewardsCustomWindow dailyRewardsWindow;
     [SerializeField] private BasicCustomButton playButton;
+    [SerializeField] private TMP_Text levelNumText;
 
     [Header("In level Screen")]
     [SerializeField] private BasicCustomUIWindow inLevelUI;
@@ -94,6 +95,12 @@ public class UIManager : MonoBehaviour
 
     [Header("Monetization Screens")]
     [SerializeField] private BasicCustomUIWindow bundleWindow;
+
+    [Header("Fill Bar Temp")]
+    [SerializeField] private Image fillBarImage;
+    [SerializeField] public float[] fillAmounts;
+    [SerializeField] public int fillIndex;
+
 
     [Header("Coin counter")]
     [SerializeField] private TMP_Text coinText;
@@ -377,7 +384,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 5, action = GameManager.gameClip.CallDealAction}, //deal button
             new ButtonActionIndexPair { index = 6, action = UndoSystem.instance.CallUndoAction }); //restart button
 
-        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached())).ToString() };
+        string[] texts = new string[] { ("Level: " + (GameManager.instance.currentCluster.clusterID)).ToString() };
 
         inLevelUI.OverrideSetMyElement(texts, null, actions);
     }
@@ -418,6 +425,8 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = DelegateAction(
             inLevelWinWindow,
             new ButtonActionIndexPair { index = 0, action = GameManager.TestButtonDelegationWorks },
+            new ButtonActionIndexPair { index = 1, action = () => ManualUpdateLevelNumText("Level: " + GameManager.instance.publicMaxClusterReached.ToString()) },//the new cluster is already set from the gamemanager before the win screen appears
+            new ButtonActionIndexPair { index = 1, action = () => ManualResetLevelFillBar() },//the new cluster is already set from the gamemanager before the win screen appears
             new ButtonActionIndexPair { index = 1, action = () => mapLogic.CallClusterTransfer(GameManager.instance.currentCluster) },//the new cluster is already set from the gamemanager before the win screen appears
             new ButtonActionIndexPair { index = 1, action = () => lootManager.DestroyAllLootChildren() },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelWinWindow) });
@@ -426,6 +435,11 @@ public class UIManager : MonoBehaviour
         inLevelWinWindow.OverrideSetMyElement(null, null, actions);
 
         AddUIElement(inLevelWinWindow);
+    }
+
+    private void ManualUpdateLevelNumText(string _InText)
+    {
+        levelNumText.text = _InText;
     }
 
     public IEnumerator DisplayPotionUsageWindow()
@@ -601,7 +615,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
             new ButtonActionIndexPair { index = 1, action = DisplayBundleScreen });
 
-        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached())).ToString() };
+        string[] texts = new string[] { ("Level: " + (GameManager.instance.publicMaxClusterReached)).ToString() };
 
         generalMapUI.OverrideSetMyElement(texts, null, actions);
 
@@ -618,6 +632,20 @@ public class UIManager : MonoBehaviour
         //    yield return new WaitForSeconds(2); // this is the time it takes to move to next level on map - for now it's hardcoded.
         //}
         //generalMapUI.OverrideSetMyElement(texts, null, actions);
+    }
+
+    public void ManualUpdateLevelFillBar(float amount) //TEMP
+    {
+        LeanTween.value(fillBarImage.gameObject, fillBarImage.fillAmount, amount, 1).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
+        {
+            fillBarImage.fillAmount = val;
+
+        });
+    }
+    public void ManualResetLevelFillBar() //TEMP
+    {
+        fillIndex = 0;
+        ManualUpdateLevelFillBar(fillIndex);
     }
 
     public void DisplayOverallMapUI()

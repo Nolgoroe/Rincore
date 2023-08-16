@@ -437,15 +437,18 @@ public class PowerupManager : MonoBehaviour
 
     private void RenewClipManager()
     {
-        if(GameManager.gameClip.RenewClip())
-        {
-            //PowerSucceededUsing();
-            StartCoroutine(PowerSucceededUsing());
-        }
-        else
-        {
-            ResetPowerUpData();
-        }
+        GameManager.gameClip.RenewClip();
+        StartCoroutine(PowerSucceededUsing());
+
+        //if (GameManager.gameClip.RenewClip())
+        //{
+        //    //PowerSucceededUsing();
+        //    StartCoroutine(PowerSucceededUsing());
+        //}
+        //else
+        //{
+        //    ResetPowerUpData();
+        //}
     }
 
     public void SpawnPotions()
@@ -570,15 +573,18 @@ public class PowerupManager : MonoBehaviour
 
         if (currentPowerUsing == PowerupType.RefreshTiles)
         {
-            if (!GameManager.gameClip.isFullClip())
-            {
-                //StartCoroutine(ChoosePowerToUse(is_Paid));
-                ChoosePowerToUse(is_Paid);
-            }
-            else
-            {
-                ResetPowerUpData();
-            }
+            ChoosePowerToUse(is_Paid);
+
+            //if (!GameManager.gameClip.isFullClip())
+            //{
+            //    ChoosePowerToUse(is_Paid);
+
+            //    //StartCoroutine(ChoosePowerToUse(is_Paid));
+            //}
+            //else
+            //{
+            //    ResetPowerUpData();
+            //}
         }
     }
 

@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
         currentMaxLevelReached = currentClusterSO.clusterLevels[0].levelNumInZone; //TEMP
+        currentMaxClusterReached = currentClusterSO.clusterID;
 
         testFirebase = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("Key_1").DoubleValue;
     }
@@ -273,6 +274,7 @@ public class GameManager : MonoBehaviour
     {
         if(inLevel)
         {
+
             mapLogic.FixCamPosStartLevel(currentIndexInCluster);
             cameraAnimatorController.SetTrigger("Camera In Level");
 
@@ -581,6 +583,7 @@ public class GameManager : MonoBehaviour
 
         if (!isClusterEnd)
         {
+
             yield return StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
 
             StartCoroutine(InitStartLevel(false));
@@ -697,6 +700,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<Ingredients, LootEntry> GetIngredientDict => player.returnownedIngredients;
     public List<OwnedAnimalDataSet> GetUnlockedAnimals => animalsManager.GetUnlockedAnimals();
     public ClusterSO currentCluster => currentClusterSO;
+    public int publicMaxClusterReached => currentMaxClusterReached;
     public bool IsAnimalAlreadyInAlbum(AnimalsInGame animal) => animalsManager.CheckAnimalAlreadyInAlbum(animal);
 
 

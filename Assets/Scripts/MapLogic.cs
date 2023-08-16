@@ -290,9 +290,11 @@ public class MapLogic : MonoBehaviour
 
         GameManager.IS_IN_LEVEL = false;
 
+        UIManager.instance.ManualUpdateLevelFillBar(UIManager.instance.fillAmounts[UIManager.instance.fillIndex]); // TEMP!
+        UIManager.instance.fillIndex++;
+
         yield return new WaitForSeconds(angleIntoLevelTime);
         ToggleSpecificRingCollider(currentIndexInCluster, false);
-
 
     }
 
@@ -312,6 +314,10 @@ public class MapLogic : MonoBehaviour
         LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
 
         GameManager.IS_IN_LEVEL = false;
+
+
+        UIManager.instance.ManualUpdateLevelFillBar(UIManager.instance.fillAmounts[UIManager.instance.fillIndex]); // TEMP!
+        UIManager.instance.fillIndex++;
 
         yield return new WaitForSeconds(angleIntoLevelTime);
     }

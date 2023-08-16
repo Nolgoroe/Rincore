@@ -181,7 +181,7 @@ public class ClipManager : MonoBehaviour
 
     public bool RenewClip()
     {
-        if (activeClipSlotsCount == slots.Length) return false;
+        //if (activeClipSlotsCount == slots.Length) return false;
 
         DestroyClipData();
 

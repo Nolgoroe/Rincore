@@ -1784,11 +1784,16 @@ PrefabInstance:
     - target: {fileID: 6644317539634747918, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7981562985987481841, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8543503789205111826, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
+        type: 3}
+      propertyPath: m_FillAmount
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4678,7 +4683,7 @@ MonoBehaviour:
   - powerType: 1
     amount: 30
   - powerType: 2
-    amount: 0
+    amount: 1
   - powerType: 3
     amount: 30
   unlockedPowerups: 00000000010000000200000003000000
@@ -4718,6 +4723,18 @@ MonoBehaviour:
     type: 3}
   buyPotionScreenMaterialParent: {fileID: 1705484827}
   player: {fileID: 2069315016}
+--- !u!114 &1508585868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9097264095565733053, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
+    type: 3}
+  m_PrefabInstance: {fileID: 354663023}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1518595446
 GameObject:
   m_ObjectHideFlags: 0
@@ -4929,6 +4946,7 @@ MonoBehaviour:
   animalAlbumRewardWidnow: {fileID: 2227531870368297990}
   dailyRewardsWindow: {fileID: 6186696849478572812}
   playButton: {fileID: 6748166866552126153}
+  levelNumText: {fileID: 1508585868}
   inLevelUI: {fileID: 1454515675}
   inLevelPotionUsage: {fileID: 4911922709416987673}
   inLevelSettingsWindow: {fileID: 3562539570125691732}
@@ -4991,6 +5009,12 @@ MonoBehaviour:
     leftMargineImageRef: {fileID: 0}
     rightMargineImageRef: {fileID: 0}
   bundleWindow: {fileID: 7131374496727953342}
+  fillBarImage: {fileID: 1764592243}
+  fillAmounts:
+  - 0.125
+  - 0.56
+  - 1
+  fillIndex: 0
   coinText: {fileID: 838225664}
   CountFPS: 30
   Duration: 1
@@ -5521,6 +5545,18 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 8481342444368976319}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1764592243 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8543503789205111826, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
+    type: 3}
+  m_PrefabInstance: {fileID: 354663023}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1766728048 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4812987641558644862, guid: 948fdf1458adcb548afffb30a18a728e,
@@ -9232,7 +9268,7 @@ PrefabInstance:
     - target: {fileID: 157154243610699685, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -78.10013
+      value: -148
       objectReference: {fileID: 0}
     - target: {fileID: 4376620932727059430, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}
@@ -9242,7 +9278,7 @@ PrefabInstance:
     - target: {fileID: 4376620932727059430, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -84
+      value: -148
       objectReference: {fileID: 0}
     - target: {fileID: 4954917097489725886, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}
