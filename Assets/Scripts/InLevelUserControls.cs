@@ -393,6 +393,7 @@ public class InLevelUserControls : MonoBehaviour
     }
     public void ReturnHomeBadRingConnections()
     {
+        UndoSystem.instance.RemoveSpecificEntryTile(currentTileToMove);
         LeanTween.cancel(currentTileToMove.gameObject);
 
         IGrabTileFrom grabbedObject = lastTileHolder.GetComponent<IGrabTileFrom>();

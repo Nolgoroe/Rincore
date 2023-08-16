@@ -104,13 +104,7 @@ public class GameManager : MonoBehaviour
 
         //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
-        LevelMapCustomButton levelData;
-        mapLogic.publicInstantiatedRings[0].TryGetComponent<LevelMapCustomButton>(out levelData);//Temp!!!!
-
-        if (levelData != null)
-        {
-            ClickOnLevelIconMapSetData(levelData.data);
-        }
+        currentMaxLevelReached = currentClusterSO.clusterLevels[0].levelNumInZone; //TEMP
 
         testFirebase = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("Key_1").DoubleValue;
     }
@@ -158,7 +152,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartLevel()
     {
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "World1", "Level: " + currentLevel.levelNumInZone.ToString());
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "World1", "Level " + currentLevel.levelNumInZone.ToString());
 
         IS_IN_LEVEL = true;
 
@@ -279,8 +273,6 @@ public class GameManager : MonoBehaviour
     {
         if(inLevel)
         {
-            UIManager.IS_DURING_TRANSITION = true;
-
             mapLogic.FixCamPosStartLevel(currentIndexInCluster);
             cameraAnimatorController.SetTrigger("Camera In Level");
 
@@ -333,9 +325,9 @@ public class GameManager : MonoBehaviour
         endLevelActions = null;
     }
 
-    public IEnumerator InitiateDestrucionOfLevel()
+    public void InitiateDestrucionOfLevel()
     {
-        yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
+        //yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
         Debug.Log("Initiating destruction");
         endLevelActions?.Invoke();
     }
@@ -478,6 +470,8 @@ public class GameManager : MonoBehaviour
     }
     public void BroadcastWinLevelActions()
     {
+        currentMaxLevelReached++;
+
         WinLevelActions?.Invoke();
 
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "World1", currentLevel.levelNumInZone.ToString());
@@ -504,12 +498,15 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator OnLevelExitResetSystem()
     {
-        ClearLevelActions();
+        UIManager.IS_DURING_TRANSITION = true;
+
+        //ClearLevelActions();
         gameRing.ClearActions();
 
         bool isAtStartOfCluster = currentIndexInCluster == 0 ? true : false;
 
         RestartClusterData();
+        currentMaxLevelReached = currentCluster.clusterLevels[0].levelNumInZone;
 
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
@@ -564,6 +561,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator OnLevelExitWin(bool isClusterEnd)
     {
+        UIManager.IS_DURING_TRANSITION = true;
+
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
         gameRing.ClearActions();
@@ -635,6 +634,8 @@ public class GameManager : MonoBehaviour
         {
             if(!restart)
             {
+                UIManager.IS_DURING_TRANSITION = true;
+
                 StartCoroutine(AnimateLevelElements(true));
             }
 

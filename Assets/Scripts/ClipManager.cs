@@ -169,12 +169,14 @@ public class ClipManager : MonoBehaviour
         DestroySlotTiles();
         activeClipSlotsCount = slots.Length;
 
+        BrightenAllClipSlotsImmediate();
         foreach (ClipSlot slot in slots)
         {
             slot.transform.localPosition = slot.originalSlotPos;
         }
 
         canUseDeal = true;
+
     }
 
     public bool RenewClip()
@@ -183,6 +185,16 @@ public class ClipManager : MonoBehaviour
 
         DestroyClipData();
 
+        BrightenAllClipSlots();
+
+        canUseDeal = true;
+
+
+        return true;
+    }
+
+    private void BrightenAllClipSlots()
+    {
         for (int i = 0; i < activeClipSlotsCount; i++)
         {
             SpawnRandomTileInSlot(slots[i]);
@@ -192,9 +204,14 @@ public class ClipManager : MonoBehaviour
             StartCoroutine(ActivateClipSlot(i));
         }
 
-        canUseDeal = true;
+    }
 
-
-        return true;
+    private void BrightenAllClipSlotsImmediate()
+    {
+        for (int i = 0; i < activeClipSlotsCount; i++)
+        {
+            Image sr = slotDisplays[i].gameObject.GetComponent<Image>();
+            sr.color = Color.white;
+        }
     }
 }

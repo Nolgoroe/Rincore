@@ -398,9 +398,9 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelLostLevelMessage) },
             //new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitResetSystem()) },
+            new ButtonActionIndexPair { index = 1, action = () => GameManager.instance.InitiateDestrucionOfLevel() },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelLostLevelMessage) },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitResetSystem()) });
 
         inLevelLostLevelMessage.OverrideSetMyElement(null, null, actions);
     }
@@ -412,8 +412,8 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = DelegateAction(
             inLevelExitToMapQuesiton,
             //new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelCluster(true)) },
+            new ButtonActionIndexPair { index = 0, action = () => GameManager.instance.InitiateDestrucionOfLevel() },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.OnLevelExitResetSystem()) },
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) },
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelExitToMapQuesiton) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelExitToMapQuesiton) });
 
@@ -526,13 +526,12 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator DisplayLevelCluster(bool isAnimate)
     {
-
         System.Action[] actions = DelegateAction(
             generalMapUI,
             new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
             new ButtonActionIndexPair { index = 1, action = DisplayBundleScreen });
 
-        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached() + 1)).ToString() };
+        string[] texts = new string[] { ("Level: " + (GameManager.instance.ReturnLastLevelIndexReached())).ToString() };
 
         generalMapUI.OverrideSetMyElement(texts, null, actions);
 
@@ -555,9 +554,8 @@ public class UIManager : MonoBehaviour
     {
         System.Action[] actions = DelegateAction(
             overAllMapUI,
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.AnimateLevelElements(true)) },
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(overAllMapUI) },
-            new ButtonActionIndexPair { index = 0, action = GameManager.instance.SetLevel });
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.InitStartLevel(false)) },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(overAllMapUI) });
 
 
         AddUIElement(overAllMapUI);
@@ -731,23 +729,23 @@ public class UIManager : MonoBehaviour
     //        action);
     //}
 
-    private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen, float fadeTime)
-    {
-        IS_DURING_TRANSITION = false;
-        // is this ok?
-        // This is here for actions that want to happen on the transition between
-        // fade in and out - so we for 0.5f seconds, allow actions to operate in "fade time"
+    //private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen, float fadeTime)
+    //{
+    //    IS_DURING_TRANSITION = false;
+    //    // is this ok?
+    //    // This is here for actions that want to happen on the transition between
+    //    // fade in and out - so we for 0.5f seconds, allow actions to operate in "fade time"
 
-        yield return new WaitForSeconds(fadeTime);
+    //    yield return new WaitForSeconds(fadeTime);
 
-        //FadeInFadeWindow(!fadeIn, mainScreen);
-    }
+    //    //FadeInFadeWindow(!fadeIn, mainScreen);
+    //}
 
-    private void OnEndFade()
-    {
-        IS_DURING_TRANSITION = false;
-        CloseElement(fadeWindow);
-    }
+    //private void OnEndFade()
+    //{
+    //    IS_DURING_TRANSITION = false;
+    //    CloseElement(fadeWindow);
+    //}
     private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
     {
         if (fadeIn)

@@ -18,6 +18,7 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private float nextClusterSummonOffset;
     [SerializeField] private float currentClusterSummonOffset;
     [SerializeField] private List<Ring> instantiatedRings;
+    [SerializeField] private GameObject summonedLastPiece;
     [SerializeField] private List<LevelPresetData> instantiatedRingsData;
     [SerializeField] private List<GameObject> allTreeVariants;
 
@@ -55,6 +56,7 @@ public class MapLogic : MonoBehaviour
 
     [Header("Transition cluster Animation")]
     [SerializeField] private float delayBetweenRings;
+    [SerializeField] private float delayAfterLastPiece;
     [SerializeField] private float moveZAmount;
     [SerializeField] private float ringMoveTime;
     [SerializeField] private float waitTimeBeforePlayButton;
@@ -62,6 +64,7 @@ public class MapLogic : MonoBehaviour
     private Vector3 translation = Vector3.zero;
     private Vector2 deltaPos = Vector2.zero;
     private Vector3 endPos = Vector3.zero;
+
 
     public void InitMapLogic(ClusterSO cluster)
     {
@@ -112,10 +115,10 @@ public class MapLogic : MonoBehaviour
 
         int tempnum = currentCluster.clusterLevels.Length;
 
-        GameObject lastPiece = Instantiate(lastPiecePrefab, pos, Quaternion.identity, ringsParent);
-        lastPiece.transform.localPosition = Vector3.zero;
+        summonedLastPiece = Instantiate(lastPiecePrefab, pos, Quaternion.identity, ringsParent);
+        summonedLastPiece.transform.localPosition = Vector3.zero;
         pos.z = (tempnum * distanceBetweenRings) + startRingOffset + currentClusterSummonOffset;
-        lastPiece.transform.localPosition = pos;
+        summonedLastPiece.transform.localPosition = pos;
 
         // initializes the main camera's position compared to first ring created
         // we subtract currentClusterSummonOffset since we want the camera to always be reset to it's original distance - which is where the rings will be after animations.
@@ -244,6 +247,7 @@ public class MapLogic : MonoBehaviour
 
         yield return new WaitForSeconds(moveCameraOutLevelTime + 0.5f);
 
+
         UIManager.IS_DURING_TRANSITION = false;
     }
 
@@ -270,6 +274,7 @@ public class MapLogic : MonoBehaviour
 
     public IEnumerator CameraTransitionNextLevel(int currentIndexInCluster)
     {
+
         //this function moves the camera to a "start point" from which we can activate the enter level animation
 
 
@@ -291,7 +296,7 @@ public class MapLogic : MonoBehaviour
 
     }
 
-    public IEnumerator CameraTransitionClusterStart(bool isAtStart) 
+    public IEnumerator CameraTransitionClusterStart(bool isAtStart)
     {
         //this function moves the camera to the cluster's "start point" from which we can activate the enter first level animation
 
@@ -357,16 +362,25 @@ public class MapLogic : MonoBehaviour
         for (int i = 0; i < instantiatedRings.Count; i++)
         {
             GameObject go = instantiatedRings[i].gameObject;
+            MoveAction(go, destroyAtEnd);
 
-            LeanTween.move(go,
-                new Vector3(go.transform.position.x,
-                go.transform.position.y,
-                go.transform.position.z + moveZAmount),
-                ringMoveTime)
-                .setEase(LeanTweenType.easeInCubic)
-                .setOnComplete(() => AtEndMove(go, destroyAtEnd));
             yield return new WaitForSeconds(delayBetweenRings);
         }
+
+        MoveAction(summonedLastPiece, destroyAtEnd);
+
+        yield return new WaitForSeconds(delayAfterLastPiece);
+    }
+    
+    private void MoveAction(GameObject go, bool destroyAtEnd)
+    {
+        LeanTween.move(go,
+            new Vector3(go.transform.position.x,
+            go.transform.position.y,
+            go.transform.position.z + moveZAmount),
+            ringMoveTime)
+            .setEase(LeanTweenType.easeInCubic)
+            .setOnComplete(() => AtEndMove(go, destroyAtEnd));
     }
 
     private void AtEndMove(GameObject ring, bool destroyAtEnd)
