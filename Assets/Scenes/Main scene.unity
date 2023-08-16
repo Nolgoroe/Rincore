@@ -5324,6 +5324,7 @@ MonoBehaviour:
   nextClusterSummonOffset: 40
   currentClusterSummonOffset: 0
   instantiatedRings: []
+  instantiatedRingsData: []
   allTreeVariants:
   - {fileID: 583472032800453620, guid: 57bc6387e74be6f4aa94cfe0c4b71713, type: 3}
   - {fileID: 1042230605087948921, guid: 8bf9cb549a0236c4480d74aa14a4629c, type: 3}
@@ -7150,31 +7151,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 379948431}
     m_Modifications:
-    - target: {fileID: 3880452208586292899, guid: 76f41847312836c4e849063ca71d7f42,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 279.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880452208586292899, guid: 76f41847312836c4e849063ca71d7f42,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 69.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880452208586292899, guid: 76f41847312836c4e849063ca71d7f42,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880452208586292899, guid: 76f41847312836c4e849063ca71d7f42,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880452208586292899, guid: 76f41847312836c4e849063ca71d7f42,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 4624532260880093069, guid: 76f41847312836c4e849063ca71d7f42,
         type: 3}
       propertyPath: m_Name
@@ -7542,11 +7518,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: In level - Last deal warning (Solo)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8810363789021425054, guid: b459d0be8379a8949bfcc2ef163eed0f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b459d0be8379a8949bfcc2ef163eed0f, type: 3}
@@ -8321,11 +8292,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: In level - Exit To Map question (Solo)
       objectReference: {fileID: 0}
-    - target: {fileID: 5221052926760936618, guid: d7a0469ed3de29e4c90238990c7a701b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7a0469ed3de29e4c90238990c7a701b, type: 3}
 --- !u!1001 &8218114942099168161
@@ -8471,11 +8437,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 379948431}
     m_Modifications:
-    - target: {fileID: 3298939216490494624, guid: c3d8b40aa855d704ebaf208ea4f9265e,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7075172330217351889, guid: c3d8b40aa855d704ebaf208ea4f9265e,
         type: 3}
       propertyPath: m_Name
