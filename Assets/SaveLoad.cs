@@ -5,17 +5,15 @@ using UnityEngine.Events;
 using Firebase;
 using Firebase.Extensions;
 using Firebase.Database;
-using System.Threading.Tasks;
 using System;
+using System.IO;
 
 public class SaveLoad : MonoBehaviour
 {
+    public string UID_TEXT;
     const string TEST_SAVE = "TEMP_SAVE_DATA";
     const string PLAYER_SAVE = "Player_Data";
 
-    //public int TempInt;
-    //public string TempString;
-    //public string TempString2;
     public static SaveLoad instance;
     public UnityEvent onFirebaseInitialized = new UnityEvent();
     private DatabaseReference database;
@@ -28,15 +26,31 @@ public class SaveLoad : MonoBehaviour
     [SerializeField] private MapLogic mapLogic;
     [SerializeField] private Player player;
 
+
+
+    string path;
+
     const string url = "https://rincore-a2735-default-rtdb.firebaseio.com/";
 
     private void Awake()
     {
+        path = Application.persistentDataPath + "/UniqueIDUser.txt"; //TEMP
         instance = this;
     }
 
     private void Start()
     {
+        if(File.Exists(path))
+        {
+            UID_TEXT = File.ReadAllText(path);
+        }
+        else
+        {
+            UID_TEXT = uniqueID();
+
+            File.WriteAllText(Application.persistentDataPath + "/UniqueIDUser.txt", UID_TEXT);
+        }
+
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
         {
             if (task.Exception != null)
@@ -51,10 +65,18 @@ public class SaveLoad : MonoBehaviour
         database = FirebaseDatabase.DefaultInstance.RootReference; //This is a DatabaseReference type object
     }
 
+    [ContextMenu("Delete local user")]
+    private void DeleteUserLocally()
+    {
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
     private void SaveData()
     {
-        database.Child(TEST_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(this));
-        database.Child(PLAYER_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(player));
+        database.Child(UID_TEXT).Child(TEST_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(this));
+        database.Child(UID_TEXT).Child(PLAYER_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(player));
 
 
 
@@ -75,8 +97,11 @@ public class SaveLoad : MonoBehaviour
     public async void LoadSaveData()
     {
         //This part of the code is translating a JSON back to the class itself.
-        DataSnapshot snapshot = await database.Child(TEST_SAVE).GetValueAsync();
-        DataSnapshot snapshot2 = await database.Child(PLAYER_SAVE).GetValueAsync();
+        DataSnapshot snapshot = await database.Child(UID_TEXT).Child(TEST_SAVE).GetValueAsync();
+        DataSnapshot snapshot2 = await database.Child(UID_TEXT).Child(PLAYER_SAVE).GetValueAsync();
+
+        //if (!snapshot.Exists && !snapshot2.Exists)
+        //    return;
 
         if(snapshot.Exists)
         {
@@ -130,13 +155,23 @@ public class SaveLoad : MonoBehaviour
     [ContextMenu("Erase")]
     public void EraseSave()
     {
-        database.Child(TEST_SAVE).RemoveValueAsync();
-        database.Child(PLAYER_SAVE).RemoveValueAsync();
+        database.Child(UID_TEXT).Child(TEST_SAVE).RemoveValueAsync();
+        database.Child(UID_TEXT).Child(PLAYER_SAVE).RemoveValueAsync();
     }
     public void CheckSuccessConnection()
     {
         LoadSaveData();
 
         Debug.Log("Success!");
+    }
+
+    private string uniqueID()
+    {
+        DateTime epochStart = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        int currentEpochTime = (int)(DateTime.UtcNow - epochStart).TotalSeconds;
+        int z1 = UnityEngine.Random.Range(0, 1000000);
+        int z2 = UnityEngine.Random.Range(0, 1000000);
+        string uid = currentEpochTime + ":" + z1 + ":" + z2;
+        return uid;
     }
 }

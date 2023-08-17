@@ -1074,6 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144c1030406dd0444b6ca3aaf6c84e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UID_TEXT: 
   onFirebaseInitialized:
     m_PersistentCalls:
       m_Calls:
@@ -1090,7 +1091,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   indexReachedInCluster: 0
-  currentClusterIDReached: 0
+  currentClusterIDReached: 1
   mapLogic: {fileID: 1960824553}
   player: {fileID: 2069315016}
 --- !u!4 &246565976

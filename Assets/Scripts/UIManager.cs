@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(InitGameUI());
+        //StartCoroutine(InitGameUI());
 
 
         //DisplayDailyRewardsWindow(); Enable if want to show Daily Rewards
@@ -932,6 +932,8 @@ public class UIManager : MonoBehaviour
 
             fillIndex++; // we set the data for the next win to fill the next index in the bar
         }
+
+        StartCoroutine(InitGameUI());
     }
 
 
