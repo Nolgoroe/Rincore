@@ -100,7 +100,7 @@ public class UndoSystem : MonoBehaviour
     {
         for (int i = undoEntries.Count - 1; i >= 0; i--)
         {
-            if (undoEntries[i].originalClipParent && undoEntries[i].originalClipParent == holder)
+            if (undoEntries[i].originalClipParent /*&& undoEntries[i].originalClipParent == holder*/)
             {
                 undoEntries.RemoveAt(i);
             }

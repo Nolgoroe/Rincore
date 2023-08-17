@@ -1041,14 +1041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3081fefda84e5d4e9b3d92241de0962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  undoEntries:
-  - originalClipParent: {fileID: 0}
-    originalCell:
-      originalCellParent: {fileID: 0}
-      isLocked: 0
-      isStone: 0
-    currntCellParent: {fileID: 0}
-    movedTile: {fileID: 0}
+  undoEntries: []
 --- !u!1 &246565974
 GameObject:
   m_ObjectHideFlags: 0
@@ -5015,6 +5008,7 @@ MonoBehaviour:
   - 0.56
   - 1
   fillIndex: 0
+  coinParent: {fileID: 108667261}
   coinText: {fileID: 838225664}
   CountFPS: 30
   Duration: 1
@@ -9262,13 +9256,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 157154243610699685, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.00006694205
-      objectReference: {fileID: 0}
-    - target: {fileID: 157154243610699685, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -148
+      objectReference: {fileID: 0}
+    - target: {fileID: 873584321656188494, guid: f1418324f3df62a4188cbabe20e48f0b,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342098949265166779, guid: f1418324f3df62a4188cbabe20e48f0b,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371413573439433940, guid: f1418324f3df62a4188cbabe20e48f0b,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870694978277625758, guid: f1418324f3df62a4188cbabe20e48f0b,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4376620932727059430, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}

@@ -103,6 +103,7 @@ public class UIManager : MonoBehaviour
 
 
     [Header("Coin counter")]
+    [SerializeField] private GameObject coinParent;
     [SerializeField] private TMP_Text coinText;
     [SerializeField] private int CountFPS = 30;
     [SerializeField] private float Duration = 1f;
@@ -442,8 +443,10 @@ public class UIManager : MonoBehaviour
         levelNumText.text = _InText;
     }
 
-    public IEnumerator DisplayPotionUsageWindow()
+    public IEnumerator DisplayPotionUsageWindow(bool isBought)
     {
+        coinParent.SetActive(isBought);
+
         IS_DURING_POTION_USAGE = true;
 
         Sprite[] sprites = new Sprite[] { powerupManager.publicCurrentPowerSO.potionSprite };

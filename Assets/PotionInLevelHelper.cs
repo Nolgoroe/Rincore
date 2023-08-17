@@ -20,6 +20,11 @@ public class PotionInLevelHelper : MonoBehaviour
 
         if (connectedText)
         {
+            if(in_text == "0")
+            {
+                in_text = "+";
+            }
+
             connectedText.text = in_text;
         }
 

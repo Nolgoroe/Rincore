@@ -590,7 +590,7 @@ public class PowerupManager : MonoBehaviour
 
     public IEnumerator PowerSucceededUsing()
     {
-        StartCoroutine(UIManager.instance.DisplayPotionUsageWindow());
+        StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
 
         if (currentPowerData.amount == 0)
         {
@@ -607,7 +607,18 @@ public class PowerupManager : MonoBehaviour
                 currentPowerData.amount = 0;
             }
 
-            currentPotionDisplay.SetTextCustom(currentPowerData.amount.ToString());
+            string text = "X";
+
+            if(currentPowerData.amount == 0)
+            {
+                text = "+";
+            }
+            else
+            {
+                text = currentPowerData.amount.ToString();
+            }
+
+            currentPotionDisplay.SetTextCustom(text);
 
 
         }

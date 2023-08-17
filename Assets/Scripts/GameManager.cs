@@ -673,21 +673,19 @@ public class GameManager : MonoBehaviour
 
 
 
+        currentClusterSO = allClusters[currentMaxClusterReached];
 
-        int nextClusterIndex = currentClusterSO.clusterID + 1;
+        currentMaxClusterReached++; ;
 
-        if(nextClusterIndex >= allClusters.Length)
+        if (currentMaxClusterReached > allClusters.Length)
         {
             Debug.LogError("No next cluster!");
+            // thank you for playing the demo screen?
             yield break;
         }
 
         UIManager.instance.DisplayInLevelWinWindow();
         lootManager.TEMPFUNC();
-
-        currentMaxClusterReached = nextClusterIndex;
-
-        currentClusterSO = allClusters[nextClusterIndex];
 
 
     }
