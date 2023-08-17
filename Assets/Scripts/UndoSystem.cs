@@ -31,6 +31,9 @@ public class UndoSystem : MonoBehaviour
 
     public List<UndoEntry> undoEntries;
 
+    [SerializeField] private int YposOffsetCell;
+    [SerializeField] private int YposOffsetClip;
+    [SerializeField] private float timeToMove;
 
     private void Start()
     {
@@ -62,12 +65,13 @@ public class UndoSystem : MonoBehaviour
             // we call directly to the dispatch since we don't need the "extra" actions here in the data
             // we also have no reason to check if the drop was successful since if we reach here that means that it 100% is since we just moved a tile - so the previous cell must be empty.
 
-            undoEntries[lastIndex].originalCell.originalCellParent.DroopedOnDispatch(undoEntries[lastIndex].movedTile, GameManager.gameRing); 
+            undoEntries[lastIndex].originalCell.originalCellParent.DroopedOnDispatch(undoEntries[lastIndex].movedTile, GameManager.gameRing);
 
+            TweemMoveFromAtoB(undoEntries[lastIndex].movedTile.gameObject, Vector3.zero, timeToMove, false);
             undoEntries[lastIndex].movedTile.transform.SetParent(undoEntries[lastIndex].originalCell.originalCellParent.transform);
 
-            undoEntries[lastIndex].movedTile.transform.localPosition = Vector3.zero;
-            undoEntries[lastIndex].movedTile.transform.localRotation = Quaternion.identity;
+            //undoEntries[lastIndex].movedTile.transform.localPosition = Vector3.zero;
+            //undoEntries[lastIndex].movedTile.transform.localRotation = Quaternion.identity;
 
         }
         else
@@ -84,9 +88,11 @@ public class UndoSystem : MonoBehaviour
                 undoEntries[lastIndex].originalClipParent.heldTile = undoEntries[lastIndex].movedTile;
                 undoEntries[lastIndex].movedTile.transform.SetParent(undoEntries[lastIndex].originalClipParent.transform);
 
-                undoEntries[lastIndex].movedTile.transform.localPosition = Vector3.zero;
+                TweemMoveFromAtoB(undoEntries[lastIndex].movedTile.gameObject, Vector3.zero, timeToMove, true);
+
+                //undoEntries[lastIndex].movedTile.transform.localPosition = Vector3.zero;
                 undoEntries[lastIndex].movedTile.transform.localScale = Vector3.one;
-                undoEntries[lastIndex].movedTile.transform.localRotation = Quaternion.identity;
+                //undoEntries[lastIndex].movedTile.transform.localRotation = Quaternion.identity;
 
                 undoEntries[lastIndex].movedTile.partOfBoard = false;
 
@@ -94,6 +100,24 @@ public class UndoSystem : MonoBehaviour
         }
 
         undoEntries.RemoveAt(lastIndex);
+    }
+
+    private void TweemMoveFromAtoB(GameObject toMove, Vector3 targetPos, float moveTime, bool isClipParent)
+    {
+        if(isClipParent)
+        {
+            toMove.transform.position = new Vector3(toMove.transform.position.x, toMove.transform.position.y + YposOffsetClip, toMove.transform.position.z);
+
+            LeanTween.moveLocal(toMove, targetPos, moveTime);
+            LeanTween.rotateLocal(toMove, Vector3.zero, moveTime);
+        }
+        else
+        {
+            toMove.transform.position = new Vector3(toMove.transform.position.x, toMove.transform.position.y + YposOffsetCell, toMove.transform.position.z);
+            LeanTween.moveLocal(toMove, targetPos, moveTime);
+            LeanTween.rotateLocal(toMove, Vector3.zero, moveTime);
+        }
+
     }
 
     public void RemoveEntriesOnDeal(TileHolder holder)

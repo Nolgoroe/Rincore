@@ -10,15 +10,31 @@ using System;
 
 public class SaveLoad : MonoBehaviour
 {
-    public int TempInt;
-    public string TempString;
-    public string TempString2;
+    const string TEST_SAVE = "TEMP_SAVE_DATA";
+    const string PLAYER_SAVE = "Player_Data";
 
+    //public int TempInt;
+    //public string TempString;
+    //public string TempString2;
+    public static SaveLoad instance;
     public UnityEvent onFirebaseInitialized = new UnityEvent();
-
-
     private DatabaseReference database;
+
+    [Header("Saved Data")]
+    public int indexReachedInCluster;
+    public int currentClusterIDReached;
+
+    [Header("Needed refs")]
+    [SerializeField] private MapLogic mapLogic;
+    [SerializeField] private Player player;
+
     const string url = "https://rincore-a2735-default-rtdb.firebaseio.com/";
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
@@ -35,32 +51,64 @@ public class SaveLoad : MonoBehaviour
         database = FirebaseDatabase.DefaultInstance.RootReference; //This is a DatabaseReference type object
     }
 
-    [ContextMenu("Save")]
     private void SaveData()
     {
-        database.Child("TEMP_SAVE_DATA").SetRawJsonValueAsync(JsonUtility.ToJson(this));
+        database.Child(TEST_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(this));
+        database.Child(PLAYER_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(player));
 
 
 
-        database.Child("TEMP_SAVE_DATA").Child("Temp_Int 2").SetValueAsync(TempInt + 1);
-        database.Child("TEMP_SAVE_DATA").Child("TempString2").SetValueAsync("Hello!");
+        //database.Child("TEMP_SAVE_DATA").Child("Temp_Int 2").SetValueAsync(TempInt + 1);
+        //database.Child("TEMP_SAVE_DATA").Child("TempString2").SetValueAsync("Hello!");
+    }
+
+    [ContextMenu("Save")]
+    private void SaveAction()
+    {
+        indexReachedInCluster = GameManager.instance.ReturnCurrentIndexInCluster();
+        currentClusterIDReached = GameManager.instance.currentCluster.clusterID;
+
+        SaveData();
     }
 
     [ContextMenu("Load")]
     public async void LoadSaveData()
     {
         //This part of the code is translating a JSON back to the class itself.
-        DataSnapshot snapshot = await database.Child("TEMP_SAVE_DATA").GetValueAsync();
+        DataSnapshot snapshot = await database.Child(TEST_SAVE).GetValueAsync();
+        DataSnapshot snapshot2 = await database.Child(PLAYER_SAVE).GetValueAsync();
 
-        if(!snapshot.Exists)
+        if(snapshot.Exists)
         {
-            return;
+            JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), this);
         }
 
-        JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), this);
+        if(snapshot2.Exists)
+        {
+            JsonUtility.FromJsonOverwrite(snapshot2.GetRawJsonValue(), player);
+        }
+
+
+        // load data only if has data! - for now, not good!
+
+        GameManager.instance.OnLoadData();
+        UIManager.instance.OnLoadData();
+        mapLogic.OnLoadData();
+
+
+
+
+
+
+
+
+
+
+
+
 
         //FROM HERE on the code is aimed at getting specific values from the database instead of a complete JSON.
-        
+
         //FirebaseDatabase.DefaultInstance.GetReference("TEMP_SAVE_DATA").GetValueAsync().ContinueWithOnMainThread(task => {
         //    if (task.IsFaulted)
         //    {
@@ -82,10 +130,13 @@ public class SaveLoad : MonoBehaviour
     [ContextMenu("Erase")]
     public void EraseSave()
     {
-        database.Child("TEMP_SAVE_DATA").RemoveValueAsync();
+        database.Child(TEST_SAVE).RemoveValueAsync();
+        database.Child(PLAYER_SAVE).RemoveValueAsync();
     }
     public void CheckSuccessConnection()
     {
+        LoadSaveData();
+
         Debug.Log("Success!");
     }
 }

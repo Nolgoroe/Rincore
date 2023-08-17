@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("Level setup Data")]
     [SerializeField] private ClusterSO currentClusterSO;
     [SerializeField] private int currentIndexInCluster;
-    [SerializeField] private int currentMaxLevelReached;
+    //[SerializeField] private int currentMaxLevelReached;
     [SerializeField] private int currentMaxClusterReached;
 
     //[SerializeField] private Transform levelCameraParent = null;
@@ -99,13 +99,12 @@ public class GameManager : MonoBehaviour
         gameClip = clipManager;
         LeanTween.init(5000);
 
-        mapLogic.InitMapLogic(currentClusterSO);
+        //mapLogic.InitMapLogic(currentClusterSO);
         //UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
 
         //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
-        currentMaxLevelReached = currentClusterSO.clusterLevels[0].levelNumInZone; //TEMP
-        currentMaxClusterReached = currentClusterSO.clusterID;
+        //currentMaxLevelReached = currentClusterSO.clusterLevels[0].levelNumInZone; //TEMP
 
         testFirebase = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("Key_1").DoubleValue;
     }
@@ -256,7 +255,7 @@ public class GameManager : MonoBehaviour
 
         powerupManager.SpawnPotions();
 
-        currentMaxLevelReached = currentLevel.levelNumInZone;
+        //currentMaxLevelReached = currentLevel.levelNumInZone;
     }
 
     private void SpawnLevelBG()
@@ -461,10 +460,10 @@ public class GameManager : MonoBehaviour
     {
         return currentIndexInCluster;
     }
-    public int ReturnLastLevelIndexReached()
-    {
-        return currentMaxLevelReached;
-    }
+    //public int ReturnLastLevelIndexReached()
+    //{
+    //    return currentMaxLevelReached;
+    //}
 
     public LevelSO ReturnCurrentLevelSO()
     {
@@ -472,7 +471,7 @@ public class GameManager : MonoBehaviour
     }
     public void BroadcastWinLevelActions()
     {
-        currentMaxLevelReached++;
+        //currentMaxLevelReached++;
 
         WinLevelActions?.Invoke();
 
@@ -508,11 +507,11 @@ public class GameManager : MonoBehaviour
         bool isAtStartOfCluster = currentIndexInCluster == 0 ? true : false;
 
         RestartClusterData();
-        currentMaxLevelReached = currentCluster.clusterLevels[0].levelNumInZone;
+        //currentMaxLevelReached = currentCluster.clusterLevels[0].levelNumInZone;
 
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
-        yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster)); // move to start of cluster
+        yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster, true)); // move to start of cluster
 
         foreach (var ring in mapLogic.publicInstantiatedRings)
         {
@@ -660,7 +659,7 @@ public class GameManager : MonoBehaviour
 
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
-        yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster)); // move to start of cluster
+        yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster, false)); // move to start of cluster
 
         for (int i = 0; i < inLevelParent.childCount; i++)
         {
@@ -690,6 +689,16 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    public void OnLoadData()
+    {
+        currentIndexInCluster = SaveLoad.instance.indexReachedInCluster;
+        currentClusterSO = allClusters[SaveLoad.instance.currentClusterIDReached - 1]; // we do -1 since clusters start at 1, not at 0
+        currentMaxClusterReached = currentClusterSO.clusterID;
+
+
+        mapLogic.InitMapLogic(currentClusterSO);
+    }
 
     /**/
     // GETTERS!

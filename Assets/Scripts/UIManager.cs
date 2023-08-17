@@ -81,6 +81,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow inLevelExitToMapQuesiton;
     [SerializeField] private BasicCustomUIWindow inLevelRestartLevelQuesiton;
     [SerializeField] private WinLevelCustomWindow inLevelWinWindow;
+    [SerializeField] private Image fillBarImageInLevel;
 
     [Header("Fade object settings")] // might move to SO
     [SerializeField] private BasicCustomUIWindow fadeWindow;
@@ -372,6 +373,8 @@ public class UIManager : MonoBehaviour
     public void SetInLevelUIData()
     {
         //CloseAllCurrentScreens(); // close all screens open before level launch
+
+        fillBarImageInLevel.fillAmount = fillBarImage.fillAmount;
 
         AddUIElement(inLevelUI);
 
@@ -908,6 +911,39 @@ public class UIManager : MonoBehaviour
     }
 
 #endif
+
+
+
+
+
+
+
+
+
+
+
+    public void OnLoadData()
+    {
+        if(SaveLoad.instance.indexReachedInCluster > 0)
+        {
+            fillIndex = SaveLoad.instance.indexReachedInCluster - 1; // we set the bar to the current fill amount reached
+
+            ManualUpdateLevelFillBar(fillAmounts[fillIndex]);
+
+            fillIndex++; // we set the data for the next win to fill the next index in the bar
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

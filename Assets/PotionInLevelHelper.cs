@@ -23,6 +23,11 @@ public class PotionInLevelHelper : MonoBehaviour
             if(in_text == "0")
             {
                 in_text = "+";
+                connectedText.fontSize = 70;
+            }
+            else
+            {
+                connectedText.fontSize = 32.5f;
             }
 
             connectedText.text = in_text;
@@ -36,6 +41,16 @@ public class PotionInLevelHelper : MonoBehaviour
 
     public void SetTextCustom(string in_text)
     {
+        if (in_text == "0")
+        {
+            in_text = "+";
+            connectedText.fontSize = 70;
+        }
+        else
+        {
+            connectedText.fontSize = 32.5f;
+        }
+
         connectedText.text = in_text;
     }
 

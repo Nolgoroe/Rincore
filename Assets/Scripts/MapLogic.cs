@@ -229,6 +229,12 @@ public class MapLogic : MonoBehaviour
         levelCameraParent.transform.position = new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, clampZ);
     }
 
+    [ContextMenu("TestSetPose")]
+    public void test()
+    {
+        FixCamPosStartLevel(SaveLoad.instance.indexReachedInCluster);
+    }
+
     public void FixCamPosStartLevel(int currentIndexInCluster)
     {
         //this function sets the "IN LEVEL" camera's position so that we can clearly see the whole ring as we play
@@ -298,7 +304,7 @@ public class MapLogic : MonoBehaviour
 
     }
 
-    public IEnumerator CameraTransitionClusterStart(bool isAtStart)
+    public IEnumerator CameraTransitionClusterStart(bool isAtStart, bool hasLost)
     {
         //this function moves the camera to the cluster's "start point" from which we can activate the enter first level animation
 
@@ -306,6 +312,18 @@ public class MapLogic : MonoBehaviour
 
         if(!isAtStart)
         {
+            if(hasLost)
+            {
+                UIManager.instance.ManualResetLevelFillBar(); // TEMP!
+                UIManager.instance.fillIndex = 0;
+            }
+            else
+            {
+                //last part of the fill bar happends when we go back to start of cluster
+                UIManager.instance.ManualUpdateLevelFillBar(UIManager.instance.fillAmounts[UIManager.instance.fillIndex]); // TEMP!
+                UIManager.instance.fillIndex++;
+            }
+
             yield return new WaitForSeconds(waitMoveStartCluster);
         }
 
@@ -314,10 +332,6 @@ public class MapLogic : MonoBehaviour
         LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.position.x, levelCameraParent.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
 
         GameManager.IS_IN_LEVEL = false;
-
-
-        UIManager.instance.ManualUpdateLevelFillBar(UIManager.instance.fillAmounts[UIManager.instance.fillIndex]); // TEMP!
-        UIManager.instance.fillIndex++;
 
         yield return new WaitForSeconds(angleIntoLevelTime);
     }
@@ -454,6 +468,33 @@ public class MapLogic : MonoBehaviour
     //    }
 
     //}
+
+
+
+
+
+
+
+
+
+
+    public void OnLoadData()
+    {
+        FixCamPosStartLevel(SaveLoad.instance.indexReachedInCluster);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**/
     // GETTERS!

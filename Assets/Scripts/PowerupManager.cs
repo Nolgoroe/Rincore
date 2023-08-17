@@ -418,7 +418,7 @@ public class PowerupManager : MonoBehaviour
         currentPowerLogic = powerLogic;
 
         //StartCoroutine(ChoosePowerToUse(false));
-        ChoosePowerToUse(false);
+        StartCoroutine(ChoosePowerToUse(currentPowerData.amount == 0));
     }
 
 
@@ -573,7 +573,7 @@ public class PowerupManager : MonoBehaviour
 
         if (currentPowerUsing == PowerupType.RefreshTiles)
         {
-            ChoosePowerToUse(is_Paid);
+            StartCoroutine(ChoosePowerToUse(is_Paid));
 
             //if (!GameManager.gameClip.isFullClip())
             //{
@@ -590,13 +590,14 @@ public class PowerupManager : MonoBehaviour
 
     public IEnumerator PowerSucceededUsing()
     {
-        StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
+        yield return null; //temp here
+        //StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
 
-        if (currentPowerData.amount == 0)
-        {
-            yield return new WaitForSeconds(0.3f); //small delay for visual catchup
-            OnUseCoins();
-        }
+        //if (currentPowerData.amount == 0)
+        //{
+        //    yield return new WaitForSeconds(0.3f); //small delay for visual catchup
+        //    OnUseCoins();
+        //}
 
         if (currentPowerData != null)
         {
@@ -607,35 +608,22 @@ public class PowerupManager : MonoBehaviour
                 currentPowerData.amount = 0;
             }
 
-            string text = "X";
-
-            if(currentPowerData.amount == 0)
-            {
-                text = "+";
-            }
-            else
-            {
-                text = currentPowerData.amount.ToString();
-            }
-
-            currentPotionDisplay.SetTextCustom(text);
-
-
+            currentPotionDisplay.SetTextCustom(currentPowerData.amount.ToString());
         }
 
         ResetPowerUpData();
     }
-    private void ChoosePowerToUse(bool is_Paid)
+    private IEnumerator ChoosePowerToUse(bool is_Paid)
     {
-        //StartCoroutine(UIManager.instance.DisplayPotionUsageWindow());
+        StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
 
-        //if (is_Paid)
-        //{
-        //    yield return new WaitForSeconds(0.3f); //small delay for visual catchup
-        //    OnUseCoins();
-        //}
+        if (is_Paid)
+        {
+            yield return new WaitForSeconds(0.3f); //small delay for visual catchup
+            OnUseCoins();
+        }
 
-        //yield return new WaitUntil(() => !UIManager.IS_DURING_POTION_USAGE);
+        yield return new WaitUntil(() => !UIManager.IS_DURING_POTION_USAGE);
 
         switch (currentPowerUsing)
         {
