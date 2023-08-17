@@ -19,7 +19,7 @@ public class SaveLoad : MonoBehaviour
     private DatabaseReference database;
 
     [Header("Saved Data")]
-    public int indexReachedInCluster;
+    //public int indexReachedInCluster;
     public int currentClusterIDReached;
 
     [Header("Needed refs")]
@@ -87,7 +87,7 @@ public class SaveLoad : MonoBehaviour
     [ContextMenu("Save")]
     private void SaveAction()
     {
-        indexReachedInCluster = GameManager.instance.ReturnCurrentIndexInCluster();
+        //indexReachedInCluster = GameManager.instance.ReturnCurrentIndexInCluster();
         currentClusterIDReached = GameManager.instance.currentCluster.clusterID;
 
         SaveData();

@@ -692,7 +692,7 @@ public class GameManager : MonoBehaviour
 
     public void OnLoadData()
     {
-        currentIndexInCluster = SaveLoad.instance.indexReachedInCluster;
+        currentIndexInCluster = 0;
         currentClusterSO = allClusters[SaveLoad.instance.currentClusterIDReached - 1]; // we do -1 since clusters start at 1, not at 0
         currentMaxClusterReached = currentClusterSO.clusterID;
 

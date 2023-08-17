@@ -924,14 +924,7 @@ public class UIManager : MonoBehaviour
 
     public void OnLoadData()
     {
-        if(SaveLoad.instance.indexReachedInCluster > 0)
-        {
-            fillIndex = SaveLoad.instance.indexReachedInCluster - 1; // we set the bar to the current fill amount reached
-
-            ManualUpdateLevelFillBar(fillAmounts[fillIndex]);
-
-            fillIndex++; // we set the data for the next win to fill the next index in the bar
-        }
+        //fillIndex = SaveLoad.instance.indexReachedInCluster - 1; // we set the bar to the current fill amount reached
 
         StartCoroutine(InitGameUI());
     }
