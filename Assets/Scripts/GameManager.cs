@@ -699,7 +699,7 @@ public class GameManager : MonoBehaviour
     public void OnLoadData()
     {
         currentIndexInCluster = 0;
-        currentClusterSO = allClusters[SaveLoad.instance.currentClusterIDReached - 1]; // we do -1 since clusters start at 1, not at 0
+        currentClusterSO = allClusters[SavedData.instance.currentClusterIDReached - 1]; // we do -1 since clusters start at 1, not at 0
         currentMaxClusterReached = currentClusterSO.clusterID;
 
 
@@ -714,8 +714,8 @@ public class GameManager : MonoBehaviour
     public List<OwnedAnimalDataSet> GetUnlockedAnimals => animalsManager.GetUnlockedAnimals();
     public ClusterSO currentCluster => currentClusterSO;
     public int publicMaxClusterReached => currentMaxClusterReached;
-    public Player publicPlayer => player;
-    public MapLogic publicMapLogic => mapLogic;
+    //public Player publicPlayer => player;
+    //public MapLogic publicMapLogic => mapLogic;
     public bool IsAnimalAlreadyInAlbum(AnimalsInGame animal) => animalsManager.CheckAnimalAlreadyInAlbum(animal);
 
 

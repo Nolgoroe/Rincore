@@ -13,25 +13,27 @@ public class SaveLoad : MonoBehaviour
 {
     public string UID_TEXT;
     const string TEST_SAVE = "TEMP_SAVE_DATA";
-    const string PLAYER_SAVE = "Player_Data";
+    //const string PLAYER_SAVE = "Player_Data";
 
-    public static SaveLoad instance;
+    //public static SaveLoad instance;
     public UnityEvent onFirebaseInitialized = new UnityEvent();
     private DatabaseReference database;
-
-    [Header("Saved Data")]
-    //public int indexReachedInCluster;
-    public int currentClusterIDReached;
 
 
     string path;
 
     const string url = "https://rincore-a2735-default-rtdb.firebaseio.com/";
 
+
+    [Header("General refrences")]
+    public Player playerRef;
+    public MapLogic mapLogic;
+    public SavedData saveData;
+
     private void Awake()
     {
         path = Application.persistentDataPath + "/UniqueIDUser.txt"; //TEMP
-        instance = this;
+        //instance = this;
     }
 
     private void Start()
@@ -71,8 +73,8 @@ public class SaveLoad : MonoBehaviour
     }
     private void SaveData()
     {
-        database.Child(UID_TEXT).Child(TEST_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(this));
-        database.Child(UID_TEXT).Child(PLAYER_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(GameManager.instance.publicPlayer));
+        database.Child(UID_TEXT).Child(TEST_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(saveData));
+        //database.Child(UID_TEXT).Child(PLAYER_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(playerRef));
 
 
 
@@ -84,7 +86,8 @@ public class SaveLoad : MonoBehaviour
     private void SaveAction()
     {
         //indexReachedInCluster = GameManager.instance.ReturnCurrentIndexInCluster();
-        currentClusterIDReached = GameManager.instance.currentCluster.clusterID;
+        saveData.currentClusterIDReached = GameManager.instance.currentCluster.clusterID;
+        saveData.savedCoins = playerRef.GetOwnedCoins;
 
         SaveData();
     }
@@ -94,33 +97,57 @@ public class SaveLoad : MonoBehaviour
     {
         if (UID_TEXT != "")
         {
+            //load this class
+            await FirebaseDatabase.DefaultInstance
+                .GetReference(UID_TEXT).Child(TEST_SAVE)
+                .GetValueAsync().ContinueWithOnMainThread(task => {
+                    if (task.IsFaulted)
+                    {
+                        // Handle the error...
+                    }
+                    else if (task.IsCompleted)
+                    {
+                        DataSnapshot snapshot = task.Result;
+
+                        if (snapshot.Exists)
+                        {
+                            JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), SavedData.instance);
+                        }
+                        // Do something with snapshot...
+                    }
+                });
+
+            ////load the player data
+            //await FirebaseDatabase.DefaultInstance
+            //    .GetReference(UID_TEXT).Child(TEST_SAVE)
+            //    .GetValueAsync().ContinueWithOnMainThread(task => {
+            //        if (task.IsFaulted)
+            //        {
+            //            // Handle the error...
+            //        }
+            //        else if (task.IsCompleted)
+            //        {
+            //            DataSnapshot snapshot = task.Result;
+
+            //            if (snapshot.Exists)
+            //            {
+            //                JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(),  playerRef);
+            //            }
+            //            // Do something with snapshot...
+            //        }
+            //    });
+
             //This part of the code is translating a JSON back to the class itself.
-            DataSnapshot snapshot = await database.Child(UID_TEXT).Child(TEST_SAVE).GetValueAsync();
-            DataSnapshot snapshot2 = await database.Child(UID_TEXT).Child(PLAYER_SAVE).GetValueAsync();
+            //DataSnapshot snapshot = await database.Child(UID_TEXT).Child(TEST_SAVE).GetValueAsync();
+            //DataSnapshot snapshot2 = null;
 
-            //if (!snapshot.Exists && !snapshot2.Exists)
-            //    return;
-            await Task.Delay(1000);
-
-            if (snapshot.Exists)
-            {
-                JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), this);
-            }
-
-            await Task.Delay(1000);
-
-            if (snapshot2.Exists)
-            {
-                JsonUtility.FromJsonOverwrite(snapshot2.GetRawJsonValue(), GameManager.instance.publicPlayer);
-            }
-
-            await Task.Delay(1000);
+            //await Task.Delay(1000);
 
             // load data only if has data! - for now, not good!
 
             GameManager.instance.OnLoadData();
-            GameManager.instance.publicMapLogic.OnLoadData();
-
+            mapLogic.OnLoadData();
+            playerRef.OnLoadData();
 
 
             await Task.Delay(1000);
@@ -163,7 +190,7 @@ public class SaveLoad : MonoBehaviour
     public void EraseSave()
     {
         database.Child(UID_TEXT).Child(TEST_SAVE).RemoveValueAsync();
-        database.Child(UID_TEXT).Child(PLAYER_SAVE).RemoveValueAsync();
+        //database.Child(UID_TEXT).Child(PLAYER_SAVE).RemoveValueAsync();
     }
     public void CheckSuccessConnection()
     {

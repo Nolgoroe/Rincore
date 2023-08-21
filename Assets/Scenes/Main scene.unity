@@ -1055,6 +1055,7 @@ GameObject:
   m_Component:
   - component: {fileID: 246565976}
   - component: {fileID: 246565975}
+  - component: {fileID: 246565977}
   m_Layer: 0
   m_Name: Databse Save&Load
   m_TagString: Untagged
@@ -1090,7 +1091,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  currentClusterIDReached: 1
+  playerRef: {fileID: 2069315016}
+  mapLogic: {fileID: 1960824553}
+  saveData: {fileID: 246565977}
 --- !u!4 &246565976
 Transform:
   m_ObjectHideFlags: 0
@@ -1106,6 +1109,20 @@ Transform:
   m_Father: {fileID: 1597827925}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &246565977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246565974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec6c9a7bc1a5064c830e6df21c8c352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentClusterIDReached: 1
+  savedCoins: -1
 --- !u!1 &265687821
 GameObject:
   m_ObjectHideFlags: 0
@@ -6492,7 +6509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053636f12211e904abdc74d4cee26b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownedCoins: 10000
+  ownedCoins: 0
   ownedTears: 0
   maxOwnedTears: 0
   ingredientsToMainTypes:

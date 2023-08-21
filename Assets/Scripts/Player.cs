@@ -38,6 +38,16 @@ public class Player : MonoBehaviour
     //we do this to sort the materials by their main types - build, herb, witch and gem
     [SerializeField] private List<IngredientPlusMainTypeCombo> ingredientsToMainTypes;
       
+
+    public void OnLoadData()
+    {
+        if(SavedData.instance.savedCoins > -1)
+        {
+            ownedCoins = SavedData.instance.savedCoins;
+        }
+    }
+
+
     private void Start()
     {
         ownedIngredients = new Dictionary<Ingredients, LootEntry>();
