@@ -21,5 +21,12 @@ public interface IPowerUsable
         //if we reach here it's default behaviour which is just release data directly
         PowerupManager.instance.ResetPowerUpData();
     }
+
+    public virtual bool CheckCanUsePower()
+    {
+        PowerupManager.instance.ResetPowerUpData();
+
+        return false;
+    }
     // public abstract void RefreshTilesPower();
 }

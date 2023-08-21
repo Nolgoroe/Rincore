@@ -33,13 +33,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     public void SwitchPower()
     {
-
-        if(CheckBothSidesSame())
-        {
-            PowerupManager.instance.ResetPowerUpData(); // release power directly - no success
-            return;
-        }
-
         if (cellParent)
         {
             cellParent.GrabTileFrom();
@@ -76,9 +69,9 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     {
         if(cellParent)
         {
-            cellParent.ResetToDefault();
             StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
-            //PowerupManager.instance.PowerSucceededUsing();
+
+            cellParent.ResetToDefault();
         }
         else
         {
@@ -89,13 +82,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     public void JokerPower()
     {
-
-        if(CheckAlreadyJoker())
-        {
-            PowerupManager.instance.ResetPowerUpData(); // release power directly - no success
-            return;
-        }
-
         if (cellParent)
         {
             cellParent.GrabTileFrom();
@@ -132,15 +118,44 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     /// set subtile display function (maybe materials)
     
+    public bool CheckCanUsePower()
+    {
+        switch (PowerupManager.instance.publicCurrentPowerSO.powerType)
+        {
+            case PowerupType.Switch:
+                return CheckSidesDifferent();
+            case PowerupType.Bomb:
+                return CheckCanBomb();
+            case PowerupType.Joker:
+                return CheckIsNotJoker();
+            default:
+                break;
+        }
 
-    private bool CheckBothSidesSame()
-    {
-        return subTileLeft.subTileColor == subTileRight.subTileColor &&
-            subTileLeft.subTileSymbol == subTileRight.subTileSymbol;
+
+        return false;
     }
-    private bool CheckAlreadyJoker()
+
+    private bool CheckCanBomb()
     {
-        return subTileLeft.subTileColor == SubTileColor.Joker &&
-            subTileLeft.subTileSymbol == SubTileSymbol.Joker;
+        if(cellParent)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+    private bool CheckSidesDifferent()
+    {
+        return subTileLeft.subTileColor != subTileRight.subTileColor ||
+            subTileLeft.subTileSymbol != subTileRight.subTileSymbol;
+    }
+    private bool CheckIsNotJoker()
+    {
+        return subTileLeft.subTileColor != SubTileColor.Joker ||
+            subTileLeft.subTileSymbol != SubTileSymbol.Joker;
     }
 }

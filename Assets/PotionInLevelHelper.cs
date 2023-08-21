@@ -5,6 +5,7 @@ using TMPro;
 
 public class PotionInLevelHelper : MonoBehaviour
 {
+    [SerializeField] private CameraShake connectedShake;
     [SerializeField] private MeshRenderer connectedRenderer;
     [SerializeField] private TMP_Text connectedText;
     [SerializeField] private TMP_Text priceText;
@@ -64,5 +65,10 @@ public class PotionInLevelHelper : MonoBehaviour
         {
             UIManager.instance.CloseElement(buyWidndow);
         }
+    }
+
+    public void ShakeNow()
+    {
+        connectedShake.ShakeOnce();
     }
 }

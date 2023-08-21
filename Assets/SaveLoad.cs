@@ -7,6 +7,7 @@ using Firebase.Extensions;
 using Firebase.Database;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 public class SaveLoad : MonoBehaviour
 {
@@ -21,11 +22,6 @@ public class SaveLoad : MonoBehaviour
     [Header("Saved Data")]
     //public int indexReachedInCluster;
     public int currentClusterIDReached;
-
-    [Header("Needed refs")]
-    [SerializeField] private MapLogic mapLogic;
-    [SerializeField] private Player player;
-
 
 
     string path;
@@ -76,7 +72,7 @@ public class SaveLoad : MonoBehaviour
     private void SaveData()
     {
         database.Child(UID_TEXT).Child(TEST_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(this));
-        database.Child(UID_TEXT).Child(PLAYER_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(player));
+        database.Child(UID_TEXT).Child(PLAYER_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(GameManager.instance.publicPlayer));
 
 
 
@@ -96,30 +92,41 @@ public class SaveLoad : MonoBehaviour
     [ContextMenu("Load")]
     public async void LoadSaveData()
     {
-        //This part of the code is translating a JSON back to the class itself.
-        DataSnapshot snapshot = await database.Child(UID_TEXT).Child(TEST_SAVE).GetValueAsync();
-        DataSnapshot snapshot2 = await database.Child(UID_TEXT).Child(PLAYER_SAVE).GetValueAsync();
-
-        //if (!snapshot.Exists && !snapshot2.Exists)
-        //    return;
-
-        if(snapshot.Exists)
+        if (UID_TEXT != "")
         {
-            JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), this);
+            //This part of the code is translating a JSON back to the class itself.
+            DataSnapshot snapshot = await database.Child(UID_TEXT).Child(TEST_SAVE).GetValueAsync();
+            DataSnapshot snapshot2 = await database.Child(UID_TEXT).Child(PLAYER_SAVE).GetValueAsync();
+
+            //if (!snapshot.Exists && !snapshot2.Exists)
+            //    return;
+            await Task.Delay(1000);
+
+            if (snapshot.Exists)
+            {
+                JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), this);
+            }
+
+            await Task.Delay(1000);
+
+            if (snapshot2.Exists)
+            {
+                JsonUtility.FromJsonOverwrite(snapshot2.GetRawJsonValue(), GameManager.instance.publicPlayer);
+            }
+
+            await Task.Delay(1000);
+
+            // load data only if has data! - for now, not good!
+
+            GameManager.instance.OnLoadData();
+            GameManager.instance.publicMapLogic.OnLoadData();
+
+
+
+            await Task.Delay(1000);
+
+            UIManager.instance.OnLoadData(); // has to be lase to close the loading screen
         }
-
-        if(snapshot2.Exists)
-        {
-            JsonUtility.FromJsonOverwrite(snapshot2.GetRawJsonValue(), player);
-        }
-
-
-        // load data only if has data! - for now, not good!
-
-        GameManager.instance.OnLoadData();
-        UIManager.instance.OnLoadData();
-        mapLogic.OnLoadData();
-
 
 
 

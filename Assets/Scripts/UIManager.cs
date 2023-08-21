@@ -31,17 +31,18 @@ struct ButtonActionIndexPair
     public System.Action action;
 }
 
-public enum MainScreens
-{
-    InLevel,
-    Map,
-}
+//public enum MainScreens
+//{
+//    InLevel,
+//    Map,
+//}
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     public static bool IS_USING_UI;
     public static bool IS_DURING_TRANSITION;
+    public static bool IS_DURING_FADE;
     public static bool IS_DURING_POTION_USAGE;
 
     [Header("General refrences")] // ask Lior if this section is ok for the long run
@@ -85,10 +86,12 @@ public class UIManager : MonoBehaviour
 
     [Header("Fade object settings")] // might move to SO
     [SerializeField] private BasicCustomUIWindow fadeWindow;
-    [SerializeField] private float fadeIntoLevelTime;
-    [SerializeField] private float fadeOutLevelTime;
+    //[SerializeField] private float fadeIntoLevelTime;
+    //[SerializeField] private float fadeOutLevelTime;
+    [SerializeField] private float waitBeforeFadeTime;
     [SerializeField] private float fadeIntoMapTime;
-    [SerializeField] private float fadeOutMapTime;
+    [SerializeField] private LeanTweenType tweenType;
+    //[SerializeField] private float fadeOutMapTime;
 
     [Header("Map setup")] //might move to a different script
     [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
@@ -110,6 +113,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float Duration = 1f;
     [SerializeField] private string NumberFormat = "N0";
 
+    [Header("general screens")]
+    [SerializeField] private BasicCustomUIWindow loadingScreen;
+
     private void Awake()
     {
         instance = this;
@@ -117,6 +123,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        DisplayLodingScreen();
         //StartCoroutine(InitGameUI());
 
 
@@ -125,8 +132,9 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator InitGameUI()
     {
-        yield return StartCoroutine(DisplayLevelCluster(false));
         DisplayOverallMapUI(); // - Temp??
+
+        yield return StartCoroutine(DisplayLevelCluster(false));
     }
 
     private void OnValidate()
@@ -320,6 +328,12 @@ public class UIManager : MonoBehaviour
         button.isInteractable = true;
     }
 
+    public void DisplayLodingScreen()
+    {
+        AddUIElement(loadingScreen);
+
+        inLevelUI.OverrideSetMyElement(null, null, null);
+    }
 
     public IEnumerator CounterText(int currentValue, int newValue, TMP_Text in_Text)
     {
@@ -627,7 +641,7 @@ public class UIManager : MonoBehaviour
 
         yield return StartCoroutine(OnGoToLevelMapLogic(isAnimate));
 
-        CloseAllCurrentScreens(); // close all screens open before going to map
+        //CloseAllCurrentScreens(); // close all screens open before going to map
 
 
         AddUIElement(generalMapUI);
@@ -806,32 +820,35 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    //private void FadeInFadeWindow(bool fadeIn, MainScreens mainScreen)
-    //{
-    //    IS_DURING_TRANSITION = true;
+    public void FadeInFadeWindow()
+    {
+        IS_DURING_FADE = true;
 
-    //    float fadeInSpeed = ReturnFadeTime(fadeIn, mainScreen);
-
-    //    CanvasGroup group = fadeWindow.group;
-
-    //    float from = 0, to = 0;
+        CanvasGroup group = fadeWindow.group;
 
 
-    //    group.alpha = fadeIn == true ? 0 : 1;
-    //    from = fadeIn == true ? 0 : 1;
-    //    to = fadeIn == true ? 1 : 0;
-    //    System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen, fadeInSpeed)) : OnEndFade;
 
-    //    fadeWindow.gameObject.SetActive(true);
+        float from = 0, to = 0;
 
-    //    fadeWindow.GeneralFloatValueTo(
-    //        group,
-    //        from,
-    //        to,
-    //        fadeInSpeed,
-    //        LeanTweenType.linear,
-    //        action);
-    //}
+        group.alpha = 1;
+        from = 1;
+        to = 0;
+        //from = fadeIn == true ? 0 : 1;
+        //to = fadeIn == true ? 1 : 0;
+        //System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen, fadeInSpeed)) : OnEndFade;
+        System.Action action = OnEndFade;
+
+        fadeWindow.gameObject.SetActive(true);
+
+        fadeWindow.GeneralFloatValueTo(
+            group,
+            from,
+            to,
+            fadeIntoMapTime,
+            tweenType,
+            action);
+
+    }
 
     //private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen, float fadeTime)
     //{
@@ -845,40 +862,41 @@ public class UIManager : MonoBehaviour
     //    //FadeInFadeWindow(!fadeIn, mainScreen);
     //}
 
-    //private void OnEndFade()
-    //{
-    //    IS_DURING_TRANSITION = false;
-    //    CloseElement(fadeWindow);
-    //}
-    private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
+    private void OnEndFade()
     {
-        if (fadeIn)
-        {
-            switch (mainScreen)
-            {
-                case MainScreens.InLevel:
-                    return fadeIntoLevelTime;
-                case MainScreens.Map:
-                    return fadeIntoMapTime;
-                default:
-                    break;
-            }
-        }
-        else
-        {
-            switch (mainScreen)
-            {
-                case MainScreens.InLevel:
-                    return fadeOutLevelTime;
-                case MainScreens.Map:
-                    return fadeOutMapTime;
-                default:
-                    break;
-            }
-        }
-        Debug.LogError("Some problem here");
-        return -1;
+        IS_DURING_FADE = false;
+        CloseElement(fadeWindow);
     }
+
+    //private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
+    //{
+    //    if (fadeIn)
+    //    {
+    //        switch (mainScreen)
+    //        {
+    //            case MainScreens.InLevel:
+    //                return fadeIntoLevelTime;
+    //            case MainScreens.Map:
+    //                return fadeIntoMapTime;
+    //            default:
+    //                break;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        switch (mainScreen)
+    //        {
+    //            case MainScreens.InLevel:
+    //                return fadeOutLevelTime;
+    //            case MainScreens.Map:
+    //                return fadeOutMapTime;
+    //            default:
+    //                break;
+    //        }
+    //    }
+    //    Debug.LogError("Some problem here");
+    //    return -1;
+    //}
     public static string ToDescription(WorldEnum value)
     {
         DescriptionAttribute[] da = (DescriptionAttribute[])(value.GetType().GetField(value.ToString())).GetCustomAttributes(typeof(DescriptionAttribute), false);
@@ -927,6 +945,8 @@ public class UIManager : MonoBehaviour
         //fillIndex = SaveLoad.instance.indexReachedInCluster - 1; // we set the bar to the current fill amount reached
 
         StartCoroutine(InitGameUI());
+
+        CloseElement(loadingScreen);
     }
 
 

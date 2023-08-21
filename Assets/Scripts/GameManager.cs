@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float delayClipAppear = 0.4f;
     [SerializeField] private float timeClipEnter = 0.4f;
     [SerializeField] private float delayClipHide = 0.4f;
+    [SerializeField] private float delayRestartCluster =1f;
 
     [Header("In game Data")]
     public LevelSO nextLevel;
@@ -221,7 +222,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            gameRing.levelStartCollider.enabled = false;
+            //gameRing.levelStartCollider.enabled = false;
 
             //gameRing.InitRing();
         }
@@ -513,6 +514,8 @@ public class GameManager : MonoBehaviour
 
         yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster, true)); // move to start of cluster
 
+        yield return new WaitForSeconds(delayRestartCluster);
+
         foreach (var ring in mapLogic.publicInstantiatedRings)
         {
             Destroy(ring.gameObject);
@@ -531,7 +534,10 @@ public class GameManager : MonoBehaviour
 
         IS_IN_LEVEL = false;
 
-        mapLogic.InitMapLogic(currentClusterSO);
+
+
+
+        yield return StartCoroutine(mapLogic.InitMapLogic(currentClusterSO, true));
         //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
         yield return new WaitForSeconds(0.4f); // temp hardcoded buffer
@@ -697,7 +703,7 @@ public class GameManager : MonoBehaviour
         currentMaxClusterReached = currentClusterSO.clusterID;
 
 
-        mapLogic.InitMapLogic(currentClusterSO);
+        StartCoroutine(mapLogic.InitMapLogic(currentClusterSO, false));
     }
 
     /**/
@@ -708,6 +714,8 @@ public class GameManager : MonoBehaviour
     public List<OwnedAnimalDataSet> GetUnlockedAnimals => animalsManager.GetUnlockedAnimals();
     public ClusterSO currentCluster => currentClusterSO;
     public int publicMaxClusterReached => currentMaxClusterReached;
+    public Player publicPlayer => player;
+    public MapLogic publicMapLogic => mapLogic;
     public bool IsAnimalAlreadyInAlbum(AnimalsInGame animal) => animalsManager.CheckAnimalAlreadyInAlbum(animal);
 
 

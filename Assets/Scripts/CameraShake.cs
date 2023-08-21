@@ -20,6 +20,7 @@ public class CameraShake : MonoBehaviour
     bool destroyAfterPlay;
 
 
+    [ContextMenu("Shake")]
     public void ShakeOnce()
     {
         destroyAfterPlay = false;

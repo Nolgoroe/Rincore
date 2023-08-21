@@ -640,6 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7afc3861507bb941b5fcfc69cb1ef1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectedShake: {fileID: 1753233596962533865}
   connectedRenderer: {fileID: 5589844319003437650}
   connectedText: {fileID: 8720982035177388936}
   priceText: {fileID: 3338630339313187243}
@@ -866,6 +867,7 @@ GameObject:
   - component: {fileID: 4990993375009204434}
   - component: {fileID: 7403554860858701556}
   - component: {fileID: 5589844319003437650}
+  - component: {fileID: 1753233596962533865}
   m_Layer: 0
   m_Name: booster_MDL
   m_TagString: Untagged
@@ -938,6 +940,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1753233596962533865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862155676441877058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0001f5d4c529d4cb17a9291a7d2ce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: {x: 0.1, y: 0.8, z: 0}
+  Duration: 0.3
+  Speed: 10
+  ResetPosition: 1
 --- !u!1001 &7496197535646723299
 PrefabInstance:
   m_ObjectHideFlags: 0

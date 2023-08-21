@@ -112,10 +112,35 @@ public class Slice : MonoBehaviour, IPowerUsable
         return false;
     }
 
+
+    public bool CheckCanUsePower()
+    {
+        switch (PowerupManager.instance.publicCurrentPowerSO.powerType)
+        {
+            case PowerupType.Bomb:
+                return CheckCanBomb();
+            default:
+                break;
+        }
+
+
+        return false;
+    }
+
     public void BombPower()
     {
         DestroySliceData();
         StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
-        //PowerupManager.instance.PowerSucceededUsing();
     }
+
+    private bool CheckCanBomb()
+    {
+        if (connectedDisplay)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 }

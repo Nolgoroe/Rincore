@@ -418,9 +418,43 @@ public class PowerupManager : MonoBehaviour
         currentPowerLogic = powerLogic;
 
         //StartCoroutine(ChoosePowerToUse(false));
-        StartCoroutine(ChoosePowerToUse(currentPowerData.amount == 0));
+
+
+        //Check if can use the power
+        if(CheckCanUsePotion())
+        {
+            StartCoroutine(ChoosePowerToUse(currentPowerData.amount == 0));
+        }
+        else
+        {
+            //Shake all parties involved
+            ErrorPotionUse();
+
+            // Show can't use power screen
+            ResetPowerUpData(); //can't use power
+        }
     }
 
+    private void ErrorPotionUse()
+    {
+        ShakeInvolved();
+    }
+
+    private void ShakeInvolved()
+    {
+        //tile shake
+        if (localObjectToUsePowerOn == null) return;
+        CameraShake shake;
+
+        localObjectToUsePowerOn.TryGetComponent<CameraShake>(out shake);
+        if (shake == null) return;
+
+        shake.ShakeOnce();
+
+        if (currentPotionDisplay == null) return;
+        currentPotionDisplay.ShakeNow();
+        //powerup ball shake
+    }
 
     public void ResetPowerUpData()
     {
@@ -439,16 +473,6 @@ public class PowerupManager : MonoBehaviour
     {
         GameManager.gameClip.RenewClip();
         StartCoroutine(PowerSucceededUsing());
-
-        //if (GameManager.gameClip.RenewClip())
-        //{
-        //    //PowerSucceededUsing();
-        //    StartCoroutine(PowerSucceededUsing());
-        //}
-        //else
-        //{
-        //    ResetPowerUpData();
-        //}
     }
 
     public void SpawnPotions()
@@ -590,7 +614,6 @@ public class PowerupManager : MonoBehaviour
 
     public IEnumerator PowerSucceededUsing()
     {
-        yield return null; //temp here
         //StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
 
         //if (currentPowerData.amount == 0)
@@ -612,6 +635,8 @@ public class PowerupManager : MonoBehaviour
         }
 
         ResetPowerUpData();
+
+        yield return null; //temp here
     }
     private IEnumerator ChoosePowerToUse(bool is_Paid)
     {
@@ -672,6 +697,54 @@ public class PowerupManager : MonoBehaviour
         }
     }
 
+
+    private bool CheckCanUsePotion()
+    {
+        if (localObjectToUsePowerOn == null) return false;
+        IPowerUsable powerUsable;
+
+        localObjectToUsePowerOn.TryGetComponent<IPowerUsable>(out powerUsable);
+        if (powerUsable == null) return false;
+
+        return powerUsable.CheckCanUsePower(); // if they are NOT the same - that's why it's !
+
+        //switch (currentPowerUsing)
+        //{
+        //    case PowerupType.Switch:
+        //        return CheckCanUseSwitch();
+        //    case PowerupType.Joker:
+        //        return CheckCanUseJoker();
+        //    case PowerupType.Bomb:
+        //        return true;
+        //    case PowerupType.RefreshTiles:
+        //        return true;
+        //    default:
+        //        break;
+        //}
+
+        //return false;
+    }
+
+    //private bool CheckCanUseSwitch()
+    //{
+    //    if (localObjectToUsePowerOn == null) return false;
+    //    IPowerUsable powerUsable;
+
+    //    localObjectToUsePowerOn.TryGetComponent<IPowerUsable>(out powerUsable);
+    //    if (powerUsable == null) return false;
+
+    //    return powerUsable.CheckCanUsePower(); // if they are NOT the same - that's why it's !
+    //}
+    //private bool CheckCanUseJoker()
+    //{
+    //    if (localObjectToUsePowerOn == null) return false;
+    //    TileParentLogic tile;
+
+    //    localObjectToUsePowerOn.TryGetComponent<TileParentLogic>(out tile);
+    //    if (tile == null) return false;
+
+    //    return !tile.CheckAlreadyJoker(); //if they are NOT joker - that's why it's !
+    //}
     public PowerupScriptableObject publicCurrentPowerSO => currentChosenPowerSO;
     public float publicUsePotionTime => usePotionTime;
 }
