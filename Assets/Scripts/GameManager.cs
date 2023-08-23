@@ -665,6 +665,8 @@ public class GameManager : MonoBehaviour
 
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
+        yield return new WaitForSeconds(0.8f);
+
         yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster, false)); // move to start of cluster
 
         for (int i = 0; i < inLevelParent.childCount; i++)

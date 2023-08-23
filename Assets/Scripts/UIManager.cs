@@ -102,7 +102,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Fill Bar Temp")]
     [SerializeField] private Image fillBarImage;
-    [SerializeField] public float[] fillAmounts;
+    [SerializeField] private Animator fillBarAnimator;
+    //[SerializeField] public float[] fillAmounts;
     [SerializeField] public int fillIndex;
 
 
@@ -654,7 +655,12 @@ public class UIManager : MonoBehaviour
         //generalMapUI.OverrideSetMyElement(texts, null, actions);
     }
 
-    public void ManualUpdateLevelFillBar(float amount) //TEMP
+    public void LevelFillBarAnimate(float index) //TEMP
+    {
+        fillBarAnimator.SetTrigger("Fill" + index);
+    }
+
+    private void ManualUpdateLevelFillBar(float amount) //TEMP
     {
         LeanTween.value(fillBarImage.gameObject, fillBarImage.fillAmount, amount, 1).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
         {
@@ -664,6 +670,8 @@ public class UIManager : MonoBehaviour
     }
     public void ManualResetLevelFillBar() //TEMP
     {
+        fillBarAnimator.SetTrigger("ResetFill");
+
         fillIndex = 0;
         ManualUpdateLevelFillBar(fillIndex);
     }

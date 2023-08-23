@@ -17,7 +17,7 @@ public class TutorialManager : MonoBehaviour
     private void TestNow()
     {
         Vector3 targetPos = new Vector3(originObject.transform.position.x, originObject.transform.position.y + heightOffset, originObject.transform.position.z);
-        currentMoveObject = Instantiate(prefabToSpawn, targetPos, Quaternion.identity);
+        currentMoveObject = Instantiate(prefabToSpawn, targetPos, prefabToSpawn.transform.rotation);
 
         test3(false);
     }

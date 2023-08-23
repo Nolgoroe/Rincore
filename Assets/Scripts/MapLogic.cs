@@ -327,8 +327,8 @@ public class MapLogic : MonoBehaviour
 
         GameManager.IS_IN_LEVEL = false;
 
-        UIManager.instance.ManualUpdateLevelFillBar(UIManager.instance.fillAmounts[UIManager.instance.fillIndex]); // TEMP!
         UIManager.instance.fillIndex++;
+        UIManager.instance.LevelFillBarAnimate(UIManager.instance.fillIndex);
 
         yield return new WaitForSeconds(angleIntoLevelTime);
         //ToggleSpecificRingCollider(currentIndexInCluster, false);
@@ -350,9 +350,10 @@ public class MapLogic : MonoBehaviour
             }
             else
             {
-                //last part of the fill bar happends when we go back to start of cluster
-                UIManager.instance.ManualUpdateLevelFillBar(UIManager.instance.fillAmounts[UIManager.instance.fillIndex]); // TEMP!
                 UIManager.instance.fillIndex++;
+
+                //last part of the fill bar happends when we go back to start of cluster
+                UIManager.instance.LevelFillBarAnimate(UIManager.instance.fillIndex);
             }
 
             yield return new WaitForSeconds(waitMoveStartCluster);
