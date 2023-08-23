@@ -1679,16 +1679,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 571121369}
     m_Modifications:
-    - target: {fileID: 1416732472432769040, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3437502543653234832, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5693932416580693438, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1798,21 +1788,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: General Map UI Window (Permanent)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6644317539634747918, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7548272922591612548, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8690274373899540445, guid: 2bb4bf403605d9e42b4dc57aadf541d7,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb4bf403605d9e42b4dc57aadf541d7, type: 3}
@@ -8074,75 +8049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &3881083567775600283
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 964775508372396171, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6785603387080579973, guid: 0e343075717eb2840ab0e2070d8b30b0,
-        type: 3}
-      propertyPath: m_Name
-      value: Hand_Tutorial
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0e343075717eb2840ab0e2070d8b30b0, type: 3}
 --- !u!225 &3893165624901584966
 CanvasGroup:
   m_ObjectHideFlags: 0
