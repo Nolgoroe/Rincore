@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 public class SaveLoad : MonoBehaviour
 {
     public string UID_TEXT;
+    public int delayLoading;
+
     const string TEST_SAVE = "TEMP_SAVE_DATA";
     //const string PLAYER_SAVE = "Player_Data";
 
@@ -144,6 +146,7 @@ public class SaveLoad : MonoBehaviour
             //await Task.Delay(1000);
 
             // load data only if has data! - for now, not good!
+            await Task.Delay(delayLoading);
 
             GameManager.instance.OnLoadData();
             mapLogic.OnLoadData();

@@ -107,7 +107,7 @@ public class SpecificColorCondition : ConditonsData
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        if (subTileCurrent.subTileColor == SubTileColor.Joker || subTileContested.subTileColor == SubTileColor.Joker)
+        if (subTileCurrent.subTileColor == SubTileColor.Joker && subTileContested.subTileColor == SubTileColor.Joker)
         {
             return true;
         }
@@ -128,7 +128,7 @@ public class SpecificSymbolCondition : ConditonsData
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        if (subTileCurrent.subTileSymbol == SubTileSymbol.Joker || subTileContested.subTileSymbol == SubTileSymbol.Joker)
+        if (subTileCurrent.subTileSymbol == SubTileSymbol.Joker && subTileContested.subTileSymbol == SubTileSymbol.Joker)
         {
             return true;
         }
