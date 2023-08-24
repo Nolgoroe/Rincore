@@ -514,7 +514,11 @@ public class GameManager : MonoBehaviour
 
         yield return StartCoroutine(mapLogic.CameraTransitionClusterStart(isAtStartOfCluster, true)); // move to start of cluster
 
-        yield return new WaitForSeconds(delayRestartCluster);
+
+        //FADE
+        UIManager.instance.FadeInFadeWindow(true);
+        yield return new WaitUntil(() => !UIManager.IS_DURING_FADE);
+
 
         foreach (var ring in mapLogic.publicInstantiatedRings)
         {
@@ -537,10 +541,10 @@ public class GameManager : MonoBehaviour
 
 
 
-        yield return StartCoroutine(mapLogic.InitMapLogic(currentClusterSO, true));
+        yield return StartCoroutine(mapLogic.InitMapLogic(currentClusterSO));
         //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
-        yield return new WaitForSeconds(0.4f); // temp hardcoded buffer
+        yield return new WaitForSeconds(delayRestartCluster);
 
         StartCoroutine(InitStartLevel(false));
     }
@@ -705,7 +709,7 @@ public class GameManager : MonoBehaviour
         currentMaxClusterReached = currentClusterSO.clusterID;
 
 
-        StartCoroutine(mapLogic.InitMapLogic(currentClusterSO, false));
+        StartCoroutine(mapLogic.InitMapLogic(currentClusterSO));
     }
 
     /**/

@@ -1956,7 +1956,7 @@ MonoBehaviour:
   delayClipAppear: 0.8
   timeClipEnter: 0.4
   delayClipHide: 0.6
-  delayRestartCluster: 0.0001
+  delayRestartCluster: 2.6
   nextLevel: {fileID: 0}
   currentLevelAnimalStatue: {fileID: 0}
   currentLevelGeneralStatueAnimator: {fileID: 0}
@@ -4896,7 +4896,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 68747138}
-  m_PlaneDistance: 23
+  m_PlaneDistance: 22
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -5411,6 +5411,7 @@ MonoBehaviour:
   fadeWindow: {fileID: 1518595450}
   waitBeforeFadeTime: 1
   fadeIntoMapTime: 1.3
+  fadeOutMapTime: 0.6
   tweenType: 8
   orderOfWorlds:
   - world: 0
@@ -6296,13 +6297,14 @@ MonoBehaviour:
   summonedLastPieces: []
   instantiatedRingsData: []
   allTreeVariants:
-  - {fileID: 583472032800453620, guid: 57bc6387e74be6f4aa94cfe0c4b71713, type: 3}
-  - {fileID: 1042230605087948921, guid: 8bf9cb549a0236c4480d74aa14a4629c, type: 3}
-  - {fileID: 8707101156378281278, guid: 4c50bbb884b093b4aa7239e7fac85fbf, type: 3}
-  - {fileID: 6973329071666571873, guid: 685c5c59b5895f34ea03dea6efda1533, type: 3}
-  - {fileID: 4218637726568650453, guid: 673cdbb75e756ba41bf4bd4605ba4fc1, type: 3}
-  - {fileID: 6150459067022962529, guid: d0ac1090fd750f543841dc1b643751e7, type: 3}
-  - {fileID: 1202423789064791099, guid: ecab3799a600e024694a77642d6a694f, type: 3}
+  - {fileID: 695905080452391098, guid: 5d9c4eb33539e2743bd5053b5cff72bb, type: 3}
+  - {fileID: 2548709221155916372, guid: 42ea804b49751084a933db3fb5e92fea, type: 3}
+  - {fileID: 7747539574904673315, guid: f8b2ff06e063d444d9e99c23fc619393, type: 3}
+  - {fileID: 712512156202486548, guid: 7132babbb7bd4b24d9c9420d10877a6a, type: 3}
+  allTreeVariantsEnd:
+  - {fileID: 590755339147781329, guid: 64499f4dc5433374eb19ffa4a715d7eb, type: 3}
+  - {fileID: 6225831021635329675, guid: 2182fab8fb525264bad9f9d7a11048c3, type: 3}
+  - {fileID: 4628854026229009053, guid: 5fa3454761a0de7429fe6793964c4869, type: 3}
   waitBeforeUnlock: 1.5
   cameraTrailOffset: 9.8
   cameralevelOffset: 3.95
@@ -6322,6 +6324,7 @@ MonoBehaviour:
   distanceCameraFirstRing: 31.5
   currentLevelCameraParentZPos: 0
   delayBetweenRings: 0.2
+  delayBetweenLastPieces: 0.1
   delayAfterLastPiece: 1
   moveZAmountIn: -40
   moveZAmountOut: -60

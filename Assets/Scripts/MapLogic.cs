@@ -21,6 +21,7 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private List<GameObject> summonedLastPieces;
     [SerializeField] private List<LevelPresetData> instantiatedRingsData;
     [SerializeField] private List<GameObject> allTreeVariants;
+    [SerializeField] private List<GameObject> allTreeVariantsEnd;
 
 
     private List<GameObject> currentTreeVariantsSummoned;
@@ -56,6 +57,7 @@ public class MapLogic : MonoBehaviour
 
     [Header("Transition cluster Animation")]
     [SerializeField] private float delayBetweenRings;
+    [SerializeField] private float delayBetweenLastPieces;
     [SerializeField] private float delayAfterLastPiece;
     [SerializeField] private float moveZAmountIn;
     [SerializeField] private float moveZAmountOut;
@@ -67,7 +69,7 @@ public class MapLogic : MonoBehaviour
     private Vector2 deltaPos = Vector2.zero;
     private Vector3 endPos = Vector3.zero;
 
-    public IEnumerator InitMapLogic(ClusterSO cluster, bool doFade)
+    public IEnumerator InitMapLogic(ClusterSO cluster)
     {
         currentTreeVariantsSummoned = new List<GameObject>();
         currentTreeVariantsSummoned.AddRange(allTreeVariants);
@@ -126,6 +128,8 @@ public class MapLogic : MonoBehaviour
             go.transform.localPosition = pos;
 
             summonedLastPieces.Add(go);
+
+            SummonTreeVariantEnd(go.transform, i);
         }
 
         // initializes the main camera's position compared to first ring created
@@ -135,12 +139,6 @@ public class MapLogic : MonoBehaviour
         //ToggleSpecificRingCollider(0, true); //TEMP
 
 
-        if (doFade)
-        {
-            UIManager.instance.FadeInFadeWindow();
-
-            yield return new WaitUntil(() => !UIManager.IS_DURING_FADE);
-        }
     }
 
     private int SwitchRingPrefabByType(Ringtype ringType)
@@ -391,7 +389,7 @@ public class MapLogic : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        StartCoroutine(InitMapLogic(newCluster, false)); // summon new rings with offset
+        StartCoroutine(InitMapLogic(newCluster)); // summon new rings with offset
 
         yield return new WaitForEndOfFrame();
 
@@ -423,6 +421,7 @@ public class MapLogic : MonoBehaviour
         for (int i = 0; i < summonedLastPieces.Count; i++)
         {
             MoveAction(summonedLastPieces[i], destroyAtEnd, lastPiecesMoveTime);
+            yield return new WaitForSeconds(delayBetweenLastPieces);
         }
 
         yield return new WaitForSeconds(delayAfterLastPiece);
@@ -468,6 +467,10 @@ public class MapLogic : MonoBehaviour
         GameObject go = Instantiate(currentTreeVariantsSummoned[index], parent);
 
         currentTreeVariantsSummoned.RemoveAt(index);
+    }
+    private void SummonTreeVariantEnd(Transform parent, int index)
+    {
+        GameObject go = Instantiate(allTreeVariantsEnd[index], parent);
     }
 
     //public IEnumerator HideRingDarkOverlay(int currentIndexInCluster)

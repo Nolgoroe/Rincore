@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldName: 4
   levelNumInZone: 10
-  ringType: 1
+  ringType: 0
   beforeRingSpawnActions:
     m_PersistentCalls:
       m_Calls: []
@@ -84,5 +84,12 @@ MonoBehaviour:
     isLock: 1
     RandomSliceValues: 0
   powerupsForLevel: 
-  stoneTiles: []
+  stoneTiles:
+  - cellIndex: 0
+    randomValues: 0
+    isStone: 1
+    rightTileSymbol: 0
+    leftTileSymbol: 2
+    rightTileColor: 5
+    leftTileColor: 5
   arrayOfSpecificTilesInClip: []

@@ -70,4 +70,19 @@ public class LevelSO : ScriptableObject
 
     [Header("Percise Position Settings")]
     public tileDataStruct[] arrayOfSpecificTilesInClip;
+
+
+
+    private void OnValidate()
+    {
+        foreach (stoneTileDataStruct data in stoneTiles)
+        {
+            if(!data.randomValues && data.isStone)
+            {
+                data.leftTileColor = SubTileColor.Stone;
+                data.rightTileColor = SubTileColor.Stone;
+
+            }
+        }
+    }
 }

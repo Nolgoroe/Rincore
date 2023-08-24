@@ -90,8 +90,8 @@ public class UIManager : MonoBehaviour
     //[SerializeField] private float fadeOutLevelTime;
     [SerializeField] private float waitBeforeFadeTime;
     [SerializeField] private float fadeIntoMapTime;
+    [SerializeField] private float fadeOutMapTime;
     [SerializeField] private LeanTweenType tweenType;
-    //[SerializeField] private float fadeOutMapTime;
 
     [Header("Map setup")] //might move to a different script
     [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
@@ -828,7 +828,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void FadeInFadeWindow()
+    public void FadeInFadeWindow(bool fadeIn)
     {
         IS_DURING_FADE = true;
 
@@ -837,14 +837,14 @@ public class UIManager : MonoBehaviour
 
 
         float from = 0, to = 0;
+        float speed = fadeIn == true ? fadeOutMapTime : fadeIntoMapTime;
 
-        group.alpha = 1;
+        group.alpha = fadeIn == true ? 0 : 1; ;
         from = 1;
         to = 0;
-        //from = fadeIn == true ? 0 : 1;
-        //to = fadeIn == true ? 1 : 0;
-        //System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen, fadeInSpeed)) : OnEndFade;
-        System.Action action = OnEndFade;
+        from = fadeIn == true ? 0 : 1;
+        to = fadeIn == true ? 1 : 0;
+        System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, waitBeforeFadeTime)) : OnEndFade;
 
         fadeWindow.gameObject.SetActive(true);
 
@@ -852,23 +852,20 @@ public class UIManager : MonoBehaviour
             group,
             from,
             to,
-            fadeIntoMapTime,
+            speed,
             tweenType,
             action);
 
     }
 
-    //private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen, float fadeTime)
-    //{
-    //    IS_DURING_TRANSITION = false;
-    //    // is this ok?
-    //    // This is here for actions that want to happen on the transition between
-    //    // fade in and out - so we for 0.5f seconds, allow actions to operate in "fade time"
+    private IEnumerator ReverseFade(bool fadeIn, float fadeTime)
+    {
+        IS_DURING_FADE = false;
 
-    //    yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(fadeTime);
 
-    //    //FadeInFadeWindow(!fadeIn, mainScreen);
-    //}
+        FadeInFadeWindow(!fadeIn);
+    }
 
     private void OnEndFade()
     {

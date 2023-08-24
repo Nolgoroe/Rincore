@@ -26,9 +26,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682968170479117233}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.047, y: 0.1, z: -2.58}
+  m_LocalPosition: {x: -0.58934945, y: 0.103000015, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7732252674885132550}
   m_RootOrder: 0
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682968170479117233}
-  m_Mesh: {fileID: 8919786836061293503, guid: 76bbc3b0e870cc5409bb319937e46b1b, type: 3}
+  m_Mesh: {fileID: -7632567601504765760, guid: e6da2b8bc1a7a2a4e8e73af771c8d926, type: 3}
 --- !u!23 &3475595867181800780
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -109,9 +109,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5922235633888476718}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.047, y: 0.1, z: -2.58}
+  m_LocalPosition: {x: 0.663, y: 0.103, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7732252674885132550}
   m_RootOrder: 1
@@ -123,7 +123,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5922235633888476718}
-  m_Mesh: {fileID: -856332925288093578, guid: 76bbc3b0e870cc5409bb319937e46b1b, type: 3}
+  m_Mesh: {fileID: -7694911364752795309, guid: e6da2b8bc1a7a2a4e8e73af771c8d926, type: 3}
 --- !u!23 &3756399886334066320
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -215,15 +215,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subTileLeft:
+    isRight: 0
     subTileSymbol: 4
     subTileColor: 5
     subtileMesh: {fileID: 3475595867181800780}
   subTileRight:
+    isRight: 0
     subTileSymbol: 4
     subTileColor: 5
     subtileMesh: {fileID: 3756399886334066320}
   cellParent: {fileID: 0}
   partOfBoard: 0
+  tileType: 0
 --- !u!114 &4952841142134963327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,5 +254,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.1159136, y: 0.49123156, z: 0.69754565}
-  m_Center: {x: -0.031288028, y: -0.3594712, z: 0.021550536}
+  m_Size: {x: 2.1811132, y: 0.32245374, z: 1.0452778}
+  m_Center: {x: -0.011728048, y: -0.20479423, z: 0.04328382}
