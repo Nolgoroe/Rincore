@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 
 public enum ChestTypes
@@ -57,6 +58,7 @@ public class LootManager : MonoBehaviour
     [Header("temp?")]
     //[SerializeField] private Transform[] lootPositions;
     [SerializeField] private int currentLootPos;
+    [SerializeField] private TMP_Text chestText;
 
     private void Start()
     {
@@ -115,7 +117,7 @@ public class LootManager : MonoBehaviour
             chosenChest = chestList[0];
 
             Debug.Log("Chosen Chest is: " + chosenChest);
-
+            chestText.text = chosenChest.name + " " + "Chest";
             return chosenChest;
         }
 
@@ -129,6 +131,7 @@ public class LootManager : MonoBehaviour
         }
 
         Debug.Log("Chosen Chest is: " + chosenChest);
+        chestText.text = chosenChest.name + " " + "Chest";
 
         return chosenChest;
     }
