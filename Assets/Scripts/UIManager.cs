@@ -400,8 +400,8 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 2, action = SoundManager.instance.ToggleSFX }, //SFX icon level
             new ButtonActionIndexPair { index = 3, action = DisplayInLevelExitToMapQuestion }, //to level map icon
             new ButtonActionIndexPair { index = 4, action = DisplayBundleScreen }, //shop button
-            new ButtonActionIndexPair { index = 5, action = GameManager.gameClip.CallDealAction}, //deal button
-            new ButtonActionIndexPair { index = 6, action = UndoSystem.instance.CallUndoAction }); //restart button
+            new ButtonActionIndexPair { index = 5, action = GameManager.gameClip.CallDealAction }); //deal button
+            //new ButtonActionIndexPair { index = 6, action = GameManager.TestButtonDelegationWorks }); //restart button
 
         string[] texts = new string[] { ("Level: " + (GameManager.instance.currentCluster.clusterID)).ToString() };
 
@@ -721,37 +721,37 @@ public class UIManager : MonoBehaviour
         animalAlbumWindow.InitAnimalAlbum(animalManager, player);
     }
 
-    private IEnumerator OpenPotionsCategory()
-    {
-        //if succeds it opens the potions screen
-        if (!playerWorkshopWindow.TrySwitchCategory(1))
-        {
-            yield break;
-        }
+    //private IEnumerator OpenPotionsCategory()
+    //{
+    //    //if succeds it opens the potions screen
+    //    if (!playerWorkshopWindow.TrySwitchCategory(1))
+    //    {
+    //        yield break;
+    //    }
 
-        if (powerupManager.unlockedPowerups.Count > 0)
-        {
-            //summon all potion buttons
-            foreach (PowerupType powerType in powerupManager.unlockedPowerups)
-            {
-                powerupManager.InstantiatePowerButton(powerType);
-            }
+    //    if (powerupManager.unlockedPowerups.Count > 0)
+    //    {
+    //        //summon all potion buttons
+    //        foreach (PowerupType powerType in powerupManager.unlockedPowerups)
+    //        {
+    //            powerupManager.InstantiatePowerButton(powerType);
+    //        }
 
-            yield return new WaitForEndOfFrame();
+    //        yield return new WaitForEndOfFrame();
 
-            foreach (PotionCustomButton customButton in powerupManager.customPotionButtons)
-            {
-                customButton.SetOriginalPos();
-            }
-            //set selected potion
-            powerupManager.SetSelectedPotion(powerupManager.unlockedPowerups[0]);
-        }
-        else
-        {
-            Debug.Log("No owned potions, can't open potion screen");
-            //show error message
-        }
-    }
+    //        foreach (PotionCustomButton customButton in powerupManager.customPotionButtons)
+    //        {
+    //            customButton.SetOriginalPos();
+    //        }
+    //        //set selected potion
+    //        powerupManager.SetSelectedPotion(powerupManager.unlockedPowerups[0]);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("No owned potions, can't open potion screen");
+    //        //show error message
+    //    }
+    //}
 
     private void DisplayMapSettings()
     {
@@ -784,7 +784,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 0, action = () => playerWorkshopWindow.TrySwitchCategory(0) }, // inventory catagory
             new ButtonActionIndexPair { index = 0, action = () => playerWorkshopWindow.SortWorkshop(0) }, // inventory catagory
             new ButtonActionIndexPair { index = 0, action = () => powerupManager.ClearPowerupScreenDataComplete() },// inventory catagory
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(OpenPotionsCategory()) }, // potion catagory
+            new ButtonActionIndexPair { index = 1, action = () => GameManager.TestButtonDelegationWorks() }, // potion catagory
             new ButtonActionIndexPair { index = 2, action = () => playerWorkshopWindow.SortWorkshop(0) }, // inventory build sort
             new ButtonActionIndexPair { index = 3, action = () => playerWorkshopWindow.SortWorkshop(1) }, // inventory gem sort
             new ButtonActionIndexPair { index = 4, action = () => playerWorkshopWindow.SortWorkshop(2) }, // inventory herb sort

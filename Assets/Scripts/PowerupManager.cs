@@ -28,7 +28,7 @@ public class PowerupManager : MonoBehaviour
 
     [Header("General")]
     [SerializeField] private List<OwnedPowersAndAmounts> ownedPowerups;
-    public List<PowerupType> unlockedPowerups;
+    //public List<PowerupType> unlockedPowerups;
     [SerializeField] private Transform[] potionPositions;
     [SerializeField] private GameObject potionDisplayPrefab;
 
@@ -71,6 +71,7 @@ public class PowerupManager : MonoBehaviour
 
     [Header("General refrences")]
     [SerializeField] private Player player; 
+    [SerializeField] private GameObject undoButton; 
 
     private void Awake()
     {
@@ -133,7 +134,6 @@ public class PowerupManager : MonoBehaviour
         Sprite[] sprites = new Sprite[] { currentPotionSelected.potionSprite};
         potionWindow.OverrideSetMyElement(texsts, sprites, null);
 
-        StartCoroutine(InstantiateNeededIngredients());
     }
 
     private void AnimatePotionButton(PotionCustomButton customButton, bool isUp)
@@ -147,51 +147,6 @@ public class PowerupManager : MonoBehaviour
         else
         {
             LeanTween.moveY(rect, customButton.originalPos.y, 0.2f);
-        }
-    }
-    private IEnumerator InstantiateNeededIngredients() // go over with lior
-    {
-        StartCoroutine(ClearGeneralData());
-
-        yield return new WaitForEndOfFrame();
-
-        SpawnIngredients();
-    }
-
-    private void SpawnIngredients()
-    {
-        int summonIndex = 0;
-        foreach (IngredientsNeeded ingredientNeeded in currentPotionSelected.ingredientsNeeded)
-        {
-            PotionIngredientSegment displayer = Instantiate(potionMaterialPrefab, potionsMaterialZones[summonIndex]);
-            spawnedDisplays.Add(displayer);
-
-            int ownedAmountOfIngredient = 0;
-            int neededAmount = ingredientNeeded.amountNeeded;
-
-            if (player.returnownedIngredients.ContainsKey(ingredientNeeded.ingredient))
-            {
-                ownedAmountOfIngredient = player.returnownedIngredients[ingredientNeeded.ingredient].amount;
-            }
-
-            string amountRepresentation = ownedAmountOfIngredient.ToString() + "/" + neededAmount.ToString();
-
-            string[] texsts = new string[] { amountRepresentation };
-            Sprite[] sprites = new Sprite[] { ingredientNeeded.ingredient.ingredientSprite };
-            displayer.OverrideSetMyElement(texsts, sprites);
-
-            displayer.SetColorMissingIngredients(ownedAmountOfIngredient < neededAmount);
-
-            if (ownedAmountOfIngredient < neededAmount) // can collapse this to funciton?
-            {
-                int needed = neededAmount - ownedAmountOfIngredient;
-
-                int priceOfIngredient = ingredientNeeded.ingredient.amountToPrice.priceToPay;
-
-                currentNeededRubies += needed * priceOfIngredient;
-            }
-
-            summonIndex++;
         }
     }
 
@@ -237,37 +192,10 @@ public class PowerupManager : MonoBehaviour
         {
             CleanBuyPotionWindow();
             UIManager.instance.DisplayBuyPotionWindow(currentNeededRubies);
-            PopulateBuyPotionWindow();
             //ask if want buy potion
         }
     }
 
-    private void PopulateBuyPotionWindow()
-    {
-        foreach (IngredientsNeeded ingredientNeeded in currentPotionSelected.ingredientsNeeded) // this action replicates several times in neveral other places in this script - how to minimize?
-        {
-            int ownedAmountOfIngredient = 0;
-            int neededAmount = ingredientNeeded.amountNeeded;
-
-            if (player.returnownedIngredients.ContainsKey(ingredientNeeded.ingredient))
-            {
-                ownedAmountOfIngredient = player.returnownedIngredients[ingredientNeeded.ingredient].amount;
-            }
-
-            //spawn the display - is it ok in powerup manager?
-            if(neededAmount > ownedAmountOfIngredient)
-            {
-                int deltaAmount = neededAmount - ownedAmountOfIngredient;
-
-                UIElementDisplayerSegment displayer = Instantiate(buyPotionScreenMaterialPrefab, buyPotionScreenMaterialParent);
-                Sprite[] sprites = new Sprite[] { ingredientNeeded.ingredient.ingredientSprite };
-                string[] texsts = new string[] { deltaAmount.ToString()};
-
-                displayer.OverrideSetMyElement(texsts, sprites);
-            }
-        }
-
-    }
 
     public void CleanBuyPotionWindow()
     {
@@ -276,68 +204,6 @@ public class PowerupManager : MonoBehaviour
             for (int i = 0; i < buyPotionScreenMaterialParent.childCount; i++)
             {
                 Destroy(buyPotionScreenMaterialParent.GetChild(i).gameObject);
-            }
-        }
-    }
-    private void RefreshIngredientDisplays() // go over with lior
-    {
-        currentNeededRubies = 0;
-
-        int summonIndex = 0;
-        foreach (IngredientsNeeded ingredientNeeded in currentPotionSelected.ingredientsNeeded)
-        {
-            int ownedAmountOfIngredient = 0;
-            int neededAmount = ingredientNeeded.amountNeeded;
-
-            if (player.returnownedIngredients.ContainsKey(ingredientNeeded.ingredient))
-            {
-                ownedAmountOfIngredient = player.returnownedIngredients[ingredientNeeded.ingredient].amount;
-            }
-
-            string amountRepresentation = ownedAmountOfIngredient.ToString() + "/" + neededAmount.ToString();
-            spawnedDisplays[summonIndex].SetAmountsText(amountRepresentation);
-
-            if (ownedAmountOfIngredient < neededAmount) // can collapse this to funciton?
-            {
-                int needed = neededAmount - ownedAmountOfIngredient;
-
-                int priceOfIngredient = ingredientNeeded.ingredient.amountToPrice.priceToPay;
-
-                currentNeededRubies += needed * priceOfIngredient;
-            }
-
-            summonIndex++;
-        }
-
-    }
-    private void RemoveNeededIngredientsFromPlayerBrewAction() // go over with lior
-    {
-        foreach (IngredientsNeeded ingredientNeeded in currentPotionSelected.ingredientsNeeded)
-        {
-            player.RemoveIngredients(ingredientNeeded.ingredient, ingredientNeeded.amountNeeded);
-        }
-    }
-
-    private void RemoveNeededIngredientsFromPlayerBuyAction() // go over with lior
-    {
-        foreach (IngredientsNeeded ingredientNeeded in currentPotionSelected.ingredientsNeeded)
-        {
-            int ownedAmountOfIngredient = 0;
-            int neededAmount = ingredientNeeded.amountNeeded;
-            if (player.returnownedIngredients.ContainsKey(ingredientNeeded.ingredient))
-            {
-                ownedAmountOfIngredient = player.returnownedIngredients[ingredientNeeded.ingredient].amount;
-            }
-
-            if(ownedAmountOfIngredient >= neededAmount)
-            {
-                //remove what we need
-                player.RemoveIngredients(ingredientNeeded.ingredient, ingredientNeeded.amountNeeded);
-            }
-            else
-            {
-                //remove all we have
-                player.RemoveIngredients(ingredientNeeded.ingredient, ownedAmountOfIngredient);
             }
         }
     }
@@ -351,10 +217,6 @@ public class PowerupManager : MonoBehaviour
         }
 
         player.RemoveCoins(currentNeededRubies);
-
-        RemoveNeededIngredientsFromPlayerBuyAction();
-
-        RefreshIngredientDisplays();
 
 
         OwnedPowersAndAmounts temoVar = ownedPowerups.Where(i => i.powerType == currentPotionSelected.powerType).SingleOrDefault();
@@ -373,32 +235,29 @@ public class PowerupManager : MonoBehaviour
     }
     public void BrewPotion()
     {
-        RemoveNeededIngredientsFromPlayerBrewAction();
 
-        RefreshIngredientDisplays();
-
-        AddPotion(currentPotionSelected.powerType);
+        AddPotion(currentPotionSelected.powerType, 1);
     }
 
-    public void AddPotion(PowerupType powerType)
+    public void AddPotion(PowerupType powerType, int amount)
     {
-        OwnedPowersAndAmounts tempVar = ownedPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
-        PowerupScriptableObject temoVar2 = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
+        OwnedPowersAndAmounts owned = ownedPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
+        PowerupScriptableObject powerSO = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
 
-        if(temoVar2 == null)
+        if(powerSO == null)
         {
             Debug.LogError("Problem here!");
             return;
         }
 
-        if (tempVar == null )
+        if (owned == null )
         {
-            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(powerType, 1, temoVar2.price);
+            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(powerType, amount, powerSO.price);
             ownedPowerups.Add(newPotion);
         }
         else
         {
-            tempVar.amount++;
+            owned.amount += amount;
         }
         Debug.Log("Added this power: " + powerType.ToString());
     }
@@ -474,23 +333,39 @@ public class PowerupManager : MonoBehaviour
         GameManager.gameClip.RenewClip();
         StartCoroutine(PowerSucceededUsing());
     }
+    private void UndoAcion()
+    {
+        if(UndoSystem.instance.undoEntries.Count > 0)
+        {
+            UndoSystem.instance.CallUndoAction();
+            StartCoroutine(PowerSucceededUsing());
+        }
+        else
+        {
+            ResetPowerUpData();
+
+            CameraShake shake;
+            undoButton.TryGetComponent<CameraShake>(out shake);
+            if (shake == null) return;
+            shake.ShakeOnce();
+        }
+    }
 
     public void SpawnPotions()
     {
         for (int i = 0; i < ownedPowerups.Count; i++)
         {
 
+            if (ownedPowerups[i].powerType == PowerupType.Undo) continue;
+
             int tempIndex = i; // we do this since action subsccribing remembers the value in a memory unity.
-            // meaning in this case it would have remembered the last value of the iterator (i)
+                               // meaning in this case it would have remembered the last value of the iterator (i)
 
-
-
-
-            if (i > potionPositions.Length - 1)
-            {
-                Debug.Log("have more powerups than po sitions");
-                return;
-            }
+            //if (i > potionPositions.Length - 1)
+            //{
+            //    Debug.Log("have more powerups than positions");
+            //    return;
+            //}
 
             PowerupScriptableObject chosenPower = allPowerups.Where(k => k.powerType == ownedPowerups[i].powerType).SingleOrDefault();
             if (!chosenPower)
@@ -500,8 +375,11 @@ public class PowerupManager : MonoBehaviour
             }
 
 
-            GameObject go = Instantiate(potionDisplayPrefab, potionPositions[i]);
+            GameObject go = null;
             PotionInLevelHelper potionData = null;
+
+
+            go = Instantiate(potionDisplayPrefab, potionPositions[i]);
 
             go.TryGetComponent<PotionInLevelHelper>(out potionData);
 
@@ -527,8 +405,44 @@ public class PowerupManager : MonoBehaviour
                 potionButton.buttonEvents += () => StartCoroutine(SetUsingPotion(ownedPowerups[tempIndex], potionData));
             }
         }
+
+        InitUndoSystem();
     }
 
+    private void InitUndoSystem()
+    {
+        GameObject go = null;
+        PotionInLevelHelper potionData = null;
+        PowerupScriptableObject chosenPower = allPowerups.Where(k => k.powerType == PowerupType.Undo).SingleOrDefault();
+        OwnedPowersAndAmounts owned = ownedPowerups.Where(k => k.powerType == PowerupType.Undo).SingleOrDefault();
+
+        if (owned == null) return;
+
+        go = undoButton;
+
+        go.TryGetComponent<PotionInLevelHelper>(out potionData);
+
+        if (potionData)
+        {
+            potionData.buyButton.buttonEvents += () => StartCoroutine(CheckUseCoinsToUsePower(chosenPower, owned, potionData));
+
+            potionData.SetPotionDisplay(owned.amount.ToString(), chosenPower.price.ToString(), null);
+
+            spawnedHelpers.Add(potionData);
+        }
+
+        BasicCustomButton potionButton = null;
+
+        go.TryGetComponent<BasicCustomButton>(out potionButton);
+
+        if (potionButton)
+        {
+            potionButton.buttonEvents += () => StartCoroutine(SetUsingPotion(owned, potionData));
+        }
+
+
+
+    }
     public void DestroyPotions()
     {
         for (int i = 0; i < potionPositions.Length; i++)
@@ -595,20 +509,9 @@ public class PowerupManager : MonoBehaviour
     {
         USING_POWER = true;
 
-        if (currentPowerUsing == PowerupType.RefreshTiles)
+        if (currentPowerUsing == PowerupType.RefreshTiles || currentPowerUsing == PowerupType.Undo)
         {
             StartCoroutine(ChoosePowerToUse(is_Paid));
-
-            //if (!GameManager.gameClip.isFullClip())
-            //{
-            //    ChoosePowerToUse(is_Paid);
-
-            //    //StartCoroutine(ChoosePowerToUse(is_Paid));
-            //}
-            //else
-            //{
-            //    ResetPowerUpData();
-            //}
         }
     }
 
@@ -640,15 +543,26 @@ public class PowerupManager : MonoBehaviour
     }
     private IEnumerator ChoosePowerToUse(bool is_Paid)
     {
-        StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
 
-        if (is_Paid)
+        if(currentPowerUsing != PowerupType.Undo)
         {
-            yield return new WaitForSeconds(0.3f); //small delay for visual catchup
-            OnUseCoins();
-        }
+            StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
 
-        yield return new WaitUntil(() => !UIManager.IS_DURING_POTION_USAGE);
+            if (is_Paid)
+            {
+                yield return new WaitForSeconds(0.3f); //small delay for visual catchup
+                OnUseCoins();
+            }
+
+            yield return new WaitUntil(() => !UIManager.IS_DURING_POTION_USAGE);
+        }
+        else
+        {
+            if (is_Paid)
+            {
+                OnUseCoins();
+            }
+        }
 
         switch (currentPowerUsing)
         {
@@ -663,6 +577,9 @@ public class PowerupManager : MonoBehaviour
                 break;
             case PowerupType.Joker:
                 currentPowerLogic.JokerPower();
+                break;
+            case PowerupType.Undo:
+                UndoAcion();
                 break;
             default:
                 break;
@@ -700,6 +617,8 @@ public class PowerupManager : MonoBehaviour
 
     private bool CheckCanUsePotion()
     {
+
+
         if (localObjectToUsePowerOn == null) return false;
         IPowerUsable powerUsable;
 

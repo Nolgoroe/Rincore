@@ -14,7 +14,7 @@ public class PotionInLevelHelper : MonoBehaviour
 
     public void SetPotionDisplay(string in_text, string in_Price_Text, Texture in_Tex)
     {
-        if (connectedRenderer)
+        if (connectedRenderer && in_Tex)
         {
             connectedRenderer.materials[0].SetTexture("_BaseMap", in_Tex);
         }

@@ -6,8 +6,8 @@ using UnityEngine;
 public class ClusterSO : ScriptableObject
 {
     public int clusterID;
-    public bool isChestCluster;
     public LevelSO[] clusterLevels;
-    public List<LootTables> clusterLootTables;
     public AnimalStatueData clusterPrefabToSummon;
+
+    public bool isEndOfZone;
 }

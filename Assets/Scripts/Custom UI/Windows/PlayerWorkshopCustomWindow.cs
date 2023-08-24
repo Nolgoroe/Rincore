@@ -20,9 +20,6 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
 
     [SerializeField] private int CurrentCategoryIndex = -1;
 
-    private List<IngredientPlusMainTypeCombo> localCombos => GameManager.instance.GetPlayerCombos;
-    private Dictionary<Ingredients, LootEntry> localownedIngredientsDict => GameManager.instance.GetIngredientDict;
-
     public void InitPlayerWorkshop()
     {
         SortWorkshop(0);
@@ -35,7 +32,6 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
 
         SetSortButtonsDisplay(index);
 
-        SpawnAllOwnedIngredientsByType(index);
     }
 
     private void SetSortButtonsDisplay(int index)
@@ -78,32 +74,6 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
         for (int i = 0; i < materialsContent.childCount; i++)
         {
             Destroy(materialsContent.GetChild(i).gameObject);
-        }
-    }
-
-    private void SpawnAllOwnedIngredientsByType(int compareTypeIndex)
-    {
-        IngredientTypes requiredType = (IngredientTypes)compareTypeIndex;
-
-        foreach (IngredientPlusMainTypeCombo combo in localCombos)
-        {
-            if(combo.mainType == requiredType)
-            {
-                for (int i = 0; i < combo.typeIngredients.Count; i++)
-                {
-                    UIElementDisplayerSegment displayer = Instantiate(materialDisplayPrefab, materialsContent);
-
-                    int amount = localownedIngredientsDict[combo.typeIngredients[i]].amount;
-                    Sprite sprite = combo.typeIngredients[i].ingredientSprite;
-
-                    string[] texts = new string[] { amount.ToString() };
-                    Sprite[] sprites = new Sprite[] { sprite };
-
-                    displayer.SetMyElement(texts, sprites);
-                }
-
-                break;
-            }
         }
     }
 

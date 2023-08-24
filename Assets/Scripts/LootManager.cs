@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[System.Serializable]
-public class LootToRecieve
+
+public enum ChestTypes
 {
-    public Ingredients ingredient;
+    Basic,
+    Premium,
+    Elite,
+    Legendary,
+    Gold,
+    Ruby,
+    Emerald,
+    Diamond
+}
+
+[System.Serializable]
+public class powerLootData
+{
+    public PowerupScriptableObject powerSO;
+    public PowerupType powerType;
     public int amount;
 
-    public LootToRecieve(Ingredients ingredient_In, int amount_In)
+    public powerLootData(PowerupType _InPower, int _InAmount, PowerupScriptableObject _inPowerSO)
     {
-        ingredient = ingredient_In;
-        amount = amount_In;
+        powerType = _InPower;
+        amount = _InAmount;
+        powerSO = _inPowerSO;
     }
 }
 
@@ -21,19 +36,22 @@ public class LootManager : MonoBehaviour
     [Header("needed refs")]
     [SerializeField] private Player player;
     [SerializeField] private UIElementDisplayerSegment lootDisplayPrefab;
-    [SerializeField] private Ingredients[] allIngredients;
+    //[SerializeField] private Ingredients[] allIngredients;
 
-    [SerializeField] private Sprite rubySprite;
+    [SerializeField] private Sprite coinSprite;
 
     [Header("give loot algo")]
-    [SerializeField] private int currentRubiesToGive = 0;
-    [SerializeField] private List<LootToRecieve> ingredientsToGive;
+    [SerializeField] private int currentCoinsToGive = 0;
+    [SerializeField] private List<ChestSO> endClusterChestOptions;
+    [SerializeField] private List<ChestSO> endZoneChestOptions;
+    [SerializeField] private List<powerLootData> powersToGive;
+    //[SerializeField] private List<LootToRecieve> ingredientsToGive;
 
     [Header("loot animations")]
-    [SerializeField] private float lootMoveSpeed;
+    //[SerializeField] private float lootMoveSpeed;
     [SerializeField] private float delayBetweenLootDisplays;
 
-    [SerializeField] private GameObject rewardPrefab;
+    //[SerializeField] private GameObject rewardPrefab;
     [SerializeField] private Transform[] rewardsPoses;
 
     [Header("temp?")]
@@ -42,11 +60,12 @@ public class LootManager : MonoBehaviour
 
     private void Start()
     {
-        ingredientsToGive = new List<LootToRecieve>();
+        powersToGive = new List<powerLootData>();
+        //ingredientsToGive = new List<LootToRecieve>();
     }
 
     [ContextMenu("DO THIS")]
-    public void TEMPFUNC()
+    public void PublicGiveLoot()
     {
         ManageLootReward(GameManager.instance.currentCluster);
     }
@@ -54,115 +73,167 @@ public class LootManager : MonoBehaviour
 
     public void ManageLootReward(ClusterSO cluster)
     {
-        for (int i = 0; i < cluster.clusterLootTables.Count; i++)
+        ChestSO chosenChest = null;
+
+        if (cluster.isEndOfZone)
         {
-            LootTables lootTable = cluster.clusterLootTables[i];
+            chosenChest = RollChestIndex(endZoneChestOptions);
+        }
+        else
+        {
+            chosenChest = RollChestIndex(endClusterChestOptions);
+        }
 
-            switch (lootTable.mainLootType)
+        foreach (var entry in chosenChest.rewardEntries)
+        {
+            switch (entry.lootType)
             {
-                case MainLootType.R:
-                    UnpackToRubiesChest(lootTable);
+                case LootType.C:
+                    UnpackToCoins(entry);
                     break;
-
-                case MainLootType.L:
-                    UnpackToMaterialsChest(lootTable);
+                case LootType.P:
+                    UnpackToPotions(entry);
                     break;
-
                 default:
-                    Debug.LogError("Error in chest loot here");
                     break;
             }
         }
+
 
         GiveLootToPlayer();
     }
 
-    private void UnpackToRubiesChest(LootTables lootTable)
-    {
-        int randomNum = UnityEngine.Random.Range(lootTable.minRubies, lootTable.maxRubies + 1);
 
-        currentRubiesToGive += randomNum;
+    private ChestSO RollChestIndex(List<ChestSO> chestList)
+    {
+        ChestSO chosenChest = null;
+
+        int randomNum = Random.Range(0, 101);
+
+        if (randomNum >= chestList[0].ChanceToGetChest)
+        {
+            chosenChest = chestList[0];
+
+            Debug.Log("Chosen Chest is: " + chosenChest);
+
+            return chosenChest;
+        }
+
+
+        foreach (var chest in chestList)
+        {
+            if (randomNum <= chest.ChanceToGetChest)
+            {
+                chosenChest = chest;
+            }
+        }
+
+        Debug.Log("Chosen Chest is: " + chosenChest);
+
+        return chosenChest;
+    }
+    private void UnpackToCoins(RewardEntry entry)
+    {
+        int randomNum = UnityEngine.Random.Range(0, 101);
+
+        int amount = 0;
+
+        if (randomNum >= entry.chancesForAmount[0].chance)
+        {
+            amount = entry.chancesForAmount[0].amount;
+
+            currentCoinsToGive += amount;
+
+            return;
+        }
+
+        foreach (var entryChance in entry.chancesForAmount)
+        {
+            if (randomNum < entryChance.chance)
+            {
+                amount = entryChance.amount;
+            }
+        }
+
+
+        currentCoinsToGive += amount;
     }
 
-    private void UnpackToMaterialsChest(LootTables lootTable)
+    private void UnpackToPotions(RewardEntry entry)
     {
-        List<Ingredients> ingredientsFromTables = new List<Ingredients>();
+        powerLootData owned = null;
 
-        for (int i = 0; i < lootTable.lootBagsAndChances.Length; i++)
+        int randomNum = UnityEngine.Random.Range(0, 101);
+
+        int amount = 0;
+
+        if (randomNum >= entry.chancesForAmount[0].chance)
         {
-            int chance = UnityEngine.Random.Range(1, 101);
+            amount = entry.chancesForAmount[0].amount;
 
-            if (chance > lootTable.lootBagsAndChances[i].chance)
-            {
-                Debug.Log("Failed to give loot");
-            }
-            else
-            {
-                ingredientsFromTables.AddRange(lootTable.lootBagsAndChances[i].lootBag.bagIngredients);
+            if (amount == 0) return;
 
-                int randomIngredient = UnityEngine.Random.Range(0, ingredientsFromTables.Count);
-                int randomAmount = UnityEngine.Random.Range(1, 6);
+            owned = new powerLootData(entry.powerReward.powerType, amount, entry.powerReward);
 
-                LootToRecieve LTR_exsists = ingredientsToGive.Where(p => p.ingredient.ingredientName == ingredientsFromTables[randomIngredient].ingredientName).SingleOrDefault();
+            powersToGive.Add(owned);
 
-                if (LTR_exsists == null)
-                {
-                    LootToRecieve LTR = new LootToRecieve(ingredientsFromTables[randomIngredient], randomAmount);
-                    ingredientsToGive.Add(LTR);
-                }
-                else
-                {
-                    LTR_exsists.amount += randomAmount;
-                }
-            }
-
-            ingredientsFromTables.Clear();
+            return;
         }
+
+        foreach (var entryChance in entry.chancesForAmount)
+        {
+            if (randomNum < entryChance.chance)
+            {
+                amount = entryChance.amount;
+            }
+        }
+
+        if (amount == 0) return;
+
+        owned = new powerLootData(entry.powerReward.powerType, amount, entry.powerReward);
+
+        powersToGive.Add(owned);
     }
 
     private void GiveLootToPlayer()
     {
-        if(currentRubiesToGive > 0)
+        if(currentCoinsToGive > 0)
         {
-            player.AddCoins(currentRubiesToGive);
+            player.AddCoins(currentCoinsToGive);
         }
 
-        if(ingredientsToGive.Count > 0)
+        if(powersToGive.Count > 0)
         {
-            foreach (LootToRecieve loot in ingredientsToGive)
+            foreach (var power in powersToGive)
             {
-                player.AddIngredient(loot);
+                PowerupManager.instance.AddPotion(power.powerType, power.amount);
             }
         }
 
-        StartCoroutine(DisplayLootFromChest()); //go over this with Lior
+        StartCoroutine(DisplayLootFromChest()); 
     }
 
     private IEnumerator DisplayLootFromChest()
     {
-        if (currentRubiesToGive > 0)
+        if (currentCoinsToGive > 0)
         {
-            string[] texts = new string[] { currentRubiesToGive.ToString() };
-            Sprite[] sprites = new Sprite[] { rubySprite };
+            string[] texts = new string[] { currentCoinsToGive.ToString() };
+            Sprite[] sprites = new Sprite[] { coinSprite };
 
             InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
 
             yield return new WaitForSeconds(delayBetweenLootDisplays);
         }
 
-        if (ingredientsToGive.Count > 0)
+
+        if (powersToGive.Count > 0)
         {
-            foreach (LootToRecieve loot in ingredientsToGive)
+            foreach (var power in powersToGive)
             {
                 currentLootPos++;
 
-                //if (currentLootPos == lootPositions.Length)
-                //{
-                //    currentLootPos = 0;
-                //}
-
-                string[] texts = new string[] { loot.amount.ToString() };
-                Sprite[] sprites = new Sprite[] { loot.ingredient.ingredientSprite };
+                string[] texts = new string[] { power.amount.ToString() };
+                Sprite[] sprites = new Sprite[] { power.powerSO.potionSprite};
 
                 InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
 
@@ -173,11 +244,9 @@ public class LootManager : MonoBehaviour
         }
 
 
-        ingredientsToGive.Clear();
-        currentRubiesToGive = 0;
+        powersToGive.Clear();
+        currentCoinsToGive = 0;
         currentLootPos = 0;
-
-        GameManager.instance.AdvanceLootChestAnimation(); //go over this with Lior
     }
 
     private void InstantiateLootDisplay(string[] texts, Sprite[] sprites, Transform target)
@@ -206,6 +275,6 @@ public class LootManager : MonoBehaviour
     /**/
     // GETTERS!
     /**/
-    public Ingredients[] GetAllIngredientSprites => allIngredients;
+    //public Ingredients[] GetAllIngredientSprites => allIngredients;
     
 }

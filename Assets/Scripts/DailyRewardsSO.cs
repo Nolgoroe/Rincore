@@ -18,20 +18,10 @@ public class DailyRewardsSO : ScriptableObject
 
     private void OnValidate() // go over this with Lior!
     {
-        Ingredients ingredientVersion;
         PowerupScriptableObject powerupVersion;
 
         foreach (RewardStruct element in rewards)
         {
-            ingredientVersion = element.rewardData as Ingredients;
-
-            if (ingredientVersion != null)
-            {
-                element.rewardSprite = ingredientVersion.ingredientSprite;
-
-                continue;
-            }
-
             powerupVersion = element.rewardData as PowerupScriptableObject;
 
             if (powerupVersion != null)

@@ -9,14 +9,14 @@ public class LevelMapPopupCustomWindow : CustomWindowParent
 
     private void OnEnable()
     {
-        if(GameManager.instance.currentCluster.isChestCluster)
-        {
-            connectedChestBar. gameObject.SetActive(true);
-        }
-        else
-        {
-            connectedChestBar.gameObject.SetActive(false);
-        }
+        //if(GameManager.instance.currentCluster.isChestCluster)
+        //{
+        //    connectedChestBar. gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    connectedChestBar.gameObject.SetActive(false);
+        //}
     }
 
     public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, Action[] actions)

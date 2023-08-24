@@ -684,6 +684,11 @@ public class GameManager : MonoBehaviour
 
 
 
+
+        UIManager.instance.DisplayInLevelWinWindow();
+        lootManager.PublicGiveLoot();
+
+
         currentClusterSO = allClusters[currentMaxClusterReached];
 
         currentMaxClusterReached++; ;
@@ -694,10 +699,6 @@ public class GameManager : MonoBehaviour
             // thank you for playing the demo screen?
             yield break;
         }
-
-        UIManager.instance.DisplayInLevelWinWindow();
-        lootManager.TEMPFUNC();
-
 
     }
 
@@ -715,8 +716,6 @@ public class GameManager : MonoBehaviour
     /**/
     // GETTERS!
     /**/
-    public List<IngredientPlusMainTypeCombo> GetPlayerCombos => player.returnOwnedIngredientsByType;
-    public Dictionary<Ingredients, LootEntry> GetIngredientDict => player.returnownedIngredients;
     public List<OwnedAnimalDataSet> GetUnlockedAnimals => animalsManager.GetUnlockedAnimals();
     public ClusterSO currentCluster => currentClusterSO;
     public int publicMaxClusterReached => currentMaxClusterReached;

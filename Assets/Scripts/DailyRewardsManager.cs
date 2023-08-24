@@ -120,7 +120,7 @@ public class DailyRewardsManager : MonoBehaviour
         #endregion
 
         #region Give Rewards To Player
-        RewardPlayer();
+        //RewardPlayer();
         #endregion
 
         #region DailyRewardData
@@ -152,30 +152,30 @@ public class DailyRewardsManager : MonoBehaviour
 
     }
 
-    private void RewardPlayer() // go over this with Lior - this MUST (?) change!
-    {
-        int amount = currentWeekSO.rewards[currentDay].rewardAmount;
+    //private void RewardPlayer() // go over this with Lior - this MUST (?) change!
+    //{
+    //    int amount = currentWeekSO.rewards[currentDay].rewardAmount;
 
-        Ingredients ingredient = currentWeekSO.rewards[currentDay].rewardData as Ingredients;
+    //    //Ingredients ingredient = currentWeekSO.rewards[currentDay].rewardData as Ingredients;
 
-        if(ingredient != null)
-        {
-            LootToRecieve loot = new LootToRecieve(ingredient, amount);
-            player.AddIngredient(loot);
+    //    //if(ingredient != null)
+    //    //{
+    //    //    LootToRecieve loot = new LootToRecieve(ingredient, amount);
+    //    //    player.AddIngredient(loot);
 
-            return;
-        }
+    //    //    return;
+    //    //}
 
-        PowerupScriptableObject powerup = currentWeekSO.rewards[currentDay].rewardData as PowerupScriptableObject;
+    //    PowerupScriptableObject powerup = currentWeekSO.rewards[currentDay].rewardData as PowerupScriptableObject;
         
-        if (powerup != null)
-        {
-            //give powerup to player
-            powerupManager.AddPotion(powerup.powerType);
-            return;
-        }
+    //    if (powerup != null)
+    //    {
+    //        //give powerup to player
+    //        powerupManager.AddPotion(powerup.powerType);
+    //        return;
+    //    }
 
-    }
+    //}
     private void SetDailyButtonOnStart()
     {
         getDailyButton.TryGetComponent(out dailyButtonCanvasGroup);
