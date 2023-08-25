@@ -71,8 +71,14 @@ public class GeneralColorCondition : ConditonsData
             return true;
         }
 
-        if (subTileCurrent.subTileColor == subTileContested.subTileColor && subTileCurrent.subTileColor != SubTileColor.Stone
-            && subTileContested.subTileColor != SubTileColor.Stone)
+
+
+
+
+        if (subTileCurrent.subTileColor == subTileContested.subTileColor && 
+            subTileCurrent.subTileColor != SubTileColor.Stone && 
+            subTileContested.subTileColor != SubTileColor.Stone ||
+            (subTileCurrent.subTileColor == SubTileColor.Joker || subTileContested.subTileColor == SubTileColor.Joker))
         {
             return true;
         }
@@ -86,12 +92,7 @@ public class GeneralSymbolCondition : ConditonsData
 {
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        if (subTileCurrent.subTileSymbol == SubTileSymbol.Joker || subTileContested.subTileSymbol == SubTileSymbol.Joker)
-        {
-            return true;
-        }
-
-        if (subTileCurrent.subTileSymbol == subTileContested.subTileSymbol)
+        if (subTileCurrent.subTileSymbol == subTileContested.subTileSymbol || (subTileCurrent.subTileSymbol == SubTileSymbol.Joker || subTileContested.subTileSymbol == SubTileSymbol.Joker))
         {
             return true;
         }
@@ -107,12 +108,7 @@ public class SpecificColorCondition : ConditonsData
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        if (subTileCurrent.subTileColor == SubTileColor.Joker && subTileContested.subTileColor == SubTileColor.Joker)
-        {
-            return true;
-        }
-
-        if (subTileCurrent.subTileColor == requiredColor && subTileContested.subTileColor == requiredColor)
+        if ((subTileCurrent.subTileColor == requiredColor || subTileCurrent.subTileColor == SubTileColor.Joker) && (subTileContested.subTileColor == requiredColor || subTileContested.subTileColor == SubTileColor.Joker))
         {
             return true;
         }
@@ -128,12 +124,7 @@ public class SpecificSymbolCondition : ConditonsData
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        if (subTileCurrent.subTileSymbol == SubTileSymbol.Joker && subTileContested.subTileSymbol == SubTileSymbol.Joker)
-        {
-            return true;
-        }
-
-        if (subTileCurrent.subTileSymbol == requiredSymbol && subTileContested.subTileSymbol == requiredSymbol)
+        if ((subTileCurrent.subTileSymbol == requiredSymbol || subTileCurrent.subTileSymbol == SubTileSymbol.Joker) && (subTileContested.subTileSymbol == requiredSymbol || subTileContested.subTileSymbol == SubTileSymbol.Joker))
         {
             return true;
         }
