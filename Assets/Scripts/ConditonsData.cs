@@ -75,9 +75,10 @@ public class GeneralColorCondition : ConditonsData
 
 
 
-        if (subTileCurrent.subTileColor == subTileContested.subTileColor && 
-            subTileCurrent.subTileColor != SubTileColor.Stone && 
-            subTileContested.subTileColor != SubTileColor.Stone ||
+        if ((subTileCurrent.subTileColor == subTileContested.subTileColor && subTileCurrent.subTileColor != SubTileColor.Stone && subTileContested.subTileColor != SubTileColor.Stone) 
+            
+            ||
+
             (subTileCurrent.subTileColor == SubTileColor.Joker || subTileContested.subTileColor == SubTileColor.Joker))
         {
             return true;
