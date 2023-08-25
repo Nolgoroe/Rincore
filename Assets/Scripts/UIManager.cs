@@ -403,7 +403,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 5, action = GameManager.gameClip.CallDealAction }); //deal button
             //new ButtonActionIndexPair { index = 6, action = GameManager.TestButtonDelegationWorks }); //restart button
 
-        string[] texts = new string[] { ("Level: " + (GameManager.instance.currentCluster.clusterID)).ToString() };
+        string[] texts = new string[] { ("Level " + (GameManager.instance.currentCluster.clusterID)).ToString() };
 
         inLevelUI.OverrideSetMyElement(texts, null, actions);
     }
@@ -444,7 +444,7 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = DelegateAction(
             inLevelWinWindow,
             new ButtonActionIndexPair { index = 0, action = GameManager.TestButtonDelegationWorks },
-            new ButtonActionIndexPair { index = 1, action = () => ManualUpdateLevelNumText("Level: " + GameManager.instance.publicMaxClusterReached.ToString()) },//the new cluster is already set from the gamemanager before the win screen appears
+            new ButtonActionIndexPair { index = 1, action = () => ManualUpdateLevelNumText("Level " + GameManager.instance.publicMaxClusterReached.ToString()) },//the new cluster is already set from the gamemanager before the win screen appears
             new ButtonActionIndexPair { index = 1, action = () => ManualResetLevelFillBar() },//the new cluster is already set from the gamemanager before the win screen appears
             new ButtonActionIndexPair { index = 1, action = () => mapLogic.CallClusterTransfer(GameManager.instance.currentCluster) },//the new cluster is already set from the gamemanager before the win screen appears
             new ButtonActionIndexPair { index = 1, action = () => lootManager.DestroyAllLootChildren() },
@@ -636,7 +636,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 0, action = DisplayMapSettings },
             new ButtonActionIndexPair { index = 1, action = DisplayBundleScreen });
 
-        string[] texts = new string[] { ("Level: " + (GameManager.instance.publicMaxClusterReached)).ToString() };
+        string[] texts = new string[] { ("Level " + (GameManager.instance.publicMaxClusterReached)).ToString() };
 
         generalMapUI.OverrideSetMyElement(texts, null, actions);
 
