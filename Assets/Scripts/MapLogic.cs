@@ -13,6 +13,7 @@ public class MapLogic : MonoBehaviour
     [SerializeField] private GameObject[] mapRingPrefabs;
     [SerializeField] private GameObject[] lastPiecePrefabs;
     [SerializeField] private Transform ringsParent;
+    [SerializeField] private float numLastPiecesToSummon = 1;
     [SerializeField] private float distanceBetweenRings;
     [SerializeField] private float startRingOffset;
     [SerializeField] private float nextClusterSummonOffset;
@@ -119,7 +120,7 @@ public class MapLogic : MonoBehaviour
 
         int tempnum = currentCluster.clusterLevels.Length;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < numLastPiecesToSummon; i++)
         {
             GameObject go = Instantiate(lastPiecePrefabs[(i % 2)], pos, Quaternion.identity, ringsParent);
 
@@ -562,4 +563,5 @@ public class MapLogic : MonoBehaviour
     /**/
 
     public List<Ring> publicInstantiatedRings => instantiatedRings;
+    public List<GameObject> publicInstantiatedLastPieces => summonedLastPieces;
 }

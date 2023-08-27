@@ -529,6 +529,11 @@ public class GameManager : MonoBehaviour
             Destroy(ring.gameObject);
             yield return new WaitForEndOfFrame();
         }
+        foreach (var treePiece in mapLogic.publicInstantiatedLastPieces)
+        {
+            Destroy(treePiece.gameObject);
+            yield return new WaitForEndOfFrame();
+        }
 
         mapLogic.ResetMapData();
 
