@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
 
 
         //AddToEndlevelActions(() => StartCoroutine(OnLevelExitLose()));
-        AddToEndlevelActions(ClearLevelActions);
+        AddToEndlevelActions(ClearLevelData);
 
         // actions after gameplay, on winning the level
         //WinLevelActions += AdvanceLevelStatue;
@@ -274,9 +274,8 @@ public class GameManager : MonoBehaviour
     {
         if(inLevel)
         {
-
-            mapLogic.FixCamPosStartLevel(currentIndexInCluster);
-            cameraAnimatorController.SetTrigger("Camera In Level");
+            //mapLogic.FixCamPosStartLevel(currentIndexInCluster);
+            cameraAnimatorController.SetTrigger("Camera In Level" + currentIndexInCluster);
 
             yield return new WaitForSeconds(delayClipAppear);
             levelDecksParent.gameObject.SetActive(true);
@@ -298,7 +297,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            UIManager.IS_DURING_TRANSITION = true;
+            //UIManager.IS_DURING_TRANSITION = true;
 
             mapLogic.ToggleRings(gameRing, inLevel);
 
@@ -307,8 +306,13 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(delayClipHide);
 
-            StartCoroutine(mapLogic.FixCamPosEndLevel());
-            cameraAnimatorController.SetTrigger("Camera Out Level");
+            //StartCoroutine(mapLogic.FixCamPosEndLevel());
+
+            //int currentAnimPlay = 0;
+            //currentAnimPlay =  currentIndexInCluster == 0 ? 0 : currentIndexInCluster - 1;
+
+            
+            cameraAnimatorController.SetTrigger("Camera Out Level" + currentIndexInCluster); /// we do -1 here since we already incremented the current index in the cluster
         }
 
 
@@ -317,7 +321,7 @@ public class GameManager : MonoBehaviour
             levelDecksParent.gameObject.SetActive(false);
         }
     }
-    private void ClearLevelActions()// this must be added last to "endLevelActions"
+    private void ClearLevelData()// this must be added last to "endLevelActions"
     {
         BeforeRingActions = null;
         RingActions = null;
@@ -345,11 +349,11 @@ public class GameManager : MonoBehaviour
     // This function makes sure that we have "ClearLevelActions" set as the last action to be made
     private void AddToEndlevelActions(System.Action actionToAdd)
     {
-        endLevelActions -= ClearLevelActions;// this has to be the last added func
+        endLevelActions -= ClearLevelData;// this has to be the last added func
 
         endLevelActions += actionToAdd;
 
-        endLevelActions += ClearLevelActions;// this has to be the last added func
+        endLevelActions += ClearLevelData;// this has to be the last added func
 
     }
     private void RemoveFromEndlevelActions(System.Action actionToAdd)
@@ -551,7 +555,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator OnLevelExitResetLevel()
     {
-        ClearLevelActions();
+        ClearLevelData();
         gameRing.ClearActions();
 
         Destroy(mapLogic.publicInstantiatedRings[currentIndexInCluster].gameObject);
@@ -577,7 +581,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
         gameRing.ClearActions();
-        ClearLevelActions();
+        ClearLevelData();
 
         yield return new WaitForEndOfFrame();
 
@@ -593,7 +597,9 @@ public class GameManager : MonoBehaviour
         if (!isClusterEnd)
         {
 
-            yield return StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
+            //yield return StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
+            mapLogic.DataOnTransitionNextLevel();
+            yield return new WaitForSeconds(2);
 
             StartCoroutine(InitStartLevel(false));
         }
@@ -660,7 +666,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InitClusterTransfer()
     {
-        ClearLevelActions();
+        ClearLevelData();
         gameRing.ClearActions();
 
         bool isAtStartOfCluster = currentIndexInCluster == 0 ? true : false;

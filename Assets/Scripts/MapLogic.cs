@@ -333,6 +333,14 @@ public class MapLogic : MonoBehaviour
 
     }
 
+    public void DataOnTransitionNextLevel()
+    {
+        GameManager.IS_IN_LEVEL = false;
+
+        UIManager.instance.fillIndex++;
+        UIManager.instance.LevelFillBarAnimate(UIManager.instance.fillIndex);
+    }
+
     public IEnumerator CameraTransitionClusterStart(bool isAtStart, bool hasLost)
     {
         //this function moves the camera to the cluster's "start point" from which we can activate the enter first level animation
@@ -357,13 +365,13 @@ public class MapLogic : MonoBehaviour
             yield return new WaitForSeconds(waitMoveStartCluster);
         }
 
-        float ZPos = originalClusterCameraParentPos;
+        //float ZPos = originalClusterCameraParentPos;
 
-        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
+        //LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
 
         GameManager.IS_IN_LEVEL = false;
 
-        yield return new WaitForSeconds(angleIntoLevelTime);
+        //yield return new WaitForSeconds(angleIntoLevelTime);
     }
 
 
@@ -533,7 +541,7 @@ public class MapLogic : MonoBehaviour
 
     public void OnLoadData()
     {
-        FixCamPosStartLevel(0);
+        //FixCamPosStartLevel(0);
     }
 
 
