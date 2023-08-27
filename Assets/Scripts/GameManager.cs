@@ -520,8 +520,8 @@ public class GameManager : MonoBehaviour
 
 
         //FADE
-        UIManager.instance.FadeInFadeWindow(true);
-        yield return new WaitUntil(() => !UIManager.IS_DURING_FADE);
+        StartCoroutine(UIManager.instance.FadeInCurtainswindow(true));
+        yield return new WaitUntil(() => !UIManager.IS_DURING_CURTAINS);
 
 
         foreach (var ring in mapLogic.publicInstantiatedRings)

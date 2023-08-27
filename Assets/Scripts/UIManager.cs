@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
 
     public static bool IS_USING_UI;
     public static bool IS_DURING_TRANSITION;
-    public static bool IS_DURING_FADE;
+    public static bool IS_DURING_CURTAINS;
     public static bool IS_DURING_POTION_USAGE;
 
     [Header("General refrences")] // ask Lior if this section is ok for the long run
@@ -84,13 +84,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private WinLevelCustomWindow inLevelWinWindow;
     [SerializeField] private Image fillBarImageInLevel;
 
-    [Header("Fade object settings")] // might move to SO
+    [Header("Curtains object settings")] // might move to SO
     [SerializeField] private BasicCustomUIWindow fadeWindow;
     //[SerializeField] private float fadeIntoLevelTime;
     //[SerializeField] private float fadeOutLevelTime;
-    [SerializeField] private float waitBeforeFadeTime;
-    [SerializeField] private float fadeIntoMapTime;
-    [SerializeField] private float fadeOutMapTime;
+    [SerializeField] private float waitBeforeCurtainsOutTime;
+    [SerializeField] private float waitBeforeCurtainsInTime;
+    [SerializeField] private float curtainsIntoMapTime;
+    [SerializeField] private float curtainsOutMapTime;
+    [SerializeField] private float moveToX;
+    [SerializeField] private GameObject leftParent;
+    [SerializeField] private GameObject rightParent;
+
     [SerializeField] private LeanTweenType tweenType;
 
     [Header("Map setup")] //might move to a different script
@@ -828,49 +833,61 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void FadeInFadeWindow(bool fadeIn)
+    public IEnumerator FadeInCurtainswindow(bool _In)
     {
-        IS_DURING_FADE = true;
-
-        CanvasGroup group = fadeWindow.group;
+        IS_DURING_CURTAINS = true;
 
 
+        if(_In)
+        {
+            yield return new WaitForSeconds(waitBeforeCurtainsInTime);
+            LeanTween.moveLocalX(leftParent, moveToX, curtainsIntoMapTime).setEase(tweenType);
+            LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenType).setOnComplete(() => StartCoroutine(ReverseFade(_In, waitBeforeCurtainsOutTime)));
+        }
+        else
+        {
+            LeanTween.moveLocalX(leftParent, 0, curtainsIntoMapTime).setEase(tweenType);
+            LeanTween.moveLocalX(rightParent, 0, curtainsIntoMapTime).setEase(tweenType).setOnComplete(OnEndFade);
+        }
+        //CanvasGroup group = fadeWindow.group;
 
-        float from = 0, to = 0;
-        float speed = fadeIn == true ? fadeOutMapTime : fadeIntoMapTime;
 
-        group.alpha = fadeIn == true ? 0 : 1; ;
-        from = 1;
-        to = 0;
-        from = fadeIn == true ? 0 : 1;
-        to = fadeIn == true ? 1 : 0;
-        System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, waitBeforeFadeTime)) : OnEndFade;
 
-        fadeWindow.gameObject.SetActive(true);
+        //float from = 0, to = 0;
+        //float speed = fadeIn == true ? fadeOutMapTime : fadeIntoMapTime;
 
-        fadeWindow.GeneralFloatValueTo(
-            group,
-            from,
-            to,
-            speed,
-            tweenType,
-            action);
+        //group.alpha = fadeIn == true ? 0 : 1; ;
+        //from = 1;
+        //to = 0;
+        //from = fadeIn == true ? 0 : 1;
+        //to = fadeIn == true ? 1 : 0;
+        //System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, waitBeforeFadeTime)) : OnEndFade;
+
+        //fadeWindow.gameObject.SetActive(true);
+
+        //fadeWindow.GeneralFloatValueTo(
+        //    group,
+        //    from,
+        //    to,
+        //    speed,
+        //    tweenType,
+        //    action);
 
     }
 
-    private IEnumerator ReverseFade(bool fadeIn, float fadeTime)
+    private IEnumerator ReverseFade(bool _In, float _Time)
     {
-        IS_DURING_FADE = false;
+        IS_DURING_CURTAINS = false;
 
-        yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(_Time);
 
-        FadeInFadeWindow(!fadeIn);
+        StartCoroutine(FadeInCurtainswindow(!_In));
     }
 
     private void OnEndFade()
     {
-        IS_DURING_FADE = false;
-        CloseElement(fadeWindow);
+        IS_DURING_CURTAINS = false;
+        //CloseElement(fadeWindow);
     }
 
     //private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
