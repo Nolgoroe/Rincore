@@ -219,4 +219,9 @@ public class ClipManager : MonoBehaviour
     {
         return activeClipSlotsCount == slots.Length;
     }
+
+    public ClipSlot ReturnSlot(int index)
+    {
+        return slots[index];
+    }
 }

@@ -69,6 +69,11 @@ public class LootManager : MonoBehaviour
     [ContextMenu("DO THIS")]
     public void PublicGiveLoot()
     {
+        foreach (var pose in rewardsPoses)
+        {
+            pose.gameObject.SetActive(false);
+        }
+
         ManageLootReward(GameManager.instance.currentCluster);
     }
 
@@ -220,7 +225,7 @@ public class LootManager : MonoBehaviour
     {
         if (currentCoinsToGive > 0)
         {
-            string[] texts = new string[] { currentCoinsToGive.ToString() };
+            string[] texts = new string[] { "X" + currentCoinsToGive.ToString() };
             Sprite[] sprites = new Sprite[] { coinSprite };
 
             InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
@@ -235,7 +240,7 @@ public class LootManager : MonoBehaviour
             {
                 currentLootPos++;
 
-                string[] texts = new string[] { power.amount.ToString() };
+                string[] texts = new string[] { "X" + power.amount.ToString() };
                 Sprite[] sprites = new Sprite[] { power.powerSO.potionSprite};
 
                 InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
@@ -254,6 +259,8 @@ public class LootManager : MonoBehaviour
 
     private void InstantiateLootDisplay(string[] texts, Sprite[] sprites, Transform target)
     {
+        target.gameObject.SetActive(true);
+
         UIElementDisplayerSegment displayer = Instantiate(lootDisplayPrefab, target);
 
         displayer.SetMyElement(texts, sprites);

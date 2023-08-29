@@ -71,6 +71,9 @@ public class LevelSO : ScriptableObject
     [Header("Percise Position Settings")]
     public tileDataStruct[] arrayOfSpecificTilesInClip;
 
+    [Header("Tutorial")]
+    public TutorialSO levelTutorial;
+
 
 
     private void OnValidate()
@@ -81,7 +84,6 @@ public class LevelSO : ScriptableObject
             {
                 data.leftTileColor = SubTileColor.Stone;
                 data.rightTileColor = SubTileColor.Stone;
-
             }
         }
     }

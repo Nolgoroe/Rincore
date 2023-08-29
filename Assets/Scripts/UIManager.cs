@@ -120,7 +120,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private string NumberFormat = "N0";
 
     [Header("general screens")]
-    [SerializeField] private BasicCustomUIWindow loadingScreen;
+    [SerializeField] private BasicCustomUIWindow loadingParent;
 
     private void Awake()
     {
@@ -336,7 +336,7 @@ public class UIManager : MonoBehaviour
 
     public void DisplayLodingScreen()
     {
-        AddUIElement(loadingScreen);
+        AddUIElement(loadingParent);
 
         inLevelUI.OverrideSetMyElement(null, null, null);
     }
@@ -408,7 +408,7 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 5, action = GameManager.gameClip.CallDealAction }); //deal button
             //new ButtonActionIndexPair { index = 6, action = GameManager.TestButtonDelegationWorks }); //restart button
 
-        string[] texts = new string[] { ("Level " + (GameManager.instance.currentCluster.clusterID)).ToString() };
+        string[] texts = new string[] { ("Level " + (GameManager.instance.currentCluster.clusterID)).ToString(), player.GetOwnedCoins.ToString() };
 
         inLevelUI.OverrideSetMyElement(texts, null, actions);
     }
@@ -695,13 +695,14 @@ public class UIManager : MonoBehaviour
     }
     private IEnumerator OnGoToLevelMapLogic(bool isAnimate)
     {
-        //everytime we go to map, no matter what - clear the undo system
-        UndoSystem.instance.ClearUndoSystem();
-        powerupManager.DestroyPotions();
 
         if (isAnimate)
         {
             yield return StartCoroutine(GameManager.instance.AnimateLevelElements(false));
+
+            //everytime we go to map, no matter what - clear the undo system and powers
+            UndoSystem.instance.ClearUndoSystem();
+            powerupManager.DestroyPotions();
         }
 
     }
@@ -966,9 +967,10 @@ public class UIManager : MonoBehaviour
     {
         //fillIndex = SaveLoad.instance.indexReachedInCluster - 1; // we set the bar to the current fill amount reached
 
+        CloseElement(loadingParent);
+
         StartCoroutine(InitGameUI());
 
-        CloseElement(loadingScreen);
     }
 
 

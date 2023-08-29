@@ -644,6 +644,11 @@ public class PowerupManager : MonoBehaviour
         //return false;
     }
 
+    public Transform ReturnPotionPosition(int index)
+    {
+        return potionPositions[index];
+    }
+
     //private bool CheckCanUseSwitch()
     //{
     //    if (localObjectToUsePowerOn == null) return false;

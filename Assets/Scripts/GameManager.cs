@@ -68,6 +68,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MapLogic mapLogic;
     [SerializeField] private ClipManager clipManager;
     [SerializeField] private PowerupManager powerupManager;
+    [SerializeField] private TutorialManager tutorialManager;
+
+
+
 
     [SerializeField] private GameObject[] gameRingsPrefabs;
     [SerializeField] private GameObject[] gameRingsSlicePrefabs;
@@ -127,6 +131,7 @@ public class GameManager : MonoBehaviour
     //called from button click
     public void SetLevel()
     {
+        tutorialManager.SetCurrenTutorialData(currentLevel.levelTutorial, 0);
 
         GameAnalytics.NewDesignEvent("Testing GA 1", 0);
 

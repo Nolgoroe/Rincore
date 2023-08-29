@@ -87,37 +87,88 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
             cellParent.GrabTileFrom();
         }
 
-        Texture texLeft = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker, false);
-        Texture texRight = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker, true);
+        TileParentLogic newTile = this;
 
-        Material mat = null;
-        mat = GameManager.gameClip.tileCreatorPreset.getjokerMat;
+        if (tileType == Tiletype.Corrupted8 || tileType == Tiletype.Corrupted12)
+        {
+            Tiletype type = Tiletype.NoType;
 
-        subTileLeft.subtileMesh.material = mat;
-        subTileRight.subtileMesh.material = mat;
+            type = GameManager.currentLevel.ringType == Ringtype.ring8 ? Tiletype.Normal : Tiletype.Normal12;
+
+            newTile = GameManager.gameClip.tileCreatorPreset.CreateTile(type, subTileLeft.subTileSymbol, subTileRight.subTileSymbol, subTileLeft.subTileColor, subTileRight.subTileColor);
+
+            // Make sure that the new 12 ring tile spawned is located exactly where the 8 ring tile was released.
+            // we do this to make sure the tile activates the drop in animation from the correct position.
+            newTile.transform.position = transform.position;
+            newTile.transform.rotation = transform.rotation;
+            newTile.transform.parent = transform.parent;
+
+            Texture texLeft = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker, false);
+            Texture texRight = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker, true);
+
+            Material mat = null;
+            mat = GameManager.gameClip.tileCreatorPreset.getjokerMat;
+
+            newTile.subTileLeft.subtileMesh.material = mat;
+            newTile.subTileRight.subtileMesh.material = mat;
 
 
-        SetTileSpawnDisplayByTextures(subTileLeft, texLeft);
-        SetTileSpawnDisplayByTextures(subTileRight, texRight);
+            SetTileSpawnDisplayByTextures(newTile.subTileLeft, texLeft);
+            SetTileSpawnDisplayByTextures(newTile.subTileRight, texRight);
 
-        subTileLeft.subTileColor = SubTileColor.Joker;
-        subTileLeft.subTileSymbol = SubTileSymbol.Joker;
+            newTile.subTileLeft.subTileColor = SubTileColor.Joker;
+            newTile.subTileLeft.subTileSymbol = SubTileSymbol.Joker;
 
-        subTileRight.subTileColor = SubTileColor.Joker;
-        subTileRight.subTileSymbol = SubTileSymbol.Joker;
+            newTile.subTileRight.subTileColor = SubTileColor.Joker;
+            newTile.subTileRight.subTileSymbol = SubTileSymbol.Joker;
+        }
+        else
+        {
+            Texture texLeft = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker, false);
+            Texture texRight = GameManager.gameClip.tileCreatorPreset.returnSpecificTex(SubTileColor.Joker, SubTileSymbol.Joker, true);
+
+            Material mat = null;
+            mat = GameManager.gameClip.tileCreatorPreset.getjokerMat;
+
+            subTileLeft.subtileMesh.material = mat;
+            subTileRight.subtileMesh.material = mat;
+
+
+            SetTileSpawnDisplayByTextures(subTileLeft, texLeft);
+            SetTileSpawnDisplayByTextures(subTileRight, texRight);
+
+            subTileLeft.subTileColor = SubTileColor.Joker;
+            subTileLeft.subTileSymbol = SubTileSymbol.Joker;
+
+            subTileRight.subTileColor = SubTileColor.Joker;
+            subTileRight.subTileSymbol = SubTileSymbol.Joker;
+        }
+
 
         if (cellParent)
         {
-            cellParent.DroppedOn(this, GameManager.gameRing);
+            cellParent.DroppedOn(newTile, GameManager.gameRing);
+
+            if(cellParent.isStone)
+            {
+                cellParent.SetAsStone(false);
+            }
+            //cellParent.ResetLockData();
         }
 
 
         StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
+
+
+        if (tileType == Tiletype.Corrupted8 || tileType == Tiletype.Corrupted12)
+        {
+            Destroy(gameObject);
+        }
         //PowerupManager.instance.PowerSucceededUsing();
     }
 
     /// set subtile display function (maybe materials)
-    
+
     public bool CheckCanUsePower()
     {
         switch (PowerupManager.instance.publicCurrentPowerSO.powerType)
