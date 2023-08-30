@@ -544,6 +544,7 @@ GameObject:
   - component: {fileID: 1143854937314579074}
   - component: {fileID: 7812975444056655046}
   - component: {fileID: 292747581136103043}
+  - component: {fileID: 5598323002072783361}
   m_Layer: 0
   m_Name: Potion Prefab
   m_TagString: Untagged
@@ -668,6 +669,26 @@ CapsuleCollider:
   m_Height: 161.63509
   m_Direction: 1
   m_Center: {x: -4.2860184, y: -4.76754, z: 0}
+--- !u!95 &5598323002072783361
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6887527107417983302}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 616f93f31e83c1a4780726b4b35ef4e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7701842534885974166
 GameObject:
   m_ObjectHideFlags: 0
