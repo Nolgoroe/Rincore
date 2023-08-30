@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
-
+using System.IO;
 
 public class TutorialManager : MonoBehaviour
 {
     [Header("general refs - temp?")]
     [SerializeField] private GameObject dealObject;
     [SerializeField] private Camera secondCam;
-    [SerializeField] private SpriteMask maskImage;
+    [SerializeField] private Image maskImage;
+    [SerializeField] private int camDepth;
 
     [Header("Needed refs")]
     [SerializeField] private GameObject prefabToSpawn;
@@ -144,6 +146,12 @@ public class TutorialManager : MonoBehaviour
         toTexture();
     }
 
+    private void Start()
+    {
+        InvokeRepeating("toTexture", 2, 2);
+    }
+
+    [ContextMenu("Render Now")]
     private void toTexture()
     {
         if (secondCam.targetTexture.width != Display.main.systemWidth || secondCam.targetTexture.height != Display.main.systemHeight)
@@ -153,17 +161,25 @@ public class TutorialManager : MonoBehaviour
         else
         {
             Texture2D texture = new Texture2D(Display.main.systemWidth, Display.main.systemHeight, TextureFormat.ARGB32, false);
-            Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
-
             Graphics.CopyTexture(secondCam.targetTexture, texture);
 
+            Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+
+            byte[] bytes = texture.EncodeToPNG();
+            var dirPath = "C:/Users/Tiltan/Desktop/Ringers APK";
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            File.WriteAllBytes(dirPath + "Image" + ".png", bytes);
             maskImage.sprite = sprite;
         }
     }
 
     public void RecreateRenderTexture(bool isDen)
     {
-        secondCam.targetTexture = new RenderTexture(Display.main.systemWidth, Display.main.systemHeight, 24);
+        secondCam.targetTexture = new RenderTexture(Display.main.systemWidth, Display.main.systemHeight, camDepth);
         secondCam.Render();
         toTexture();
     }
