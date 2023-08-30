@@ -7,14 +7,14 @@ using TMPro;
 public class TutorialManager : MonoBehaviour
 {
     [Header("general refs - temp?")]
-    public GameObject dealObject;
-
+    [SerializeField] private GameObject dealObject;
+    [SerializeField] private Camera secondCam;
+    [SerializeField] private SpriteMask maskImage;
 
     [Header("Needed refs")]
     [SerializeField] private GameObject prefabToSpawn;
     [SerializeField] private RectTransform textParent;
     [SerializeField] private TMP_Text tutorialText;
-
 
 
     [Header("Animation Data")]
@@ -26,6 +26,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject originObject;
     [SerializeField] private GameObject targetObject;
     [SerializeField] private GameObject currentMoveObject;
+    [SerializeField] private TutorialSO currentTutorial;
+    [SerializeField] private int currentTutorialStepIndex;
 
     private void StartTutorial()
     {
@@ -39,10 +41,13 @@ public class TutorialManager : MonoBehaviour
     {
         if (!tutorialSO) return;
 
+        currentTutorial = tutorialSO;
+        currentTutorialStepIndex = currentIndex;
+
         switch (tutorialSO.tutorialSteps[currentIndex].tutorialType)
         {
             case TutorialType.MoveClipToCell:
-                SetMoveFromClipToCellData(tutorialSO, currentIndex);
+                SetMoveFromClipToCellData();
                 break;
             case TutorialType.MoveCellToCell:
                 break;
@@ -58,40 +63,54 @@ public class TutorialManager : MonoBehaviour
         tutorialText.text = tutorialSO.tutorialSteps[currentIndex].tutorialText;
     }
 
-    private void SetMoveFromClipToCellData(TutorialSO tutorialSO, int currentIndex)
+    private void SetMoveFromClipToCellData()
     {
-        int clipSlotIndex = tutorialSO.tutorialSteps[currentIndex].originalIndex;
-        int ringCellIndex = tutorialSO.tutorialSteps[currentIndex].targetCellIndex;
+        int clipSlotIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].originalIndex;
+        int ringCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].targetCellIndex;
         originObject = GameManager.gameClip.ReturnSlot(clipSlotIndex).gameObject;
         targetObject = GameManager.gameRing.ringCells[ringCellIndex].gameObject;
     }
 
-    private void SetMoveFromCellToCellData(TutorialSO tutorialSO, int currentIndex)
+    private void SetMoveFromCellToCellData()
     {
-        int originRingCellIndex = tutorialSO.tutorialSteps[currentIndex].originalIndex;
-        int targetRingCellIndex = tutorialSO.tutorialSteps[currentIndex].targetCellIndex;
+        int originRingCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].originalIndex;
+        int targetRingCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].targetCellIndex;
         originObject = GameManager.gameRing.ringCells[originRingCellIndex].gameObject;
         targetObject = GameManager.gameRing.ringCells[targetRingCellIndex].gameObject;
     }
 
-    private void SetDealTutorialData(TutorialSO tutorialSO, int currentIndex)
+    private void SetDealTutorialData()
     {
         originObject = dealObject;
     }
 
-    private void SetPotionTutorialData(TutorialSO tutorialSO, int currentIndex)
+    private void SetPotionTutorialData()
     {
-        int index = tutorialSO.tutorialSteps[currentIndex].potionIndex;
+        int index = currentTutorial.tutorialSteps[currentTutorialStepIndex].potionIndex;
 
         originObject = PowerupManager.instance.ReturnPotionPosition(index).gameObject;
     }
 
     private void MiddleManCoroutine(bool isBack)
     {
-        StartCoroutine(TestNow2(isBack));
+        switch (currentTutorial.tutorialSteps[currentTutorialStepIndex].tutorialType)
+        {
+            case TutorialType.MoveClipToCell:
+                break;
+            case TutorialType.MoveCellToCell:
+                break;
+            case TutorialType.UseDeal:
+                break;
+            case TutorialType.UsePotions:
+                break;
+            default:
+                break;
+        }
+
+        StartCoroutine(MoveFromAtoB(isBack));
     }
 
-    private IEnumerator TestNow2(bool isBack)
+    private IEnumerator MoveFromAtoB(bool isBack)
     {
         if (isBack)
         {
@@ -113,4 +132,40 @@ public class TutorialManager : MonoBehaviour
 
         MiddleManCoroutine(!isBack);
     }
+
+
+
+    private IEnumerator SelectReleventHeighlights()
+    {
+        //activate highlights
+
+
+        yield return new WaitForEndOfFrame();
+        toTexture();
+    }
+
+    private void toTexture()
+    {
+        if (secondCam.targetTexture.width != Display.main.systemWidth || secondCam.targetTexture.height != Display.main.systemHeight)
+        {
+            RecreateRenderTexture(false);
+        }
+        else
+        {
+            Texture2D texture = new Texture2D(Display.main.systemWidth, Display.main.systemHeight, TextureFormat.ARGB32, false);
+            Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+            Graphics.CopyTexture(secondCam.targetTexture, texture);
+
+            maskImage.sprite = sprite;
+        }
+    }
+
+    public void RecreateRenderTexture(bool isDen)
+    {
+        secondCam.targetTexture = new RenderTexture(Display.main.systemWidth, Display.main.systemHeight, 24);
+        secondCam.Render();
+        toTexture();
+    }
+
 }
