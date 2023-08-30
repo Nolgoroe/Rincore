@@ -165,14 +165,6 @@ public class TutorialManager : MonoBehaviour
 
             Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
 
-
-            byte[] bytes = texture.EncodeToPNG();
-            var dirPath = "C:/Users/Tiltan/Desktop/Ringers APK";
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-            File.WriteAllBytes(dirPath + "Image" + ".png", bytes);
             maskImage.sprite = sprite;
         }
     }
