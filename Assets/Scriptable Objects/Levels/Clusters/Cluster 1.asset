@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8896170cfbe61049b4cf3a9b43ea784, type: 3}
   m_Name: Cluster 1
   m_EditorClassIdentifier: 
-  clusterID: 1
-  isChestCluster: 0
+  clusterID: 0
   clusterLevels:
-  - {fileID: 11400000, guid: 5879a548bedf76548acea11e1a033083, type: 2}
-  - {fileID: 11400000, guid: 138ff481a0984374abf3f599e1105800, type: 2}
-  - {fileID: 11400000, guid: 0db806198e2f00a459a2dca50c71c4a5, type: 2}
-  clusterLootTables:
-  - {fileID: 11400000, guid: 6b5ff76ca187e624892c42eb00dc08ec, type: 2}
-  - {fileID: 11400000, guid: 36e16aedd0e4c2440a273a5be0eec9df, type: 2}
+  - {fileID: 11400000, guid: 6aff70991c2d9924eb8f74f008c108b5, type: 2}
+  - {fileID: 11400000, guid: ccb4dfc23dcfb544093763c28d813057, type: 2}
+  - {fileID: 11400000, guid: 0c7618398cc6f7044978393123c79f47, type: 2}
   clusterPrefabToSummon: {fileID: 0}
+  isEndOfZone: 0

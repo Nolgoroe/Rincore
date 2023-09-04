@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.Events;
 using System.ComponentModel;
 
@@ -15,7 +16,7 @@ public class sliceToSpawnDataStruct
     public SubTileSymbol specificSlicesShape;
 
     public bool isLock;
-    public bool RandomSliceValues;
+    public bool RandomSliceValues = true;
 
 }
 
@@ -86,5 +87,29 @@ public class LevelSO : ScriptableObject
                 data.rightTileColor = SubTileColor.Stone;
             }
         }
+
+        for (int i = 0; i < levelAvailableColors.Length; i++)
+        {
+            levelAvailableColors[i] = (SubTileColor)i;
+        }
+        for (int i = 0; i < levelAvailablesymbols.Length; i++)
+        {
+            levelAvailablesymbols[i] = (SubTileSymbol)i;
+        }
+
+        //for (int i = 0; i < levelAvailableColors.Length; i++)
+        //{
+        //    SubTileColor originCOlorColor = levelAvailableColors[i];
+
+        //    SubTileColor tempColor = (SubTileColor)Random.Range(0, 5);
+
+        //    for (int k = i + 1; k < levelAvailableColors.Length; k++)
+        //    {
+        //        SubTileColor currentColor = levelAvailableColors[k];
+
+        //        while()
+
+        //    }
+        //}
     }
 }

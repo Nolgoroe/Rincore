@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8896170cfbe61049b4cf3a9b43ea784, type: 3}
+  m_Name: Cluster 37
+  m_EditorClassIdentifier: 
+  clusterID: 36
+  clusterLevels:
+  - {fileID: 11400000, guid: b9463d2b2ba9fdc459555aef6d6c9ead, type: 2}
+  - {fileID: 11400000, guid: 8ddd153717ddadc43854277caba5bbbd, type: 2}
+  - {fileID: 11400000, guid: f95d9d3466a67024883cc3398a73cce0, type: 2}
+  clusterPrefabToSummon: {fileID: 0}
+  isEndOfZone: 1

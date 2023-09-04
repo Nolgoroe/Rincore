@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
+  m_Name: Level 81
+  m_EditorClassIdentifier: 
+  worldName: 0
+  levelNumInZone: 0
+  ringType: 0
+  beforeRingSpawnActions:
+    m_PersistentCalls:
+      m_Calls: []
+  ringSpawnActions:
+    m_PersistentCalls:
+      m_Calls: []
+  afterRingSpawnActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 6c1af27584b9bb44d978880339ed062f, type: 2}
+        m_TargetAssemblyTypeName: LevelActions, Assembly-CSharp
+        m_MethodName: SetCurrentLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6c1af27584b9bb44d978880339ed062f, type: 2}
+        m_TargetAssemblyTypeName: LevelActions, Assembly-CSharp
+        m_MethodName: SummonSlices
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6c1af27584b9bb44d978880339ed062f, type: 2}
+        m_TargetAssemblyTypeName: TileVarientSummonActions, Assembly-CSharp
+        m_MethodName: SummonStoneTiles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  levelAvailableColors: 0000000001000000020000000300000004000000
+  levelAvailablesymbols: 0000000001000000
+  isRandomSlicePositions: 0
+  isLevelColorOnly: 0
+  slicesToSpawn:
+  - sliceToSpawn: 4
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 4
+    specificSlicesColor: 0
+    specificSlicesShape: 0
+    isLock: 0
+    RandomSliceValues: 1
+  powerupsForLevel: 
+  stoneTiles:
+  - cellIndex: 1
+    randomValues: 1
+    isStone: 1
+    rightTileSymbol: 0
+    leftTileSymbol: 0
+    rightTileColor: 5
+    leftTileColor: 5
+  - cellIndex: 6
+    randomValues: 1
+    isStone: 1
+    rightTileSymbol: 0
+    leftTileSymbol: 0
+    rightTileColor: 5
+    leftTileColor: 5
+  arrayOfSpecificTilesInClip: []
+  levelTutorial: {fileID: 0}

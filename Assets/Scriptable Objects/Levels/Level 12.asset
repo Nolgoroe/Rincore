@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Level 12
   m_EditorClassIdentifier: 
-  worldName: 4
-  levelNumInZone: 12
-  ringType: 1
+  worldName: 0
+  levelNumInZone: 0
+  ringType: 0
   beforeRingSpawnActions:
     m_PersistentCalls:
       m_Calls: []
@@ -60,19 +60,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 000000000300000004000000
-  levelAvailablesymbols: 0000000003000000
-  isRandomSlicePositions: 1
+  levelAvailableColors: 010000000300000002000000
+  levelAvailablesymbols: 0000000002000000
+  isRandomSlicePositions: 0
   isLevelColorOnly: 0
   slicesToSpawn:
-  - sliceToSpawn: 1
+  - sliceToSpawn: 3
     onConnectionEvents:
       m_PersistentCalls:
         m_Calls: []
-    specificSliceIndex: 1
-    specificSlicesColor: 0
+    specificSliceIndex: 2
+    specificSlicesColor: 3
     specificSlicesShape: 0
-    isLock: 1
+    isLock: 0
     RandomSliceValues: 0
   - sliceToSpawn: 1
     onConnectionEvents:
@@ -81,8 +81,23 @@ MonoBehaviour:
     specificSliceIndex: 5
     specificSlicesColor: 0
     specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
+    isLock: 0
+    RandomSliceValues: 1
   powerupsForLevel: 
-  stoneTiles: []
+  stoneTiles:
+  - cellIndex: 1
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 0
+    leftTileSymbol: 2
+    rightTileColor: 3
+    leftTileColor: 1
+  - cellIndex: 2
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 2
+    leftTileSymbol: 0
+    rightTileColor: 3
+    leftTileColor: 1
   arrayOfSpecificTilesInClip: []
+  levelTutorial: {fileID: 0}

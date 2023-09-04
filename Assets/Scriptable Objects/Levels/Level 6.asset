@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Level 6
   m_EditorClassIdentifier: 
-  worldName: 4
-  levelNumInZone: 6
+  worldName: 0
+  levelNumInZone: 0
   ringType: 0
   beforeRingSpawnActions:
     m_PersistentCalls:
@@ -61,8 +61,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   levelAvailableColors: 0300000002000000
-  levelAvailablesymbols: 05000000
-  isRandomSlicePositions: 1
+  levelAvailablesymbols: 
+  isRandomSlicePositions: 0
   isLevelColorOnly: 1
   slicesToSpawn:
   - sliceToSpawn: 3
@@ -70,9 +70,9 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     specificSliceIndex: 1
-    specificSlicesColor: 2
+    specificSlicesColor: 3
     specificSlicesShape: 0
-    isLock: 1
+    isLock: 0
     RandomSliceValues: 0
   powerupsForLevel: 
   stoneTiles:
@@ -81,6 +81,7 @@ MonoBehaviour:
     isStone: 0
     rightTileSymbol: 5
     leftTileSymbol: 5
-    rightTileColor: 2
-    leftTileColor: 3
+    rightTileColor: 3
+    leftTileColor: 2
   arrayOfSpecificTilesInClip: []
+  levelTutorial: {fileID: 0}

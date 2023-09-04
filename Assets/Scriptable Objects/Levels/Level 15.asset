@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Level 15
   m_EditorClassIdentifier: 
-  worldName: 4
-  levelNumInZone: 15
+  worldName: 0
+  levelNumInZone: 0
   ringType: 0
   beforeRingSpawnActions:
     m_PersistentCalls:
@@ -60,9 +60,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 000000000100000002000000
-  levelAvailablesymbols: 02000000
-  isRandomSlicePositions: 1
+  levelAvailableColors: 00000000010000000200000003000000
+  levelAvailablesymbols: 01000000
+  isRandomSlicePositions: 0
   isLevelColorOnly: 0
   slicesToSpawn:
   - sliceToSpawn: 1
@@ -72,8 +72,8 @@ MonoBehaviour:
     specificSliceIndex: 1
     specificSlicesColor: 0
     specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
+    isLock: 0
+    RandomSliceValues: 1
   - sliceToSpawn: 1
     onConnectionEvents:
       m_PersistentCalls:
@@ -81,8 +81,8 @@ MonoBehaviour:
     specificSliceIndex: 3
     specificSlicesColor: 0
     specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
+    isLock: 0
+    RandomSliceValues: 1
   - sliceToSpawn: 1
     onConnectionEvents:
       m_PersistentCalls:
@@ -90,8 +90,8 @@ MonoBehaviour:
     specificSliceIndex: 5
     specificSlicesColor: 0
     specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
+    isLock: 0
+    RandomSliceValues: 1
   - sliceToSpawn: 1
     onConnectionEvents:
       m_PersistentCalls:
@@ -99,8 +99,9 @@ MonoBehaviour:
     specificSliceIndex: 7
     specificSlicesColor: 0
     specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
+    isLock: 0
+    RandomSliceValues: 1
   powerupsForLevel: 
   stoneTiles: []
   arrayOfSpecificTilesInClip: []
+  levelTutorial: {fileID: 0}
