@@ -559,8 +559,36 @@ public class PowerupManager : MonoBehaviour
     }
     private IEnumerator ChoosePowerToUse(bool is_Paid)
     {
+        Animator potionAnim = null;
 
-        if(currentPowerUsing != PowerupType.Undo)
+        currentPotionDisplay.TryGetComponent<Animator>(out potionAnim);
+
+        if (potionAnim)
+        {
+            switch (currentPowerUsing)
+            {
+                case PowerupType.Switch:
+                    potionAnim.SetTrigger("Switch");
+                    break;
+                case PowerupType.Bomb:
+                    potionAnim.SetTrigger("Bomb");
+                    break;
+                case PowerupType.RefreshTiles:
+                    potionAnim.SetTrigger("Refresh");
+                    break;
+                case PowerupType.Joker:
+                    potionAnim.SetTrigger("Joker");
+
+                    break;
+                case PowerupType.Undo:
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        if (currentPowerUsing != PowerupType.Undo)
         {
             StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
 
@@ -579,6 +607,7 @@ public class PowerupManager : MonoBehaviour
                 OnUseCoins();
             }
         }
+
 
         switch (currentPowerUsing)
         {
