@@ -14,8 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialSteps:
   - tutorialType: 0
+    slotIndexes: 00000000
+    cellIndexes: 00000000
+    limiterIndexes: 
+    lockIndexes: 
+    RequiredCellIndex: 0
+    RequiredSliceIndex: -1
+    isTapSlot: 0
+    isTapCell: 0
+    isTapLimiter: 0
     potionIndex: 0
-    originalClipIndex: 0
-    targetCellIndex: 0
-  textPosition: {x: 0, y: 500, z: 0}
-  tutorialText: Drag tiles into the ring and match their colors!
+    powerType: 0
+    textPosition: {x: 0, y: 650, z: 0}
+    tutorialText: Drag tiles into the ring and match their colors!
+    isCustomClipAmount: 0
+    amountInClip: 0

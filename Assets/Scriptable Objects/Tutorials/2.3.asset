@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc94c752f19d94741b38573191a025b1, type: 3}
+  m_Name: 2.3
+  m_EditorClassIdentifier: 
+  tutorialSteps:
+  - tutorialType: 0
+    slotIndexes: 01000000
+    cellIndexes: 01000000
+    limiterIndexes: 01000000
+    lockIndexes: 
+    RequiredCellIndex: 1
+    RequiredSliceIndex: -1
+    isTapSlot: 0
+    isTapCell: 0
+    isTapLimiter: 0
+    potionIndex: 0
+    powerType: 0
+    textPosition: {x: 0, y: 650, z: 0}
+    tutorialText: Color limiters require you to match tiles using the same color
+      that they show.
+    isCustomClipAmount: 0
+    amountInClip: 0

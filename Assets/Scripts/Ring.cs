@@ -210,4 +210,14 @@ public class Ring : MonoBehaviour
             currentLeadingAnimator = anim;
         }
     }
+
+
+    public void LockAllCells(bool _isLock)
+    {
+        foreach (var cell in ringCells)
+        {
+            cell.isLocked = _isLock;
+        }
+    }
+
 }

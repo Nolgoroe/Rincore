@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7755692343396073973}
   - component: {fileID: 7750409176973760160}
   - component: {fileID: 2611655226303025996}
+  - component: {fileID: 8518975526448823667}
   m_Layer: 11
   m_Name: 8 Ring Slice 3D
   m_TagString: Untagged
@@ -70,6 +71,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8369410669342162140, guid: f90a466dc128f494782f68fa9ac87b60, type: 3}
+--- !u!114 &8518975526448823667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672502576790329653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6309719ca003a6545bc51313e3c048f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 6230967184359840416}
 --- !u!1 &3802596299518628430
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,12 +95,12 @@ GameObject:
   - component: {fileID: 6604543556471651039}
   - component: {fileID: 5981359073537434095}
   m_Layer: 12
-  m_Name: Tutorial Highlight (1)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6604543556471651039
 Transform:
   m_ObjectHideFlags: 0
@@ -197,13 +211,14 @@ GameObject:
   - component: {fileID: 5416401202178820584}
   - component: {fileID: 5066739072187867003}
   - component: {fileID: 8048263533783476814}
+  - component: {fileID: 5469873070748257003}
   m_Layer: 0
   m_Name: Lock Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5416401202178820584
 Transform:
   m_ObjectHideFlags: 0
@@ -292,6 +307,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5469873070748257003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5469520590710225909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6309719ca003a6545bc51313e3c048f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 5981359073537434095}
 --- !u!1 &7393056428178449822
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7334432277390247227
 Transform:
   m_ObjectHideFlags: 0

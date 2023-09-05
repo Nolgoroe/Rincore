@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: -7277762042855481069}
   - component: {fileID: 6891216190768423429}
   m_Layer: 0
-  m_Name: 8 Ring 3D Var 1
+  m_Name: 8 Ring 3D Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1053,25 +1053,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8748247810835646058}
     m_Modifications:
-    - target: {fileID: 3802596299518628430, guid: 6b7e04166e173d2419d411f4311f7d1f,
-        type: 3}
-      propertyPath: m_Name
-      value: Tutorial Highlight
-      objectReference: {fileID: 0}
-    - target: {fileID: 3802596299518628430, guid: 6b7e04166e173d2419d411f4311f7d1f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4662112037594521334, guid: 6b7e04166e173d2419d411f4311f7d1f,
         type: 3}
       propertyPath: m_Name
       value: 8 Ring Slice 3D Pivot Parent
-      objectReference: {fileID: 0}
-    - target: {fileID: 5469520590710225909, guid: 6b7e04166e173d2419d411f4311f7d1f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6484144604517899026, guid: 6b7e04166e173d2419d411f4311f7d1f,
         type: 3}
@@ -1126,16 +1111,6 @@ PrefabInstance:
     - target: {fileID: 6484144604517899026, guid: 6b7e04166e173d2419d411f4311f7d1f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7393056428178449822, guid: 6b7e04166e173d2419d411f4311f7d1f,
-        type: 3}
-      propertyPath: m_Name
-      value: Tutorial Highlight
-      objectReference: {fileID: 0}
-    - target: {fileID: 7393056428178449822, guid: 6b7e04166e173d2419d411f4311f7d1f,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1394,11 +1369,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.04
       objectReference: {fileID: 0}
-    - target: {fileID: 770809585858831603, guid: bb0d27516b65bcb4589221b046244dc8,
-        type: 3}
-      propertyPath: renderer
-      value: 
-      objectReference: {fileID: 2044998367272107799}
     - target: {fileID: 775874370117706751, guid: bb0d27516b65bcb4589221b046244dc8,
         type: 3}
       propertyPath: m_Name
@@ -1526,12 +1496,6 @@ MonoBehaviour:
 --- !u!4 &852969872702180883 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2809312978588563812, guid: bb0d27516b65bcb4589221b046244dc8,
-    type: 3}
-  m_PrefabInstance: {fileID: 3254682861314013047}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &2044998367272107799 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3552143834704873568, guid: bb0d27516b65bcb4589221b046244dc8,
     type: 3}
   m_PrefabInstance: {fileID: 3254682861314013047}
   m_PrefabAsset: {fileID: 0}

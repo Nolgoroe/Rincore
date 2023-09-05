@@ -81,6 +81,12 @@ public class GameManager : MonoBehaviour
     [Header("Inspector actions and Data")]
     public ClusterSO[] allClusters;
 
+
+    [Header("Level Animation Data")]
+    [SerializeField] private float delayCheckDoTutorial;
+
+
+    [Header("TEMP")]
     public int testFirebase;
 
     private void Awake()
@@ -131,8 +137,6 @@ public class GameManager : MonoBehaviour
     //called from button click
     public void SetLevel()
     {
-        tutorialManager.SetCurrenTutorialData(currentLevel.levelTutorial, 0);
-
         GameAnalytics.NewDesignEvent("Testing GA 1", 0);
 
         //first clean all subscribes if there are any.
@@ -180,8 +184,6 @@ public class GameManager : MonoBehaviour
         //AddToEndlevelActions(() => StartCoroutine(OnLevelExitLose()));
         AddToEndlevelActions(ClearLevelData);
 
-        // actions after gameplay, on winning the level
-        //WinLevelActions += AdvanceLevelStatue;
 
         if (currentIndexInCluster + 1 == currentClusterSO.clusterLevels.Length)
         {
@@ -195,17 +197,11 @@ public class GameManager : MonoBehaviour
 
         SymbolAndColorCollector.instance.DoTotalCheck(); // we do this in case there are preplaced tiles that need to be counted.
 
-        //if(currentClusterSO.isChestCluster)
-        //{
-        //    //chestBarLogic.gameObject.SetActive(true);
-        //    //WinLevelActions += chestBarLogic.AddToChestBar;
-        //}
-        //else
-        //{
-        //    //chestBarLogic.gameObject.SetActive(false);
-        //}
-        // actions after gameplay, on losing the level
-        //LoseLevelActions += UIManager.instance.DisplayInLevelRingHasNonMatchingMessage;
+
+        yield return new WaitForSeconds(delayCheckDoTutorial);
+
+        tutorialManager.SetCurrenTutorialStepData(currentLevel.levelTutorial, 0);
+        //gameClip.CheckCustomClipAmount();
     }
 
     private void SetDataOnWin()

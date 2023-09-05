@@ -26,19 +26,58 @@ public class ClipManager : MonoBehaviour
 
     [SerializeField] public static bool canUseDeal;
     [SerializeField] private float dealDelay;
+
+    [Header("custom creation")]
+    [SerializeField] private int currentIndexInSpecificArray;
+
     public void InitClipManager()
     {
+        currentIndexInSpecificArray = 0;
+        int customPieces = GameManager.currentLevel.arrayOfSpecificTilesInClip.Length;
+
         activeClipSlotsCount = slots.Length;
 
         for (int i = 0; i < activeClipSlotsCount; i++)
         {
-            SpawnRandomTileInSlot(slots[i]);
+            if (customPieces > 0 && currentIndexInSpecificArray < customPieces)
+            {
+                {
+                    SpawnSpecificTileInSlot(slots[i]);
 
-            slots[i].originalSlotPos = slots[i].transform.localPosition;
+                    slots[i].originalSlotPos = slots[i].transform.localPosition;
+                }
+            }
+            else
+            {
+                SpawnRandomTileInSlot(slots[i]);
+
+                slots[i].originalSlotPos = slots[i].transform.localPosition;
+            }
         }
 
         canUseDeal = true;
+
+        CheckCustomClipAmount();
     }
+    public void CheckCustomClipAmount()
+    {
+        if (GameManager.currentLevel.levelTutorial != null && TutorialManager.instance.ReturnIsCustomClip(GameManager.currentLevel.levelTutorial))
+        {
+            activeClipSlotsCount = TutorialManager.instance.ReturnAmountCustomClip(GameManager.currentLevel.levelTutorial);
+
+            for (int i = activeClipSlotsCount; i < slots.Length; i++)
+            {
+                if (slots[i].heldTile)
+                {
+                    ImmediateDeactivateClipSlot(i); //darken the slot
+
+                    Destroy(slots[i].heldTile.gameObject);
+                }
+
+            }
+        }
+    }
+
     public void RePopulateFirstEmpty()
     {
         foreach (ClipSlot slot in slots)
@@ -64,6 +103,41 @@ public class ClipManager : MonoBehaviour
         Tile tile = tileCreatorPreset.CreateTile(Tiletype.Normal, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
         slot.RecieveTileDisplayer(tile);
     }
+    private void SpawnSpecificTileInSlot(ClipSlot slot)
+    {
+        LevelSO currentLevel = GameManager.currentLevel;
+        Tiletype tileType = Tiletype.NoType;
+
+        switch (currentLevel.ringType)
+        {
+            case Ringtype.ring8:
+                tileType = Tiletype.Normal;
+                break;
+            case Ringtype.ring12:
+                tileType = Tiletype.Normal12;
+                break;
+            case Ringtype.NoType:
+                break;
+            default:
+                break;
+        }
+        SubTileSymbol leftSymbol = SubTileSymbol.NoShape;
+        SubTileSymbol rightSymbol = SubTileSymbol.NoShape;
+
+        if(!GameManager.currentLevel.isLevelColorOnly)
+        {
+            leftSymbol = currentLevel.arrayOfSpecificTilesInClip[currentIndexInSpecificArray].leftTileSymbol;
+            rightSymbol = currentLevel.arrayOfSpecificTilesInClip[currentIndexInSpecificArray].rightTileSymbol;
+        }
+
+        SubTileColor leftColor = currentLevel.arrayOfSpecificTilesInClip[currentIndexInSpecificArray].leftTileColor;
+        SubTileColor rightColor = currentLevel.arrayOfSpecificTilesInClip[currentIndexInSpecificArray].rightTileColor;
+
+        Tile tile = tileCreatorPreset.CreateTile(tileType, leftSymbol, rightSymbol, leftColor, rightColor);
+        slot.RecieveTileDisplayer(tile);
+
+        currentIndexInSpecificArray++;
+    }
 
     // called from event
     public void CallDealAction()
@@ -73,6 +147,13 @@ public class ClipManager : MonoBehaviour
     private IEnumerator DealAction()
     {
         if (!canUseDeal) yield break;
+
+
+        if (TutorialManager.IS_DURING_TUTORIAL)
+        {
+            StartCoroutine(TutorialManager.instance.AdvanceTutorialStep());
+        }
+
 
         canUseDeal = false;
         if (activeClipSlotsCount - 1 == 0)
@@ -136,6 +217,15 @@ public class ClipManager : MonoBehaviour
             newColor = Color.Lerp(fromColor, toColor, val);
             sr.color = newColor;
         });
+    }
+    private void ImmediateDeactivateClipSlot(int index)
+    {
+        Image sr = slotDisplays[index].gameObject.GetComponent<Image>();
+
+        if(sr)
+        {
+            sr.color = darkTintedColor;
+        }
     }
     private IEnumerator ActivateClipSlot(int index)
     {
@@ -223,5 +313,13 @@ public class ClipManager : MonoBehaviour
     public ClipSlot ReturnSlot(int index)
     {
         return slots[index];
+    }
+
+    public void LockAllSlots(bool _isLock)
+    {
+        foreach (var slot in slots)
+        {
+            slot.isLocked = _isLock;
+        }
     }
 }

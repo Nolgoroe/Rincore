@@ -88,14 +88,15 @@ public class LevelSO : ScriptableObject
             }
         }
 
-        for (int i = 0; i < levelAvailableColors.Length; i++)
-        {
-            levelAvailableColors[i] = (SubTileColor)i;
-        }
-        for (int i = 0; i < levelAvailablesymbols.Length; i++)
-        {
-            levelAvailablesymbols[i] = (SubTileSymbol)i;
-        }
+        //for (int i = 0; i < levelAvailableColors.Length; i++)
+        //{
+        //    levelAvailableColors[i] = (SubTileColor)i;
+        //}
+
+        //for (int i = 0; i < levelAvailablesymbols.Length; i++)
+        //{
+        //    levelAvailablesymbols[i] = (SubTileSymbol)i;
+        //}
 
         //for (int i = 0; i < levelAvailableColors.Length; i++)
         //{

@@ -60,7 +60,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 0300000002000000
+  levelAvailableColors: 0200000003000000
   levelAvailablesymbols: 
   isRandomSlicePositions: 0
   isLevelColorOnly: 1
@@ -83,5 +83,13 @@ MonoBehaviour:
     leftTileSymbol: 5
     rightTileColor: 3
     leftTileColor: 2
-  arrayOfSpecificTilesInClip: []
-  levelTutorial: {fileID: 0}
+  arrayOfSpecificTilesInClip:
+  - rightTileColor: 2
+    rightTileSymbol: 0
+    leftTileColor: 2
+    leftTileSymbol: 0
+  - rightTileColor: 2
+    rightTileSymbol: 0
+    leftTileColor: 3
+    leftTileSymbol: 0
+  levelTutorial: {fileID: 11400000, guid: a5e428a505fcb1241962f9c9a0b1678a, type: 2}

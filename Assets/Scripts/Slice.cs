@@ -30,7 +30,7 @@ public class Slice : MonoBehaviour, IPowerUsable
 
     [Header("temp here?")]
     //TEMP - will maybe change to lock sprite animation.
-    [SerializeField] private Animator lockIconAnim;
+    public Animator lockIconAnim;
 
     public void InitSlice(ConditonsData data, SliceConditionsEnums type, SubTileSymbol symbol, SubTileColor color, CellBase _sameIndexCell, CellBase _leftNeighborCell,  bool _isLock)
     {

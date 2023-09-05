@@ -66,6 +66,17 @@ MonoBehaviour:
   isLevelColorOnly: 0
   slicesToSpawn: []
   powerupsForLevel: 
-  stoneTiles: []
-  arrayOfSpecificTilesInClip: []
-  levelTutorial: {fileID: 0}
+  stoneTiles:
+  - cellIndex: 0
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 1
+    leftTileSymbol: 0
+    rightTileColor: 1
+    leftTileColor: 1
+  arrayOfSpecificTilesInClip:
+  - rightTileColor: 1
+    rightTileSymbol: 0
+    leftTileColor: 0
+    leftTileSymbol: 1
+  levelTutorial: {fileID: 11400000, guid: 82717ffe65e39144dbc8e49af560661a, type: 2}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 66804785}
   - component: {fileID: 1437578116}
   - component: {fileID: 1437578115}
+  - component: {fileID: 2496316494021859173}
   m_Layer: 0
   m_Name: Potion zone 4 Display
   m_TagString: Untagged
@@ -26,19 +27,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66804784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000020280677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 865707719}
+  m_Children: []
   m_Father: {fileID: 7210224177713897973}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 38.410004, y: 3.12}
-  m_SizeDelta: {x: 197.02, y: 185.36}
-  m_Pivot: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -407.08002, y: 3.119995}
+  m_SizeDelta: {x: 197.02002, y: 185.36}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1437578116
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -77,6 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2496316494021859173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66804784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6309719ca003a6545bc51313e3c048f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 865707720}
 --- !u!1 &424536489
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,30 +98,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 424536490}
+  - component: {fileID: 6333560206095304784}
   - component: {fileID: 424536491}
   m_Layer: 12
-  m_Name: Tutorial Highlight (2)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &424536490
-Transform:
+--- !u!224 &6333560206095304784
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424536489}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.21, y: -4.06, z: 0}
-  m_LocalScale: {x: 65.417, y: 66.022, z: 66.182}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00011444092}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1870079567}
-  m_RootOrder: 0
+  m_Father: {fileID: 2514020242966409597}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -136.245}
+  m_SizeDelta: {x: 2.95, y: 2.7}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &424536491
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -248,6 +266,7 @@ GameObject:
   - component: {fileID: 836303165}
   - component: {fileID: 1437439375}
   - component: {fileID: 1437439374}
+  - component: {fileID: 5710413289934436578}
   m_Layer: 0
   m_Name: Potion zone 1 Display
   m_TagString: Untagged
@@ -263,19 +282,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836303164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000020280677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1914714256}
+  m_Children: []
   m_Father: {fileID: 7210224177713897973}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -239, y: 3.12}
-  m_SizeDelta: {x: 197.02, y: 185.36}
-  m_Pivot: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 206.48999, y: 3.119995}
+  m_SizeDelta: {x: 197.02002, y: 185.36}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1437439375
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -314,6 +332,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5710413289934436578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836303164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6309719ca003a6545bc51313e3c048f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 1914714257}
 --- !u!1 &865707718
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,30 +353,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 865707719}
+  - component: {fileID: 8287200324181851388}
   - component: {fileID: 865707720}
   m_Layer: 12
-  m_Name: Tutorial Highlight (3)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &865707719
-Transform:
+--- !u!224 &8287200324181851388
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865707718}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100.08, y: -4.19, z: 0}
-  m_LocalScale: {x: 65.417, y: 66.022, z: 66.182}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00011444092}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 66804785}
-  m_RootOrder: 0
+  m_Father: {fileID: 2514020242966409597}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -136.245}
+  m_SizeDelta: {x: 2.95, y: 2.7}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &865707720
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -409,6 +445,7 @@ GameObject:
   - component: {fileID: 914971472}
   - component: {fileID: 1899416774}
   - component: {fileID: 1899416773}
+  - component: {fileID: 4373485461931682232}
   m_Layer: 0
   m_Name: Potion zone 2 Display
   m_TagString: Untagged
@@ -427,8 +464,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 932022887}
+  m_Children: []
   m_Father: {fileID: 7210224177713897973}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -475,6 +511,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4373485461931682232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914971471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6309719ca003a6545bc51313e3c048f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 932022888}
 --- !u!1 &932022886
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,30 +532,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 932022887}
+  - component: {fileID: 6654352535780616711}
   - component: {fileID: 932022888}
   m_Layer: 12
-  m_Name: Tutorial Highlight (3)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &932022887
-Transform:
+--- !u!224 &6654352535780616711
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932022886}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.2, y: -3.0998, z: 0}
-  m_LocalScale: {x: 65.417, y: 66.022, z: 66.182}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00011444092}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 914971472}
-  m_RootOrder: 0
+  m_Father: {fileID: 2514020242966409597}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -136.245}
+  m_SizeDelta: {x: 2.95, y: 2.7}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &932022888
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -570,12 +624,12 @@ GameObject:
   - component: {fileID: 1812807211}
   - component: {fileID: 1812807212}
   m_Layer: 12
-  m_Name: Tutorial Highlight (3)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1812807211
 Transform:
   m_ObjectHideFlags: 0
@@ -654,6 +708,7 @@ GameObject:
   - component: {fileID: 1870079567}
   - component: {fileID: 1870079569}
   - component: {fileID: 1870079568}
+  - component: {fileID: 8633986560058624615}
   m_Layer: 0
   m_Name: Potion zone 3 Display
   m_TagString: Untagged
@@ -672,8 +727,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 424536490}
+  m_Children: []
   m_Father: {fileID: 7210224177713897973}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -720,6 +774,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8633986560058624615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870079566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6309719ca003a6545bc51313e3c048f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 424536491}
 --- !u!1 &1914714255
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,30 +795,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1914714256}
+  - component: {fileID: 444201320162730183}
   - component: {fileID: 1914714257}
   m_Layer: 12
-  m_Name: Tutorial Highlight (2)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1914714256
-Transform:
+--- !u!224 &444201320162730183
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914714255}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -96.35, y: -3.85, z: 0}
-  m_LocalScale: {x: 65.417, y: 66.022, z: 66.182}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00011444092}
+  m_LocalScale: {x: 70, y: 70, z: 70}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 836303165}
+  m_Father: {fileID: 2514020242966409597}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -136.245}
+  m_SizeDelta: {x: 2.95, y: 2.7}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1914714257
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -804,6 +876,46 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1566370077036631993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2514020242966409597}
+  m_Layer: 0
+  m_Name: Tutorial Highlights
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2514020242966409597
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566370077036631993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 444201320162730183}
+  - {fileID: 6654352535780616711}
+  - {fileID: 6333560206095304784}
+  - {fileID: 8287200324181851388}
+  m_Father: {fileID: 7210224177713897973}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2932970615302070944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,6 +1551,7 @@ RectTransform:
   - {fileID: 66804785}
   - {fileID: 2751914069729163831}
   - {fileID: 7210224177916145652}
+  - {fileID: 2514020242966409597}
   m_Father: {fileID: 7210224178642042618}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -95,9 +95,8 @@ GameObject:
   - component: {fileID: 7444105959984863147}
   - component: {fileID: 4352376101892258244}
   - component: {fileID: 8384118059359262225}
-  - component: {fileID: 8027429041631784733}
   m_Layer: 7
-  m_Name: Tile 3D Elior
+  m_Name: 8 Ring Tile 3D Elior
   m_TagString: MainPiece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,22 +173,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.1159136, y: 0.6690943, z: 0.69754565}
   m_Center: {x: -0.03128802, y: 0.008793592, z: 0.021550534}
---- !u!114 &8027429041631784733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6462596968642343376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0001f5d4c529d4cb17a9291a7d2ce4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: {x: 1, y: 1, z: 0}
-  Duration: 1
-  Speed: 10
-  ResetPosition: 1
 --- !u!1 &8667297901085478605
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,8 +60,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 000000000200000001000000
-  levelAvailablesymbols: 000000000100000003000000
+  levelAvailableColors: 000000000100000002000000
+  levelAvailablesymbols: 000000000100000002000000
   isRandomSlicePositions: 0
   isLevelColorOnly: 0
   slicesToSpawn:
@@ -80,9 +80,9 @@ MonoBehaviour:
         m_Calls: []
     specificSliceIndex: 2
     specificSlicesColor: 0
-    specificSlicesShape: 0
+    specificSlicesShape: 2
     isLock: 0
-    RandomSliceValues: 1
+    RandomSliceValues: 0
   - sliceToSpawn: 1
     onConnectionEvents:
       m_PersistentCalls:
@@ -93,6 +93,21 @@ MonoBehaviour:
     isLock: 0
     RandomSliceValues: 1
   powerupsForLevel: 
-  stoneTiles: []
-  arrayOfSpecificTilesInClip: []
-  levelTutorial: {fileID: 0}
+  stoneTiles:
+  - cellIndex: 2
+    randomValues: 0
+    isStone: 0
+    rightTileSymbol: 0
+    leftTileSymbol: 2
+    rightTileColor: 2
+    leftTileColor: 0
+  arrayOfSpecificTilesInClip:
+  - rightTileColor: 0
+    rightTileSymbol: 0
+    leftTileColor: 0
+    leftTileSymbol: 0
+  - rightTileColor: 1
+    rightTileSymbol: 2
+    leftTileColor: 0
+    leftTileSymbol: 0
+  levelTutorial: {fileID: 11400000, guid: edb49f5b391b7e2498e3a173a725e994, type: 2}

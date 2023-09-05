@@ -322,8 +322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 199.63, y: 69.93}
+  m_AnchoredPosition: {x: 0, y: 1}
+  m_SizeDelta: {x: 207.55, y: 72.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &923459452
 CanvasRenderer:
@@ -497,12 +497,12 @@ GameObject:
   - component: {fileID: 1504918286}
   - component: {fileID: 1504918287}
   m_Layer: 12
-  m_Name: Tutorial Highlight (1)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1504918286
 Transform:
   m_ObjectHideFlags: 0
@@ -586,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1634363087
 Transform:
   m_ObjectHideFlags: 0
@@ -806,12 +806,12 @@ GameObject:
   - component: {fileID: 1928532001}
   - component: {fileID: 1928532002}
   m_Layer: 12
-  m_Name: Tutorial Highlight (2)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1928532001
 Transform:
   m_ObjectHideFlags: 0
@@ -890,12 +890,12 @@ GameObject:
   - component: {fileID: 2030081204}
   - component: {fileID: 2030081205}
   m_Layer: 12
-  m_Name: Tutorial Highlight (2)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2030081204
 Transform:
   m_ObjectHideFlags: 0
@@ -974,12 +974,12 @@ GameObject:
   - component: {fileID: 2072664139}
   - component: {fileID: 2072664140}
   m_Layer: 12
-  m_Name: Tutorial Highlight (3)
+  m_Name: Tutorial Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2072664139
 Transform:
   m_ObjectHideFlags: 0
@@ -2480,6 +2480,7 @@ GameObject:
   - component: {fileID: 8481342443171121984}
   - component: {fileID: 517628399699103851}
   - component: {fileID: 652326984524708706}
+  - component: {fileID: 5222871284003259004}
   m_Layer: 10
   m_Name: Deal button
   m_TagString: Untagged
@@ -2507,7 +2508,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.01, y: 54}
-  m_SizeDelta: {x: 338.92, y: 178.06}
+  m_SizeDelta: {x: 338.92, y: 178.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8481342443171121854
 CanvasRenderer:
@@ -2621,6 +2622,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+--- !u!114 &5222871284003259004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8481342443171121986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6309719ca003a6545bc51313e3c048f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 2030081205}
 --- !u!1 &8481342443712447745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2941,6 +2955,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: '2D Slot '
       objectReference: {fileID: 0}
+    - target: {fileID: 1188862125301912936, guid: e0f1984ff65b9fb449d9efa71b3d64d5,
+        type: 3}
+      propertyPath: renderer
+      value: 
+      objectReference: {fileID: 1928532002}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f1984ff65b9fb449d9efa71b3d64d5, type: 3}
 --- !u!4 &2073872483965763693 stripped
@@ -3028,6 +3047,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2D Slot
       objectReference: {fileID: 0}
+    - target: {fileID: 1188862125301912936, guid: e0f1984ff65b9fb449d9efa71b3d64d5,
+        type: 3}
+      propertyPath: renderer
+      value: 
+      objectReference: {fileID: 2072664140}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f1984ff65b9fb449d9efa71b3d64d5, type: 3}
 --- !u!4 &1381913828749141953 stripped
@@ -3115,6 +3139,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2D Slot
       objectReference: {fileID: 0}
+    - target: {fileID: 1188862125301912936, guid: e0f1984ff65b9fb449d9efa71b3d64d5,
+        type: 3}
+      propertyPath: renderer
+      value: 
+      objectReference: {fileID: 1634363088}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f1984ff65b9fb449d9efa71b3d64d5, type: 3}
 --- !u!4 &7885428508838337153 stripped
@@ -3202,6 +3231,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: '2D Slot '
       objectReference: {fileID: 0}
+    - target: {fileID: 1188862125301912936, guid: e0f1984ff65b9fb449d9efa71b3d64d5,
+        type: 3}
+      propertyPath: renderer
+      value: 
+      objectReference: {fileID: 1504918287}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f1984ff65b9fb449d9efa71b3d64d5, type: 3}
 --- !u!4 &9097457167931683596 stripped

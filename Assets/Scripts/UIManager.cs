@@ -387,6 +387,41 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+
+
+    public void ToggleLockAllCurrentScreens(bool _isLock)
+    {
+        if(currentlyOpenSoloElement)
+        {
+            foreach (var button in currentlyOpenSoloElement.ButtonRefrences)
+            {
+                button.isInteractable = _isLock;
+            }
+        }
+
+        if(currentAdditiveScreens.Count > 0)
+        {
+            foreach (var screen in currentAdditiveScreens)
+            {
+                foreach (var button in screen.ButtonRefrences)
+                {
+                    button.isInteractable = _isLock;
+                }
+            }
+        }
+
+        if (currentPermanentScreens.Count > 0)
+        {
+            foreach (var screen in currentPermanentScreens)
+            {
+                foreach (var button in screen.ButtonRefrences)
+                {
+                    button.isInteractable = _isLock;
+                }
+            }
+        }
+    }
     #endregion
 
     #region Inside Level related actions
@@ -936,6 +971,27 @@ public class UIManager : MonoBehaviour
         button.gameObject.SetActive(true);
     }
     #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #if UNITY_EDITOR

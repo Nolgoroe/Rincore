@@ -160,17 +160,34 @@ public class InLevelUserControls : MonoBehaviour
     {
         RaycastHit intersectionsArea = GetFirstIntersection3D(touchPos, everythingLayer);
 
-        if (intersectionsArea.transform)
+        if(TutorialManager.IS_DURING_TUTORIAL)
         {
-            IPowerUsable powerLogic = null;
+            if (intersectionsArea.transform)
+            {
+                if(TutorialManager.instance.ReturnHitCurrentNeededObject(intersectionsArea.transform))
+                {
+                    IPowerUsable powerLogic = null;
 
-            intersectionsArea.transform.TryGetComponent<IPowerUsable>(out powerLogic);
+                    intersectionsArea.transform.TryGetComponent<IPowerUsable>(out powerLogic);
 
-            PowerupManager.instance.InitPowerUsageData(intersectionsArea.transform, powerLogic);
+                    PowerupManager.instance.InitPowerUsageData(intersectionsArea.transform, powerLogic);
+                }
+            }
         }
         else
         {
-            ReleasePotionData();
+            if (intersectionsArea.transform)
+            {
+                IPowerUsable powerLogic = null;
+
+                intersectionsArea.transform.TryGetComponent<IPowerUsable>(out powerLogic);
+
+                PowerupManager.instance.InitPowerUsageData(intersectionsArea.transform, powerLogic);
+            }
+            else
+            {
+                ReleasePotionData();
+            }
         }
     }
 
@@ -235,27 +252,46 @@ public class InLevelUserControls : MonoBehaviour
                 return;
             }
 
-            if (!droopedOnObject.DroppedOn(currentTileToMove, GameManager.gameRing))
+            if (TutorialManager.IS_DURING_TUTORIAL)
             {
-                //can't place tile
-
-                ReturnHome();
-            }
-            else
-            {
-                //If we enter here that means we actually succeeded placing the tile.
-                //this does not mean that the tile is a good match! this is why we check to see if we have problems.
-                //we did the connection checks, so we must "remove" the tile if we have problems (use the "GrabTileFrom" sicne we know it has to be a cell)
-
-                if (gameRing.LastPieceRingProblems())
+                if (TutorialManager.instance.ReturnHitCurrentNeededObject(intersection.transform))
                 {
-                    UIManager.instance.DisplayInLevelRingHasNonMatchingMessage();
-                    lastTileHolder = droopedOnObject;
-                    return;
+                    droopedOnObject.DroppedOn(currentTileToMove, GameManager.gameRing);
+
+                    tileOriginalHolder.RemoveTile();
+
+                    StartCoroutine(TutorialManager.instance.AdvanceTutorialStep());
                 }
                 else
                 {
-                    tileOriginalHolder.RemoveTile();
+                    ReturnHome();
+                }
+            }
+            else
+            {
+                if (!droopedOnObject.DroppedOn(currentTileToMove, GameManager.gameRing))
+                {
+                    //can't place tile
+
+                    ReturnHome();
+                }
+                else
+                {
+
+                    //If we enter here that means we actually succeeded placing the tile.
+                    //this does not mean that the tile is a good match! this is why we check to see if we have problems.
+                    //we did the connection checks, so we must "remove" the tile if we have problems (use the "GrabTileFrom" sicne we know it has to be a cell)
+
+                    if (gameRing.LastPieceRingProblems())
+                    {
+                        UIManager.instance.DisplayInLevelRingHasNonMatchingMessage();
+                        lastTileHolder = droopedOnObject;
+                        return;
+                    }
+                    else
+                    {
+                        tileOriginalHolder.RemoveTile();
+                    }
                 }
             }
         }

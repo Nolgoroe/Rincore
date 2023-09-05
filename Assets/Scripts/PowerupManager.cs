@@ -260,6 +260,7 @@ public class PowerupManager : MonoBehaviour
             owned.amount += amount;
         }
         Debug.Log("Added this power: " + powerType.ToString());
+
     }
 
 
@@ -498,7 +499,10 @@ public class PowerupManager : MonoBehaviour
         currentPotionDisplay = potionHelper;
 
 
-
+        if(TutorialManager.IS_DURING_TUTORIAL)
+        {
+            StartCoroutine(TutorialManager.instance.AdvanceTutorialStep());
+        }
 
         //yield return new WaitForSeconds(0.1f); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
         yield return new WaitForEndOfFrame();
@@ -540,6 +544,16 @@ public class PowerupManager : MonoBehaviour
         ResetPowerUpData();
 
         yield return null; //temp here
+    }
+
+    public void ManualUpdatePotionText(int index, PowerupType type)
+    {
+        OwnedPowersAndAmounts owned = ownedPowerups.Where(i => i.powerType == type).SingleOrDefault();
+
+        if(owned != null)
+        {
+            spawnedHelpers[index].SetTextCustom(owned.amount.ToString());
+        }
     }
     private IEnumerator ChoosePowerToUse(bool is_Paid)
     {
@@ -584,6 +598,11 @@ public class PowerupManager : MonoBehaviour
             default:
                 break;
         }
+
+        if (TutorialManager.IS_DURING_TUTORIAL)
+        {
+            StartCoroutine(TutorialManager.instance.AdvanceTutorialStep());
+        }
     }
 
     private void OnUseCoins()
@@ -614,7 +633,35 @@ public class PowerupManager : MonoBehaviour
         }
     }
 
+    public void ToggleLockAllPotions(bool _isLock)
+    {
+        BasicCustomButton tempButton = null;
 
+        if(spawnedHelpers.Count > 0)
+        {
+            foreach (var helper in spawnedHelpers)
+            {
+                helper.TryGetComponent<BasicCustomButton>(out tempButton);
+
+                if(tempButton)
+                {
+                    tempButton.isInteractable = _isLock;
+                }
+            }
+        }
+    }
+
+    public void ToggleLockSpecificPotion(int index, bool _isLock)
+    {
+        BasicCustomButton tempButton = null;
+
+        spawnedHelpers[index].TryGetComponent<BasicCustomButton>(out tempButton);
+
+        if (tempButton)
+        {
+            tempButton.isInteractable = _isLock;
+        }
+    }
     private bool CheckCanUsePotion()
     {
 

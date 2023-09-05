@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using System.Linq;
 
 public class TutorialManager : MonoBehaviour
 {
+    public static TutorialManager instance;
+
     [Header("general refs - temp?")]
-    [SerializeField] private GameObject dealObject;
+    [SerializeField] private BasicCustomButton dealObject;
     [SerializeField] private Camera secondCam;
     [SerializeField] private Image maskImage;
     [SerializeField] private int camDepth;
@@ -25,26 +28,59 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private float waitBeforeReset;
 
     [Header("Live data")]
-    [SerializeField] private GameObject originObject;
-    [SerializeField] private GameObject targetObject;
-    [SerializeField] private GameObject currentMoveObject;
+    public static bool IS_DURING_TUTORIAL;
+    [SerializeField] private Tutoriable originObject;
+    [SerializeField] private Tutoriable targetObject;
+    [SerializeField] private Animator currentMoveObject;
     [SerializeField] private TutorialSO currentTutorial;
     [SerializeField] private int currentTutorialStepIndex;
+    [SerializeField] private List<Tutoriable> activeHighlights;
 
-    private void StartTutorial()
+    private void Awake()
     {
-        Vector3 targetPos = new Vector3(originObject.transform.position.x, originObject.transform.position.y + heightOffset, originObject.transform.position.z);
-        currentMoveObject = Instantiate(prefabToSpawn, targetPos, prefabToSpawn.transform.rotation);
-
-        MiddleManCoroutine(false);
+        instance = this;
     }
 
-    public void SetCurrenTutorialData(TutorialSO tutorialSO, int currentIndex)
+    public IEnumerator AdvanceTutorialStep()
+    {
+        currentTutorialStepIndex++;
+
+        if(currentTutorial.tutorialSteps.Length <= currentTutorialStepIndex)
+        {
+            //finished tutorial
+            StartCoroutine(RemoveCurrentHighlights());
+            UnLockAll();
+            ToggleAllTutorialParts(false);
+
+            Destroy(currentMoveObject.gameObject);
+
+            yield return new WaitForEndOfFrame();
+            StopAllCoroutines();
+            IS_DURING_TUTORIAL = false;
+        }
+        else
+        {
+            StartCoroutine(RemoveCurrentHighlights());
+            Destroy(currentMoveObject.gameObject);
+
+            yield return new WaitForEndOfFrame();
+
+            SetCurrenTutorialStepData(currentTutorial, currentTutorialStepIndex);
+        }
+
+    }
+    public void SetCurrenTutorialStepData(TutorialSO tutorialSO, int currentIndex)
     {
         if (!tutorialSO) return;
 
+        IS_DURING_TUTORIAL = true;
+
         currentTutorial = tutorialSO;
         currentTutorialStepIndex = currentIndex;
+
+        //StartCoroutine(RemoveCurrentHighlights());
+
+        LockAllExceptStep();
 
         switch (tutorialSO.tutorialSteps[currentIndex].tutorialType)
         {
@@ -52,10 +88,16 @@ public class TutorialManager : MonoBehaviour
                 SetMoveFromClipToCellData();
                 break;
             case TutorialType.MoveCellToCell:
+                SetMoveFromCellToCellData();
                 break;
             case TutorialType.UseDeal:
+                SetDealTutorialData();
                 break;
             case TutorialType.UsePotions:
+                SetPotionTutorialData();
+                break;
+            case TutorialType.TapObject:
+                SetTapTutorialData();
                 break;
             default:
                 break;
@@ -63,34 +105,78 @@ public class TutorialManager : MonoBehaviour
 
         textParent.anchoredPosition = tutorialSO.tutorialSteps[currentIndex].textPosition;
         tutorialText.text = tutorialSO.tutorialSteps[currentIndex].tutorialText;
+
+        CustomShowAllHeighlights();// cusotomally show any and all heighlights in the arrays
+
+        StartCoroutine(ActivateReleventHeighlights());
+
+        ToggleAllTutorialParts(true);
+
+        StartTutorialStep();
     }
 
-    private void SetMoveFromClipToCellData()
+    private void CustomShowAllHeighlights()
     {
-        int clipSlotIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].originalIndex;
-        int ringCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].targetCellIndex;
-        originObject = GameManager.gameClip.ReturnSlot(clipSlotIndex).gameObject;
-        targetObject = GameManager.gameRing.ringCells[ringCellIndex].gameObject;
+        foreach (var index in currentTutorial.tutorialSteps[currentTutorialStepIndex].slotIndexes)
+        {
+            Tutoriable tempTutoriable = null;
+
+            GameManager.gameClip.ReturnSlot(index).gameObject.TryGetComponent<Tutoriable>(out tempTutoriable);
+
+            if(tempTutoriable)
+            {
+                activeHighlights.Add(tempTutoriable);
+            }
+        }
+
+        foreach (var index in currentTutorial.tutorialSteps[currentTutorialStepIndex].cellIndexes)
+        {
+            Tutoriable tempTutoriable = null;
+
+            GameManager.gameRing.ringCells[index].gameObject.TryGetComponent<Tutoriable>(out tempTutoriable);
+
+            if(tempTutoriable)
+            {
+                activeHighlights.Add(tempTutoriable);
+            }
+        }
+
+        foreach (var index in currentTutorial.tutorialSteps[currentTutorialStepIndex].limiterIndexes)
+        {
+            Tutoriable tempTutoriable = null;
+
+            GameManager.gameRing.ringSlices[index].gameObject.TryGetComponent<Tutoriable>(out tempTutoriable);
+
+            if(tempTutoriable)
+            {
+                activeHighlights.Add(tempTutoriable);
+            }
+        }
+
+        foreach (var index in currentTutorial.tutorialSteps[currentTutorialStepIndex].lockIndexes)
+        {
+            Tutoriable tempTutoriable = null;
+
+            GameManager.gameRing.ringSlices[index].lockIconAnim.gameObject.TryGetComponent<Tutoriable>(out tempTutoriable);
+
+            if(tempTutoriable)
+            {
+                activeHighlights.Add(tempTutoriable);
+            }
+        }
+    }
+    private void StartTutorialStep()
+    {
+        Vector3 targetPos = new Vector3(originObject.transform.position.x, originObject.transform.position.y + heightOffset, originObject.transform.position.z);
+        currentMoveObject = Instantiate(prefabToSpawn, targetPos, prefabToSpawn.transform.rotation).GetComponent<Animator>();
+
+        MiddleManCoroutine(false);
     }
 
-    private void SetMoveFromCellToCellData()
+    private void ToggleAllTutorialParts(bool _IsOn)
     {
-        int originRingCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].originalIndex;
-        int targetRingCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].targetCellIndex;
-        originObject = GameManager.gameRing.ringCells[originRingCellIndex].gameObject;
-        targetObject = GameManager.gameRing.ringCells[targetRingCellIndex].gameObject;
-    }
-
-    private void SetDealTutorialData()
-    {
-        originObject = dealObject;
-    }
-
-    private void SetPotionTutorialData()
-    {
-        int index = currentTutorial.tutorialSteps[currentTutorialStepIndex].potionIndex;
-
-        originObject = PowerupManager.instance.ReturnPotionPosition(index).gameObject;
+        textParent.gameObject.SetActive(_IsOn);
+        maskImage.gameObject.SetActive(_IsOn);
     }
 
     private void MiddleManCoroutine(bool isBack)
@@ -98,20 +184,25 @@ public class TutorialManager : MonoBehaviour
         switch (currentTutorial.tutorialSteps[currentTutorialStepIndex].tutorialType)
         {
             case TutorialType.MoveClipToCell:
+                StartCoroutine(MoveFromAtoB(isBack));
                 break;
             case TutorialType.MoveCellToCell:
+                StartCoroutine(MoveFromAtoB(isBack));
                 break;
             case TutorialType.UseDeal:
+                StartCoroutine(TapInPlace());
                 break;
             case TutorialType.UsePotions:
+                StartCoroutine(TapInPlace());
+                break;
+            case TutorialType.TapObject:
+                StartCoroutine(TapInPlace());
                 break;
             default:
                 break;
         }
 
-        StartCoroutine(MoveFromAtoB(isBack));
     }
-
     private IEnumerator MoveFromAtoB(bool isBack)
     {
         if (isBack)
@@ -124,31 +215,244 @@ public class TutorialManager : MonoBehaviour
         }
         else
         {
-            Vector3 targetPos = new Vector3(targetObject.transform.position.x, targetObject.transform.position.y + heightOffset, targetObject.transform.position.z);
-
-            LeanTween.move(currentMoveObject, targetPos, moveTime);
+            currentMoveObject.SetTrigger("Press&hold");
 
             yield return new WaitForSeconds(moveTime);
+
+            Vector3 targetPos = new Vector3(targetObject.transform.position.x, targetObject.transform.position.y + heightOffset, targetObject.transform.position.z);
+
+            LeanTween.move(currentMoveObject.gameObject, targetPos, moveTime);
+
+            yield return new WaitForSeconds(moveTime);
+            currentMoveObject.SetTrigger("Release");
         }
 
 
         MiddleManCoroutine(!isBack);
     }
 
+    private IEnumerator TapInPlace()
+    {
+        currentMoveObject.SetTrigger("Press&release");
+
+        yield return new WaitForSeconds(2);
+
+        MiddleManCoroutine(false);
+    }
+    private void SetMoveFromClipToCellData()
+    {
+        int clipSlotIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].slotIndexes[0];
+        int ringCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].cellIndexes[0];
+
+        GameManager.gameClip.ReturnSlot(clipSlotIndex).SetAsLocked(false);
+        GameManager.gameRing.ringCells[ringCellIndex].SetAsLocked(false);
+
+        GameManager.gameClip.ReturnSlot(clipSlotIndex).gameObject.TryGetComponent<Tutoriable>(out originObject);
+        GameManager.gameRing.ringCells[ringCellIndex].gameObject.TryGetComponent<Tutoriable>(out targetObject);        
+    }
+
+    private void SetMoveFromCellToCellData()
+    {
+        int originRingCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].cellIndexes[0];
+        int targetRingCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].cellIndexes[1];
+
+        GameManager.gameRing.ringCells[originRingCellIndex].SetAsLocked(false);
+        GameManager.gameRing.ringCells[targetRingCellIndex].SetAsLocked(false);
+
+        GameManager.gameRing.ringCells[originRingCellIndex].gameObject.TryGetComponent<Tutoriable>(out originObject);
+        GameManager.gameRing.ringCells[targetRingCellIndex].gameObject.TryGetComponent<Tutoriable>(out targetObject);
+    }
+
+    private void SetDealTutorialData()
+    {
+        dealObject.TryGetComponent<Tutoriable>(out originObject);
+
+        if (originObject == null)
+        {
+            Debug.LogError("Part of tutorial is not tutoriable!");
+        }
+        else
+        {
+            dealObject.isInteractable = true;
+            activeHighlights.Add(originObject);
+        }
+    }
+
+    private void SetTapTutorialData()
+    {
+        if(currentTutorial.tutorialSteps[currentTutorialStepIndex].isTapSlot)
+        {
+            int clipSlotIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].slotIndexes[0];
+            GameManager.gameClip.ReturnSlot(clipSlotIndex).gameObject.TryGetComponent<Tutoriable>(out originObject);
+        }
+
+        if (currentTutorial.tutorialSteps[currentTutorialStepIndex].isTapCell)
+        {
+            int ringCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].cellIndexes[0];
+            GameManager.gameRing.ringCells[ringCellIndex].gameObject.TryGetComponent<Tutoriable>(out originObject);
+
+        }
+
+        if (currentTutorial.tutorialSteps[currentTutorialStepIndex].isTapLimiter)
+        {
+            int limiterIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].limiterIndexes[0];
+            GameManager.gameRing.ringSlices[limiterIndex].gameObject.TryGetComponent<Tutoriable>(out originObject);
+        }
+
+        if (originObject == null)
+        {
+            Debug.LogError("Part of tutorial is not tutoriable!");
+        }
+        else
+        {
+            activeHighlights.Add(originObject);
+        }
+    }
+    private void SetPotionTutorialData()
+    {
+        int index = currentTutorial.tutorialSteps[currentTutorialStepIndex].potionIndex;
+        PowerupType typeToAdd = currentTutorial.tutorialSteps[currentTutorialStepIndex].powerType;
+
+        PowerupManager.instance.ReturnPotionPosition(index).gameObject.TryGetComponent<Tutoriable>(out originObject);
+        PowerupManager.instance.AddPotion(typeToAdd, 1);
+        PowerupManager.instance.ManualUpdatePotionText(index, typeToAdd);
+        PowerupManager.instance.ToggleLockSpecificPotion(index, true); // true means can use potion
+
+        if (originObject == null)
+        {
+            Debug.LogError("Part of tutorial is not tutoriable!");
+        }
+        else
+        {
+            activeHighlights.Add(originObject);
+        }
+    }
 
 
-    private IEnumerator SelectReleventHeighlights()
+
+
+
+
+
+
+
+    private IEnumerator ActivateReleventHeighlights()
     {
         //activate highlights
-
+        foreach (var highlight in activeHighlights)
+        {
+            highlight.ToggleConnectedHighlight(true);
+        }
 
         yield return new WaitForEndOfFrame();
         toTexture();
     }
 
-    private void Start()
+    private IEnumerator RemoveCurrentHighlights()
     {
-        InvokeRepeating("toTexture", 2, 2);
+        if (activeHighlights.Count <= 0) yield break;
+
+        //activate highlights
+        foreach (var highlight in activeHighlights)
+        {
+            highlight.ToggleConnectedHighlight(false);
+        }
+
+        activeHighlights.Clear();
+        yield return new WaitForEndOfFrame();
+        toTexture();
+    }
+
+    //private void Start()
+    //{
+    //    InvokeRepeating("toTexture", 2, 2);
+    //}
+
+    private void LockAllExceptStep()
+    {
+        GameManager.gameClip.LockAllSlots(true);
+        GameManager.gameRing.LockAllCells(true);
+
+        UIManager.instance.ToggleLockAllCurrentScreens(false);
+        PowerupManager.instance.ToggleLockAllPotions(false);
+        //what about potions and buttons + deal?
+    }
+    private void UnLockAll()
+    {
+        GameManager.gameClip.LockAllSlots(false);
+        GameManager.gameRing.LockAllCells(false);
+
+        UIManager.instance.ToggleLockAllCurrentScreens(true);
+        PowerupManager.instance.ToggleLockAllPotions(true);
+
+    }
+
+
+    public bool ReturnHitCurrentNeededObject(Transform objectHit)
+    {
+        if(currentTutorial.tutorialSteps[currentTutorialStepIndex].RequiredCellIndex > -1)
+        {
+            CellBase cellBaseHit = null;
+            Tile hitTile = null;
+
+            int requiredCellIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].RequiredCellIndex;
+            CellBase requiredCellBase = GameManager.gameRing.ringCells[requiredCellIndex];
+
+
+            objectHit.TryGetComponent<Tile>(out hitTile);
+            if(hitTile)
+            {
+                cellBaseHit = hitTile.cellParent;
+            }
+            else
+            {
+                objectHit.TryGetComponent<CellBase>(out cellBaseHit);
+            }
+
+
+            if (cellBaseHit)
+            {
+                if(requiredCellBase)
+                {
+                    if(cellBaseHit == requiredCellBase)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+        }
+
+        if(currentTutorial.tutorialSteps[currentTutorialStepIndex].RequiredSliceIndex > -1)
+        {
+            Slice sliceHit = objectHit.GetComponent<Slice>();
+            int requiredSliceIndex = currentTutorial.tutorialSteps[currentTutorialStepIndex].RequiredSliceIndex;
+
+            if (sliceHit)
+            {
+                Slice requiredSlice = GameManager.gameRing.ringSlices[requiredSliceIndex];
+
+                if (requiredSlice)
+                {
+                    if (sliceHit == requiredSlice)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+        }
+
+        return false;
+    }
+
+    public bool ReturnIsCustomClip(TutorialSO tutorial)
+    {
+        return tutorial.tutorialSteps[0].isCustomClipAmount; //hard coded for now
+    }
+    public int ReturnAmountCustomClip(TutorialSO tutorial)
+    {
+        return tutorial.tutorialSteps[0].amountInClip; //hard coded for now
     }
 
     [ContextMenu("Render Now")]
