@@ -10,6 +10,7 @@ public class PotionInLevelHelper : MonoBehaviour
     [SerializeField] private TMP_Text connectedText;
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private BasicCustomUIWindow buyWidndow;
+    [SerializeField] private GameObject selectedImage;
     public BasicCustomButton buyButton;
 
     public void SetPotionDisplay(string in_text, string in_Price_Text, Texture in_Tex)
@@ -53,6 +54,11 @@ public class PotionInLevelHelper : MonoBehaviour
         }
 
         connectedText.text = in_text;
+    }
+
+    public void SetAsSelected(bool _IsSelected)
+    {
+        selectedImage.SetActive(_IsSelected);
     }
 
     public void ToggleHoverWindow(bool isActive)

@@ -318,6 +318,7 @@ public class PowerupManager : MonoBehaviour
 
     public void ResetPowerUpData()
     {
+        currentPotionDisplay.SetAsSelected(false);
         currentPowerUsing = PowerupType.None;
         currentPowerLogic = null;
         currentPowerData = null;
@@ -498,8 +499,9 @@ public class PowerupManager : MonoBehaviour
         currentPowerUsing = ownedPower.powerType;
         currentPotionDisplay = potionHelper;
 
+        currentPotionDisplay.SetAsSelected(true);
 
-        if(TutorialManager.IS_DURING_TUTORIAL)
+        if (TutorialManager.IS_DURING_TUTORIAL)
         {
             StartCoroutine(TutorialManager.instance.AdvanceTutorialStep());
         }
