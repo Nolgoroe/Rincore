@@ -117,21 +117,84 @@ MonoBehaviour:
     symbolTex: {fileID: 2800000, guid: a670c4ea7917d0d4281848413ed4e939, type: 3}
   colorsToMats12:
   - matColor: 0
-    colorTexLeft: []
-    colorTexRight: []
+    colorTexLeft:
+    - {fileID: 2800000, guid: 8ab36e5460116254c8e0720c39ae060a, type: 3}
+    - {fileID: 2800000, guid: 28dd4545cbbdf8040bd459dbdb7f227e, type: 3}
+    - {fileID: 2800000, guid: 8fb0b25c51e6c7440b0dd2904891bcf4, type: 3}
+    - {fileID: 2800000, guid: 74a6d3bb66bb4974ea60512231431dd2, type: 3}
+    - {fileID: 2800000, guid: 9d2c1dc3dbd640f4fba325e0bc247bd3, type: 3}
+    colorTexRight:
+    - {fileID: 2800000, guid: 48d635e94f13a5f47aa03a3e13c377c0, type: 3}
+    - {fileID: 2800000, guid: 717bf5ee1830b504093dd4282077ef05, type: 3}
+    - {fileID: 2800000, guid: 6bd8343df725cc248a827a8c0af10670, type: 3}
+    - {fileID: 2800000, guid: 79a8ab200be384b4a896274b9d626cee, type: 3}
+    - {fileID: 2800000, guid: 22b5ca35095a26041a8385add712e137, type: 3}
   - matColor: 1
-    colorTexLeft: []
-    colorTexRight: []
+    colorTexLeft:
+    - {fileID: 2800000, guid: 4fb8dd713c7480a4baf3f61b36bedef1, type: 3}
+    - {fileID: 2800000, guid: 96d06f622e1a5614db09f98e4d47db4e, type: 3}
+    - {fileID: 2800000, guid: 63da7028e1d34fe4b9981fae353a5814, type: 3}
+    - {fileID: 2800000, guid: 402824a33ddc5424fbcaecbe28af2aec, type: 3}
+    - {fileID: 2800000, guid: a99ad5843f77b6145ab7c2d6071e7829, type: 3}
+    colorTexRight:
+    - {fileID: 2800000, guid: 1da9007e3518bab4fb3e5d7b8c80c202, type: 3}
+    - {fileID: 2800000, guid: 7d3898432e8598a438b130f629679fdb, type: 3}
+    - {fileID: 2800000, guid: d75dfa8142851fc4fb53528498c67976, type: 3}
+    - {fileID: 2800000, guid: d54d4441f99f1b14db085ecc92bf3493, type: 3}
+    - {fileID: 2800000, guid: 2d318fe49a55e8341805505ef437f8fd, type: 3}
   - matColor: 2
-    colorTexLeft: []
-    colorTexRight: []
+    colorTexLeft:
+    - {fileID: 2800000, guid: 7e04928278ac1eb499a2ff089b6e04d2, type: 3}
+    - {fileID: 2800000, guid: 652efa7f8d0eebd4cb6f0a362fa5b5d4, type: 3}
+    - {fileID: 2800000, guid: e275b724adb367d47ba0973adfeb3399, type: 3}
+    - {fileID: 2800000, guid: ff951855713e43a4a8d098f384299917, type: 3}
+    - {fileID: 2800000, guid: 33cfa2fb4c5a90a4c81b27957ad066a7, type: 3}
+    colorTexRight:
+    - {fileID: 2800000, guid: 41e62aaafa36fb445b45e08696e71456, type: 3}
+    - {fileID: 2800000, guid: ab66f746b8bfa864580bb382e61e279e, type: 3}
+    - {fileID: 2800000, guid: 97a411b865d119a41aca14a182b9890a, type: 3}
+    - {fileID: 2800000, guid: 43b13a14a7de4e3488832bfc6afda9fc, type: 3}
+    - {fileID: 2800000, guid: 8eb3b6cd461bb3241a7ba86cf3063d92, type: 3}
   - matColor: 3
-    colorTexLeft: []
-    colorTexRight: []
+    colorTexLeft:
+    - {fileID: 2800000, guid: 3b9374da413bbe54abd5e4e79d543304, type: 3}
+    - {fileID: 2800000, guid: ecd1f73801ea61a49b6e8f729047406f, type: 3}
+    - {fileID: 2800000, guid: 3f0ac03d73d3d4743b6bfd2b700569dd, type: 3}
+    - {fileID: 2800000, guid: d2859a2fd0e439f45a4cd1f31a3ff434, type: 3}
+    - {fileID: 2800000, guid: 9bf1790d6f69ee644813a0bb4786b653, type: 3}
+    colorTexRight:
+    - {fileID: 2800000, guid: 1c087840cb3e0c54596b366c56555cf4, type: 3}
+    - {fileID: 2800000, guid: 0ac471217493d164dabe814ca3a6fa98, type: 3}
+    - {fileID: 2800000, guid: f7d2cc4dd368c834991f463dc403f711, type: 3}
+    - {fileID: 2800000, guid: 8f855d8ea4918f44eb21b8684f8f5648, type: 3}
+    - {fileID: 2800000, guid: 401a2a891dcd67443926c62b2805e732, type: 3}
   - matColor: 4
-    colorTexLeft: []
-    colorTexRight: []
+    colorTexLeft:
+    - {fileID: 2800000, guid: dbeae4cb0a0f7aa4380110f37a87d414, type: 3}
+    - {fileID: 2800000, guid: a4bf037ae88f4c8418219e0c3f671e3b, type: 3}
+    - {fileID: 2800000, guid: f9176272d6b116743a16402f1bfc890c, type: 3}
+    - {fileID: 2800000, guid: cfd9dc2f6d5772c4c8a1441224acc258, type: 3}
+    - {fileID: 2800000, guid: 3dd3904f8085610419e23c2e74372ec5, type: 3}
+    colorTexRight:
+    - {fileID: 2800000, guid: 7a3cba9f9703353459415a9028cd88c1, type: 3}
+    - {fileID: 2800000, guid: d5faf6ba5e5a32c48b09803e31b9b3f6, type: 3}
+    - {fileID: 2800000, guid: fe94c6e61131b064f927363f4d93b8c5, type: 3}
+    - {fileID: 2800000, guid: ae5b038acd7790c4c971ea890589c59c, type: 3}
+    - {fileID: 2800000, guid: dcb8b016603b9ec40af8de72352193f9, type: 3}
   - matColor: 5
+    colorTexLeft:
+    - {fileID: 2800000, guid: 2ec4437eceebadc418058ea0bdee060e, type: 3}
+    - {fileID: 2800000, guid: 801885b4d0a68244e84745318320d42e, type: 3}
+    - {fileID: 2800000, guid: 1a9817406c4dfe04c9475c18b5eacfcb, type: 3}
+    - {fileID: 2800000, guid: 599128d9457f5764e8c7f23b932b97ca, type: 3}
+    - {fileID: 2800000, guid: fb11e6d780014f648a6847b4a4536c26, type: 3}
+    colorTexRight:
+    - {fileID: 2800000, guid: 2ec4437eceebadc418058ea0bdee060e, type: 3}
+    - {fileID: 2800000, guid: 801885b4d0a68244e84745318320d42e, type: 3}
+    - {fileID: 2800000, guid: 1a9817406c4dfe04c9475c18b5eacfcb, type: 3}
+    - {fileID: 2800000, guid: 599128d9457f5764e8c7f23b932b97ca, type: 3}
+    - {fileID: 2800000, guid: fb11e6d780014f648a6847b4a4536c26, type: 3}
+  - matColor: 6
     colorTexLeft: []
     colorTexRight: []
   symbolToMat12:

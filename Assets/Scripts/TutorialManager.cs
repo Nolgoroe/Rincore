@@ -57,6 +57,14 @@ public class TutorialManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
             StopAllCoroutines();
             IS_DURING_TUTORIAL = false;
+
+            foreach (var cell in GameManager.gameRing.ringCells)
+            {
+                if(cell.heldTile)
+                {
+                    cell.CheckConnections();
+                }
+            }
         }
         else
         {

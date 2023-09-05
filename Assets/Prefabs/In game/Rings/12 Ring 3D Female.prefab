@@ -4386,6 +4386,11 @@ PrefabInstance:
       propertyPath: index
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_Mesh
@@ -4433,22 +4438,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126211447230619}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157687137231404}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210829194041}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157687455183816}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -4514,6 +4519,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73aa8e068ec01b44da0a985e3a0ebab0, type: 3}
 --- !u!114 &2625126209457924401 stripped
@@ -4550,22 +4560,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210070381845}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157686926612011}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210419933316}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157688534834370}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -4629,6 +4639,11 @@ PrefabInstance:
     - target: {fileID: 3394820332908825641, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4717,6 +4732,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 12 Ring Slice 3D Pivot Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865345569733224985, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791401624183059570, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
@@ -4836,6 +4866,11 @@ PrefabInstance:
       propertyPath: index
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_Mesh
@@ -4954,6 +4989,11 @@ PrefabInstance:
       propertyPath: index
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_Mesh
@@ -5001,22 +5041,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210729973450}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157688046014903}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126211447230619}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157687981020953}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -5082,6 +5122,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73aa8e068ec01b44da0a985e3a0ebab0, type: 3}
 --- !u!114 &2625126210035368953 stripped
@@ -5118,22 +5163,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210829194041}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157688254058081}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126209524092328}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157686926612011}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -5197,6 +5242,11 @@ PrefabInstance:
     - target: {fileID: 3394820332908825641, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5305,6 +5355,11 @@ PrefabInstance:
         type: 3}
       propertyPath: index
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
@@ -5424,6 +5479,11 @@ PrefabInstance:
       propertyPath: index
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_Mesh
@@ -5471,7 +5531,7 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126209524092328}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
@@ -5481,12 +5541,12 @@ PrefabInstance:
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126211219485520}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157687364975916}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -5497,6 +5557,11 @@ PrefabInstance:
       propertyPath: connectVFXRight
       value: 
       objectReference: {fileID: 389568717987623736}
+    - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: amountUnsuccessfullConnections
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3394820332908825641, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: m_RootOrder
@@ -5552,6 +5617,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73aa8e068ec01b44da0a985e3a0ebab0, type: 3}
 --- !u!114 &2625126210419933316 stripped
@@ -5588,22 +5658,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126211219485520}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157688323263473}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210757270822}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157687301721014}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -5667,6 +5737,11 @@ PrefabInstance:
     - target: {fileID: 3394820332908825641, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5776,6 +5851,11 @@ PrefabInstance:
       propertyPath: index
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_Mesh
@@ -5823,22 +5903,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210686366506}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157687301721014}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210784338776}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157688693187403}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -5902,6 +5982,11 @@ PrefabInstance:
     - target: {fileID: 3394820332908825641, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -6011,6 +6096,11 @@ PrefabInstance:
       propertyPath: index
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_Mesh
@@ -6058,22 +6148,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210784338776}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157687429066305}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210035368953}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157688046014903}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -6139,6 +6229,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73aa8e068ec01b44da0a985e3a0ebab0, type: 3}
 --- !u!114 &2625126210729973450 stripped
@@ -6175,22 +6270,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126209457924401}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157687455183816}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210070381845}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157688254058081}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -6256,6 +6351,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73aa8e068ec01b44da0a985e3a0ebab0, type: 3}
 --- !u!114 &2625126210829194041 stripped
@@ -6292,22 +6392,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210757270822}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157688693187403}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210729973450}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157687429066305}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -6371,6 +6471,11 @@ PrefabInstance:
     - target: {fileID: 3394820332908825641, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -6500,6 +6605,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7767769221706482835, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_RootOrder
@@ -6623,6 +6733,11 @@ PrefabInstance:
       propertyPath: index
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_Mesh
@@ -6741,6 +6856,11 @@ PrefabInstance:
       propertyPath: index
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_Mesh
@@ -6788,22 +6908,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210419933316}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157687364975916}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210686366506}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157688323263473}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -6867,6 +6987,11 @@ PrefabInstance:
     - target: {fileID: 3394820332908825641, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -6956,11 +7081,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 12 Ring Slice 3D Pivot Parent (11)
       objectReference: {fileID: 0}
-    - target: {fileID: 1348700700747452186, guid: 31ea00a43738a37469cd2276b6f0ba5a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1865345569733224985, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
       propertyPath: m_IsActive
@@ -6971,21 +7091,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4146220979959973708, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+    - target: {fileID: 7404237993428272034, guid: 31ea00a43738a37469cd2276b6f0ba5a,
         type: 3}
-      propertyPath: index
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: -8369410669342162140, guid: 77042a6beadce624393633accaee30da,
-        type: 3}
-    - target: {fileID: 8519364093481452192, guid: 31ea00a43738a37469cd2276b6f0ba5a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ea00a43738a37469cd2276b6f0ba5a, type: 3}
@@ -7023,22 +7132,22 @@ PrefabInstance:
         type: 3}
       propertyPath: leftCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126210035368953}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: leftSlice
       value: 
-      objectReference: {fileID: 4387157688534834370}
+      objectReference: {fileID: 4387157687981020953}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightCell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2625126209457924401}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: rightSlice
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4387157687137231404}
     - target: {fileID: 2379682696885565442, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: connectVFXLeft
@@ -7102,6 +7211,11 @@ PrefabInstance:
     - target: {fileID: 3394820332908825641, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171276524675117551, guid: 73aa8e068ec01b44da0a985e3a0ebab0,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

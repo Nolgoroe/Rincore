@@ -171,7 +171,8 @@ public class MapLogic : MonoBehaviour
 
         Vector3 pos = Vector3.zero;
 
-        GameObject go = Instantiate(mapRingPrefabs[levelIndex % mapRingPrefabs.Length], pos, Quaternion.identity, ringsParent);
+        GameObject go = Instantiate(mapRingPrefabs[(levelIndex % 2) + SwitchRingPrefabByType(GameManager.currentLevel.ringType)], pos, Quaternion.identity, ringsParent);
+        //GameObject go = Instantiate(mapRingPrefabs[levelIndex % mapRingPrefabs.Length], pos, Quaternion.identity, ringsParent);
         go.transform.localPosition = Vector3.zero;
         pos.z = (levelIndex * distanceBetweenRings) + startRingOffset;
         go.transform.localPosition = pos;

@@ -57,7 +57,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
     {
     }
 
-    private void CheckConnections()
+    public void CheckConnections()
     {
         amountUnsuccessfullConnections = 0;
 

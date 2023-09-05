@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1814464820567971844
 Transform:
   m_ObjectHideFlags: 0
@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865345569733224985}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.1, z: 1.62}
+  m_LocalPosition: {x: -0, y: -0.1, z: 2.294}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 902599893, guid: 24c605e18740d0645a1bc19c5f354a0d, type: 3}
+  m_Sprite: {fileID: -1678292820, guid: 55795bf44cce6c04ba71ee93814c4a52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260499eca92ee7b41a2957d723b14ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
+  index: 11
   connectionType: 0
   requiredSymbol: 4
   requiredColor: 6
@@ -291,7 +291,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -8369410669342162140, guid: f90a466dc128f494782f68fa9ac87b60, type: 3}
+  m_Mesh: {fileID: -8369410669342162140, guid: 77042a6beadce624393633accaee30da, type: 3}
 --- !u!1 &7404237993428272034
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &697115976267590451
 Transform:
   m_ObjectHideFlags: 0
@@ -317,8 +317,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7404237993428272034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.72, z: -0}
-  m_LocalScale: {x: 9.920676, y: 9.920676, z: 9.920676}
+  m_LocalPosition: {x: 0.15, y: 0.74, z: -0}
+  m_LocalScale: {x: 11.58735, y: 11.58735, z: 11.58735}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1814464820567971844}

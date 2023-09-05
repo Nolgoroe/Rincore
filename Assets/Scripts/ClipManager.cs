@@ -100,7 +100,24 @@ public class ClipManager : MonoBehaviour
 
     private void SpawnRandomTileInSlot(ClipSlot slot)
     {
-        Tile tile = tileCreatorPreset.CreateTile(Tiletype.Normal, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
+        LevelSO currentLevel = GameManager.currentLevel;
+        Tiletype tileType = Tiletype.NoType;
+
+        switch (currentLevel.ringType)
+        {
+            case Ringtype.ring8:
+                tileType = Tiletype.Normal;
+                break;
+            case Ringtype.ring12:
+                tileType = Tiletype.Normal12;
+                break;
+            case Ringtype.NoType:
+                break;
+            default:
+                break;
+        }
+
+        Tile tile = tileCreatorPreset.CreateTile(tileType, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
         slot.RecieveTileDisplayer(tile);
     }
     private void SpawnSpecificTileInSlot(ClipSlot slot)
