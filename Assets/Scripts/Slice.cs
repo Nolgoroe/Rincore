@@ -24,6 +24,7 @@ public class Slice : MonoBehaviour, IPowerUsable
     public CellBase sameIndexCell;
     public CellBase leftNeighborCell;
     public bool isLock;
+    public VFXActivatorHelper vfxHelper;
 
     [Header("Dynamic Data")]
     public SliceDisplay3D connectedDisplay;
@@ -129,8 +130,20 @@ public class Slice : MonoBehaviour, IPowerUsable
 
     public void BombPower()
     {
+        StartCoroutine(PlayVFX(VFX.bomb));
+
         DestroySliceData();
         StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
+    }
+
+    private IEnumerator PlayVFX(VFX vfxType)
+    {
+        yield return new WaitForSeconds(PowerupManager.instance.delayPotionEffectOnObject);
+
+        if (vfxHelper)
+        {
+            vfxHelper.PlayVFX(vfxType);
+        }
     }
 
     private bool CheckCanBomb()

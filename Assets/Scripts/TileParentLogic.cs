@@ -17,7 +17,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     public CellBase cellParent;
     public bool partOfBoard;
     public Tiletype tileType;
-    public VFXActivatorHelper vfxHelper;
 
     public abstract void SetPlaceTileData(bool place, CellBase cellParent);
     public abstract void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor);
@@ -68,11 +67,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     public void BombPower()
     {
-        if (vfxHelper)
-        {
-            vfxHelper.PlayVFX(VFX.bomb);
-        }
-
         if (cellParent)
         {
             StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
@@ -84,6 +78,7 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
             PowerupManager.instance.ResetPowerUpData(); // release power directly - no success
         }
 
+        cellParent.CallPlayVFX(VFX.bomb);
     }
 
 
@@ -172,9 +167,12 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
             Destroy(gameObject);
         }
 
-        if (vfxHelper)
+        TileHolder holder = null;
+        transform.parent.TryGetComponent<TileHolder>(out holder);
+
+        if (holder)
         {
-            vfxHelper.PlayVFX(VFX.joker);
+            holder.CallPlayVFX(VFX.joker);
         }
 
         //PowerupManager.instance.PowerSucceededUsing();

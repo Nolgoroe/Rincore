@@ -24,6 +24,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
     [SerializeField]
     int maxAnimateSpeed;
 
+
+
     // think about creating an action system here aswell for "on good connection" + "on bad connection" - look at gamemanger as example.
 
     private void OnValidate()
@@ -375,4 +377,6 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 
         Destroy(heldTemp.gameObject);
     }
+
+
 }

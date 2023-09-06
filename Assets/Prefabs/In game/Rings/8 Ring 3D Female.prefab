@@ -1043,20 +1043,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8748247810835646058}
     m_Modifications:
-    - target: {fileID: 3802596299518628430, guid: 6b7e04166e173d2419d411f4311f7d1f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4662112037594521334, guid: 6b7e04166e173d2419d411f4311f7d1f,
         type: 3}
       propertyPath: m_Name
       value: 8 Ring Slice 3D Pivot Parent
-      objectReference: {fileID: 0}
-    - target: {fileID: 5469520590710225909, guid: 6b7e04166e173d2419d411f4311f7d1f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6484144604517899026, guid: 6b7e04166e173d2419d411f4311f7d1f,
         type: 3}
@@ -1111,11 +1101,6 @@ PrefabInstance:
     - target: {fileID: 6484144604517899026, guid: 6b7e04166e173d2419d411f4311f7d1f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7393056428178449822, guid: 6b7e04166e173d2419d411f4311f7d1f,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1369,11 +1354,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8748247811380750261}
     m_Modifications:
-    - target: {fileID: 103194845645612858, guid: bb0d27516b65bcb4589221b046244dc8,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.04
-      objectReference: {fileID: 0}
     - target: {fileID: 775874370117706751, guid: bb0d27516b65bcb4589221b046244dc8,
         type: 3}
       propertyPath: m_Name
@@ -1464,26 +1444,6 @@ PrefabInstance:
       propertyPath: connectVFXRight
       value: 
       objectReference: {fileID: 5734491891724423650}
-    - target: {fileID: 3380625814145701565, guid: bb0d27516b65bcb4589221b046244dc8,
-        type: 3}
-      propertyPath: m_Name
-      value: 8 Ring Cell 3D 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4829006101396459099, guid: bb0d27516b65bcb4589221b046244dc8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6648644641578026146, guid: bb0d27516b65bcb4589221b046244dc8,
-        type: 3}
-      propertyPath: m_Name
-      value: Tutorial Highlight
-      objectReference: {fileID: 0}
-    - target: {fileID: 6648644641578026146, guid: bb0d27516b65bcb4589221b046244dc8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb0d27516b65bcb4589221b046244dc8, type: 3}
 --- !u!114 &417951038441142840 stripped

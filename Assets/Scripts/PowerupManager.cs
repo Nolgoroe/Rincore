@@ -47,6 +47,7 @@ public class PowerupManager : MonoBehaviour
     [SerializeField] private Transform localObjectToUsePowerOn = null;
     [SerializeField] private List<PotionInLevelHelper> spawnedHelpers;
     [SerializeField] private float usePotionTime;
+    public float delayPotionEffectOnObject;
 
 
 

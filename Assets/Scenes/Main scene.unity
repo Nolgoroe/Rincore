@@ -5559,6 +5559,7 @@ MonoBehaviour:
   localObjectToUsePowerOn: {fileID: 0}
   spawnedHelpers: []
   usePotionTime: 2
+  delayPotionEffectOnObject: 0.15
   selectedPotionRect: {fileID: 0}
   currentPotionSelected: {fileID: 0}
   currentNeededRubies: 0
@@ -5817,7 +5818,7 @@ MonoBehaviour:
   inLevelCoinCount: {fileID: 438473897}
   fadeWindow: {fileID: 1518595450}
   currentCurtainsLevelDelay: 0
-  curtainsDelayOnStart: 1
+  curtainsDelayOnStart: 0.3
   waitBeforeCurtainsOutTime: 0.2
   waitBeforeCurtainsInTime: 1.3
   curtainsIntoMapTime: 1.3
@@ -10957,6 +10958,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454515671}
     m_Modifications:
+    - target: {fileID: 1672103290179414947, guid: f1418324f3df62a4188cbabe20e48f0b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7394288742138605903, guid: f1418324f3df62a4188cbabe20e48f0b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8481342443712447744, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}
       propertyPath: m_Pivot.x

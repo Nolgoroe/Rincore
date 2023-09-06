@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 797589619464616722}
   - component: {fileID: 5780900530156066173}
   - component: {fileID: 1730793558819338920}
+  - component: {fileID: 3171879341527893464}
   m_Layer: 7
   m_Name: 12 Ring Tile 3D Elior
   m_TagString: MainPiece
@@ -227,6 +228,7 @@ MonoBehaviour:
   cellParent: {fileID: 0}
   partOfBoard: 0
   tileType: 0
+  vfxHelper: {fileID: 0}
 --- !u!114 &5780900530156066173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,3 +258,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5649669, y: 0.6124549, z: 0.8623147}
   m_Center: {x: 0.0021806955, y: -0.15855002, z: -0.0093438625}
+--- !u!114 &3171879341527893464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3886778919437688169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a385a81b69bb23428efe15badbb59c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VFXarray:
+  - effectType: 0
+    connectedObject: {fileID: 0}
+  - effectType: 1
+    connectedObject: {fileID: 0}
