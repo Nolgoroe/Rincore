@@ -411,7 +411,7 @@ public class MapLogic : MonoBehaviour
 
         //ShowRingDarkOverlay();
 
-        yield return new WaitForSeconds(waitTimeBeforePlayButton);
+        yield return new WaitForSeconds(2.5f);
         StartCoroutine(GameManager.instance.InitStartLevel(false));
 
         //UIManager.instance.DisplayOverallMapUI();
