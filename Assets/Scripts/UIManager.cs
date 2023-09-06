@@ -83,6 +83,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow inLevelRestartLevelQuesiton;
     [SerializeField] private WinLevelCustomWindow inLevelWinWindow;
     [SerializeField] private Image fillBarImageInLevel;
+    [SerializeField] private TMP_Text inLevelCoinCount;
 
     [Header("Curtains object settings")] // might move to SO
     [SerializeField] private BasicCustomUIWindow fadeWindow;
@@ -446,6 +447,11 @@ public class UIManager : MonoBehaviour
         string[] texts = new string[] { ("Level " + (GameManager.instance.currentCluster.clusterID)).ToString(), player.GetOwnedCoins.ToString() };
 
         inLevelUI.OverrideSetMyElement(texts, null, actions);
+    }
+
+    public void ManualUpdateCoinTextInLevel()
+    {
+        inLevelCoinCount.text = player.GetOwnedCoins.ToString();
     }
 
     public void DisplayInLevelRingHasNonMatchingMessage()

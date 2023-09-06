@@ -643,6 +643,8 @@ public class PowerupManager : MonoBehaviour
         int newCoins = player.GetOwnedCoins - currentChosenPowerSO.price;
         StartCoroutine(UIManager.instance.CounterText(currentCoins, newCoins, UIManager.instance.publicCoinText));
         player.RemoveCoins(currentChosenPowerSO.price);
+
+        UIManager.instance.ManualUpdateCoinTextInLevel();
     }
     private IEnumerator CheckUseCoinsToUsePower(PowerupScriptableObject currentSO, OwnedPowersAndAmounts ownedPower, PotionInLevelHelper potionHelper)
     {

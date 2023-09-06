@@ -58,13 +58,8 @@ public class TutorialManager : MonoBehaviour
             StopAllCoroutines();
             IS_DURING_TUTORIAL = false;
 
-            foreach (var cell in GameManager.gameRing.ringCells)
-            {
-                if(cell.heldTile)
-                {
-                    cell.CheckConnections();
-                }
-            }
+
+            CheckManuallyLock();
         }
         else
         {
@@ -77,6 +72,19 @@ public class TutorialManager : MonoBehaviour
         }
 
     }
+
+    private void CheckManuallyLock()
+    {
+        CellBase cell = null;
+
+        targetObject.TryGetComponent<CellBase>(out cell);
+
+        if (cell && (cell.leftSlice.isLock || cell.rightSlice.isLock ))
+        {
+            cell.CheckConnections();
+        }
+    }
+
     public void SetCurrenTutorialStepData(TutorialSO tutorialSO, int currentIndex)
     {
         if (!tutorialSO) return;

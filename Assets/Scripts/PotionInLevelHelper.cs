@@ -58,7 +58,10 @@ public class PotionInLevelHelper : MonoBehaviour
 
     public void SetAsSelected(bool _IsSelected)
     {
-        selectedImage.SetActive(_IsSelected);
+        if (selectedImage)
+        {
+            selectedImage.SetActive(_IsSelected);
+        }
     }
 
     public void ToggleHoverWindow(bool isActive)
