@@ -36,6 +36,7 @@ struct ButtonActionIndexPair
 //    InLevel,
 //    Map,
 //}
+
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
@@ -89,6 +90,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow fadeWindow;
     //[SerializeField] private float fadeIntoLevelTime;
     //[SerializeField] private float fadeOutLevelTime;
+
+    [DisplayWithoutEdit()]
+    [SerializeField] private float currentCurtainsLevelDelay;
+    [SerializeField] private float curtainsDelayOnStart;
     [SerializeField] private float waitBeforeCurtainsOutTime;
     [SerializeField] private float waitBeforeCurtainsInTime;
     [SerializeField] private float curtainsIntoMapTime;
@@ -337,6 +342,9 @@ public class UIManager : MonoBehaviour
 
     public void DisplayLodingScreen()
     {
+        currentCurtainsLevelDelay = curtainsDelayOnStart;
+
+        ManualDisplayCurtains();
         AddUIElement(loadingParent);
 
         inLevelUI.OverrideSetMyElement(null, null, null);
@@ -726,6 +734,7 @@ public class UIManager : MonoBehaviour
     {
         System.Action[] actions = DelegateAction(
             overAllMapUI,
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(FadeInCurtainswindow(false, false)) },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.InitStartLevel(false)) },
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(overAllMapUI) });
 
@@ -875,21 +884,22 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeInCurtainswindow(bool _In)
+    public IEnumerator FadeInCurtainswindow(bool _In, bool doReverse)
     {
         IS_DURING_CURTAINS = true;
 
+        System.Action actionOnEnd = doReverse ? () => StartCoroutine(ReverseFade(_In, waitBeforeCurtainsOutTime)) : () => StartCoroutine(OnEndFade());
 
-        if(_In)
+        if (_In)
         {
             yield return new WaitForSeconds(waitBeforeCurtainsInTime);
             LeanTween.moveLocalX(leftParent, moveToX, curtainsIntoMapTime).setEase(tweenType);
-            LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenType).setOnComplete(() => StartCoroutine(ReverseFade(_In, waitBeforeCurtainsOutTime)));
+            LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
         }
         else
         {
             LeanTween.moveLocalX(leftParent, 0, curtainsIntoMapTime).setEase(tweenType);
-            LeanTween.moveLocalX(rightParent, 0, curtainsIntoMapTime).setEase(tweenType).setOnComplete(OnEndFade);
+            LeanTween.moveLocalX(rightParent, 0, curtainsIntoMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
         }
         //CanvasGroup group = fadeWindow.group;
 
@@ -917,18 +927,27 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void ManualDisplayCurtains()
+    {
+        leftParent.transform.localPosition = new Vector3(moveToX, leftParent.transform.localPosition.y, leftParent.transform.localPosition.z);
+        rightParent.transform.localPosition = new Vector3(-moveToX, rightParent.transform.localPosition.y, rightParent.transform.localPosition.z);
+    }
     private IEnumerator ReverseFade(bool _In, float _Time)
     {
         IS_DURING_CURTAINS = false;
 
         yield return new WaitForSeconds(_Time);
 
-        StartCoroutine(FadeInCurtainswindow(!_In));
+        StartCoroutine(FadeInCurtainswindow(!_In, false));
     }
 
-    private void OnEndFade()
+    private IEnumerator OnEndFade()
     {
+
+        yield return new WaitForSeconds(currentCurtainsLevelDelay);
         IS_DURING_CURTAINS = false;
+
+        currentCurtainsLevelDelay = 0; // this variable changes in code to affect how long we wait on the end fade.
         //CloseElement(fadeWindow);
     }
 

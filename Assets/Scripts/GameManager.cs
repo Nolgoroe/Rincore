@@ -521,7 +521,7 @@ public class GameManager : MonoBehaviour
 
 
         //FADE
-        StartCoroutine(UIManager.instance.FadeInCurtainswindow(true));
+        StartCoroutine(UIManager.instance.FadeInCurtainswindow(true, true));
         yield return new WaitUntil(() => !UIManager.IS_DURING_CURTAINS);
 
 
@@ -654,6 +654,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator InitStartLevel(bool restart)
     {
+        yield return new WaitUntil(() => !UIManager.IS_DURING_CURTAINS);
+
         if (LevelSetupData())
         {
             if(!restart)
