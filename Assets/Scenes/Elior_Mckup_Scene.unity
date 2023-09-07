@@ -3782,6 +3782,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -9.824226
       objectReference: {fileID: 0}
+    - target: {fileID: -1310067670159901470, guid: a7a8b570452e59a4cad6ada060ec06c8,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1396f6fe83670444897f454f851a7b60, type: 2}
     - target: {fileID: 919132149155446097, guid: a7a8b570452e59a4cad6ada060ec06c8,
         type: 3}
       propertyPath: m_Name
@@ -4048,7 +4053,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1843397735}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 24.1, z: -7.18}
+  m_LocalPosition: {x: 0, y: 24.1, z: 1.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4342,6 +4347,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Corrupted Tile 3D Elior
       objectReference: {fileID: 0}
+    - target: {fileID: 6919123850645470140, guid: 3e5739d66c7953f4fade09b61d8ba528,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
       propertyPath: m_RootOrder
@@ -4350,22 +4360,22 @@ PrefabInstance:
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000000038232315
+      value: -0.003
       objectReference: {fileID: 0}
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.001
+      value: -0.133
       objectReference: {fileID: 0}
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.824227
+      value: 2.674
       objectReference: {fileID: 0}
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92387956
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
@@ -4375,7 +4385,7 @@ PrefabInstance:
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.38268343
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
@@ -4390,7 +4400,7 @@ PrefabInstance:
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7732252674885132550, guid: 3e5739d66c7953f4fade09b61d8ba528,
         type: 3}
