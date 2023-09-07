@@ -411,11 +411,43 @@ public class PowerupManager : MonoBehaviour
             }
         }
 
+        ClearUndoData();
+
         InitUndoSystem();
+    }
+
+    private void ClearUndoData()
+    {
+        GameObject go = null;
+        PotionInLevelHelper potionData = null;
+        PowerupScriptableObject chosenPower = allPowerups.Where(k => k.powerType == PowerupType.Undo).SingleOrDefault();
+        OwnedPowersAndAmounts owned = ownedPowerups.Where(k => k.powerType == PowerupType.Undo).SingleOrDefault();
+
+        if (owned == null) return;
+
+        go = undoButton;
+
+        go.TryGetComponent<PotionInLevelHelper>(out potionData);
+
+        if (potionData)
+        {
+            potionData.buyButton.buttonEvents = null;
+        }
+
+        BasicCustomButton potionButton = null;
+
+        go.TryGetComponent<BasicCustomButton>(out potionButton);
+
+        if (potionButton)
+        {
+            potionButton.buttonEvents = null;
+        }
+
     }
 
     private void InitUndoSystem()
     {
+
         GameObject go = null;
         PotionInLevelHelper potionData = null;
         PowerupScriptableObject chosenPower = allPowerups.Where(k => k.powerType == PowerupType.Undo).SingleOrDefault();

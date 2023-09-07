@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: -1006381034, guid: 5acc5a6412b49f44c9d75c37392b9449, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -316,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4153843941154525209}
   - component: {fileID: 4146220979959973708}
-  - component: {fileID: 6955734815769129870}
+  - component: {fileID: 2774829254438597233}
   m_Layer: 11
   m_Name: 12 Ring Slice 3D
   m_TagString: Untagged
@@ -333,7 +333,7 @@ Transform:
   m_GameObject: {fileID: 6580215979704633561}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.195, z: 1.65}
-  m_LocalScale: {x: 0.81, y: 0.81, z: 0.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1814464820567971844}
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260499eca92ee7b41a2957d723b14ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 3
+  index: 4
   connectionType: 0
   requiredSymbol: 4
   requiredColor: 6
@@ -365,8 +365,8 @@ MonoBehaviour:
   vfxHelper: {fileID: 4608828277553756143}
   connectedDisplay: {fileID: 0}
   lockIconAnim: {fileID: 4446608765224975266}
---- !u!65 &6955734815769129870
-BoxCollider:
+--- !u!64 &2774829254438597233
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -375,9 +375,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8741048, y: 0.04347695, z: 0.7106746}
-  m_Center: {x: -0.000000038964863, y: -0.0042638136, z: -0.020068686}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4357766855327013808, guid: e76a32c71e1cd734591c5e9017a3a89b, type: 3}
 --- !u!1 &7404237993428272034
 GameObject:
   m_ObjectHideFlags: 0
