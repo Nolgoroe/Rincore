@@ -11,6 +11,7 @@ public class ClipManager : MonoBehaviour
     [Header("Slots Zone")]
     [SerializeField] private ClipSlot[] slots;
     [SerializeField] private Image[] slotDisplays;
+    [SerializeField] private Sprite[] slotsSprites;
 
     [Header("Required refrences")]
     public TileCreator tileCreatorPreset;
@@ -39,6 +40,8 @@ public class ClipManager : MonoBehaviour
 
         for (int i = 0; i < activeClipSlotsCount; i++)
         {
+
+            slotDisplays[i].sprite = slotsSprites[(int)GameManager.currentLevel.ringType];
             if (customPieces > 0 && currentIndexInSpecificArray < customPieces)
             {
                 {

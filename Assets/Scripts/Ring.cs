@@ -17,6 +17,7 @@ public class Ring : MonoBehaviour
 
     public CellBase[] ringCells;
     public Slice[] ringSlices;
+    public ImageSwapHelper[] ringConnections;
     //public BoxCollider levelStartCollider;
     //public GameObject lockedDarkOverlay;
 
@@ -180,6 +181,9 @@ public class Ring : MonoBehaviour
 
             cell.leftSlice = ringSlices[CheckIndexIntInRange(counter, ringSlices)];
             cell.rightSlice = ringSlices[CheckIndexIntInRange(counter + 1, ringSlices)];
+
+            cell.connectVFXLeft = ringConnections[CheckIndexIntInRange(counter - 1, ringSlices)];
+            cell.connectVFXRight = ringConnections[CheckIndexIntInRange(counter, ringSlices)];
             counter++;
         }
 

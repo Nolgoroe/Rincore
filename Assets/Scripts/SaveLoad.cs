@@ -119,6 +119,11 @@ public class SaveLoad : MonoBehaviour
                     }
                 });
 
+
+            if(saveData.currentClusterIDReached == 2)
+            {
+
+            }
             ////load the player data
             //await FirebaseDatabase.DefaultInstance
             //    .GetReference(UID_TEXT).Child(TEST_SAVE)
