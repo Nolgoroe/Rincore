@@ -120,6 +120,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         textParent.anchoredPosition = tutorialSO.tutorialSteps[currentIndex].textPosition;
+
         tutorialText.text = tutorialSO.tutorialSteps[currentIndex].tutorialText;
 
         CustomShowAllHeighlights();// cusotomally show any and all heighlights in the arrays

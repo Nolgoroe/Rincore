@@ -25,8 +25,10 @@ MonoBehaviour:
     isTapLimiter: 0
     potionIndex: 1
     powerType: 3
-    textPosition: {x: 0, y: 650, z: 0}
+    textPosition: {x: 0, y: -550, z: 0}
     tutorialText: Tap on the joker to select it.
+    isCustomClipAmount: 0
+    amountInClip: 0
   - tutorialType: 4
     slotIndexes: 
     cellIndexes: 02000000
@@ -39,6 +41,8 @@ MonoBehaviour:
     isTapLimiter: 0
     potionIndex: 1
     powerType: 0
-    textPosition: {x: 0, y: 650, z: 0}
+    textPosition: {x: 0, y: 725, z: 0}
     tutorialText: 'You can turn any tile to a joker. It will match anything you place
       near it. '
+    isCustomClipAmount: 0
+    amountInClip: 0

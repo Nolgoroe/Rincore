@@ -25,8 +25,10 @@ MonoBehaviour:
     isTapLimiter: 0
     potionIndex: 2
     powerType: 1
-    textPosition: {x: 0, y: 650, z: 0}
+    textPosition: {x: 0, y: -550, z: 0}
     tutorialText: Tap on the bomb to select it.
+    isCustomClipAmount: 0
+    amountInClip: 0
   - tutorialType: 4
     slotIndexes: 
     cellIndexes: 
@@ -39,5 +41,7 @@ MonoBehaviour:
     isTapLimiter: 1
     potionIndex: 2
     powerType: 0
-    textPosition: {x: 0, y: 650, z: 0}
+    textPosition: {x: 0, y: 725, z: 0}
     tutorialText: Tap on the bomb to select it.
+    isCustomClipAmount: 0
+    amountInClip: 0
