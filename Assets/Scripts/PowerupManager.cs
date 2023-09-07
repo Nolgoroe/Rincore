@@ -49,7 +49,9 @@ public class PowerupManager : MonoBehaviour
     [SerializeField] private float usePotionTime;
     public float delayPotionEffectOnObject;
 
-
+    public Color onUseSwitchColor;
+    public Color onUseBombColor;
+    public Color onUseJokerColor;
 
 
 
@@ -319,11 +321,7 @@ public class PowerupManager : MonoBehaviour
 
     public void ResetPowerUpData()
     {
-        if(currentPotionDisplay)
-        {
-            currentPotionDisplay.SetAsSelected(false);
-        }
-
+        DisableAllRelaventSelectedHighlights();
         currentPowerUsing = PowerupType.None;
         currentPowerLogic = null;
         currentPowerData = null;
@@ -504,7 +502,7 @@ public class PowerupManager : MonoBehaviour
         currentPowerUsing = ownedPower.powerType;
         currentPotionDisplay = potionHelper;
 
-        currentPotionDisplay.SetAsSelected(true);
+        EnableAllRelaventSelectedHighlights();
 
         if (TutorialManager.IS_DURING_TUTORIAL)
         {
@@ -514,6 +512,46 @@ public class PowerupManager : MonoBehaviour
         //yield return new WaitForSeconds(0.1f); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
         yield return new WaitForEndOfFrame();
         UsePower(false);
+    }
+
+    private void EnableAllRelaventSelectedHighlights()
+    {
+        if (currentPotionDisplay)
+        {
+            currentPotionDisplay.SetAsSelected(true);
+        }
+
+        switch (currentPowerUsing)
+        {
+            case PowerupType.Switch:
+                GameManager.gameRing.EnableCellsBoosterHighlights(currentPowerUsing, true);
+                GameManager.gameClip.EnableSlotsBoosterHighlights(currentPowerUsing, true);
+                break;
+            case PowerupType.Bomb:
+                GameManager.gameRing.EnableCellsBoosterHighlights(currentPowerUsing, true);
+                GameManager.gameRing.EnableSlicesBoosterHighlights(true);
+                break;
+            case PowerupType.Joker:
+                GameManager.gameRing.EnableCellsBoosterHighlights(currentPowerUsing, true);
+                GameManager.gameClip.EnableSlotsBoosterHighlights(currentPowerUsing, true);
+                break;
+            default:
+                break;
+        }
+
+
+    }
+
+    private void DisableAllRelaventSelectedHighlights()
+    {
+        if (currentPotionDisplay)
+        {
+            currentPotionDisplay.SetAsSelected(false);
+        }
+
+        GameManager.gameRing.EnableCellsBoosterHighlights(currentPowerUsing, false);
+        GameManager.gameClip.EnableSlotsBoosterHighlights(currentPowerUsing, false);
+        GameManager.gameRing.EnableSlicesBoosterHighlights(false);
     }
 
     private void UsePower(bool is_Paid)
@@ -662,6 +700,8 @@ public class PowerupManager : MonoBehaviour
             currentPowerData = ownedPower;
             currentPowerUsing = ownedPower.powerType;
             currentPotionDisplay = potionHelper;
+
+            EnableAllRelaventSelectedHighlights();
 
             UsePower(true);
         }

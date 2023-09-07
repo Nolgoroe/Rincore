@@ -75,6 +75,8 @@ public class TutorialManager : MonoBehaviour
 
     private void CheckManuallyLock()
     {
+        if (!targetObject) return;
+
         CellBase cell = null;
 
         targetObject.TryGetComponent<CellBase>(out cell);

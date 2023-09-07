@@ -19,6 +19,7 @@ public class VFXTypeObjectConnection
 public class VFXActivatorHelper : MonoBehaviour
 {
     [SerializeField] VFXTypeObjectConnection[] VFXarray;
+    [SerializeField] SpriteRenderer boosterHighlightOnUse;
 
     public void PlayVFX(VFX VFXToEnable)
     {
@@ -28,5 +29,16 @@ public class VFXActivatorHelper : MonoBehaviour
         {
             connection.connectedObject.SetActive(true);
         }
+    }
+
+    public void EnableBoosterHighlight(bool _isEnabled, Color wantedColor)
+    {
+        boosterHighlightOnUse.gameObject.SetActive(_isEnabled);
+        boosterHighlightOnUse.color = wantedColor;
+    }
+
+    public void SetHighlightSprite(Sprite sprite)
+    {
+        boosterHighlightOnUse.sprite = sprite;
     }
 }

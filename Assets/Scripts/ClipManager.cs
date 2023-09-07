@@ -12,6 +12,7 @@ public class ClipManager : MonoBehaviour
     [SerializeField] private ClipSlot[] slots;
     [SerializeField] private Image[] slotDisplays;
     [SerializeField] private Sprite[] slotsSprites;
+    [SerializeField] private Sprite[] slotsHighlightSprites;
     [SerializeField] private float ring12SlotOffsetX;
 
     [Header("Required refrences")]
@@ -43,6 +44,7 @@ public class ClipManager : MonoBehaviour
         {
 
             slotDisplays[i].sprite = slotsSprites[(int)GameManager.currentLevel.ringType];
+            slots[i].vfxHelper.SetHighlightSprite(slotsHighlightSprites[(int)GameManager.currentLevel.ringType]);
 
 
             if (customPieces > 0 && currentIndexInSpecificArray < customPieces)
@@ -375,6 +377,43 @@ public class ClipManager : MonoBehaviour
         foreach (var slot in slots)
         {
             slot.isLocked = _isLock;
+        }
+    }
+
+    public void EnableSlotsBoosterHighlights(PowerupType type, bool _isOn)
+    {
+        foreach (ClipSlot slot in slots)
+        {
+            if(!_isOn)
+            {
+                slot.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseSwitchColor);
+            }
+            else
+            {
+                switch (type)
+                {
+                    case PowerupType.Switch:
+                        if (slot.heldTile && slot.heldTile.CheckSidesDifferent())
+                        {
+                            slot.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseSwitchColor);
+                        }
+                        break;
+                    case PowerupType.Bomb:
+                        if (slot.heldTile)
+                        {
+                            slot.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseBombColor);
+                        }
+                        break;
+                    case PowerupType.Joker:
+                        if (slot.heldTile && slot.heldTile.CheckIsNotJoker())
+                        {
+                            slot.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseJokerColor);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

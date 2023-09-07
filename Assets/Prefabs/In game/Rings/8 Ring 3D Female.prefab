@@ -199,6 +199,7 @@ MonoBehaviour:
   - {fileID: 3484901431307263333}
   - {fileID: 8134827778348408183}
   - {fileID: 7322647737452134790}
+  ringConnections: []
   filledCellsCount: 0
   unsuccessfulConnectionsCount: 0
   sliceDisplayPrefab: {fileID: 8395454025887951022, guid: d0012994f9e15ca44ae29580cd5c7e4b,
@@ -1152,6 +1153,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 8 Ring Slice 3D Pivot Parent (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5105527998091401646, guid: 6b7e04166e173d2419d411f4311f7d1f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5469520590710225909, guid: 6b7e04166e173d2419d411f4311f7d1f,
         type: 3}
       propertyPath: m_IsActive
@@ -1339,6 +1345,11 @@ PrefabInstance:
       propertyPath: connectVFXRight
       value: 
       objectReference: {fileID: 5734491891724423650}
+    - target: {fileID: 6507155547817254725, guid: bb0d27516b65bcb4589221b046244dc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb0d27516b65bcb4589221b046244dc8, type: 3}
 --- !u!114 &417951038441142840 stripped
@@ -2307,6 +2318,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 8 Ring Cell 3D 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507155547817254725, guid: bb0d27516b65bcb4589221b046244dc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6648644641578026146, guid: bb0d27516b65bcb4589221b046244dc8,
         type: 3}

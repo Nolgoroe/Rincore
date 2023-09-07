@@ -169,6 +169,60 @@ public class Ring : MonoBehaviour
         return returnNum;
     }
 
+    public void EnableCellsBoosterHighlights(PowerupType type, bool _isOn)
+    {
+        foreach (CellBase cell in ringCells)
+        {
+            if(!_isOn)
+            {
+                cell.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseSwitchColor);
+            }
+            else
+            {
+                switch (type)
+                {
+                    case PowerupType.Switch:
+                        if (cell.heldTile && cell.heldTile.CheckSidesDifferent())
+                        {
+                            cell.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseSwitchColor);
+                        }
+                        break;
+                    case PowerupType.Bomb:
+                        if (cell.heldTile)
+                        {
+                            cell.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseBombColor);
+                        }
+                        break;
+                    case PowerupType.Joker:
+                        if (cell.heldTile && cell.heldTile.CheckIsNotJoker())
+                        {
+                            cell.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseJokerColor);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+    public void EnableSlicesBoosterHighlights(bool _isOn)
+    {
+        foreach (Slice slice in ringSlices)
+        {
+            if(!_isOn)
+            {
+                slice.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseBombColor);
+            }
+            else
+            {
+                if (slice.connectionType != SliceConditionsEnums.None)
+                {
+                    slice.vfxHelper.EnableBoosterHighlight(_isOn, PowerupManager.instance.onUseBombColor);
+                }
+            }
+        }
+    }
+
     [ContextMenu("Auto set cell neighbors")]
     private void AutoSetCellNeighbors()
     {

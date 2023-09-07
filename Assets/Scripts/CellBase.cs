@@ -357,9 +357,6 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
     }
 
 
-
-
-
     public void ResetToDefault()
     {
         TileParentLogic heldTemp = heldTile;

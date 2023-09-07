@@ -210,12 +210,12 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
 
 
-    private bool CheckSidesDifferent()
+    public bool CheckSidesDifferent()
     {
         return subTileLeft.subTileColor != subTileRight.subTileColor ||
             subTileLeft.subTileSymbol != subTileRight.subTileSymbol;
     }
-    private bool CheckIsNotJoker()
+    public bool CheckIsNotJoker()
     {
         return subTileLeft.subTileColor != SubTileColor.Joker ||
             subTileLeft.subTileSymbol != SubTileSymbol.Joker;
