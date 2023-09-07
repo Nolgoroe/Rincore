@@ -115,15 +115,17 @@ public class SaveLoad : MonoBehaviour
                         {
                             JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), SavedData.instance);
                         }
+
+                        if (saveData.currentClusterIDReached == 2)
+                        {
+
+                        }
+
                         // Do something with snapshot...
                     }
                 });
 
 
-            if(saveData.currentClusterIDReached == 2)
-            {
-
-            }
             ////load the player data
             //await FirebaseDatabase.DefaultInstance
             //    .GetReference(UID_TEXT).Child(TEST_SAVE)

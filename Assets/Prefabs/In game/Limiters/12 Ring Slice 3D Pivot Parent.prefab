@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4153843941154525209}
   - component: {fileID: 4146220979959973708}
-  - component: {fileID: 8519364093481452192}
+  - component: {fileID: 6955734815769129870}
   m_Layer: 11
   m_Name: 12 Ring Slice 3D
   m_TagString: Untagged
@@ -249,8 +249,8 @@ Transform:
   m_GameObject: {fileID: 6580215979704633561}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.195, z: 1.65}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.81, y: 0.81, z: 0.81}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1814464820567971844}
   - {fileID: 4021021078137263319}
@@ -276,10 +276,11 @@ MonoBehaviour:
   sameIndexCell: {fileID: 0}
   leftNeighborCell: {fileID: 0}
   isLock: 0
+  vfxHelper: {fileID: 0}
   connectedDisplay: {fileID: 0}
   lockIconAnim: {fileID: 4446608765224975266}
---- !u!64 &8519364093481452192
-MeshCollider:
+--- !u!65 &6955734815769129870
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -288,10 +289,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -8369410669342162140, guid: 77042a6beadce624393633accaee30da, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.8741048, y: 0.04347695, z: 0.7106746}
+  m_Center: {x: -0.000000038964863, y: -0.0042638136, z: -0.020068686}
 --- !u!1 &7404237993428272034
 GameObject:
   m_ObjectHideFlags: 0

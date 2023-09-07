@@ -2049,8 +2049,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 291.9, y: -274.00006}
-  m_SizeDelta: {x: 177.21, y: 401.66}
+  m_AnchoredPosition: {x: 291.9, y: -270}
+  m_SizeDelta: {x: 450.52, y: 198.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1137351107503365322
 CanvasRenderer:
@@ -2366,8 +2366,9 @@ MonoBehaviour:
   - {fileID: 4102190941023142952}
   - {fileID: 4740568990963973256}
   slotsSprites:
-  - {fileID: -1275904209, guid: 198bf965306346f4b8fed0cac17187aa, type: 3}
-  - {fileID: 21300000, guid: e24a568f6672d5c4aae2a3833cbb2395, type: 3}
+  - {fileID: -1429981525, guid: 198bf965306346f4b8fed0cac17187aa, type: 3}
+  - {fileID: -287673315, guid: 198bf965306346f4b8fed0cac17187aa, type: 3}
+  ring12SlotOffsetX: 10
   tileCreatorPreset: {fileID: 11400000, guid: a37ff2027ad20714da47a0ac9bc5de2a, type: 2}
   piecesDealPositionsOut: {x: 800, y: -732.4, z: -0.377}
   delayClipMove: 0.1

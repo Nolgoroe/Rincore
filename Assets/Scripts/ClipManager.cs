@@ -12,6 +12,7 @@ public class ClipManager : MonoBehaviour
     [SerializeField] private ClipSlot[] slots;
     [SerializeField] private Image[] slotDisplays;
     [SerializeField] private Sprite[] slotsSprites;
+    [SerializeField] private float ring12SlotOffsetX;
 
     [Header("Required refrences")]
     public TileCreator tileCreatorPreset;
@@ -42,6 +43,8 @@ public class ClipManager : MonoBehaviour
         {
 
             slotDisplays[i].sprite = slotsSprites[(int)GameManager.currentLevel.ringType];
+
+
             if (customPieces > 0 && currentIndexInSpecificArray < customPieces)
             {
                 {
@@ -58,9 +61,35 @@ public class ClipManager : MonoBehaviour
             }
         }
 
+        if (GameManager.currentLevel.ringType == Ringtype.ring12) // for now hardcoded
+        {
+            PositionCorrectSlots(false);
+        }
+
         canUseDeal = true;
 
         CheckCustomClipAmount();
+    }
+
+    private void PositionCorrectSlots(bool returnToDefault)
+    {
+        for (int i = 0; i < activeClipSlotsCount; i++)
+        {
+            RectTransform rect = null;
+            slotDisplays[i].TryGetComponent<RectTransform>(out rect);
+
+            if(rect)
+            {
+                if (returnToDefault)
+                {
+                    rect.anchoredPosition = new Vector2(rect.anchoredPosition.x - ring12SlotOffsetX, rect.anchoredPosition.y);
+                }
+                else
+                {
+                    rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + ring12SlotOffsetX, rect.anchoredPosition.y);
+                }
+            }
+        }
     }
     public void CheckCustomClipAmount()
     {
@@ -284,6 +313,12 @@ public class ClipManager : MonoBehaviour
         {
             slot.transform.localPosition = slot.originalSlotPos;
         }
+
+        if (GameManager.currentLevel.ringType == Ringtype.ring12) // for now hardcoded
+        {
+            PositionCorrectSlots(true);
+        }
+
 
         canUseDeal = true;
 
