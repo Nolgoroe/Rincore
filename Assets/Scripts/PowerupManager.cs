@@ -319,7 +319,11 @@ public class PowerupManager : MonoBehaviour
 
     public void ResetPowerUpData()
     {
-        currentPotionDisplay.SetAsSelected(false);
+        if(currentPotionDisplay)
+        {
+            currentPotionDisplay.SetAsSelected(false);
+        }
+
         currentPowerUsing = PowerupType.None;
         currentPowerLogic = null;
         currentPowerData = null;
