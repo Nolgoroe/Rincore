@@ -11,6 +11,7 @@ public class PotionInLevelHelper : MonoBehaviour
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private BasicCustomUIWindow buyWidndow;
     [SerializeField] private GameObject selectedImage;
+    public Animator connectedAnim;
     public BasicCustomButton buyButton;
 
     public void SetPotionDisplay(string in_text, string in_Price_Text, Texture in_Tex)

@@ -260,6 +260,15 @@ public class PowerupManager : MonoBehaviour
         }
         else
         {
+            if(owned.amount == 0)
+            {
+                if (currentPotionDisplay.connectedAnim)
+                {
+                    currentPotionDisplay.connectedAnim.SetBool("IsOFF", false);
+                    currentPotionDisplay.connectedAnim.SetBool("IsON", true);
+                }
+            }
+
             owned.amount += amount;
         }
         Debug.Log("Added this power: " + powerType.ToString());
@@ -409,13 +418,33 @@ public class PowerupManager : MonoBehaviour
             {
                 potionButton.buttonEvents += () => StartCoroutine(SetUsingPotion(ownedPowerups[tempIndex], potionData));
             }
+
         }
 
         ClearUndoData();
 
         InitUndoSystem();
+
+        //StartCoroutine(CheckNoPotions());
     }
 
+    public IEnumerator CheckNoPotions()
+    {
+        yield return new WaitForEndOfFrame();
+        //yield return new WaitForSeconds(3); // temp
+
+        for (int i = 0; i < ownedPowerups.Count; i++)
+        {
+            if(ownedPowerups[i].amount == 0)
+            {
+                if(spawnedHelpers[i].connectedAnim)
+                {
+                    spawnedHelpers[i].connectedAnim.SetBool("IsOFF", true);
+                    spawnedHelpers[i].connectedAnim.SetBool("IsON", false);
+                }
+            }
+        }
+    }
     private void ClearUndoData()
     {
         GameObject go = null;
@@ -610,7 +639,16 @@ public class PowerupManager : MonoBehaviour
         {
             currentPowerData.amount--;
 
-            if(currentPowerData.amount < 0)
+            if (currentPowerData.amount == 0)
+            {
+                if (currentPotionDisplay.connectedAnim)
+                {
+                    currentPotionDisplay.connectedAnim.SetBool("IsOFF", true);
+                    currentPotionDisplay.connectedAnim.SetBool("IsON", false);
+                }
+            }
+
+            if (currentPowerData.amount < 0)
             {
                 currentPowerData.amount = 0;
             }
@@ -634,26 +672,21 @@ public class PowerupManager : MonoBehaviour
     }
     private IEnumerator ChoosePowerToUse(bool is_Paid)
     {
-        Animator potionAnim = null;
-
-        currentPotionDisplay.TryGetComponent<Animator>(out potionAnim);
-
-        if (potionAnim)
+        if (currentPotionDisplay.connectedAnim)
         {
             switch (currentPowerUsing)
             {
                 case PowerupType.Switch:
-                    potionAnim.SetTrigger("Switch");
+                    currentPotionDisplay.connectedAnim.SetTrigger("Switch");
                     break;
                 case PowerupType.Bomb:
-                    potionAnim.SetTrigger("Bomb");
+                    currentPotionDisplay.connectedAnim.SetTrigger("Bomb");
                     break;
                 case PowerupType.RefreshTiles:
-                    potionAnim.SetTrigger("Refresh");
+                    currentPotionDisplay.connectedAnim.SetTrigger("Refresh");
                     break;
                 case PowerupType.Joker:
-                    potionAnim.SetTrigger("Joker");
-
+                    currentPotionDisplay.connectedAnim.SetTrigger("Joker");
                     break;
                 case PowerupType.Undo:
                     break;

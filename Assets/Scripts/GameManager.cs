@@ -292,6 +292,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(timeClipEnter);
             mapLogic.ToggleRings(gameRing, inLevel);
 
+            StartCoroutine(powerupManager.CheckNoPotions());
 
 
             UIManager.IS_DURING_TRANSITION = false;

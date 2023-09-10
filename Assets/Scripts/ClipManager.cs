@@ -14,6 +14,7 @@ public class ClipManager : MonoBehaviour
     [SerializeField] private Sprite[] slotsSprites;
     [SerializeField] private Sprite[] slotsHighlightSprites;
     [SerializeField] private float ring12SlotOffsetX;
+    private bool is12Ver;
 
     [Header("Required refrences")]
     public TileCreator tileCreatorPreset;
@@ -63,36 +64,61 @@ public class ClipManager : MonoBehaviour
             }
         }
 
-        if (GameManager.currentLevel.ringType == Ringtype.ring12) // for now hardcoded
-        {
-            PositionCorrectSlots(false);
-        }
+        MoveSlotsData();
 
         canUseDeal = true;
 
         CheckCustomClipAmount();
     }
 
-    private void PositionCorrectSlots(bool returnToDefault)
+    private void MoveSlotsData()
+    {
+        switch (GameManager.currentLevel.ringType)
+        {
+            case Ringtype.ring8:
+
+                if(is12Ver)
+                {
+                    MoveSlotsAction(true);
+                }
+                break;
+            case Ringtype.ring12:
+
+                if (!is12Ver)
+                {
+                    MoveSlotsAction(false);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void MoveSlotsAction(bool reverstMove)
     {
         for (int i = 0; i < activeClipSlotsCount; i++)
         {
             RectTransform rect = null;
             slotDisplays[i].TryGetComponent<RectTransform>(out rect);
 
-            if(rect)
+            if (rect)
             {
-                if (returnToDefault)
+                if (reverstMove)
                 {
+                    is12Ver = false;
                     rect.anchoredPosition = new Vector2(rect.anchoredPosition.x - ring12SlotOffsetX, rect.anchoredPosition.y);
+
                 }
                 else
                 {
+                    is12Ver = true;
                     rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + ring12SlotOffsetX, rect.anchoredPosition.y);
                 }
+
             }
         }
     }
+
     public void CheckCustomClipAmount()
     {
         if (GameManager.currentLevel.levelTutorial != null && TutorialManager.instance.ReturnIsCustomClip(GameManager.currentLevel.levelTutorial))
@@ -315,12 +341,6 @@ public class ClipManager : MonoBehaviour
         {
             slot.transform.localPosition = slot.originalSlotPos;
         }
-
-        if (GameManager.currentLevel.ringType == Ringtype.ring12) // for now hardcoded
-        {
-            PositionCorrectSlots(true);
-        }
-
 
         canUseDeal = true;
 
