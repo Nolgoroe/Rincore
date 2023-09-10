@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using Firebase;
 using Firebase.Extensions;
@@ -55,14 +56,16 @@ public class SaveLoad : MonoBehaviour
         {
             if (task.Exception != null)
             {
-                Debug.LogError($"Failes to initialize Firebase with {task.Exception}");
+                Debug.LogError($"Failed to initialize Firebase with {task.Exception}");
                 return;
             }
+
+            database = FirebaseDatabase.DefaultInstance.RootReference; //This is a DatabaseReference type object
+
             onFirebaseInitialized?.Invoke();
 
         });
 
-        database = FirebaseDatabase.DefaultInstance.RootReference; //This is a DatabaseReference type object
     }
 
     [ContextMenu("Delete local user")]
@@ -217,5 +220,11 @@ public class SaveLoad : MonoBehaviour
         int z2 = UnityEngine.Random.Range(0, 1000000);
         string uid = currentEpochTime + ":" + z1 + ":" + z2;
         return uid;
+    }
+
+    [ContextMenu("Temp Reload Scene")]
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 }

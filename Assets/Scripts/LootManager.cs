@@ -218,10 +218,11 @@ public class LootManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(DisplayLootFromChest()); 
+        //StartCoroutine(DisplayLootFromChest()); 
+        DisplayLootFromChest(); 
     }
 
-    private IEnumerator DisplayLootFromChest()
+    private void DisplayLootFromChest()
     {
         if (currentCoinsToGive > 0)
         {
@@ -230,7 +231,7 @@ public class LootManager : MonoBehaviour
 
             InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
 
-            yield return new WaitForSeconds(delayBetweenLootDisplays);
+            //yield return new WaitForSeconds(delayBetweenLootDisplays);
         }
 
 
@@ -245,7 +246,7 @@ public class LootManager : MonoBehaviour
 
                 InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
 
-                yield return new WaitForSeconds(delayBetweenLootDisplays);
+                //yield return new WaitForSeconds(delayBetweenLootDisplays);
 
                 //reset positions so we can still spawn with no error.
             }

@@ -135,6 +135,11 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        IS_DURING_TRANSITION = false;
+        IS_USING_UI = false;
+        IS_DURING_CURTAINS = false;
+        IS_DURING_POTION_USAGE = false;
+
         DisplayLodingScreen();
         //StartCoroutine(InitGameUI());
 
@@ -898,8 +903,8 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            LeanTween.moveLocalX(leftParent, 0, curtainsIntoMapTime).setEase(tweenType);
-            LeanTween.moveLocalX(rightParent, 0, curtainsIntoMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
+            LeanTween.moveLocalX(leftParent, 0, curtainsOutMapTime).setEase(tweenType);
+            LeanTween.moveLocalX(rightParent, 0, curtainsOutMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
         }
         //CanvasGroup group = fadeWindow.group;
 
