@@ -96,8 +96,6 @@ public class TutorialManager : MonoBehaviour
         currentTutorial = tutorialSO;
         currentTutorialStepIndex = currentIndex;
 
-        //StartCoroutine(RemoveCurrentHighlights());
-
         LockAllExceptStep();
 
         switch (tutorialSO.tutorialSteps[currentIndex].tutorialType)
@@ -348,13 +346,6 @@ public class TutorialManager : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
     private IEnumerator ActivateReleventHeighlights()
     {
         //activate highlights
@@ -382,11 +373,6 @@ public class TutorialManager : MonoBehaviour
         toTexture();
     }
 
-    //private void Start()
-    //{
-    //    InvokeRepeating("toTexture", 2, 2);
-    //}
-
     private void LockAllExceptStep()
     {
         GameManager.gameClip.LockAllSlots(true);
@@ -394,7 +380,6 @@ public class TutorialManager : MonoBehaviour
 
         UIManager.instance.ToggleLockAllCurrentScreens(false);
         PowerupManager.instance.ToggleLockAllPotions(false);
-        //what about potions and buttons + deal?
     }
     private void UnLockAll()
     {

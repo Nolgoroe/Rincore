@@ -40,7 +40,5 @@ public class ClipSlot : TileHolder, IGrabTileFrom
     public void SetAsLocked(bool locked)
     {
         isLocked = locked;
-
-        //cellCollider.enabled = !locked;
     }
 }

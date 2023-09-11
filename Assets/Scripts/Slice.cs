@@ -82,15 +82,11 @@ public class Slice : MonoBehaviour, IPowerUsable
 
     public void SetMidSprite(Sprite sprite)
     {
-        //lockIcon.sprite = sprite;
-
         lockIconAnim.gameObject.SetActive(true);
     }
 
     public void DoLockAnim(bool isLock)
     {
-        //Debug.Log("Am in here");
-
         if(isLock)
         {
             lockIconAnim.SetTrigger("Lock Now");

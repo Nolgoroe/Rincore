@@ -24,9 +24,4 @@ public class BasicCustomUIWindow : CustomWindowParent
             }
         }
     }
-
-    //public override void OverrideResetAllButtonEvents()
-    //{
-    //    base.ResetAllButtonEvents();
-    //}
 }

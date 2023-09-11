@@ -31,12 +31,6 @@ struct ButtonActionIndexPair
     public System.Action action;
 }
 
-//public enum MainScreens
-//{
-//    InLevel,
-//    Map,
-//}
-
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
@@ -46,9 +40,8 @@ public class UIManager : MonoBehaviour
     public static bool IS_DURING_CURTAINS;
     public static bool IS_DURING_POTION_USAGE;
 
-    [Header("General refrences")] // ask Lior if this section is ok for the long run
+    [Header("General refrences")]
     [SerializeField] private Player player;
-    [SerializeField] private AnimalsManager animalManager;
     [SerializeField] private PowerupManager powerupManager;
     [SerializeField] private DailyRewardsManager dailyRewardsManager;
     [SerializeField] private MapLogic mapLogic;
@@ -88,8 +81,6 @@ public class UIManager : MonoBehaviour
 
     [Header("Curtains object settings")] // might move to SO
     [SerializeField] private BasicCustomUIWindow fadeWindow;
-    //[SerializeField] private float fadeIntoLevelTime;
-    //[SerializeField] private float fadeOutLevelTime;
 
     [DisplayWithoutEdit()]
     [SerializeField] private float currentCurtainsLevelDelay;
@@ -114,7 +105,6 @@ public class UIManager : MonoBehaviour
     [Header("Fill Bar Temp")]
     [SerializeField] private Image fillBarImage;
     [SerializeField] private Animator fillBarAnimator;
-    //[SerializeField] public float[] fillAmounts;
     [SerializeField] public int fillIndex;
 
 
@@ -141,15 +131,11 @@ public class UIManager : MonoBehaviour
         IS_DURING_POTION_USAGE = false;
 
         DisplayLodingScreen();
-        //StartCoroutine(InitGameUI());
-
-
-        //DisplayDailyRewardsWindow(); Enable if want to show Daily Rewards
     }
 
     private IEnumerator InitGameUI()
     {
-        DisplayOverallMapUI(); // - Temp??
+        DisplayOverallMapUI();
 
         yield return StartCoroutine(DisplayLevelCluster(false));
     }
@@ -441,8 +427,6 @@ public class UIManager : MonoBehaviour
     #region Inside Level related actions
     public void SetInLevelUIData()
     {
-        //CloseAllCurrentScreens(); // close all screens open before level launch
-
         fillBarImageInLevel.fillAmount = fillBarImage.fillAmount;
 
         AddUIElement(inLevelUI);
@@ -455,7 +439,6 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 3, action = DisplayInLevelExitToMapQuestion }, //to level map icon
             new ButtonActionIndexPair { index = 4, action = DisplayBundleScreen }, //shop button
             new ButtonActionIndexPair { index = 5, action = GameManager.gameClip.CallDealAction }); //deal button
-            //new ButtonActionIndexPair { index = 6, action = GameManager.TestButtonDelegationWorks }); //restart button
 
         string[] texts = new string[] { ("Level " + (GameManager.instance.currentCluster.clusterID)).ToString(), player.GetOwnedCoins.ToString() };
 
@@ -488,8 +471,6 @@ public class UIManager : MonoBehaviour
             inLevelLastDealWarning,
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelLastDealWarning) },
             new ButtonActionIndexPair { index = 0, action = () => ClipManager.canUseDeal = true },
-            //new ButtonActionIndexPair { index = 1, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
-            //new ButtonActionIndexPair { index = 1, action = GameManager.instance.CallRestartLevel });
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelLastDealWarning) },
             new ButtonActionIndexPair { index = 1, action = DisplayInLevelLostMessage });
 
@@ -508,7 +489,6 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 1, action = () => mapLogic.CallClusterTransfer(GameManager.instance.currentCluster) },//the new cluster is already set from the gamemanager before the win screen appears
             new ButtonActionIndexPair { index = 1, action = () => lootManager.DestroyAllLootChildren() },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelWinWindow) });
-            //new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitWin(false))});
 
         inLevelWinWindow.OverrideSetMyElement(null, null, actions);
 
@@ -557,10 +537,8 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelLostLevelMessage,
-            //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelLostLevelMessage) },
-            //new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelCluster(true)) },
             new ButtonActionIndexPair { index = 1, action = () => GameManager.instance.InitiateDestrucionOfLevel() },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelLostLevelMessage) },
             new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.OnLevelExitResetSystem()) });
@@ -574,7 +552,6 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelExitToMapQuesiton,
-            //new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(DisplayLevelCluster(true)) },
             new ButtonActionIndexPair { index = 0, action = () => GameManager.instance.InitiateDestrucionOfLevel() },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.OnLevelExitResetSystem()) },
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelExitToMapQuesiton) },
@@ -589,7 +566,6 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             inLevelRestartLevelQuesiton,
-            //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelRestartLevelQuesiton) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelRestartLevelQuesiton) });
@@ -617,11 +593,6 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
-    //why is this here?
-    public void ContinueAfterChest()
-    {
-        //inLevelWinWindow.ManuallyShowOnlyToHudButton();
-    }
 
     #region Level map related actions
     public void DisplayLaunchLevelPopUp(LevelSO levelSO)
@@ -630,7 +601,6 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = DelegateAction(
             levelMapPopUp,
-            //new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.AnimateLevelElements(true))},
             new ButtonActionIndexPair { index = 0, action = GameManager.instance.SetLevel},
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(levelMapPopUp)});
@@ -701,17 +671,7 @@ public class UIManager : MonoBehaviour
 
         yield return StartCoroutine(OnGoToLevelMapLogic(isAnimate));
 
-        //CloseAllCurrentScreens(); // close all screens open before going to map
-
-
         AddUIElement(generalMapUI);
-
-
-        //if(isAnimate)
-        //{
-        //    yield return new WaitForSeconds(2); // this is the time it takes to move to next level on map - for now it's hardcoded.
-        //}
-        //generalMapUI.OverrideSetMyElement(texts, null, actions);
     }
 
     public void LevelFillBarAnimate(float index) //TEMP
@@ -762,58 +722,6 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void DisplayAnimalAlbum()
-    {
-        string tearsText = player.GetOwnedTears.ToString();
-        string rubiesText = player.GetOwnedCoins.ToString();
-        string[] texts = new string[] { tearsText, rubiesText };
-
-        System.Action[] actions = DelegateAction(
-            animalAlbumWindow,
-            new ButtonActionIndexPair { index = 0, action = () => animalAlbumWindow.SwitchAnimalCategory(0) }, // Fox type
-            new ButtonActionIndexPair { index = 1, action = () => animalAlbumWindow.SwitchAnimalCategory(1) }, // Stag type
-            new ButtonActionIndexPair { index = 2, action = () => animalAlbumWindow.SwitchAnimalCategory(2) }, // Owl type
-            new ButtonActionIndexPair { index = 3, action = () => animalAlbumWindow.SwitchAnimalCategory(3) }, // Boar type
-            new ButtonActionIndexPair { index = 4, action = () => animalAlbumWindow.GivePlayerRewardsFromAnimalAlbum() }); // show animal reward window and give reward
-
-        AddUIElement(animalAlbumWindow);
-
-        animalAlbumWindow.OverrideSetMyElement(null, null, actions);
-        animalAlbumWindow.InitAnimalAlbum(animalManager, player);
-    }
-
-    //private IEnumerator OpenPotionsCategory()
-    //{
-    //    //if succeds it opens the potions screen
-    //    if (!playerWorkshopWindow.TrySwitchCategory(1))
-    //    {
-    //        yield break;
-    //    }
-
-    //    if (powerupManager.unlockedPowerups.Count > 0)
-    //    {
-    //        //summon all potion buttons
-    //        foreach (PowerupType powerType in powerupManager.unlockedPowerups)
-    //        {
-    //            powerupManager.InstantiatePowerButton(powerType);
-    //        }
-
-    //        yield return new WaitForEndOfFrame();
-
-    //        foreach (PotionCustomButton customButton in powerupManager.customPotionButtons)
-    //        {
-    //            customButton.SetOriginalPos();
-    //        }
-    //        //set selected potion
-    //        powerupManager.SetSelectedPotion(powerupManager.unlockedPowerups[0]);
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("No owned potions, can't open potion screen");
-    //        //show error message
-    //    }
-    //}
-
     private void DisplayMapSettings()
     {
         // options for this screen get thier actions from the DisplayInLevelUI
@@ -834,7 +742,6 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 0, action = SoundManager.instance.ToogleMusic },
             new ButtonActionIndexPair { index = 1, action = SoundManager.instance.ToggleSFX });
 
-        //string[] texts = new string[] { "Name of player: Avishy" };
         generalSettings.OverrideSetMyElement(null, null, actions);
     }
 
@@ -906,30 +813,6 @@ public class UIManager : MonoBehaviour
             LeanTween.moveLocalX(leftParent, 0, curtainsOutMapTime).setEase(tweenType);
             LeanTween.moveLocalX(rightParent, 0, curtainsOutMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
         }
-        //CanvasGroup group = fadeWindow.group;
-
-
-
-        //float from = 0, to = 0;
-        //float speed = fadeIn == true ? fadeOutMapTime : fadeIntoMapTime;
-
-        //group.alpha = fadeIn == true ? 0 : 1; ;
-        //from = 1;
-        //to = 0;
-        //from = fadeIn == true ? 0 : 1;
-        //to = fadeIn == true ? 1 : 0;
-        //System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, waitBeforeFadeTime)) : OnEndFade;
-
-        //fadeWindow.gameObject.SetActive(true);
-
-        //fadeWindow.GeneralFloatValueTo(
-        //    group,
-        //    from,
-        //    to,
-        //    speed,
-        //    tweenType,
-        //    action);
-
     }
 
     public void ManualDisplayCurtains()
@@ -953,38 +836,7 @@ public class UIManager : MonoBehaviour
         IS_DURING_CURTAINS = false;
 
         currentCurtainsLevelDelay = 0; // this variable changes in code to affect how long we wait on the end fade.
-        //CloseElement(fadeWindow);
     }
-
-    //private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
-    //{
-    //    if (fadeIn)
-    //    {
-    //        switch (mainScreen)
-    //        {
-    //            case MainScreens.InLevel:
-    //                return fadeIntoLevelTime;
-    //            case MainScreens.Map:
-    //                return fadeIntoMapTime;
-    //            default:
-    //                break;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        switch (mainScreen)
-    //        {
-    //            case MainScreens.InLevel:
-    //                return fadeOutLevelTime;
-    //            case MainScreens.Map:
-    //                return fadeOutMapTime;
-    //            default:
-    //                break;
-    //        }
-    //    }
-    //    Debug.LogError("Some problem here");
-    //    return -1;
-    //}
     public static string ToDescription(WorldEnum value)
     {
         DescriptionAttribute[] da = (DescriptionAttribute[])(value.GetType().GetField(value.ToString())).GetCustomAttributes(typeof(DescriptionAttribute), false);
@@ -1001,26 +853,6 @@ public class UIManager : MonoBehaviour
         button.gameObject.SetActive(true);
     }
     #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1041,37 +873,14 @@ public class UIManager : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
     public void OnLoadData()
     {
-        //fillIndex = SaveLoad.instance.indexReachedInCluster - 1; // we set the bar to the current fill amount reached
 
         CloseElement(loadingParent);
 
         StartCoroutine(InitGameUI());
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public BasicCustomButton publicPlayButton => playButton;

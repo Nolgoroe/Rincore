@@ -60,6 +60,3 @@ public class ZoneManager : MonoBehaviour
 
 }
 
-
-/// create a context menu method that will go to resources folder and retrieve all BG's into
-/// the BG Paths array

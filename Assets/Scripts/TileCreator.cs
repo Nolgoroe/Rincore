@@ -154,7 +154,6 @@ public class TileCreator : ScriptableObject
         SubTileColor tileColor = tileData.subTileColor;
 
         Texture colorSymbolTexture = null;
-        //Texture connectionTex = null;
 
         switch (tileType)
         {
@@ -167,7 +166,6 @@ public class TileCreator : ScriptableObject
                 {
                     colorSymbolTexture = colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
                 }
-                //connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Normal12:
                 if (tileData.isRight)
@@ -178,8 +176,6 @@ public class TileCreator : ScriptableObject
                 {
                     colorSymbolTexture = colorsToMats12[(int)tileColor].colorTexLeft[(int)tileSymbol];
                 }
-
-                //connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Corrupted8:
                 if (tileData.isRight)
@@ -190,8 +186,6 @@ public class TileCreator : ScriptableObject
                 {
                     colorSymbolTexture = colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
                 }
-
-                //connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.Corrupted12:
                 if (tileData.isRight)
@@ -202,8 +196,6 @@ public class TileCreator : ScriptableObject
                 {
                     colorSymbolTexture = colorsToMats12[(int)tileColor].colorTexLeft[(int)tileSymbol];
                 }
-
-                // connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
                 break;
             case Tiletype.NoType:
                 break;

@@ -15,23 +15,13 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
     [SerializeField] private bool goodConnectLeft, goodConnectRight;
     [SerializeField] private int amountUnsuccessfullConnections;
 
-    //[SerializeField] private BoxCollider cellCollider;
-
     //TEMP
-
     [SerializeField]
     int maxDistanceToAnimate;
     [SerializeField]
     int maxAnimateSpeed;
 
-
-
     // think about creating an action system here aswell for "on good connection" + "on bad connection" - look at gamemanger as example.
-
-    private void OnValidate()
-    {
-        //cellCollider = GetComponent<BoxCollider>();
-    }
 
     public override void RecieveTileDisplayer(TileParentLogic tileToPlace)
     {
@@ -272,15 +262,11 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
     public void SetAsLocked(bool locked)
     {
         isLocked = locked;
-
-        //cellCollider.enabled = !locked;
     }
     public void SetAsStone(bool _isStone)
     {
         isLocked = _isStone;
         isStone = _isStone;
-
-        //cellCollider.enabled = !_isStone;
     }
 
     public void ResetLockData()
@@ -374,6 +360,4 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 
         Destroy(heldTemp.gameObject);
     }
-
-
 }

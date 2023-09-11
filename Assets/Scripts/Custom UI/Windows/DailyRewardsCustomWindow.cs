@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class DailyRewardsCustomWindow : CustomWindowParent
 {
-    //public override void OverrideResetAllButtonEvents()
-    //{
-    //    base.ResetAllButtonEvents();
-    //}
-
     public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, Action[] actions)
     {
         base.SetMyElement(texts, sprites);

@@ -62,7 +62,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         }
 
         StartCoroutine(PowerupManager.instance.PowerSucceededUsing());
-        //PowerupManager.instance.PowerSucceededUsing();
     }
 
     public void BombPower()
@@ -155,7 +154,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
             {
                 cellParent.SetAsStone(false);
             }
-            //cellParent.ResetLockData();
         }
 
 
@@ -174,8 +172,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         {
             holder.CallPlayVFX(VFX.joker);
         }
-
-        //PowerupManager.instance.PowerSucceededUsing();
     }
 
     /// set subtile display function (maybe materials)
@@ -207,7 +203,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
         return false;
     }
-
 
 
     public bool CheckSidesDifferent()

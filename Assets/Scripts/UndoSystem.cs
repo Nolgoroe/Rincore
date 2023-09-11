@@ -69,10 +69,6 @@ public class UndoSystem : MonoBehaviour
 
             TweemMoveFromAtoB(undoEntries[lastIndex].movedTile.gameObject, Vector3.zero, timeToMove, false);
             undoEntries[lastIndex].movedTile.transform.SetParent(undoEntries[lastIndex].originalCell.originalCellParent.transform);
-
-            //undoEntries[lastIndex].movedTile.transform.localPosition = Vector3.zero;
-            //undoEntries[lastIndex].movedTile.transform.localRotation = Quaternion.identity;
-
         }
         else
         {
@@ -90,9 +86,7 @@ public class UndoSystem : MonoBehaviour
 
                 TweemMoveFromAtoB(undoEntries[lastIndex].movedTile.gameObject, Vector3.zero, timeToMove, true);
 
-                //undoEntries[lastIndex].movedTile.transform.localPosition = Vector3.zero;
                 undoEntries[lastIndex].movedTile.transform.localScale = Vector3.one;
-                //undoEntries[lastIndex].movedTile.transform.localRotation = Quaternion.identity;
 
                 undoEntries[lastIndex].movedTile.partOfBoard = false;
 
@@ -124,7 +118,7 @@ public class UndoSystem : MonoBehaviour
     {
         for (int i = undoEntries.Count - 1; i >= 0; i--)
         {
-            if (undoEntries[i].originalClipParent /*&& undoEntries[i].originalClipParent == holder*/)
+            if (undoEntries[i].originalClipParent)
             {
                 undoEntries.RemoveAt(i);
             }
@@ -133,8 +127,6 @@ public class UndoSystem : MonoBehaviour
 
     public void RemoveSpecificEntryTile(TileParentLogic tile)
     {
-        //List<UndoEntry> entries = undoEntries.Where(i => i.movedTile == tile).ToList();
-
         undoEntries.RemoveAll(i => i.movedTile == tile);
     }
 

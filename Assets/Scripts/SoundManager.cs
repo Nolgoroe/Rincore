@@ -49,7 +49,6 @@ public class SoundManager : MonoBehaviour
     }
 
 
-
     private void Start()
     {
         audioSources = new Dictionary<sounds, AudioSource>();
@@ -59,7 +58,6 @@ public class SoundManager : MonoBehaviour
             audioSources.Add((sounds)i, allAudioSources[i]);
         }
     }
-
 
     public void ToggleSFX()
     {

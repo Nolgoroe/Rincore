@@ -5,20 +5,6 @@ using UnityEngine;
 
 public class LevelMapPopupCustomWindow : CustomWindowParent
 {
-    public ChestBarLogic connectedChestBar;
-
-    private void OnEnable()
-    {
-        //if(GameManager.instance.currentCluster.isChestCluster)
-        //{
-        //    connectedChestBar. gameObject.SetActive(true);
-        //}
-        //else
-        //{
-        //    connectedChestBar.gameObject.SetActive(false);
-        //}
-    }
-
     public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, Action[] actions)
     {
         base.SetMyElement(texts, sprites);
@@ -34,9 +20,4 @@ public class LevelMapPopupCustomWindow : CustomWindowParent
             }
         }
     }
-
-    //public override void OverrideResetAllButtonEvents()
-    //{
-    //    base.ResetAllButtonEvents();
-    //}
 }

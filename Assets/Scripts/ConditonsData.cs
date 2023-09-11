@@ -5,8 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class ConditonsData // this is the main class - parent of all other checks.
 {
-    //public bool conditionIsValidated;
-
     public System.Action onGoodConnectionActions;
 
     public virtual bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
@@ -70,9 +68,6 @@ public class GeneralColorCondition : ConditonsData
         {
             return true;
         }
-
-
-
 
 
         if ((subTileCurrent.subTileColor == subTileContested.subTileColor && subTileCurrent.subTileColor != SubTileColor.Stone && subTileContested.subTileColor != SubTileColor.Stone) 

@@ -28,14 +28,8 @@ public class PowerupManager : MonoBehaviour
 
     [Header("General")]
     [SerializeField] private List<OwnedPowersAndAmounts> ownedPowerups;
-    //public List<PowerupType> unlockedPowerups;
     [SerializeField] private Transform[] potionPositions;
     [SerializeField] private GameObject potionDisplayPrefab;
-
-
-
-
-
 
 
     [Header("Gameplay Usge")]
@@ -52,8 +46,6 @@ public class PowerupManager : MonoBehaviour
     public Color onUseSwitchColor;
     public Color onUseBombColor;
     public Color onUseJokerColor;
-
-
 
 
     [Header("Live Crafting")]
@@ -153,7 +145,7 @@ public class PowerupManager : MonoBehaviour
         }
     }
 
-    public void CallClearPowerupScreenDataCoroutine() // go over with Lior
+    public void CallClearPowerupScreenDataCoroutine()
     {
         //called from DarkBackground under workshop
         ClearPowerupScreenDataComplete();
@@ -172,7 +164,7 @@ public class PowerupManager : MonoBehaviour
 
     private IEnumerator ClearGeneralData()
     {
-        for (int i = 0; i < potionsMaterialZones.Length; i++) // go over with Lior
+        for (int i = 0; i < potionsMaterialZones.Length; i++)
         {
             for (int k = 0; k < potionsMaterialZones[i].childCount; k++)
             {
@@ -289,9 +281,6 @@ public class PowerupManager : MonoBehaviour
         localObjectToUsePowerOn = objectToUsePowerOn;
         currentPowerLogic = powerLogic;
 
-        //StartCoroutine(ChoosePowerToUse(false));
-
-
         //Check if can use the power
         if(CheckCanUsePotion())
         {
@@ -375,11 +364,6 @@ public class PowerupManager : MonoBehaviour
             int tempIndex = i; // we do this since action subsccribing remembers the value in a memory unity.
                                // meaning in this case it would have remembered the last value of the iterator (i)
 
-            //if (i > potionPositions.Length - 1)
-            //{
-            //    Debug.Log("have more powerups than positions");
-            //    return;
-            //}
 
             PowerupScriptableObject chosenPower = allPowerups.Where(k => k.powerType == ownedPowerups[i].powerType).SingleOrDefault();
             if (!chosenPower)
@@ -400,7 +384,6 @@ public class PowerupManager : MonoBehaviour
             if(potionData)
             {
                 potionData.buyButton.buttonEvents += () => StartCoroutine(CheckUseCoinsToUsePower(chosenPower, ownedPowerups[tempIndex], potionData));
-                //potionData.buyButton.buttonEvents += () => CheckUseCoinsToUsePower(chosenPower, ownedPowerups[tempIndex], potionData);
 
                 potionData.SetPotionDisplay(ownedPowerups[i].amount.ToString(), chosenPower.price.ToString(), chosenPower.potionMaterialMap.texture);
 
@@ -424,14 +407,11 @@ public class PowerupManager : MonoBehaviour
         ClearUndoData();
 
         InitUndoSystem();
-
-        //StartCoroutine(CheckNoPotions());
     }
 
     public IEnumerator CheckNoPotions()
     {
         yield return new WaitForEndOfFrame();
-        //yield return new WaitForSeconds(3); // temp
 
         for (int i = 0; i < ownedPowerups.Count; i++)
         {
@@ -570,7 +550,6 @@ public class PowerupManager : MonoBehaviour
             StartCoroutine(TutorialManager.instance.AdvanceTutorialStep());
         }
 
-        //yield return new WaitForSeconds(0.1f); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
         yield return new WaitForEndOfFrame();
         UsePower(false);
     }
@@ -627,14 +606,6 @@ public class PowerupManager : MonoBehaviour
 
     public IEnumerator PowerSucceededUsing()
     {
-        //StartCoroutine(UIManager.instance.DisplayPotionUsageWindow(currentPowerData.amount == 0));
-
-        //if (currentPowerData.amount == 0)
-        //{
-        //    yield return new WaitForSeconds(0.3f); //small delay for visual catchup
-        //    OnUseCoins();
-        //}
-
         if (currentPowerData != null)
         {
             currentPowerData.amount--;
@@ -658,7 +629,7 @@ public class PowerupManager : MonoBehaviour
 
         ResetPowerUpData();
 
-        yield return null; //temp here
+        yield return null;
     }
 
     public void ManualUpdatePotionText(int index, PowerupType type)
@@ -758,7 +729,6 @@ public class PowerupManager : MonoBehaviour
     {
         if(player.GetOwnedCoins >= currentSO.price)
         {
-            //yield return new WaitForSeconds(0.1f); //add small delay before setting the USING_POWER to true for the rest of the system to catch up.
             yield return new WaitForEndOfFrame();
 
             currentChosenPowerSO = allPowerups.Where(k => k.powerType == ownedPower.powerType).SingleOrDefault();
@@ -816,22 +786,6 @@ public class PowerupManager : MonoBehaviour
         if (powerUsable == null) return false;
 
         return powerUsable.CheckCanUsePower(); // if they are NOT the same - that's why it's !
-
-        //switch (currentPowerUsing)
-        //{
-        //    case PowerupType.Switch:
-        //        return CheckCanUseSwitch();
-        //    case PowerupType.Joker:
-        //        return CheckCanUseJoker();
-        //    case PowerupType.Bomb:
-        //        return true;
-        //    case PowerupType.RefreshTiles:
-        //        return true;
-        //    default:
-        //        break;
-        //}
-
-        //return false;
     }
 
     public Transform ReturnPotionPosition(int index)
@@ -839,26 +793,6 @@ public class PowerupManager : MonoBehaviour
         return potionPositions[index];
     }
 
-    //private bool CheckCanUseSwitch()
-    //{
-    //    if (localObjectToUsePowerOn == null) return false;
-    //    IPowerUsable powerUsable;
-
-    //    localObjectToUsePowerOn.TryGetComponent<IPowerUsable>(out powerUsable);
-    //    if (powerUsable == null) return false;
-
-    //    return powerUsable.CheckCanUsePower(); // if they are NOT the same - that's why it's !
-    //}
-    //private bool CheckCanUseJoker()
-    //{
-    //    if (localObjectToUsePowerOn == null) return false;
-    //    TileParentLogic tile;
-
-    //    localObjectToUsePowerOn.TryGetComponent<TileParentLogic>(out tile);
-    //    if (tile == null) return false;
-
-    //    return !tile.CheckAlreadyJoker(); //if they are NOT joker - that's why it's !
-    //}
     public PowerupScriptableObject publicCurrentPowerSO => currentChosenPowerSO;
     public float publicUsePotionTime => usePotionTime;
 }

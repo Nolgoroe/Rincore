@@ -101,7 +101,7 @@ public class LevelActions : ScriptableObject
             ringSlicesList.Remove(currentRing.ringSlices[currentSummonIndex]);
         }
 
-        // this for takes care of deciding indexes for slices
+        // this for taking care of deciding indexes for slices
         // start at index k = 1 since we already summoned first slice
         for (int k = 1; k < allSlices.Count; k++)
         {
@@ -375,18 +375,6 @@ public class LevelActions : ScriptableObject
         }
 
         return type;
-    }
-
-    //public void CallLevelSetupData()
-    //{
-    //    //called from level actions events
-
-    //    GameManager.instance.LevelSetupData();
-    //}
-
-    public void CallSpawnLevelStatue()
-    {
-        GameManager.instance.SpawnLevelStatue();
     }
 }
 

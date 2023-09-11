@@ -28,12 +28,4 @@ public class ConnectionAnimSync : MonoBehaviour
             anim.Play(0, -1, masterAnim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }
     }
-
-    private void OnDisable()
-    {
-        if(masterAnim == anim)
-        {
-            //masterAnim = null;
-        }
-    }
 }

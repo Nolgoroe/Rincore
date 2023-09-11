@@ -12,9 +12,9 @@ public class DailyRewardsManager : MonoBehaviour
     [SerializeField] private DailyRewardsEntrySegment dailyRewardPrefab;
     [SerializeField] private BasicCustomButton getDailyButton;
     [SerializeField] private Transform GridLayourParent;
-    [SerializeField] private TimeManager timeManager; // This is a two way dependency! ask lior!!
-    [SerializeField] private Player player; // talk with lior - is there a batter way?
-    [SerializeField] private PowerupManager powerupManager; // talk with lior - is there a batter way?
+    [SerializeField] private TimeManager timeManager; // This is a two way dependency!
+    [SerializeField] private Player player;
+    [SerializeField] private PowerupManager powerupManager;
 
     [Header("Automatic elements")]
     [SerializeField] private DailyRewardsEntrySegment currentVFXDisplay;
@@ -22,8 +22,8 @@ public class DailyRewardsManager : MonoBehaviour
     [SerializeField] private DailyRewardsSO currentWeekSO;
     [SerializeField] private int chosenWeekIndex;
     [SerializeField] private bool canRecieveDaily;
-    [SerializeField] private List<DailyRewardsEntrySegment> spawnedDisplayers; // go over with Lior
-    private CanvasGroup dailyButtonCanvasGroup; // go over with Lior
+    [SerializeField] private List<DailyRewardsEntrySegment> spawnedDisplayers; 
+    private CanvasGroup dailyButtonCanvasGroup; 
 
     private void Awake()
     {
@@ -43,7 +43,6 @@ public class DailyRewardsManager : MonoBehaviour
     private void Start()
     {
         currentWeekSO = allWeekSOOptions[chosenWeekIndex];
-        //DisplayDailyRewards(); //Enable if want to use Daily rewards
     }
 
     private void DisplayDailyRewards()
@@ -90,7 +89,7 @@ public class DailyRewardsManager : MonoBehaviour
         SetDailyButtonOnStart();
     }
 
-    private IEnumerator ClearAllRewards() // go over with lior
+    private IEnumerator ClearAllRewards()
     {
         for (int i = 0; i < GridLayourParent.childCount; i++)
         {
@@ -119,10 +118,6 @@ public class DailyRewardsManager : MonoBehaviour
 
         #endregion
 
-        #region Give Rewards To Player
-        //RewardPlayer();
-        #endregion
-
         #region DailyRewardData
 
         currentDay++;
@@ -146,36 +141,8 @@ public class DailyRewardsManager : MonoBehaviour
 
         #endregion
 
-
-        //give rewards here
-
-
     }
 
-    //private void RewardPlayer() // go over this with Lior - this MUST (?) change!
-    //{
-    //    int amount = currentWeekSO.rewards[currentDay].rewardAmount;
-
-    //    //Ingredients ingredient = currentWeekSO.rewards[currentDay].rewardData as Ingredients;
-
-    //    //if(ingredient != null)
-    //    //{
-    //    //    LootToRecieve loot = new LootToRecieve(ingredient, amount);
-    //    //    player.AddIngredient(loot);
-
-    //    //    return;
-    //    //}
-
-    //    PowerupScriptableObject powerup = currentWeekSO.rewards[currentDay].rewardData as PowerupScriptableObject;
-        
-    //    if (powerup != null)
-    //    {
-    //        //give powerup to player
-    //        powerupManager.AddPotion(powerup.powerType);
-    //        return;
-    //    }
-
-    //}
     private void SetDailyButtonOnStart()
     {
         getDailyButton.TryGetComponent(out dailyButtonCanvasGroup);
@@ -235,8 +202,6 @@ public class DailyRewardsManager : MonoBehaviour
         PlayerPrefs.SetInt("latestCurrentDay", currentDay);
         PlayerPrefs.SetInt("latestChosenWeek", chosenWeekIndex);
     }
-
-
 
     public bool GetIsDailyAvailable => canRecieveDaily;
 }

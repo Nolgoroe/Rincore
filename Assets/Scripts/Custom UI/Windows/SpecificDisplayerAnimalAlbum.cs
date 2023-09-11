@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SpecificDisplayerAnimalAlbum : MonoBehaviour
 {
-    public AnimalsInGame animal;
     public Image revealedBGImage;
     public Image hiddenAnimalImage;
     public Image revealedAnimalImage;

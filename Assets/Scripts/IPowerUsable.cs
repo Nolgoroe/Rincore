@@ -28,5 +28,4 @@ public interface IPowerUsable
 
         return false;
     }
-    // public abstract void RefreshTilesPower();
 }

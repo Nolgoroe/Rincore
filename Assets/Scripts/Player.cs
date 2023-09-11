@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
     [SerializeField] private int ownedCoins;
     [SerializeField] private int ownedTears;
     [SerializeField] private int maxOwnedTears;
-
-    //we do this to sort the materials by their main types - build, herb, witch and gem
       
 
     public void OnLoadData()
@@ -21,33 +19,10 @@ public class Player : MonoBehaviour
         }
     }
 
-
-    //public void AddIngredient(/*LootToRecieve ingredientToAdd*/)
-    //{
-    //    Ingredients toAdd = ingredientToAdd.ingredient;
-    //    if (ownedIngredients.ContainsKey(toAdd))
-    //    {
-    //        ownedIngredients[toAdd].hasChanged = true;
-    //        ownedIngredients[toAdd].amount += ingredientToAdd.amount;
-    //    }
-    //    else
-    //    {
-    //        LootEntry newLootEntry = new LootEntry(toAdd, toAdd.ingredientType);
-    //        ownedIngredients.Add(toAdd, newLootEntry);
-    //        ownedIngredients[toAdd].hasChanged = true;
-    //        ownedIngredients[toAdd].amount = ingredientToAdd.amount;
-
-    //        AddToIngredientsComboByType(toAdd);
-    //    }
-
-    //    Debug.Log("Added: " + ingredientToAdd.amount + " " + "To: " + toAdd.ToString());
-    //}
-
     public void AddCoins(int amount)
     {
         ownedCoins += amount;
 
-        //UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Added: " + amount + " " + "To Rubies!");
     }
 
@@ -55,7 +30,6 @@ public class Player : MonoBehaviour
     {
         ownedCoins -= amount;
 
-        //UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Removed: " + amount + " " + "To Rubies!");
     }
     public void AddTears(int amount)
@@ -66,7 +40,6 @@ public class Player : MonoBehaviour
             return;
         }
 
-        //af adding more than the max at once then we'll get here
         ownedTears += amount;
 
         if(ownedTears > maxOwnedTears)
@@ -74,7 +47,6 @@ public class Player : MonoBehaviour
             ownedTears = maxOwnedTears;
         }
 
-        //UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Added: " + amount + " " + "To Tears!");
     }
 

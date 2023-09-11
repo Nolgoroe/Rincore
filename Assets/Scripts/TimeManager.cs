@@ -101,7 +101,6 @@ public class TimeManager : MonoBehaviour
         currentDateTime = System.DateTime.UtcNow;
 
         TimeSpan dropsTimeSpan = targetDewDropTime.Subtract(currentDateTime);
-        //print(deltaTime);
         currentTimeLeftGiveDewDrop = (int)dropsTimeSpan.TotalSeconds;
 
         if (currentTimeLeftGiveDewDrop <= 0)

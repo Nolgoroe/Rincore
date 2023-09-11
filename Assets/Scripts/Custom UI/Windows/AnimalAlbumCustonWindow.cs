@@ -8,15 +8,12 @@ using System.Linq;
 [Serializable]
 public class AnimalPagesByType
 {
-    public AnimalTypesInGame animalType;
     public List<SpecificDisplayerAnimalAlbum> animalsInPage;
 }
 
 public class AnimalAlbumCustonWindow : BasicCustomUIWindow
 {
-    private AnimalsManager localAnimalManager; //we could use macros here to get all getters - problem is the actions we shoot
     private Player localPlayer;//we could use macros here to get all getters - problem is the actions we shoot
-    private AnimalTypesInGame currentOpenType;
 
     [Header("Shaders and materials")]
     [SerializeField] private Shader animalFadeShader;
@@ -48,9 +45,8 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         SetInitialData();
     }
 
-    public void InitAnimalAlbum(AnimalsManager animalManager, Player player)
+    public void InitAnimalAlbum( Player player)
     {
-        localAnimalManager = animalManager;
         localPlayer = player;
 
         SwitchAnimalCategory(0);
@@ -66,7 +62,6 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
 
         ResetAlbumData(index);
 
-        currentOpenType = animalDisplayers[currentlyOpenPageIndex].animalType;
         for (int i = 0; i < animalTypeSwapHelpers.Length; i++)
         {
             if (i == index)
@@ -110,37 +105,6 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         List<Image> deactivateOnEnd = new List<Image>();
 
         bool isRevealing = false;
-        List<OwnedAnimalDataSet> ownedAnimals = localAnimalManager.GetUnlockedAnimals().Where(p => p.animalTypeEnum == currentOpenType).ToList();
-
-
-        foreach (OwnedAnimalDataSet ownedAnimal in ownedAnimals)
-        {
-            // counts filled animals in page
-            filledAnimalsCount++;
-
-            bool animalAlreadyRevealed = localAnimalManager.CheckAnimalAlreadyInAlbum(ownedAnimal.animalEnum);
-            if (animalAlreadyRevealed) continue;
-
-            isRevealing = true;
-
-
-
-            localAnimalManager.AddAnimalToAlbum(ownedAnimal.animalEnum);
-
-            foreach (SpecificDisplayerAnimalAlbum specificAnimalDisplayer in page.animalsInPage)
-            {
-                if (specificAnimalDisplayer.animal == ownedAnimal.animalEnum)
-                {
-                    imagesToReveal.Add(specificAnimalDisplayer.revealedBGImage);
-                    imagesToReveal.Add(specificAnimalDisplayer.revealedAnimalImage);
-
-                    deactivateOnEnd.Add(specificAnimalDisplayer.hiddenAnimalImage);
-
-                    break;
-                }
-            }
-            Debug.Log("Got here with animal: " + ownedAnimal.animalEnum + " of type: " + ownedAnimal.animalTypeEnum);
-        }
 
         if (isRevealing)
         {
@@ -150,15 +114,6 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         //make this somehow not hardcoded!
         if (!isRevealing && filledAnimalsCount == 4)
         {
-            if(localAnimalManager.CheckPageAlreadyClaimedInAlbum(currentOpenType))
-            {
-                presentImage.SetActive(false);
-            }
-            else
-            {
-                getRewardsCanvasGroup.gameObject.SetActive(true);
-                getRewardsCanvasGroup.alpha = 1;
-            }
         }
     }
 
@@ -195,10 +150,9 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         getRewardsCanvasGroup.gameObject.SetActive(false);
         presentImage.SetActive(false);
 
-        localAnimalManager.AddToAlbumPagesCompleted(currentOpenType);
         Debug.Log("Gave player rewards");
 
-        int amountOfReward = localAnimalManager.RollAmountOfReward();
+        int amountOfReward = 0;
         localPlayer.AddCoins(amountOfReward);
         UIManager.instance.DisplayAnimalAlbumReward(amountOfReward);
     }
@@ -229,8 +183,6 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         for (int i = 0; i < pagesParent.childCount; i++)
         {
             AnimalPagesByType newPage = new AnimalPagesByType();
-            newPage.animalType = (AnimalTypesInGame)i;
-            newPage.animalsInPage = new List<SpecificDisplayerAnimalAlbum>();
 
             for (int k = 0; k < pagesParent.GetChild(i).childCount; k++)
             {
@@ -274,8 +226,6 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
             image.material = mat;
 
             mat.SetFloat("_DissolveSprite", 1.7f);
-            //string keyname = "_DissolveSprite";
-            //GeneralFloatValueTo(image.gameObject, 0, 1.7f, 0, LeanTweenType.linear, mat, keyname);
         }
 
         foreach (Image image in revealedAnimalImages)

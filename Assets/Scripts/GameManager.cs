@@ -18,10 +18,8 @@ public class GameManager : MonoBehaviour
     [Header("Level setup Data")]
     [SerializeField] private ClusterSO currentClusterSO;
     [SerializeField] private int currentIndexInCluster;
-    //[SerializeField] private int currentMaxLevelReached;
     [SerializeField] private int currentMaxClusterReached;
 
-    //[SerializeField] private Transform levelCameraParent = null;
     [SerializeField] private Transform levelDecksParent = null;
     [SerializeField] private Animator cameraAnimatorController;
     [SerializeField] private Animator clipAnimatorController;
@@ -29,7 +27,6 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Level Animation Data")]
-    //[SerializeField] private float delayAfterLevelExit = 1.2f;
     [SerializeField] private float delayClipAppear = 0.4f;
     [SerializeField] private float timeClipEnter = 0.4f;
     [SerializeField] private float delayClipHide = 0.4f;
@@ -41,10 +38,7 @@ public class GameManager : MonoBehaviour
     public static ClipManager gameClip;
     public static LevelSO currentLevel;
     public static InLevelUserControls gameControls;
-    //public ChestLogic summonedChest; //temp?
-    //public ChestBarLogic chestBarLogic; //temp?
 
-    [SerializeField] private AnimalStatueData currentLevelAnimalStatue; //temp?
     [SerializeField] private Animator currentLevelGeneralStatueAnimator;//temp?
     [SerializeField] private bool isAnimalLevel;
 
@@ -63,14 +57,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform inLevelParent;
     [SerializeField] private ZoneManager zoneManager;
     [SerializeField] private LootManager lootManager;
-    [SerializeField] private AnimalsManager animalsManager;
     [SerializeField] private Player player;
     [SerializeField] private MapLogic mapLogic;
     [SerializeField] private ClipManager clipManager;
     [SerializeField] private PowerupManager powerupManager;
     [SerializeField] private TutorialManager tutorialManager;
-
-
 
 
     [SerializeField] private GameObject[] gameRingsPrefabs;
@@ -97,25 +88,14 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 30;
 
-
         // TO DO
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
         // consider changing Sigleton access to something else.
-
-
-        //SetLevel(currentLevel);
 
         GameAnalytics.Initialize();
 
         gameClip = clipManager;
         LeanTween.init(5000);
-
-        //mapLogic.InitMapLogic(currentClusterSO);
-        //UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
-
-        //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
-
-        //currentMaxLevelReached = currentClusterSO.clusterLevels[0].levelNumInZone; //TEMP
 
         testFirebase = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue("Key_1").DoubleValue;
     }
@@ -123,11 +103,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //if(gameClip)
-        //{
-        //    Debug.Log("game clip is summoned");
-        //}
-
         if(Input.GetKeyDown(KeyCode.X))
         {
             BroadcastWinLevelActions();
@@ -142,17 +117,12 @@ public class GameManager : MonoBehaviour
         //first clean all subscribes if there are any.
         endLevelActions?.Invoke();
 
-        //currentLevel = level; //choose level here
-
         //this is the only place in code where we add delegates to the actions of before, during and after ring.
         // this will not actually invoke the unity event functions - it will add it's invoked functions to the action in the order they are created.
         BeforeRingActions += () => currentLevel.beforeRingSpawnActions.Invoke();
-        //BeforeRingActions += SpawnLevelBG;
 
         RingActions += BuildLevel;
         RingActions += () => currentLevel.ringSpawnActions.Invoke();
-
-        //AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
 
         SymbolAndColorCollector.instance.ResetData();
 
@@ -168,7 +138,6 @@ public class GameManager : MonoBehaviour
 
         isAnimalLevel = false; //maybe have a reset function
 
-        //yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
         yield return new WaitForEndOfFrame();
 
         //Before Ring
@@ -181,7 +150,6 @@ public class GameManager : MonoBehaviour
         AfterRingActions?.Invoke();
 
 
-        //AddToEndlevelActions(() => StartCoroutine(OnLevelExitLose()));
         AddToEndlevelActions(ClearLevelData);
 
 
@@ -201,14 +169,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delayCheckDoTutorial);
 
         tutorialManager.SetCurrenTutorialStepData(currentLevel.levelTutorial, 0);
-        //gameClip.CheckCustomClipAmount();
     }
 
     private void SetDataOnWin()
     {
         currentIndexInCluster++;
-
-        //StartCoroutine(mapLogic.HideRingDarkOverlay(currentIndexInCluster)); //unlock dark overlay of next level
     }
 
     private void BuildLevel()
@@ -216,21 +181,12 @@ public class GameManager : MonoBehaviour
         //// All of these should be part of the list "Before ring spawn actions" or "after...."???? (either? or? none?)
 
         // Spawn ring by type from level
-        //gameRing = Instantiate(gameRingsPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<Ring>();
         if (!gameRing)
         {
             Debug.LogError("No ring!");
         }
-        else
-        {
-            //gameRing.levelStartCollider.enabled = false;
-
-            //gameRing.InitRing();
-        }
-
         // Spawn clip by type from level (or a general clip)
 
-        //gameClip = Instantiate(gameRingsClipPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<ClipManager>();
         if (!gameClip)
         {
             Debug.LogError("No Clip!");
@@ -256,8 +212,6 @@ public class GameManager : MonoBehaviour
 
 
         powerupManager.SpawnPotions();
-
-        //currentMaxLevelReached = currentLevel.levelNumInZone;
     }
 
     private void SpawnLevelBG()
@@ -275,7 +229,6 @@ public class GameManager : MonoBehaviour
     {
         if(inLevel)
         {
-            //mapLogic.FixCamPosStartLevel(currentIndexInCluster);
             cameraAnimatorController.SetTrigger("Camera In Level" + currentIndexInCluster);
 
             yield return new WaitForSeconds(delayClipAppear);
@@ -299,20 +252,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //UIManager.IS_DURING_TRANSITION = true;
-
             mapLogic.ToggleRings(gameRing, inLevel);
 
             clipAnimatorController.SetTrigger("Clip Out Level");
             potionDeckAnimatorController.SetTrigger("Potion Out Level");
 
             yield return new WaitForSeconds(delayClipHide);
-
-            //StartCoroutine(mapLogic.FixCamPosEndLevel());
-
-            //int currentAnimPlay = 0;
-            //currentAnimPlay =  currentIndexInCluster == 0 ? 0 : currentIndexInCluster - 1;
-
             
             cameraAnimatorController.SetTrigger("Camera Out Level" + currentIndexInCluster); /// we do -1 here since we already incremented the current index in the cluster
         }
@@ -329,13 +274,11 @@ public class GameManager : MonoBehaviour
         RingActions = null;
         AfterRingActions = null;
         WinLevelActions = null;
-        //LoseLevelActions = null;
         endLevelActions = null;
     }
 
     public void InitiateDestrucionOfLevel()
     {
-        //yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
         Debug.Log("Initiating destruction");
         endLevelActions?.Invoke();
     }
@@ -344,7 +287,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
         Debug.Log("Initiating destruction");
-        //endLevelActions?.Invoke();
 
     }
 
@@ -372,8 +314,6 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator RestartLevel()
     {
-        //yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
-
         for (int k = 0; k < 1; k++)
         {
            yield return StartCoroutine(OnLevelExitResetLevel());
@@ -402,59 +342,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-    public void SpawnLevelStatue()
-    {
-        if(currentClusterSO.clusterPrefabToSummon)
-        {
-            currentLevelAnimalStatue = Instantiate(currentClusterSO.clusterPrefabToSummon, inLevelParent);
-            currentLevelGeneralStatueAnimator = currentLevelAnimalStatue.statueAnimator;
-
-            isAnimalLevel = currentLevelAnimalStatue != null;
-
-            currentLevelGeneralStatueAnimator.SetTrigger(ANIM_SET_RIVE + currentIndexInCluster);
-
-        }
-        else
-        {
-            isAnimalLevel = false;
-        }
-    }
-    public void AdvanceLevelStatue()
-    {
-        if(ReturnIsLastLevelInCluster() && isAnimalLevel)
-        {
-            // release animal
-            animalsManager.ReleaseAnimal(currentLevelAnimalStatue, inLevelParent);
-        }
-        else
-        {
-            // advance animal statue
-
-            if(currentLevelGeneralStatueAnimator)
-            {
-                currentLevelGeneralStatueAnimator.SetTrigger(ANIM_CLEAR_RIVE + currentIndexInCluster);
-            }
-        }
-    }
-
-    public string[] ReturnStatueName()
-    {
-        string[] texts = new string[1];
-
-        if (ReturnIsLastLevelInCluster() && isAnimalLevel)
-        {
-            string animalname = currentLevelAnimalStatue.animal.ToString();
-            texts[0] = animalname + " released!";
-        }
-        else
-        {
-            texts[0] = "Corruption cleansed!";
-        }
-
-        return texts;
-    }
-
     public int ReturnNumOfLevelsInCluster()
     {
         return currentClusterSO.clusterLevels.Length;
@@ -467,10 +354,6 @@ public class GameManager : MonoBehaviour
     {
         return currentIndexInCluster;
     }
-    //public int ReturnLastLevelIndexReached()
-    //{
-    //    return currentMaxLevelReached;
-    //}
 
     public LevelSO ReturnCurrentLevelSO()
     {
@@ -478,8 +361,6 @@ public class GameManager : MonoBehaviour
     }
     public void BroadcastWinLevelActions()
     {
-        //currentMaxLevelReached++;
-
         WinLevelActions?.Invoke();
 
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "World1", currentLevel.levelNumInZone.ToString());
@@ -487,34 +368,20 @@ public class GameManager : MonoBehaviour
         GameAnalytics.NewErrorEvent(GAErrorSeverity.Critical, "I am testing GA");
 
     }
-    //public void BroadcastLoseLevelActions()
-    //{
-    //    LoseLevelActions?.Invoke();
-    //}
 
     public void AdvanceGiveLootFromManager()
     {
-        //sequencer?
-        //lootManager.ManageLootReward(currentClusterSO); //go over this with Lior
     }
-    public void AdvanceLootChestAnimation() //go over this with Lior
-    {
-        //sequencer?
-        //StartCoroutine(summonedChest.AfterGiveLoot());
-    }
-
 
     public IEnumerator OnLevelExitResetSystem()
     {
         UIManager.IS_DURING_TRANSITION = true;
 
-        //ClearLevelActions();
         gameRing.ClearActions();
 
         bool isAtStartOfCluster = currentIndexInCluster == 0 ? true : false;
 
         RestartClusterData();
-        //currentMaxLevelReached = currentCluster.clusterLevels[0].levelNumInZone;
 
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
@@ -550,10 +417,7 @@ public class GameManager : MonoBehaviour
         IS_IN_LEVEL = false;
 
 
-
-
         yield return StartCoroutine(mapLogic.InitMapLogic(currentClusterSO));
-        //StartCoroutine(mapLogic.HideRingDarkOverlay(0));
 
         yield return new WaitForSeconds(delayRestartCluster);
 
@@ -603,20 +467,12 @@ public class GameManager : MonoBehaviour
 
         if (!isClusterEnd)
         {
-
-            //yield return StartCoroutine(mapLogic.CameraTransitionNextLevel(currentIndexInCluster)); // move to next level automatically
             mapLogic.DataOnTransitionNextLevel();
             yield return new WaitForSeconds(2);
 
             StartCoroutine(InitStartLevel(false));
         }
     }
-
-    //public void CallNextLevel()
-    //{
-    //    StartCoroutine(MoveToNextLevel());
-    //}
-
 
     public bool LevelSetupData()
     {
@@ -632,20 +488,7 @@ public class GameManager : MonoBehaviour
 
         levelButton.AutomatiTransferLevel();
 
-
-
-
         return true;
-
-        ////called from level actions events
-        //if (ReturnIsLastLevelInCluster())
-        //{
-        //    nextLevel = null;
-        //}
-        //else
-        //{
-        //    nextLevel = currentClusterSO.clusterLevels[currentIndexInCluster];
-        //}
     }
 
     private void RestartClusterData()
@@ -671,8 +514,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
     private IEnumerator InitClusterTransfer()
     {
         ClearLevelData();
@@ -696,8 +537,6 @@ public class GameManager : MonoBehaviour
         gameClip.DestroyClipData();
 
         IS_IN_LEVEL = false;
-
-
 
 
         UIManager.instance.DisplayInLevelWinWindow();
@@ -731,33 +570,8 @@ public class GameManager : MonoBehaviour
     /**/
     // GETTERS!
     /**/
-    public List<OwnedAnimalDataSet> GetUnlockedAnimals => animalsManager.GetUnlockedAnimals();
     public ClusterSO currentCluster => currentClusterSO;
     public int publicMaxClusterReached => currentMaxClusterReached;
-    //public Player publicPlayer => player;
-    //public MapLogic publicMapLogic => mapLogic;
-    public bool IsAnimalAlreadyInAlbum(AnimalsInGame animal) => animalsManager.CheckAnimalAlreadyInAlbum(animal);
-
-
-    /**/
-    // general methods area - methods that can be dropped and used in any class - mostly inspector things for now
-    /**/
-
-    //public GameObject preafabToInstantiateInspector;
-
-    //[ContextMenu("Instantiate prefab under object")]
-    //public void InstantiatePrefabUnderObject ()
-    //{
-    //    GameObject go = PrefabUtility.InstantiatePrefab(preafabToInstantiateInspector, transform) as GameObject;
-    //    go.GetComponent<Image>().sprite = GetComponent<Image>().sprite;
-    //}
-
-    //[ContextMenu("Destroy self and move child 1 up in herarchy")]
-    //public void DestroySelfAndMoveChildUpInHerarchy()
-    //{
-    //    transform.GetChild(0).SetParent(transform.parent);
-    //    DestroyImmediate(gameObject);
-    //}
 }
 
 

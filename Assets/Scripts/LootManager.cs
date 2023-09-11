@@ -37,7 +37,6 @@ public class LootManager : MonoBehaviour
     [Header("needed refs")]
     [SerializeField] private Player player;
     [SerializeField] private UIElementDisplayerSegment lootDisplayPrefab;
-    //[SerializeField] private Ingredients[] allIngredients;
 
     [SerializeField] private Sprite coinSprite;
 
@@ -46,24 +45,19 @@ public class LootManager : MonoBehaviour
     [SerializeField] private List<ChestSO> endClusterChestOptions;
     [SerializeField] private List<ChestSO> endZoneChestOptions;
     [SerializeField] private List<powerLootData> powersToGive;
-    //[SerializeField] private List<LootToRecieve> ingredientsToGive;
 
     [Header("loot animations")]
-    //[SerializeField] private float lootMoveSpeed;
     [SerializeField] private float delayBetweenLootDisplays;
 
-    //[SerializeField] private GameObject rewardPrefab;
     [SerializeField] private Transform[] rewardsPoses;
 
     [Header("temp?")]
-    //[SerializeField] private Transform[] lootPositions;
     [SerializeField] private int currentLootPos;
     [SerializeField] private TMP_Text chestText;
 
     private void Start()
     {
         powersToGive = new List<powerLootData>();
-        //ingredientsToGive = new List<LootToRecieve>();
     }
 
     [ContextMenu("DO THIS")]
@@ -218,7 +212,6 @@ public class LootManager : MonoBehaviour
             }
         }
 
-        //StartCoroutine(DisplayLootFromChest()); 
         DisplayLootFromChest(); 
     }
 
@@ -230,8 +223,6 @@ public class LootManager : MonoBehaviour
             Sprite[] sprites = new Sprite[] { coinSprite };
 
             InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
-
-            //yield return new WaitForSeconds(delayBetweenLootDisplays);
         }
 
 
@@ -245,10 +236,6 @@ public class LootManager : MonoBehaviour
                 Sprite[] sprites = new Sprite[] { power.powerSO.potionSprite};
 
                 InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
-
-                //yield return new WaitForSeconds(delayBetweenLootDisplays);
-
-                //reset positions so we can still spawn with no error.
             }
         }
 
@@ -265,8 +252,6 @@ public class LootManager : MonoBehaviour
         UIElementDisplayerSegment displayer = Instantiate(lootDisplayPrefab, target);
 
         displayer.SetMyElement(texts, sprites);
-
-        //LeanTween.move(displayer.gameObject, lootPositions[currentLootPos], lootMoveSpeed).setOnComplete(() => displayer.transform.parent = target);
     }
 
     public void DestroyAllLootChildren()
@@ -278,14 +263,5 @@ public class LootManager : MonoBehaviour
                 Destroy(lootPos.GetChild(i).gameObject);
             }
         }
-    }
-
-
-
-
-    /**/
-    // GETTERS!
-    /**/
-    //public Ingredients[] GetAllIngredientSprites => allIngredients;
-    
+    }    
 }

@@ -18,8 +18,6 @@ public class Ring : MonoBehaviour
     public CellBase[] ringCells;
     public Slice[] ringSlices;
     public ImageSwapHelper[] ringConnections;
-    //public BoxCollider levelStartCollider;
-    //public GameObject lockedDarkOverlay;
 
     [SerializeField] private int filledCellsCount;
     [SerializeField] private int unsuccessfulConnectionsCount;
@@ -30,7 +28,6 @@ public class Ring : MonoBehaviour
     [SerializeField] private GameObject sliceDisplayPrefab; // move somewhere else?
 
     [SerializeField] private SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
-
 
 
     [Header("Inspector Actions")]
@@ -70,7 +67,6 @@ public class Ring : MonoBehaviour
 
     public void SetSliceDisplay(Slice sliceData, int sliceIndex)
     {
-        //SpriteRenderer sliceDisplayObject = Instantiate(sliceDisplayPrefab, ringSlices[sliceIndex].transform).GetComponent<SpriteRenderer>();
         SliceDisplay3D sliceDisplayObject = Instantiate(sliceDisplayPrefab, ringSlices[sliceIndex].transform).GetComponent<SliceDisplay3D>();
 
         if (!sliceDisplayObject) return;
@@ -89,19 +85,15 @@ public class Ring : MonoBehaviour
         {
             case SliceConditionsEnums.GeneralColor:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
-                //sliceDisplayObject.limiterFilter.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.GeneralSymbol:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
-                //sliceDisplayObject.limiterFilter.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.SpecificColor:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredColor];
-                //sliceDisplayObject.limiterFilter.mesh = relaventSliceData.sliceMesh[0];
                 break;
             case SliceConditionsEnums.SpecificSymbol:
                 sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredSymbol];
-                //sliceDisplayObject.limiterFilter.mesh = relaventSliceData.sliceMesh[(int)sliceData.requiredSymbol];
                 break;
             default:
                 Debug.LogError("Problem with slice generation");
@@ -123,8 +115,6 @@ public class Ring : MonoBehaviour
 
         if (filledCellsCount == ringCells.Length && unsuccessfulConnectionsCount > 0)
         {
-            //GameManager.instance.BroadcastLoseLevelActions();
-
             Debug.Log("lose Level");
         }
     }

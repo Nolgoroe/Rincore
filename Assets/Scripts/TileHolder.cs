@@ -31,7 +31,5 @@ public abstract class TileHolder : MonoBehaviour
         {
             vfxHelper.PlayVFX(vfxType);
         }
-
-
     }
 }

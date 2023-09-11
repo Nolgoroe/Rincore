@@ -17,5 +17,4 @@ public class SliceActionVariations : ScriptableObject
             slice.SetMidSprite(lockSprite); // this is called on system init - when we start the map, each ring uses this the "current" ring we're summoning and it's info. DO NOT TOUCH!
         }
     }
-
 }

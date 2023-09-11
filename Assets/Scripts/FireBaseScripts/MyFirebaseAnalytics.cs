@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class MyFirebaseAnalytics : MonoBehaviour
 {
-    //private string logText = "";
     const int kMaxLogSize = 16382;
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
     protected bool firebaseInitialized;
@@ -118,6 +117,4 @@ public class MyFirebaseAnalytics : MonoBehaviour
             return task;
         }).Unwrap();
     }
-
-
 }

@@ -44,21 +44,9 @@ public class MyFireBaseRemoteConfig : MonoBehaviour
     [Preserve]
     public void ShowData()
     {
-        //Debug.Log("config_test_string: " +
-        //         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance
-        //             .GetValue("config_test_string").StringValue);
-
         Debug.Log("Currency: " +
                  FirebaseRemoteConfig.DefaultInstance
                      .GetValue("Currency").LongValue);
-
-        //Debug.Log("config_test_float: " +
-        //         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance
-        //             .GetValue("config_test_float").DoubleValue);
-
-        //Debug.Log("config_test_bool: " +
-        //         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance
-        //             .GetValue("config_test_bool").BooleanValue);
     }
     [Preserve]
     void InitializeFirebase()

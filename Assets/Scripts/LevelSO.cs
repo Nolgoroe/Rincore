@@ -87,30 +87,5 @@ public class LevelSO : ScriptableObject
                 data.rightTileColor = SubTileColor.Stone;
             }
         }
-
-        //for (int i = 0; i < levelAvailableColors.Length; i++)
-        //{
-        //    levelAvailableColors[i] = (SubTileColor)i;
-        //}
-
-        //for (int i = 0; i < levelAvailablesymbols.Length; i++)
-        //{
-        //    levelAvailablesymbols[i] = (SubTileSymbol)i;
-        //}
-
-        //for (int i = 0; i < levelAvailableColors.Length; i++)
-        //{
-        //    SubTileColor originCOlorColor = levelAvailableColors[i];
-
-        //    SubTileColor tempColor = (SubTileColor)Random.Range(0, 5);
-
-        //    for (int k = i + 1; k < levelAvailableColors.Length; k++)
-        //    {
-        //        SubTileColor currentColor = levelAvailableColors[k];
-
-        //        while()
-
-        //    }
-        //}
     }
 }

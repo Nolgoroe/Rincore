@@ -7,7 +7,6 @@ public class SavedData : MonoBehaviour
     public static SavedData instance;
 
     [Header("Saved Data")]
-    //public int indexReachedInCluster;
     public int currentClusterIDReached;
     public int savedCoins;
 

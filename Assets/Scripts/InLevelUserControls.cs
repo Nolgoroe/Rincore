@@ -117,26 +117,9 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchBegin()
     {
-        //RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileGrabbingLayer);
-
-        //RaycastHit[] intersectionsArea = GetIntersectionsArea3D(touchPos, tileGrabbingLayer);
         RaycastHit intersectionsArea = GetFirstIntersection3D(touchPos, tileGrabbingLayer);
 
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
-
-        //if (intersectionsArea.Length > 0)
-        //{
-        //    TileHolder holder = intersectionsArea[0].transform.GetComponent<TileHolder>();
-
-        //    if (holder.heldTile)
-        //    {
-        //        GrabTile(holder);
-        //    }
-        //}
-        //else
-        //{
-        //    ReleaseData();
-        //}
 
         if (intersectionsArea.transform)
         {
@@ -228,14 +211,11 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchEnd()
     {
-        //RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
-        //RaycastHit[] intersectionsArea = GetIntersectionsArea3D(touchPos, tileInsertingLayer);
         RaycastHit intersection = GetFirstIntersection3D(touchPos, tileInsertingLayer);
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
         if (intersection.transform)
         {
-            //IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
             CellBase droopedOnObject = intersection.transform.GetComponent<CellBase>();
 
             if(droopedOnObject == null)
@@ -299,52 +279,6 @@ public class InLevelUserControls : MonoBehaviour
         {
             ReturnHome();
         }
-        //if (intersectionsArea.Length > 0)
-        //{
-        //    //IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
-        //    CellBase droopedOnObject = intersectionsArea[0].transform.GetComponent<CellBase>();
-
-        //    if(droopedOnObject == null)
-        //    {
-        //        Debug.LogError("no interface of type dropped on.");
-        //        return;
-        //    }
-
-        //    //don't place the tile if it's the last one and we have problems in ring
-        //    if (!droopedOnObject.heldTile && gameRing.LastPieceRingProblems())
-        //    {
-        //        UIManager.instance.DisplayInLevelRingHasNonMatchingMessage();
-
-        //        return;
-        //    }
-
-        //    if (!droopedOnObject.DroppedOn(currentTileToMove))
-        //    {
-        //        //can't place tile
-
-        //        ReturnHome();
-        //    }
-        //    else
-        //    {
-        //        tileOriginalHolder.RemoveTile();
-
-
-        //        //If we enter here that means we actually succeeded placing the tile.
-        //        //this does not mean that the tile is a good match! this is why we check to see if we have problems.
-        //        //we did the connection checks, so we must "remove" the tile if we have problems (use the "GrabTileFrom" sicne we know it has to be a cell)
-
-        //        if (gameRing.LastPieceRingProblems())
-        //        {
-        //            UIManager.instance.DisplayInLevelRingHasNonMatchingMessage();
-        //            lastTileHolder = droopedOnObject;
-        //            return;
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    ReturnHome();
-        //}
 
         ReleaseData();
     }
@@ -437,12 +371,6 @@ public class InLevelUserControls : MonoBehaviour
 
         IGrabTileFrom grabbedObject = lastTileHolder.GetComponent<IGrabTileFrom>();
 
-        //if(tileOriginalHolder.heldTile)
-        //{
-        //    Destroy(tileOriginalHolder.heldTile.gameObject);
-        //    tileOriginalHolder.heldTile = null;
-        //}
-
         if(grabbedObject != null)
         {
             grabbedObject.GrabTileFrom();
@@ -458,23 +386,11 @@ public class InLevelUserControls : MonoBehaviour
         tileOriginalPos = Vector3.zero;
         currentTileToMove = null;
         tileOriginalHolder = null;
-
-        //CheckDoDeal();
     }
     private void ReleasePotionData()
     {
         PowerupManager.instance.ResetPowerUpData();
     }
-
-    //private void CheckDoDeal()
-    //{
-    //    RaycastHit intersection = GetFirstIntersection3D(touchPos, dealLayer);
-
-    //    if(intersection.transform)
-    //    {
-    //        gameClip.CallDealAction();
-    //    }
-    //}
 
     private Vector3 TargetPosOffset()
     {

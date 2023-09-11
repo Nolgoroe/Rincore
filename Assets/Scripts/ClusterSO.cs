@@ -7,7 +7,6 @@ public class ClusterSO : ScriptableObject
 {
     public int clusterID;
     public LevelSO[] clusterLevels;
-    public AnimalStatueData clusterPrefabToSummon;
 
     public bool isEndOfZone;
 }

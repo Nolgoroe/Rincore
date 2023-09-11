@@ -36,16 +36,6 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler
 
     public abstract void OnClickButton();
 
-    //public void OnPointerClick(PointerEventData eventData)
-    //{
-    //    if (isInteractable && !UIManager.IS_DURING_TRANSITION)
-    //    {
-    //        // play click sound
-    //        OnClickButton();
-    //    }
-
-    //}
-
     public virtual void DeactivateSpecificButton(CustomButtonParent button)
     {
         button.isInteractable = false;

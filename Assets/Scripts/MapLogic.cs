@@ -96,7 +96,6 @@ public class MapLogic : MonoBehaviour
                 yield break;
             }
             currentRing.InitRing();
-            //currentRing.levelStartCollider.enabled = false;
 
             currentLevel.afterRingSpawnActions?.Invoke();
 
@@ -136,15 +135,10 @@ public class MapLogic : MonoBehaviour
         // initializes the main camera's position compared to first ring created
         // we subtract currentClusterSummonOffset since we want the camera to always be reset to it's original distance - which is where the rings will be after animations.
         originalClusterCameraParentPos = instantiatedRings[0].transform.localPosition.z + distanceCameraFirstRing - currentClusterSummonOffset; 
-
-        //ToggleSpecificRingCollider(0, true); //TEMP
-
-
     }
 
     private int SwitchRingPrefabByType(Ringtype ringType)
     {
-
         int ringIndexInPrefabs = 0;
 
         switch (ringType)
@@ -172,7 +166,6 @@ public class MapLogic : MonoBehaviour
         Vector3 pos = Vector3.zero;
 
         GameObject go = Instantiate(mapRingPrefabs[(levelIndex % 2) + SwitchRingPrefabByType(GameManager.currentLevel.ringType)], pos, Quaternion.identity, ringsParent);
-        //GameObject go = Instantiate(mapRingPrefabs[levelIndex % mapRingPrefabs.Length], pos, Quaternion.identity, ringsParent);
         go.transform.localPosition = Vector3.zero;
         pos.z = (levelIndex * distanceBetweenRings) + startRingOffset;
         go.transform.localPosition = pos;
@@ -184,7 +177,6 @@ public class MapLogic : MonoBehaviour
             Debug.LogError("No ring");
             yield break;
         }
-        //currentRing.levelStartCollider.enabled = false; // so we can't immediatly click it as it spawns..
 
         currentRing.InitRing();
 
@@ -210,11 +202,6 @@ public class MapLogic : MonoBehaviour
 
         go.transform.SetSiblingIndex(levelIndex);
     }
-
-    //public void ToggleSpecificRingCollider(int index, bool active)
-    //{
-    //    instantiatedRings[index].levelStartCollider.enabled = active;
-    //}
 
     private void Update()
     {
@@ -311,9 +298,7 @@ public class MapLogic : MonoBehaviour
 
     public IEnumerator CameraTransitionNextLevel(int currentIndexInCluster)
     {
-
         //this function moves the camera to a "start point" from which we can activate the enter level animation
-
 
         endPos = Vector3.zero; // we reset the map move data before manually moving.
 
@@ -331,8 +316,6 @@ public class MapLogic : MonoBehaviour
         UIManager.instance.LevelFillBarAnimate(UIManager.instance.fillIndex);
 
         yield return new WaitForSeconds(angleIntoLevelTime);
-        //ToggleSpecificRingCollider(currentIndexInCluster, false);
-
     }
 
     public void DataOnTransitionNextLevel()
@@ -367,13 +350,7 @@ public class MapLogic : MonoBehaviour
             yield return new WaitForSeconds(waitMoveStartCluster);
         }
 
-        //float ZPos = originalClusterCameraParentPos;
-
-        //LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
-
         GameManager.IS_IN_LEVEL = false;
-
-        //yield return new WaitForSeconds(angleIntoLevelTime);
     }
 
 
@@ -408,14 +385,8 @@ public class MapLogic : MonoBehaviour
 
         yield return StartCoroutine(MoveParts(false)); // move new rings
 
-
-        //ShowRingDarkOverlay();
-
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(GameManager.instance.InitStartLevel(false));
-
-        //UIManager.instance.DisplayOverallMapUI();
-        //UIManager.instance.ShowSpecificButton(UIManager.instance.publicPlayButton); // temp here!
     }
 
     private IEnumerator MoveParts(bool destroyAtEnd)
@@ -483,81 +454,10 @@ public class MapLogic : MonoBehaviour
         GameObject go = Instantiate(allTreeVariantsEnd[index], parent);
     }
 
-    //public IEnumerator HideRingDarkOverlay(int currentIndexInCluster)
-    //{
-    //    yield return new WaitForEndOfFrame();
-
-    //    SpriteRenderer lockedRenderer = instantiatedRings[currentIndexInCluster].lockedDarkOverlay.GetComponent<SpriteRenderer>();
-
-    //    if (currentIndexInCluster == 0)
-    //    {
-    //        lockedRenderer.color = new Color(lockedRenderer.color.r, lockedRenderer.color.g, lockedRenderer.color.b, 0);
-    //        yield break;
-
-    //    }
-
-
-    //    yield return new WaitForSeconds(waitBeforeUnlock);
-
-    //    LeanTween.value(lockedRenderer.gameObject, 0.55f, 0, 2).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
-    //    {
-    //        Color newColor = lockedRenderer.color;
-    //        newColor.a = val;
-    //        lockedRenderer.color = newColor;
-    //    });
-    //}
-
-    //public void ShowRingDarkOverlay()
-    //{
-    //    for (int i = 0; i < instantiatedRings.Count; i++)
-    //    {
-    //        if(i == 0 )
-    //        {
-    //            StartCoroutine(HideRingDarkOverlay(0));
-    //            continue;
-    //        }
-
-    //        SpriteRenderer renderer = instantiatedRings[i].lockedDarkOverlay.GetComponent<SpriteRenderer>();
-
-    //        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.55f);
-
-
-    //        //LeanTween.value(renderer.gameObject, 0, 0.55f, 2).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
-    //        //{
-    //        //    Color newColor = renderer.color;
-    //        //    newColor.a = val;
-    //        //    renderer.color = newColor;
-    //        //});
-    //    }
-
-    //}
-
-
-
-
-
-
-
-
-
-
     public void OnLoadData()
     {
         //FixCamPosStartLevel(0);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**/
     // GETTERS!

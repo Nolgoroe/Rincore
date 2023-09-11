@@ -16,7 +16,6 @@ public class SaveLoad : MonoBehaviour
     public int delayLoading;
 
     const string TEST_SAVE = "TEMP_SAVE_DATA";
-    //const string PLAYER_SAVE = "Player_Data";
 
     //public static SaveLoad instance;
     public UnityEvent onFirebaseInitialized = new UnityEvent();
@@ -35,8 +34,7 @@ public class SaveLoad : MonoBehaviour
 
     private void Awake()
     {
-        path = Application.persistentDataPath + "/UniqueIDUser.txt"; //TEMP
-        //instance = this;
+        path = Application.persistentDataPath + "/UniqueIDUser.txt"; //check if can shorten
     }
 
     private void Start()
@@ -79,10 +77,9 @@ public class SaveLoad : MonoBehaviour
     private void SaveData()
     {
         database.Child(UID_TEXT).Child(TEST_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(saveData));
-        //database.Child(UID_TEXT).Child(PLAYER_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(playerRef));
 
 
-
+        //This is how we access specific variables - DO NOT DELETE!
         //database.Child("TEMP_SAVE_DATA").Child("Temp_Int 2").SetValueAsync(TempInt + 1);
         //database.Child("TEMP_SAVE_DATA").Child("TempString2").SetValueAsync("Hello!");
     }
@@ -90,7 +87,6 @@ public class SaveLoad : MonoBehaviour
     [ContextMenu("Save")]
     private void SaveAction()
     {
-        //indexReachedInCluster = GameManager.instance.ReturnCurrentIndexInCluster();
         saveData.currentClusterIDReached = GameManager.instance.currentCluster.clusterID;
         saveData.savedCoins = playerRef.GetOwnedCoins;
 
@@ -128,32 +124,9 @@ public class SaveLoad : MonoBehaviour
                     }
                 });
 
-
-            ////load the player data
-            //await FirebaseDatabase.DefaultInstance
-            //    .GetReference(UID_TEXT).Child(TEST_SAVE)
-            //    .GetValueAsync().ContinueWithOnMainThread(task => {
-            //        if (task.IsFaulted)
-            //        {
-            //            // Handle the error...
-            //        }
-            //        else if (task.IsCompleted)
-            //        {
-            //            DataSnapshot snapshot = task.Result;
-
-            //            if (snapshot.Exists)
-            //            {
-            //                JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(),  playerRef);
-            //            }
-            //            // Do something with snapshot...
-            //        }
-            //    });
-
-            //This part of the code is translating a JSON back to the class itself.
+            //This part of the code is translating a JSON back to the class itself - DO NOT DELETE!
             //DataSnapshot snapshot = await database.Child(UID_TEXT).Child(TEST_SAVE).GetValueAsync();
-            //DataSnapshot snapshot2 = null;
-
-            //await Task.Delay(1000);
+            //JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(),CLASS INSTANCE HERE);
 
             // load data only if has data! - for now, not good!
             await Task.Delay(delayLoading);
@@ -179,7 +152,7 @@ public class SaveLoad : MonoBehaviour
 
 
 
-        //FROM HERE on the code is aimed at getting specific values from the database instead of a complete JSON.
+        //FROM HERE on the code is aimed at getting specific values from the database instead of a complete JSON - DO NOT DELETE!
 
         //FirebaseDatabase.DefaultInstance.GetReference("TEMP_SAVE_DATA").GetValueAsync().ContinueWithOnMainThread(task => {
         //    if (task.IsFaulted)
@@ -203,7 +176,6 @@ public class SaveLoad : MonoBehaviour
     public void EraseSave()
     {
         database.Child(UID_TEXT).Child(TEST_SAVE).RemoveValueAsync();
-        //database.Child(UID_TEXT).Child(PLAYER_SAVE).RemoveValueAsync();
     }
     public void CheckSuccessConnection()
     {

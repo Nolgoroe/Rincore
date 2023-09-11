@@ -29,7 +29,6 @@ public class RewardEntry
 [CreateAssetMenu(fileName = "Chest", menuName = "ScriptableObjects/Create Chest")]
 public class ChestSO : ScriptableObject
 {
-    //public ChestTypes chestType;
     public int ChanceToGetChest;
     public List<RewardEntry> rewardEntries;
 }
