@@ -11,6 +11,9 @@ public class PotionInLevelHelper : MonoBehaviour
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private BasicCustomUIWindow buyWidndow;
     [SerializeField] private GameObject selectedImage;
+    [SerializeField] private float normalCountSize;
+    [SerializeField] private float noUsesCountSize;
+    [SerializeField] private GameObject plusButton;
     public Animator connectedAnim;
     public BasicCustomButton buyButton;
 
@@ -26,11 +29,14 @@ public class PotionInLevelHelper : MonoBehaviour
             if(in_text == "0")
             {
                 in_text = "+";
-                connectedText.fontSize = 70;
+                connectedText.fontSize = noUsesCountSize;
+                plusButton.SetActive(true);
             }
             else
             {
-                connectedText.fontSize = 32.5f;
+                connectedText.fontSize = normalCountSize;
+                plusButton.SetActive(false);
+
             }
 
             connectedText.text = in_text;
@@ -47,11 +53,13 @@ public class PotionInLevelHelper : MonoBehaviour
         if (in_text == "0")
         {
             in_text = "+";
-            connectedText.fontSize = 70;
+            connectedText.fontSize = noUsesCountSize;
+            plusButton.SetActive(true);
         }
         else
         {
-            connectedText.fontSize = 32.5f;
+            connectedText.fontSize = normalCountSize;
+            plusButton.SetActive(false);
         }
 
         connectedText.text = in_text;
