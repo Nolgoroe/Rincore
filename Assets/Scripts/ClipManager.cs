@@ -33,6 +33,7 @@ public class ClipManager : MonoBehaviour
 
     [Header("custom creation")]
     [SerializeField] private int currentIndexInSpecificArray;
+    //[SerializeField] private int currentSlotsSpawned;
 
     public void InitClipManager()
     {
@@ -50,16 +51,17 @@ public class ClipManager : MonoBehaviour
 
             if (customPieces > 0 && currentIndexInSpecificArray < customPieces)
             {
-                {
-                    SpawnSpecificTileInSlot(slots[i]);
+                SpawnSpecificTileInSlotByLevelSO(slots[i]);
 
-                    slots[i].originalSlotPos = slots[i].transform.localPosition;
-                }
+                //currentSlotsSpawned++;
+
+                slots[i].originalSlotPos = slots[i].transform.localPosition;
             }
             else
             {
                 SpawnRandomTileInSlot(slots[i]);
 
+                //currentSlotsSpawned++;
                 slots[i].originalSlotPos = slots[i].transform.localPosition;
             }
         }
@@ -161,43 +163,54 @@ public class ClipManager : MonoBehaviour
     private void SpawnRandomTileInSlot(ClipSlot slot)
     {
         LevelSO currentLevel = GameManager.currentLevel;
-        Tiletype tileType = Tiletype.NoType;
 
-        switch (currentLevel.ringType)
-        {
-            case Ringtype.ring8:
-                tileType = Tiletype.Normal;
-                break;
-            case Ringtype.ring12:
-                tileType = Tiletype.Normal12;
-                break;
-            case Ringtype.NoType:
-                break;
-            default:
-                break;
-        }
-
+        Tiletype tileType = ReturnCurrentTileType();
         Tile tile = tileCreatorPreset.CreateTile(tileType, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
+
         slot.RecieveTileDisplayer(tile);
+
+
+        CheckRepeatInClip(slot);
+
+
     }
-    private void SpawnSpecificTileInSlot(ClipSlot slot)
+
+    private void CheckRepeatInClip(ClipSlot slot)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slot != slots[i] && slot.heldTile && slots[i].heldTile)
+            {
+                while (CheckTilesDifferent(slot, slots[i]))
+                {
+                    tileCreatorPreset.ReRollTile(slot.heldTile, ReturnCurrentTileType(), GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
+                }
+            }
+        }
+    }
+
+    private bool CheckTilesDifferent(ClipSlot A, ClipSlot B)
+    {
+        TileParentLogic tileA = A.heldTile;
+        TileParentLogic tileB = B.heldTile;
+
+        bool sameColorLeft = tileA.subTileLeft.subTileColor == tileB.subTileLeft.subTileColor;
+        bool sameColorRight = tileA.subTileRight.subTileColor == tileB.subTileRight.subTileColor;
+
+        bool sameSymbolLeft = tileA.subTileLeft.subTileSymbol == tileB.subTileLeft.subTileSymbol;
+        bool sameSymbolRight = tileA.subTileRight.subTileSymbol == tileB.subTileRight.subTileSymbol;
+
+
+        return sameColorLeft && sameColorRight && sameSymbolLeft && sameSymbolRight;
+
+    }
+
+    private void SpawnSpecificTileInSlotByLevelSO(ClipSlot slot)
     {
         LevelSO currentLevel = GameManager.currentLevel;
-        Tiletype tileType = Tiletype.NoType;
 
-        switch (currentLevel.ringType)
-        {
-            case Ringtype.ring8:
-                tileType = Tiletype.Normal;
-                break;
-            case Ringtype.ring12:
-                tileType = Tiletype.Normal12;
-                break;
-            case Ringtype.NoType:
-                break;
-            default:
-                break;
-        }
+        Tiletype tileType = ReturnCurrentTileType();
+
         SubTileSymbol leftSymbol = SubTileSymbol.NoShape;
         SubTileSymbol rightSymbol = SubTileSymbol.NoShape;
 
@@ -214,6 +227,13 @@ public class ClipManager : MonoBehaviour
         slot.RecieveTileDisplayer(tile);
 
         currentIndexInSpecificArray++;
+    }
+    public void SpawnSpecificTileInSlot(ClipSlot slot, SubTileColor rightColor, SubTileColor leftColor,SubTileSymbol rightSymbol, SubTileSymbol leftSymbol)
+    {
+        Tiletype tileType = ReturnCurrentTileType();
+
+        Tile tile = tileCreatorPreset.CreateTile(tileType, leftSymbol, rightSymbol, leftColor, rightColor);
+        slot.RecieveTileDisplayer(tile);
     }
 
     // called from event
@@ -261,9 +281,17 @@ public class ClipManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        for (int i = 0; i < activeClipSlotsCount; i++)
+        if (activeClipSlotsCount - 1 == 0 && GameManager.currentLevel.doLastTileAlgo)
         {
-            SpawnRandomTileInSlot(slots[i]);
+            LastTileAlgo();
+        }
+        else
+        {
+            for (int i = 0; i < activeClipSlotsCount; i++)
+            {
+                SpawnRandomTileInSlot(slots[i]);
+            }
+
         }
 
         // move the tile GFX parent back into screen
@@ -435,5 +463,69 @@ public class ClipManager : MonoBehaviour
                 }
             }
         }
+    }
+
+
+
+    private void LastTileAlgo()
+    {
+        int emptyCells = 0;
+
+        CellBase cell = null;
+        for (int i = 0; i < GameManager.gameRing.ringCells.Length; i++)
+        {
+            if (!GameManager.gameRing.ringCells[i].heldTile)
+            {
+                emptyCells++;
+                cell = GameManager.gameRing.ringCells[i];
+            }
+        }
+
+        if (emptyCells == 1 && cell != null)
+        {
+            SubTileColor requiredRightColor = SubTileColor.NoColor;
+            SubTileSymbol requiredRightSymbol = SubTileSymbol.NoShape;
+
+            SubTileColor requiredLeftColor = SubTileColor.NoColor;
+            SubTileSymbol requiredLeftSymbol = SubTileSymbol.NoShape;
+
+
+            CellBase rightCell = cell.rightCell;
+            CellBase leftCell = cell.leftCell;
+
+            requiredRightColor = rightCell.heldTile.subTileLeft.subTileColor;
+            requiredRightSymbol = rightCell.heldTile.subTileLeft.subTileSymbol;
+
+            requiredLeftColor = leftCell.heldTile.subTileRight.subTileColor;
+            requiredLeftSymbol = leftCell.heldTile.subTileRight.subTileSymbol;
+
+            ClipSlot slot = ReturnSlot(0);// temp?
+
+            SpawnSpecificTileInSlot(slot, requiredRightColor, requiredLeftColor, requiredRightSymbol, requiredLeftSymbol);
+        }
+    }
+
+
+    private Tiletype ReturnCurrentTileType()
+    {
+        LevelSO currentLevel = GameManager.currentLevel;
+
+        Tiletype tileType = Tiletype.NoType;
+
+        switch (currentLevel.ringType)
+        {
+            case Ringtype.ring8:
+                tileType = Tiletype.Normal;
+                break;
+            case Ringtype.ring12:
+                tileType = Tiletype.Normal12;
+                break;
+            case Ringtype.NoType:
+                break;
+            default:
+                break;
+        }
+
+        return tileType;
     }
 }

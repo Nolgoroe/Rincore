@@ -121,6 +121,19 @@ public class TileCreator : ScriptableObject
         return tile;
     }
 
+    public void ReRollTile(TileParentLogic tile, Tiletype tileType, SubTileSymbol[] availableSymbols, SubTileColor[] availableColors)
+    {
+        //data set, then decide on textures, then display set - Left
+        tile.SetSubTileSpawnData(tile.subTileLeft, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
+        Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0]);
+
+        //data set, then decide on textures, then display set - Right
+        tile.SetSubTileSpawnData(tile.subTileRight, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
+        tempArray = ReturnTexturesByData(tile.subTileRight, tileType);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0]);
+    }
+
     private SubTileSymbol RollTileSymbol(SubTileSymbol[] availableSymbols)
     {
         SubTileSymbol randomSymbol = SubTileSymbol.NoShape;

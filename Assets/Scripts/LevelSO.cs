@@ -74,6 +74,9 @@ public class LevelSO : ScriptableObject
     [Header("Tutorial")]
     public TutorialSO levelTutorial;
 
+    [Header("algorithms")]
+    public bool doLastTileAlgo;
+
 
 
     private void OnValidate()
