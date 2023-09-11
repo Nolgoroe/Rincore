@@ -177,13 +177,17 @@ public class ClipManager : MonoBehaviour
 
     private void CheckRepeatInClip(ClipSlot slot)
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = slots.Length - 1; i >= 0; i--)
         {
             if (slot != slots[i] && slot.heldTile && slots[i].heldTile)
             {
-                while (CheckTilesDifferent(slot, slots[i]))
+                if(CheckTilesDifferent(slot, slots[i]))
                 {
                     tileCreatorPreset.ReRollTile(slot.heldTile, ReturnCurrentTileType(), GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
+
+                    CheckRepeatInClip(slot);
+
+                    return;
                 }
             }
         }

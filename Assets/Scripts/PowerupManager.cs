@@ -78,8 +78,20 @@ public class PowerupManager : MonoBehaviour
 
     public void AddPotion(PowerupType powerType, int amount)
     {
-        OwnedPowersAndAmounts owned = ownedPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
         PowerupScriptableObject powerSO = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
+
+        int indexOfHelper = -1;
+        OwnedPowersAndAmounts owned = null;
+
+        for (int i = 0; i < ownedPowerups.Count; i++) // we do like this instead of using linq since we also want to find the index of the helper (i)
+        {
+            if (ownedPowerups[i].powerType == powerType)
+            {
+                owned = ownedPowerups[i];
+                indexOfHelper = i;
+            }
+        }
+
 
         if(powerSO == null)
         {
@@ -96,10 +108,12 @@ public class PowerupManager : MonoBehaviour
         {
             if(owned.amount == 0)
             {
-                if (currentPotionDisplay.connectedAnim)
+                PotionInLevelHelper helper = spawnedHelpers[indexOfHelper];
+
+                if (helper.connectedAnim)
                 {
-                    currentPotionDisplay.connectedAnim.SetBool("IsOFF", false);
-                    currentPotionDisplay.connectedAnim.SetBool("IsON", true);
+                    helper.connectedAnim.SetBool("IsOFF", false);
+                    helper.connectedAnim.SetBool("IsON", true);
                 }
             }
 
