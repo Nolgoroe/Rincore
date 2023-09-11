@@ -5598,6 +5598,7 @@ MonoBehaviour:
   originObject: {fileID: 0}
   targetObject: {fileID: 0}
   currentMoveObject: {fileID: 0}
+  currentMoveObjectAnim: {fileID: 0}
   currentTutorial: {fileID: 0}
   currentTutorialStepIndex: 0
   activeHighlights: []
@@ -6623,9 +6624,9 @@ MonoBehaviour:
   spawnedHelpers: []
   usePotionTime: 2
   delayPotionEffectOnObject: 0.15
-  onUseSwitchColor: {r: 1, g: 0.9843137, b: 0.8, a: 0.5019608}
-  onUseBombColor: {r: 1, g: 0.9843137, b: 0.8, a: 0.5019608}
-  onUseJokerColor: {r: 1, g: 0.9843137, b: 0.8, a: 0.5019608}
+  onUseSwitchColor: {r: 1, g: 1, b: 1, a: 1}
+  onUseBombColor: {r: 1, g: 1, b: 1, a: 1}
+  onUseJokerColor: {r: 1, g: 1, b: 1, a: 1}
   selectedPotionRect: {fileID: 0}
   currentPotionSelected: {fileID: 0}
   currentNeededRubies: 0
@@ -6896,7 +6897,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 6}
-  m_SizeDelta: {x: 288.81, y: -123.28999}
+  m_SizeDelta: {x: 283.29, y: -175.96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1640969509
 MonoBehaviour:
@@ -6920,8 +6921,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Drag tiles into the ring and match their colors!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a14afe73930c6cc42966aae0b660b770, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: ab18b38df3880cb4fb6eaaa456b5bb86, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6f4e6fc7f3b2a1b429d997d56e904093, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 59a436fd1f1d36540a4e6a2daf728ec4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6945,19 +6946,19 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.55
+  m_fontSize: 64.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 500
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -7.2
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -5
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -11099,42 +11100,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454515671}
     m_Modifications:
-    - target: {fileID: 1803312506, guid: f1418324f3df62a4188cbabe20e48f0b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1803312507, guid: f1418324f3df62a4188cbabe20e48f0b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 1803312507, guid: f1418324f3df62a4188cbabe20e48f0b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1159730204031328455, guid: f1418324f3df62a4188cbabe20e48f0b,
+    - target: {fileID: 4954917099254514414, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1742819489597676195, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1927785567909240343, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4109128799448554099, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5512132122145798381, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8481342443712447744, guid: f1418324f3df62a4188cbabe20e48f0b,
         type: 3}
@@ -11245,26 +11214,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 8 Ring Clip 2D second
-      objectReference: {fileID: 0}
-    - target: {fileID: 8481342443712447868, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
-      propertyPath: darkTintedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8481342443712447868, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
-      propertyPath: darkTintedColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8481342443712447868, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
-      propertyPath: darkTintedColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8754487913616525771, guid: f1418324f3df62a4188cbabe20e48f0b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1418324f3df62a4188cbabe20e48f0b, type: 3}

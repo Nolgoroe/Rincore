@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Level 3
   m_EditorClassIdentifier: 
-  worldName: 0
   levelNumInZone: 3
   ringType: 0
   beforeRingSpawnActions:
@@ -60,7 +59,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 000000000100000002000000
+  levelAvailableColors: 0000000002000000
   levelAvailablesymbols: 
   isRandomSlicePositions: 0
   isLevelColorOnly: 1
@@ -104,12 +103,12 @@ MonoBehaviour:
     rightTileSymbol: 0
     leftTileColor: 2
     leftTileSymbol: 0
-  - rightTileColor: 1
+  - rightTileColor: 0
     rightTileSymbol: 0
-    leftTileColor: 1
+    leftTileColor: 2
     leftTileSymbol: 0
-  - rightTileColor: 1
+  - rightTileColor: 0
     rightTileSymbol: 0
-    leftTileColor: 0
+    leftTileColor: 2
     leftTileSymbol: 0
   levelTutorial: {fileID: 11400000, guid: fa22bb3be8f344846b12bfa26fd2c38e, type: 2}
