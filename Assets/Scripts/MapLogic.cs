@@ -254,26 +254,27 @@ public class MapLogic : MonoBehaviour
         levelCameraParent.transform.position = new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, clampZ);
     }
 
-    public void FixCamPosStartLevel(int currentIndexInCluster)
-    {
-        //this function sets the "IN LEVEL" camera's position so that we can clearly see the whole ring as we play
-        currentLevelCameraParentZPos = levelCameraParent.transform.localPosition.z;
+    //public void FixCamPosStartLevel(int currentIndexInCluster)
+    //{
+    //    //this function sets the "IN LEVEL" camera's position so that we can clearly see the whole ring as we play
+    //    currentLevelCameraParentZPos = levelCameraParent.transform.localPosition.z;
 
-        float ZPos = cameraTrailOffset * (currentIndexInCluster + 1) + distanceBetweenRings + cameralevelOffset; // we do +2 here since we see 3 rings in the starts, so it's index 0, 1, 2.
-                                                                               // from this point on, every time we advance in the cluster, we will advance by ring offset (9.5 for now)
-        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, ZPos), moveCameraInLevelTime);
-    }
-    public IEnumerator FixCamPosEndLevel()
-    {
-        //this function sets the map camera's position to it's original pos (for this level) so that we can continue animations from there
+    //    float ZPos = cameraTrailOffset * (currentIndexInCluster + 1) + distanceBetweenRings + cameralevelOffset; // we do +2 here since we see 3 rings in the starts, so it's index 0, 1, 2.
+    //                                                                           // from this point on, every time we advance in the cluster, we will advance by ring offset (9.5 for now)
+    //    LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, ZPos), moveCameraInLevelTime);
+    //}
 
-        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, currentLevelCameraParentZPos), moveCameraOutLevelTime);
+    //public IEnumerator FixCamPosEndLevel()
+    //{
+    //    //this function sets the map camera's position to it's original pos (for this level) so that we can continue animations from there
 
-        yield return new WaitForSeconds(moveCameraOutLevelTime + 0.5f);
+    //    LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, currentLevelCameraParentZPos), moveCameraOutLevelTime);
+
+    //    yield return new WaitForSeconds(moveCameraOutLevelTime + 0.5f);
 
 
-        UIManager.IS_DURING_TRANSITION = false;
-    }
+    //    UIManager.IS_DURING_TRANSITION = false;
+    //}
 
     public void ToggleRings(Ring currentRing, bool inLevel)
     {
@@ -296,27 +297,27 @@ public class MapLogic : MonoBehaviour
         }
     }
 
-    public IEnumerator CameraTransitionNextLevel(int currentIndexInCluster)
-    {
-        //this function moves the camera to a "start point" from which we can activate the enter level animation
+    //public IEnumerator CameraTransitionNextLevel(int currentIndexInCluster)
+    //{
+    //    //this function moves the camera to a "start point" from which we can activate the enter level animation
 
-        endPos = Vector3.zero; // we reset the map move data before manually moving.
+    //    endPos = Vector3.zero; // we reset the map move data before manually moving.
 
-        yield return new WaitForSeconds(waitMoveNextLevelTime);
-        if(currentIndexInCluster < currentCluster.clusterLevels.Length - endRingsVisibleLimit) //we always want to make sure we don't move if we need the current + next ring. this keeps us in bounds
-        {
-            float ZPos = currentLevelCameraParentZPos + distanceBetweenRings;
+    //    yield return new WaitForSeconds(waitMoveNextLevelTime);
+    //    if(currentIndexInCluster < currentCluster.clusterLevels.Length - endRingsVisibleLimit) //we always want to make sure we don't move if we need the current + next ring. this keeps us in bounds
+    //    {
+    //        float ZPos = currentLevelCameraParentZPos + distanceBetweenRings;
 
-            LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
-        }
+    //        LeanTween.move(levelCameraParent.gameObject, new Vector3(levelCameraParent.transform.position.x, levelCameraParent.transform.position.y, ZPos), moveNextLevelTime).setEase(LeanTweenType.easeInOutSine);
+    //    }
 
-        GameManager.IS_IN_LEVEL = false;
+    //    GameManager.IS_IN_LEVEL = false;
 
-        UIManager.instance.fillIndex++;
-        UIManager.instance.LevelFillBarAnimate(UIManager.instance.fillIndex);
+    //    UIManager.instance.fillIndex++;
+    //    UIManager.instance.LevelFillBarAnimate(UIManager.instance.fillIndex);
 
-        yield return new WaitForSeconds(angleIntoLevelTime);
-    }
+    //    yield return new WaitForSeconds(angleIntoLevelTime);
+    //}
 
     public void DataOnTransitionNextLevel()
     {

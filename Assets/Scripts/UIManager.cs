@@ -11,7 +11,6 @@ using TMPro;
 [System.Serializable]
 public class WorldDisplayCombo
 {
-    public WorldEnum world;
     public Sprite mainSprite;
     public Sprite leftMargineSprite;
     public Sprite rightMargineSprite;
@@ -43,7 +42,6 @@ public class UIManager : MonoBehaviour
     [Header("General refrences")]
     [SerializeField] private Player player;
     [SerializeField] private PowerupManager powerupManager;
-    [SerializeField] private DailyRewardsManager dailyRewardsManager;
     [SerializeField] private MapLogic mapLogic;
     [SerializeField] private LootManager lootManager;
 
@@ -53,16 +51,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<BasicUIElement> currentPermanentScreens;
 
     [Header("Map Screen")]
-    [SerializeField] private BasicCustomUIWindow levelScrollRect;
-    [SerializeField] private PlayerWorkshopCustomWindow playerWorkshopWindow;
-    [SerializeField] private BasicCustomUIWindow buyPotionWindow;
-    [SerializeField] private LevelMapPopupCustomWindow levelMapPopUp;
     [SerializeField] private BasicCustomUIWindow generalSettings;
     [SerializeField] private BasicCustomUIWindow generalMapUI;
     [SerializeField] private BasicCustomUIWindow overAllMapUI;
-    [SerializeField] private AnimalAlbumCustonWindow animalAlbumWindow;
-    [SerializeField] private BasicCustomUIWindow animalAlbumRewardWidnow;
-    [SerializeField] private DailyRewardsCustomWindow dailyRewardsWindow;
     [SerializeField] private BasicCustomButton playButton;
     [SerializeField] private TMP_Text levelNumText;
 
@@ -74,14 +65,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow inLevelLostLevelMessage;
     [SerializeField] private BasicCustomUIWindow inLevelLastDealWarning;
     [SerializeField] private BasicCustomUIWindow inLevelExitToMapQuesiton;
-    [SerializeField] private BasicCustomUIWindow inLevelRestartLevelQuesiton;
     [SerializeField] private WinLevelCustomWindow inLevelWinWindow;
     [SerializeField] private Image fillBarImageInLevel;
     [SerializeField] private TMP_Text inLevelCoinCount;
 
     [Header("Curtains object settings")] // might move to SO
-    [SerializeField] private BasicCustomUIWindow fadeWindow;
-
     [DisplayWithoutEdit()]
     [SerializeField] private float currentCurtainsLevelDelay;
     [SerializeField] private float curtainsDelayOnStart;
@@ -389,7 +377,6 @@ public class UIManager : MonoBehaviour
     }
 
 
-
     public void ToggleLockAllCurrentScreens(bool _isLock)
     {
         if(currentlyOpenSoloElement)
@@ -560,18 +547,6 @@ public class UIManager : MonoBehaviour
         inLevelExitToMapQuesiton.OverrideSetMyElement(null, null, actions);
     }
 
-    private void DisplayInLevelRestartLevelQuestion()
-    {
-        AddUIElement(inLevelRestartLevelQuesiton);
-
-        System.Action[] actions = DelegateAction(
-            inLevelRestartLevelQuesiton,
-            new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelRestartLevelQuesiton) },
-            new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelRestartLevelQuesiton) });
-
-        inLevelRestartLevelQuesiton.OverrideSetMyElement(null, null, actions);
-    }
 
     #endregion
 
@@ -595,68 +570,6 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Level map related actions
-    public void DisplayLaunchLevelPopUp(LevelSO levelSO)
-    {
-        string[] texts = new string[] { "Level " + levelSO.levelNumInZone.ToString(), ToDescription(levelSO.worldName)};
-
-        System.Action[] actions = DelegateAction(
-            levelMapPopUp,
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.AnimateLevelElements(true))},
-            new ButtonActionIndexPair { index = 0, action = GameManager.instance.SetLevel},
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(levelMapPopUp)});
-
-        AddUIElement(levelMapPopUp);
-
-        levelMapPopUp.OverrideSetMyElement(texts, null, actions);
-    }
-
-    public void RefreshRubyAndTearsTexts(int tearsAmount, int rubiesAmount)
-    {
-        generalMapUI.TextRefrences[0].text = tearsAmount.ToString(); // dew drops text
-        generalMapUI.TextRefrences[1].text = rubiesAmount.ToString(); // rubies text
-    }
-
-    public void DisplayBuyPotionWindow(int neededRubies)
-    {
-        //how to color text red/white if have enough rubies???
-
-        System.Action[] actions = DelegateAction(
-            buyPotionWindow,
-            new ButtonActionIndexPair { index = 0, action = () => powerupManager.BuyPotion() },
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(buyPotionWindow) },
-            new ButtonActionIndexPair { index = 1, action = () => CloseElement(buyPotionWindow) });
-
-        AddUIElement(buyPotionWindow);
-
-        bool hasEnoughRubies = player.GetOwnedCoins >= neededRubies;
-        string[] texsts = new string[] { neededRubies.ToString() };
-
-        buyPotionWindow.OverrideSetMyElement(texsts, null, actions);
-    }
-
-    public void DisplayAnimalAlbumReward(int amountOfReward)
-    {
-        System.Action[] actions = DelegateAction(
-            animalAlbumRewardWidnow,
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(animalAlbumRewardWidnow) });
-
-        AddUIElement(animalAlbumRewardWidnow);
-
-        string[] texts = new string[] { amountOfReward.ToString() };
-
-        animalAlbumRewardWidnow.OverrideSetMyElement(texts, null, actions);
-    }
-
-    public void DisplayDailyRewardsWindow()
-    {
-        System.Action[] actions = DelegateAction(
-            dailyRewardsWindow,
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(dailyRewardsManager.RecieveReward()) });
-
-        AddUIElement(dailyRewardsWindow);
-
-        dailyRewardsWindow.OverrideSetMyElement(null, null, actions);
-    }
 
     public IEnumerator DisplayLevelCluster(bool isAnimate)
     {
@@ -745,27 +658,6 @@ public class UIManager : MonoBehaviour
         generalSettings.OverrideSetMyElement(null, null, actions);
     }
 
-    private void DisplayPlayerWorkshop()
-    {
-        System.Action[] actions = DelegateAction(
-            playerWorkshopWindow,
-            new ButtonActionIndexPair { index = 0, action = () => playerWorkshopWindow.TrySwitchCategory(0) }, // inventory catagory
-            new ButtonActionIndexPair { index = 0, action = () => playerWorkshopWindow.SortWorkshop(0) }, // inventory catagory
-            new ButtonActionIndexPair { index = 0, action = () => powerupManager.ClearPowerupScreenDataComplete() },// inventory catagory
-            new ButtonActionIndexPair { index = 1, action = () => GameManager.TestButtonDelegationWorks() }, // potion catagory
-            new ButtonActionIndexPair { index = 2, action = () => playerWorkshopWindow.SortWorkshop(0) }, // inventory build sort
-            new ButtonActionIndexPair { index = 3, action = () => playerWorkshopWindow.SortWorkshop(1) }, // inventory gem sort
-            new ButtonActionIndexPair { index = 4, action = () => playerWorkshopWindow.SortWorkshop(2) }, // inventory herb sort
-            new ButtonActionIndexPair { index = 5, action = () => playerWorkshopWindow.SortWorkshop(3) }, // inventory witchcraft sort
-            new ButtonActionIndexPair { index = 6, action = () => powerupManager.TryBrewPotion() }); // potion brew button
-
-
-        AddUIElement(playerWorkshopWindow);
-
-        playerWorkshopWindow.OverrideSetMyElement(null, null, actions);
-
-        playerWorkshopWindow.InitPlayerWorkshop();
-    }
     #endregion
 
     #region  general
@@ -836,11 +728,6 @@ public class UIManager : MonoBehaviour
         IS_DURING_CURTAINS = false;
 
         currentCurtainsLevelDelay = 0; // this variable changes in code to affect how long we wait on the end fade.
-    }
-    public static string ToDescription(WorldEnum value)
-    {
-        DescriptionAttribute[] da = (DescriptionAttribute[])(value.GetType().GetField(value.ToString())).GetCustomAttributes(typeof(DescriptionAttribute), false);
-        return da.Length > 0 ? da[0].Description : value.ToString();
     }
 
 

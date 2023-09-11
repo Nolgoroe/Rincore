@@ -184,7 +184,7 @@ public class AuthManager : MonoBehaviour
                     {
                         //Username is now set
                         //Now return to login screen
-                        UIManagerFirebase.instance.LoginScreen();
+                        //UIManagerFirebase.instance.LoginScreen();
                         warningRegisterText.text = "";
                     }
                 }

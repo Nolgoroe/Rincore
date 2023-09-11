@@ -30,6 +30,7 @@ public class SoundSpriteSwappingCustomButton : CustomButtonParent
         // nothing happends here
     }
 
+    //called from button
     public void CheckSoundManagerMusicState()
     {
         if(SoundManager.instance.isMusicMuted)
@@ -42,6 +43,7 @@ public class SoundSpriteSwappingCustomButton : CustomButtonParent
         }
     }
 
+    //called from button
     public void CheckSoundManagerSFXState()
     {
         if (SoundManager.instance.isSFXMuted)

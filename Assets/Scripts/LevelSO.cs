@@ -45,7 +45,6 @@ public class stoneTileDataStruct
 public class LevelSO : ScriptableObject
 {
     [Header("Level Setup Settings")]
-    public WorldEnum worldName;
     public int levelNumInZone;
     public Ringtype ringType;
 

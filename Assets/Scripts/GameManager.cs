@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
     private System.Action RingActions;
     private System.Action AfterRingActions;
     private System.Action WinLevelActions;
-    //private System.Action LoseLevelActions;
     /// <summary>
     /// Never add to this directly - always use the function "AddToEndlevelCleanup(action to add) with the action we want to add".
     /// We do this since we REQUIRE that the last action will be a specific one.
@@ -55,7 +54,6 @@ public class GameManager : MonoBehaviour
 
     [Header("General refrences")]
     [SerializeField] private Transform inLevelParent;
-    [SerializeField] private ZoneManager zoneManager;
     [SerializeField] private LootManager lootManager;
     [SerializeField] private Player player;
     [SerializeField] private MapLogic mapLogic;
@@ -214,17 +212,6 @@ public class GameManager : MonoBehaviour
         powerupManager.SpawnPotions();
     }
 
-    private void SpawnLevelBG()
-    {
-        ZoneMaterialData go = Resources.Load<ZoneMaterialData>(zoneManager.ReturnBGPathByType(currentLevel.worldName));
-        ZoneMaterialData levelBG = Instantiate(go, inLevelParent);
-
-        if(levelBG)
-        {
-            levelBG.ChangeZoneToBlurryZoneDisplay();
-        }
-    }
-
     public IEnumerator AnimateLevelElements(bool inLevel)
     {
         if(inLevel)
@@ -283,12 +270,12 @@ public class GameManager : MonoBehaviour
         endLevelActions?.Invoke();
     }
 
-    public IEnumerator InitiateDestrtuctionOfCluster()
-    {
-        yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
-        Debug.Log("Initiating destruction");
+    //public IEnumerator InitiateDestrtuctionOfCluster()
+    //{
+    //    yield return new WaitUntil(() => !UIManager.IS_DURING_TRANSITION);
+    //    Debug.Log("Initiating destruction");
 
-    }
+    //}
 
     // This function makes sure that we have "ClearLevelActions" set as the last action to be made
     private void AddToEndlevelActions(System.Action actionToAdd)
@@ -341,24 +328,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Works!");
     }
 
-
-    public int ReturnNumOfLevelsInCluster()
-    {
-        return currentClusterSO.clusterLevels.Length;
-    }
-    public bool ReturnIsLastLevelInCluster()
-    {
-        return (currentIndexInCluster + 1 == currentClusterSO.clusterLevels.Length);
-    }
-    public int ReturnCurrentIndexInCluster()
-    {
-        return currentIndexInCluster;
-    }
-
-    public LevelSO ReturnCurrentLevelSO()
-    {
-        return currentClusterSO.clusterLevels[currentIndexInCluster];
-    }
     public void BroadcastWinLevelActions()
     {
         WinLevelActions?.Invoke();
@@ -367,10 +336,6 @@ public class GameManager : MonoBehaviour
 
         GameAnalytics.NewErrorEvent(GAErrorSeverity.Critical, "I am testing GA");
 
-    }
-
-    public void AdvanceGiveLootFromManager()
-    {
     }
 
     public IEnumerator OnLevelExitResetSystem()

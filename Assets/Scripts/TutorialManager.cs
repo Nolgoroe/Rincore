@@ -52,6 +52,7 @@ public class TutorialManager : MonoBehaviour
             UnLockAll();
             ToggleAllTutorialParts(false);
 
+            LeanTween.cancel(currentMoveObject.gameObject);
             Destroy(currentMoveObject.gameObject);
 
             yield return new WaitForEndOfFrame();

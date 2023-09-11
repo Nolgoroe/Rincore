@@ -80,7 +80,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         cellParent.CallPlayVFX(VFX.bomb);
     }
 
-
     public void JokerPower()
     {
         if (cellParent)
@@ -203,7 +202,6 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
         return false;
     }
-
 
     public bool CheckSidesDifferent()
     {

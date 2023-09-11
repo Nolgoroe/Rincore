@@ -52,13 +52,11 @@ public class PowerupManager : MonoBehaviour
     [SerializeField] private RectTransform selectedPotionRect;
     [SerializeField] private PowerupScriptableObject currentPotionSelected;
     [SerializeField] private int currentNeededRubies;
-    [SerializeField] private List<PotionIngredientSegment> spawnedDisplays;
     [SerializeField] public List<PotionCustomButton> customPotionButtons { get; private set; }
 
     [Header("Crafting refrences")]
     [SerializeField] private BasicCustomUIWindow potionWindow;
     [SerializeField] private PotionCustomButton potionButtonPrefab;
-    [SerializeField] private PotionIngredientSegment potionMaterialPrefab;
     [SerializeField] private Transform[] potionsMaterialZones;
     [SerializeField] private Transform potionButtonsParent;
     [SerializeField] private UIElementDisplayerSegment buyPotionScreenMaterialPrefab; 
@@ -76,162 +74,6 @@ public class PowerupManager : MonoBehaviour
     private void Start()
     {
         customPotionButtons = new List<PotionCustomButton>();
-    }
-    public void InstantiatePowerButton(PowerupType powerType) // is it okay to take care of display and data of buttons here?
-    {
-        //summon and set button data
-        PotionCustomButton createdButton = Instantiate(potionButtonPrefab, potionButtonsParent);
-        createdButton.connecetdScriptableObjectType = powerType;
-
-        customPotionButtons.Add(createdButton);
-        //set button display and logic when it's summoned
-        PowerupScriptableObject tempVar = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
-        if (tempVar == null)
-        {
-            Debug.LogError("Couldn't find potion!");
-        }
-
-        Sprite[] sprites = new Sprite[] { tempVar.potionSprite };
-        System.Action[] actions = new System.Action[1];
-        actions[0] += () => SetSelectedPotion(powerType);
-
-        createdButton.OverrideSetMyElement(null, sprites, actions);
-    }
-
-    public void SetSelectedPotion(PowerupType powerType) // is it okay to take care of display and summon of dispay here? is index of also ok?
-    {
-        PowerupScriptableObject tempSelected = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
-        int indexOfNewPotion = allPowerups.IndexOf(tempSelected);
-
-
-        AnimatePotionButton(customPotionButtons[indexOfNewPotion], true);
-
-        if (currentPotionSelected == tempSelected)
-        {
-            return;
-        }
-
-        if(currentPotionSelected)
-        {
-            int precviousindexOfPotion = allPowerups.IndexOf(currentPotionSelected);
-            AnimatePotionButton(customPotionButtons[precviousindexOfPotion], false);
-        }
-
-
-        currentPotionSelected = tempSelected;
-        if (currentPotionSelected == null)
-        {
-            Debug.LogError("Couldn't find potion!");
-            return;
-        }
-
-        string[] texsts = new string[] { currentPotionSelected.powerType.ToString(), currentPotionSelected.potionDescription };
-        Sprite[] sprites = new Sprite[] { currentPotionSelected.potionSprite};
-        potionWindow.OverrideSetMyElement(texsts, sprites, null);
-
-    }
-
-    private void AnimatePotionButton(PotionCustomButton customButton, bool isUp)
-    {
-        RectTransform rect = customButton.GetComponent<RectTransform>();
-        
-        if (isUp)
-        {
-            LeanTween.moveY(rect, customButton.originalPos.y + 50, 0.2f);
-        }
-        else
-        {
-            LeanTween.moveY(rect, customButton.originalPos.y, 0.2f);
-        }
-    }
-
-    public void CallClearPowerupScreenDataCoroutine()
-    {
-        //called from DarkBackground under workshop
-        ClearPowerupScreenDataComplete();
-    }
-    public void ClearPowerupScreenDataComplete()
-    {
-        for (int i = 0; i < potionButtonsParent.childCount; i++)
-        {
-            Destroy(potionButtonsParent.GetChild(i).gameObject);         
-        }
-
-        StartCoroutine(ClearGeneralData());
-        currentPotionSelected = null;
-        customPotionButtons.Clear();
-    }
-
-    private IEnumerator ClearGeneralData()
-    {
-        for (int i = 0; i < potionsMaterialZones.Length; i++)
-        {
-            for (int k = 0; k < potionsMaterialZones[i].childCount; k++)
-            {
-                Destroy(potionsMaterialZones[i].GetChild(k).gameObject);
-            }
-        }
-
-        currentNeededRubies = 0;
-        spawnedDisplays.Clear();
-        yield return new WaitForEndOfFrame();
-    }
-
-    public void TryBrewPotion()
-    {
-        if(currentNeededRubies == 0)
-        {
-            BrewPotion();
-        }
-        else
-        {
-            CleanBuyPotionWindow();
-            UIManager.instance.DisplayBuyPotionWindow(currentNeededRubies);
-            //ask if want buy potion
-        }
-    }
-
-
-    public void CleanBuyPotionWindow()
-    {
-        if(buyPotionScreenMaterialParent.childCount > 0)
-        {
-            for (int i = 0; i < buyPotionScreenMaterialParent.childCount; i++)
-            {
-                Destroy(buyPotionScreenMaterialParent.GetChild(i).gameObject);
-            }
-        }
-    }
-
-    public void BuyPotion()
-    {
-        if (player.GetOwnedCoins < currentNeededRubies)
-        {
-            Debug.LogError("Not enough rubies!");
-            return;
-        }
-
-        player.RemoveCoins(currentNeededRubies);
-
-
-        OwnedPowersAndAmounts temoVar = ownedPowerups.Where(i => i.powerType == currentPotionSelected.powerType).SingleOrDefault();
-
-        if(temoVar == null)
-        {
-            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(currentPotionSelected.powerType, 1, currentPotionSelected.price);
-            ownedPowerups.Add(newPotion);
-        }
-        else
-        {
-            temoVar.amount++;
-        }
-
-        CleanBuyPotionWindow();
-    }
-    public void BrewPotion()
-    {
-
-        AddPotion(currentPotionSelected.powerType, 1);
     }
 
     public void AddPotion(PowerupType powerType, int amount)

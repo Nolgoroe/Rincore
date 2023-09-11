@@ -71,7 +71,6 @@ public class LootManager : MonoBehaviour
         ManageLootReward(GameManager.instance.currentCluster);
     }
 
-
     public void ManageLootReward(ClusterSO cluster)
     {
         ChestSO chosenChest = null;
@@ -103,7 +102,6 @@ public class LootManager : MonoBehaviour
 
         GiveLootToPlayer();
     }
-
 
     private ChestSO RollChestIndex(List<ChestSO> chestList)
     {

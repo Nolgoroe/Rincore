@@ -7,8 +7,6 @@ using System.Linq;
 public class Player : MonoBehaviour
 {
     [SerializeField] private int ownedCoins;
-    [SerializeField] private int ownedTears;
-    [SerializeField] private int maxOwnedTears;
       
 
     public void OnLoadData()
@@ -32,33 +30,9 @@ public class Player : MonoBehaviour
 
         Debug.Log("Removed: " + amount + " " + "To Rubies!");
     }
-    public void AddTears(int amount)
-    {
-        if (CheckHasMaxTears())
-        {
-            Debug.Log("Has max tears");
-            return;
-        }
-
-        ownedTears += amount;
-
-        if(ownedTears > maxOwnedTears)
-        {
-            ownedTears = maxOwnedTears;
-        }
-
-        Debug.Log("Added: " + amount + " " + "To Tears!");
-    }
-
-    private bool CheckHasMaxTears()
-    {
-        return ownedTears < maxOwnedTears;
-    }
 
     /**/
     // GETTERS!
     /**/
     public int GetOwnedCoins => ownedCoins;
-    public int GetOwnedTears => ownedTears;
-    public bool GetHasMaxTears => CheckHasMaxTears();
 }
