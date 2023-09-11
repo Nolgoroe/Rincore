@@ -5588,7 +5588,7 @@ MonoBehaviour:
   secondCam: {fileID: 938545813}
   maskImage: {fileID: 3276051305053571322}
   camDepth: 1
-  prefabToSpawn: {fileID: 6785603387080579973, guid: 0e343075717eb2840ab0e2070d8b30b0,
+  prefabToSpawn: {fileID: 7828834466302005854, guid: a92dc8476a8f0784d870300796d81c32,
     type: 3}
   textParent: {fileID: 1238718949}
   tutorialText: {fileID: 1640969509}
@@ -6725,12 +6725,9 @@ MonoBehaviour:
   currentlyOpenSoloElement: {fileID: 0}
   currentAdditiveScreens: []
   currentPermanentScreens: []
-  levelScrollRect: {fileID: 0}
-  buyPotionWindow: {fileID: 0}
   generalSettings: {fileID: 2119098364}
   generalMapUI: {fileID: 354663025}
   overAllMapUI: {fileID: 8269409581058775147}
-  animalAlbumRewardWidnow: {fileID: 0}
   playButton: {fileID: 6748166866552126153}
   levelNumText: {fileID: 1508585868}
   inLevelUI: {fileID: 1454515675}
@@ -6740,11 +6737,9 @@ MonoBehaviour:
   inLevelLostLevelMessage: {fileID: 1708819783921188096}
   inLevelLastDealWarning: {fileID: 4333074121544673098}
   inLevelExitToMapQuesiton: {fileID: 4056610724468142014}
-  inLevelRestartLevelQuesiton: {fileID: 0}
   inLevelWinWindow: {fileID: 1306550044811362646}
   fillBarImageInLevel: {fileID: 424425567}
   inLevelCoinCount: {fileID: 438473897}
-  fadeWindow: {fileID: 0}
   currentCurtainsLevelDelay: 0
   curtainsDelayOnStart: 0.3
   waitBeforeCurtainsOutTime: 0.2
@@ -8698,15 +8693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4303d1a61133b564a942b938d1bbaeaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2069315016}
-  constTimeLeftGiveDewDrop: 60
-  currentTimeLeftGiveDewDrop: 0
-  dewDropsTimeText: {fileID: 0}
-  dailyRewardText: {fileID: 0}
-  constTimeLeftGiveDailyLoot: 2
-  timeString: 
-  lastTimeString: 
-  lastTime: 0
 --- !u!1001 &2043032825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8797,8 +8783,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownedCoins: 5000
-  ownedTears: 0
-  maxOwnedTears: 0
 --- !u!4 &2069315017
 Transform:
   m_ObjectHideFlags: 0

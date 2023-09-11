@@ -31,7 +31,8 @@ public class TutorialManager : MonoBehaviour
     public static bool IS_DURING_TUTORIAL;
     [SerializeField] private Tutoriable originObject;
     [SerializeField] private Tutoriable targetObject;
-    [SerializeField] private Animator currentMoveObject;
+    [SerializeField] private GameObject currentMoveObject;
+    [SerializeField] private Animator currentMoveObjectAnim;
     [SerializeField] private TutorialSO currentTutorial;
     [SerializeField] private int currentTutorialStepIndex;
     [SerializeField] private List<Tutoriable> activeHighlights;
@@ -186,7 +187,8 @@ public class TutorialManager : MonoBehaviour
     private void StartTutorialStep()
     {
         Vector3 targetPos = new Vector3(originObject.transform.position.x, originObject.transform.position.y + heightOffset, originObject.transform.position.z);
-        currentMoveObject = Instantiate(prefabToSpawn, targetPos, prefabToSpawn.transform.rotation).GetComponent<Animator>();
+        currentMoveObject = Instantiate(prefabToSpawn, targetPos, prefabToSpawn.transform.rotation);
+        currentMoveObjectAnim = currentMoveObject.transform.GetChild(0).GetComponent<Animator>(); //temp hardcoded
 
         MiddleManCoroutine(false);
     }
@@ -233,7 +235,7 @@ public class TutorialManager : MonoBehaviour
         }
         else
         {
-            currentMoveObject.SetTrigger("Press&hold");
+            currentMoveObjectAnim.SetTrigger("Press&hold");
 
             yield return new WaitForSeconds(moveTime);
 
@@ -242,7 +244,7 @@ public class TutorialManager : MonoBehaviour
             LeanTween.move(currentMoveObject.gameObject, targetPos, moveTime);
 
             yield return new WaitForSeconds(moveTime);
-            currentMoveObject.SetTrigger("Release");
+            currentMoveObjectAnim.SetTrigger("Release");
         }
 
 
@@ -251,9 +253,14 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator TapInPlace()
     {
-        currentMoveObject.SetTrigger("Press&release");
+        currentMoveObjectAnim.SetTrigger("Press&hold");
+
+        yield return new WaitForSeconds(0.5f);
+
+        currentMoveObjectAnim.SetTrigger("Release");
 
         yield return new WaitForSeconds(2);
+
 
         MiddleManCoroutine(false);
     }
