@@ -29,7 +29,8 @@ public enum sounds
     LoseScreen,
     Lock,
     UnLock,
-    BoosterFlip
+    BoosterFlip,
+    CoinUse
 }
 
 public class SoundManager : MonoBehaviour

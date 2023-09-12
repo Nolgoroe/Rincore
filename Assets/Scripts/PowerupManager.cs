@@ -581,6 +581,7 @@ public class PowerupManager : MonoBehaviour
 
     private void OnUseCoins()
     {
+        SoundManager.instance.CallPlaySound(sounds.CoinUse);
         //Manage Coin Display and data
         int currentCoins = player.GetOwnedCoins;
         int newCoins = player.GetOwnedCoins - currentChosenPowerSO.price;
