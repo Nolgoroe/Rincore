@@ -697,11 +697,13 @@ public class UIManager : MonoBehaviour
         if (_In)
         {
             yield return new WaitForSeconds(waitBeforeCurtainsInTime);
+            SoundManager.instance.CallPlaySound(sounds.CurtainsIn);
             LeanTween.moveLocalX(leftParent, moveToX, curtainsIntoMapTime).setEase(tweenType);
             LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
         }
         else
         {
+            SoundManager.instance.CallPlaySound(sounds.CurtainsOut);
             LeanTween.moveLocalX(leftParent, 0, curtainsOutMapTime).setEase(tweenType);
             LeanTween.moveLocalX(rightParent, 0, curtainsOutMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
         }

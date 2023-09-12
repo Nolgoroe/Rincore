@@ -6,6 +6,8 @@ public class Ring12Cell : CellBase
 {
     public override bool DroppedOn(TileParentLogic tileToPlace, Ring ring)
     {
+        SoundManager.instance.CallPlaySound(sounds.TilePlace);
+
         UndoSystem.instance.AddNewUndoEntry(tileToPlace.transform.parent, transform, tileToPlace);
 
         Tile tile12Ring = GameManager.gameClip.tileCreatorPreset.CreateTile(Tiletype.Normal12, tileToPlace.subTileLeft.subTileSymbol, tileToPlace.subTileRight.subTileSymbol, tileToPlace.subTileLeft.subTileColor, tileToPlace.subTileRight.subTileColor);

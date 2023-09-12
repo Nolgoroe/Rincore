@@ -176,6 +176,8 @@ public class InLevelUserControls : MonoBehaviour
 
     private void GrabTile(TileHolder holder)
     {
+        SoundManager.instance.CallPlaySound(sounds.TilepPickup);
+
         IGrabTileFrom grabbedObject = holder.GetComponent<IGrabTileFrom>();
 
         if(grabbedObject != null)
