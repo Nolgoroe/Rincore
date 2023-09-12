@@ -26,6 +26,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private float heightOffset;
     [SerializeField] private float moveTime;
     [SerializeField] private float waitBeforeReset;
+    [SerializeField] private float waitBeforeResetTap;
+    [SerializeField] private float waitAfterTapDone;
 
     [Header("Live data")]
     public static bool IS_DURING_TUTORIAL;
@@ -271,11 +273,11 @@ public class TutorialManager : MonoBehaviour
     {
         currentMoveObjectAnim.SetTrigger("Press&hold");
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(waitBeforeResetTap);
 
         currentMoveObjectAnim.SetTrigger("Release");
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(waitAfterTapDone);
 
 
         MiddleManCoroutine(false);
