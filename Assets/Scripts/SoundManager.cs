@@ -103,20 +103,22 @@ public class SoundManager : MonoBehaviour
 
     public void CallPlaySound(sounds sound)
     {
-        StartCoroutine(PlaySound(sound));
+        //StartCoroutine(PlaySound(sound));
+        PlaySound(sound);
     }
-    private IEnumerator PlaySound(sounds sound)
+    private void PlaySound(sounds sound)
     {
-        if (audioSources[sound].gameObject.activeInHierarchy) yield break;
+        //if (audioSources[sound].gameObject.activeInHierarchy) yield break;
 
-        audioSources[sound].gameObject.SetActive(true);
+        //audioSources[sound].gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(audioSources[sound].clip.length);
+        //yield return new WaitForSeconds(audioSources[sound].clip.length);
 
-        if (!audioSources[sound].loop)
-        {
-            audioSources[sound].gameObject.SetActive(false);
-        }
+        audioSources[sound].Play();
+        //if (!audioSources[sound].loop)
+        //{
+        //    audioSources[sound].gameObject.SetActive(false);
+        //}
     }
 
     public void PlaySoundDeal()

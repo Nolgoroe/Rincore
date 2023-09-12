@@ -353,7 +353,7 @@ public class InLevelUserControls : MonoBehaviour
 
     private void ReturnHome()
     {
-        SoundManager.instance.CallPlaySound(sounds.ErrorSound);
+        SoundManager.instance.CallPlaySound(sounds.TilePlace);
 
         LeanTween.cancel(currentTileToMove.gameObject);
 
