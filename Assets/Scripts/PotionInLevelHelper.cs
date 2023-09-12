@@ -89,4 +89,9 @@ public class PotionInLevelHelper : MonoBehaviour
     {
         connectedShake.ShakeOnce();
     }
+
+    public void PlayFlipSound()
+    {
+        SoundManager.instance.CallPlaySound(sounds.BoosterFlip);
+    }
 }

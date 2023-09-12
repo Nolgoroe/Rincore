@@ -321,11 +321,12 @@ public class ClipManager : MonoBehaviour
 
         StartCoroutine(DeactivateClipSlot(activeClipSlotsCount - 1)); //darken the slot
 
-        SoundManager.instance.CallPlaySound(sounds.DealOut);
 
         // move the tile GFX parent out of screen
         for (int i = 0; i < activeClipSlotsCount; i++)
         {
+            SoundManager.instance.PlaySoundDeal();
+
             GameObject toMove = slots[i].tileGFXParent.gameObject;
 
             LeanTween.move(toMove, piecesDealPositionsOut, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
@@ -354,11 +355,12 @@ public class ClipManager : MonoBehaviour
 
         }
 
-        SoundManager.instance.CallPlaySound(sounds.DealIn);
 
         // move the tile GFX parent back into screen
         for (int i = activeClipSlotsCount - 1; i > -1; i--)
         {
+            SoundManager.instance.PlaySoundDeal();
+
             GameObject toMove = slots[i].tileGFXParent.gameObject;
 
             LeanTween.move(toMove, slots[i].originalSlotPos, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate

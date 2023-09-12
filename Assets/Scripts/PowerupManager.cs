@@ -504,7 +504,7 @@ public class PowerupManager : MonoBehaviour
             switch (currentPowerUsing)
             {
                 case PowerupType.Switch:
-                    SoundManager.instance.CallPlaySound(sounds.UseJoker);
+                    SoundManager.instance.CallPlaySound(sounds.UseSwitch);
 
                     currentPotionDisplay.connectedAnim.SetTrigger("Switch");
                     break;
@@ -659,8 +659,6 @@ public class PowerupManager : MonoBehaviour
     {
         if (helper.connectedAnim)
         {
-            SoundManager.instance.CallPlaySound(sounds.BoosterFlip);
-
             helper.connectedAnim.SetBool("IsOFF", !isOn);
             helper.connectedAnim.SetBool("IsON", isOn);
         }

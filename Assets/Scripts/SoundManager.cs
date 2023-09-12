@@ -16,8 +16,6 @@ public enum sounds
     UseBomb,
     UseJoker,
     UseRefreshTiles,
-    DealIn,
-    DealOut,
     TilepPickup,
     TilePlace,
     TileConnect,
@@ -41,7 +39,13 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<AudioSource> allAudioSources;
     [SerializeField] private Dictionary<sounds, AudioSource> audioSources;
 
-    public  bool isMusicMuted;
+    [Header("Deal")]
+    [SerializeField] private AudioClip[] dealSounds;
+    [SerializeField] private AudioSource dealAudioSource;
+
+
+    [Header("General")]
+    public bool isMusicMuted;
     public bool isSFXMuted;
 
     private void Awake()
@@ -102,19 +106,25 @@ public class SoundManager : MonoBehaviour
     }
     private IEnumerator PlaySound(sounds sound)
     {
-        yield break;
-        //if (audioSources[sound].gameObject.activeInHierarchy) yield break;
+        if (audioSources[sound].gameObject.activeInHierarchy) yield break;
 
-        //audioSources[sound].gameObject.SetActive(true);
+        audioSources[sound].gameObject.SetActive(true);
 
-        //yield return new WaitForSeconds(audioSources[sound].clip.length);
+        yield return new WaitForSeconds(audioSources[sound].clip.length);
 
-        //if (!audioSources[sound].loop)
-        //{
-        //    audioSources[sound].gameObject.SetActive(false);
-        //}
+        if (!audioSources[sound].loop)
+        {
+            audioSources[sound].gameObject.SetActive(false);
+        }
     }
 
+    public void PlaySoundDeal()
+    {
+        int randomSound = Random.Range(0, dealSounds.Length);
+        dealAudioSource.clip = dealSounds[randomSound];
+
+        dealAudioSource.Play();
+    }
     public void StopSound(sounds sound)
     {
         audioSources[sound].gameObject.SetActive(false);
