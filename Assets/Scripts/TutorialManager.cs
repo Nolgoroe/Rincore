@@ -39,6 +39,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private int currentTutorialStepIndex;
     [SerializeField] private List<Tutoriable> activeHighlights;
 
+    Coroutine coroutin;
     private void Awake()
     {
         instance = this;
@@ -219,22 +220,27 @@ public class TutorialManager : MonoBehaviour
 
     private void MiddleManCoroutine(bool isBack)
     {
+        if(coroutin != null)
+        {
+            StopCoroutine(coroutin);
+        }
+
         switch (currentTutorial.tutorialSteps[currentTutorialStepIndex].tutorialType)
         {
             case TutorialType.MoveClipToCell:
-                StartCoroutine(MoveFromAtoB(isBack));
+                coroutin = StartCoroutine(MoveFromAtoB(isBack));
                 break;
             case TutorialType.MoveCellToCell:
-                StartCoroutine(MoveFromAtoB(isBack));
+                coroutin = StartCoroutine(MoveFromAtoB(isBack));
                 break;
             case TutorialType.UseDeal:
-                StartCoroutine(TapInPlace());
+                coroutin = StartCoroutine(TapInPlace());
                 break;
             case TutorialType.UsePotions:
-                StartCoroutine(TapInPlace());
+                coroutin = StartCoroutine(TapInPlace());
                 break;
             case TutorialType.TapObject:
-                StartCoroutine(TapInPlace());
+                coroutin = StartCoroutine(TapInPlace());
                 break;
             default:
                 break;
