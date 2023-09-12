@@ -110,9 +110,9 @@ public class Slice : MonoBehaviour, IPowerUsable
     }
 
 
-    public bool CheckCanUsePower()
+    public bool CheckCanUsePower(PowerupType type)
     {
-        switch (PowerupManager.instance.publicCurrentPowerSO.powerType)
+        switch (type)
         {
             case PowerupType.Bomb:
                 return CheckCanBomb();

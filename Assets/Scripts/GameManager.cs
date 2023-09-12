@@ -406,6 +406,10 @@ public class GameManager : MonoBehaviour
 
         gameClip.DestroyClipData();
 
+        UndoSystem.instance.ClearUndoSystem();
+        powerupManager.DestroyPotions();
+        yield return StartCoroutine(tutorialManager.ManuallyFinishTutorial());
+
         StartCoroutine(InitStartLevel(true));
     }
 

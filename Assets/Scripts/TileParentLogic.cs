@@ -175,9 +175,9 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     /// set subtile display function (maybe materials)
 
-    public bool CheckCanUsePower()
+    public bool CheckCanUsePower(PowerupType type)
     {
-        switch (PowerupManager.instance.publicCurrentPowerSO.powerType)
+        switch (type)
         {
             case PowerupType.Switch:
                 return CheckSidesDifferent();

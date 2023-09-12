@@ -22,6 +22,7 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler
 
     [SerializeField] protected bool isUseOnce;
 
+
     private void OnMouseDown()
     {
         if (isInteractable && 

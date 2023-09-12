@@ -75,6 +75,22 @@ public class TutorialManager : MonoBehaviour
 
     }
 
+    public IEnumerator ManuallyFinishTutorial()
+    {
+        StartCoroutine(RemoveCurrentHighlights());
+        UnLockAll();
+        ToggleAllTutorialParts(false);
+
+        LeanTween.cancel(currentMoveObject.gameObject);
+        Destroy(currentMoveObject.gameObject);
+
+        yield return new WaitForEndOfFrame();
+        StopAllCoroutines();
+        IS_DURING_TUTORIAL = false;
+
+
+        CheckManuallyLock();
+    }
     private void CheckManuallyLock()
     {
         if (!targetObject) return;

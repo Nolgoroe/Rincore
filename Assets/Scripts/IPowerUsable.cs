@@ -22,7 +22,7 @@ public interface IPowerUsable
         PowerupManager.instance.ResetPowerUpData();
     }
 
-    public virtual bool CheckCanUsePower()
+    public virtual bool CheckCanUsePower(PowerupType type)
     {
         PowerupManager.instance.ResetPowerUpData();
 

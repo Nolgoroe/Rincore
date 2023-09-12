@@ -363,6 +363,7 @@ public class PowerupManager : MonoBehaviour
 
     private IEnumerator SetUsingPotion(OwnedPowersAndAmounts ownedPower, PotionInLevelHelper potionHelper)
     {
+
         if (currentPowerUsing != PowerupType.None)
         {
             ResetPowerUpData();
@@ -373,6 +374,12 @@ public class PowerupManager : MonoBehaviour
             }
             yield break;
         }
+
+        currentChosenPowerSO = allPowerups.Where(k => k.powerType == ownedPower.powerType).SingleOrDefault();
+        currentPowerData = ownedPower;
+        currentPowerUsing = ownedPower.powerType;
+        currentPotionDisplay = potionHelper;
+
 
         if (ownedPower.amount == 0)
         {
@@ -393,11 +400,6 @@ public class PowerupManager : MonoBehaviour
                 helper.ToggleHoverWindow(false);
             }
         }
-
-        currentChosenPowerSO = allPowerups.Where(k => k.powerType == ownedPower.powerType).SingleOrDefault();
-        currentPowerData = ownedPower;
-        currentPowerUsing = ownedPower.powerType;
-        currentPotionDisplay = potionHelper;
 
         EnableAllRelaventSelectedHighlights();
 
@@ -641,7 +643,7 @@ public class PowerupManager : MonoBehaviour
         localObjectToUsePowerOn.TryGetComponent<IPowerUsable>(out powerUsable);
         if (powerUsable == null) return false;
 
-        return powerUsable.CheckCanUsePower(); // if they are NOT the same - that's why it's !
+        return powerUsable.CheckCanUsePower(currentChosenPowerSO.powerType);
     }
 
     public Transform ReturnPotionPosition(int index)
