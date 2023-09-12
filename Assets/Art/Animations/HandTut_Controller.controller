@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Release
-  m_Speed: -1
+  m_Speed: -1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2743601812802205868}
@@ -35,7 +35,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Tap
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6707010597935293826}
@@ -120,10 +120,10 @@ AnimatorStateMachine:
     m_Position: {x: 30, y: 70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7864787361265287943}
-    m_Position: {x: -180, y: 240, z: 0}
+    m_Position: {x: -130, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8203871414963468463}
-    m_Position: {x: 150, y: 230, z: 0}
+    m_Position: {x: 200, y: 170, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -148,9 +148,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.0024220943
+  m_TransitionDuration: 0.010047644
   m_TransitionOffset: 0
-  m_ExitTime: 0.9927338
+  m_ExitTime: 0.9652818
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
