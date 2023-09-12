@@ -53,20 +53,21 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
     {
         amountUnsuccessfullConnections = 0;
 
-        bool good = false;
+        bool goodRight = false;
+        bool goodLeft = false;
 
         if (leftCell.heldTile)
         {
             connectVFXLeft.gameObject.SetActive(true);
 
-            good = leftSlice.sliceData.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
-            if (!good)
+            goodLeft = leftSlice.sliceData.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
+            if (!goodLeft)
             {
                 //bad connection if we're inside here.
                 amountUnsuccessfullConnections++;
             }
 
-            SetConnectDataOnPlace(good, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
+            SetConnectDataOnPlace(goodLeft, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
         }
         else
         {
@@ -77,18 +78,23 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         {
             connectVFXRight.gameObject.SetActive(true);
 
-            good = rightSlice.sliceData.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
-            if (!good)
+            goodRight = rightSlice.sliceData.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
+            if (!goodRight)
             {
                 //bad connection if we're inside here.
                 amountUnsuccessfullConnections++;
             }
 
-            SetConnectDataOnPlace(good, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);     
+            SetConnectDataOnPlace(goodRight, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);     
         }
         else
         {
             connectVFXRight.gameObject.SetActive(false);
+        }
+
+        if (goodRight || goodLeft)
+        {
+            SoundManager.instance.CallPlaySound(sounds.TileConnect);
         }
     }
 
