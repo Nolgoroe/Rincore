@@ -216,6 +216,8 @@ public class GameManager : MonoBehaviour
     {
         if(inLevel)
         {
+            SoundManager.instance.CallPlaySound(sounds.GoIntoLevel);
+
             cameraAnimatorController.SetTrigger("Camera In Level" + currentIndexInCluster);
 
             yield return new WaitForSeconds(delayClipAppear);
@@ -239,6 +241,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.CallPlaySound(sounds.GoOutOfLevel);
+
             mapLogic.ToggleRings(gameRing, inLevel);
 
             clipAnimatorController.SetTrigger("Clip Out Level");

@@ -466,6 +466,7 @@ public class UIManager : MonoBehaviour
 
     public void DisplayInLevelWinWindow()
     {
+        SoundManager.instance.CallPlaySound(sounds.WinScreen);
         //DeactiavteAllCustomButtons();
 
         System.Action[] actions = DelegateAction(
@@ -520,6 +521,8 @@ public class UIManager : MonoBehaviour
 
     private void DisplayInLevelLostMessage()
     {
+        SoundManager.instance.CallPlaySound(sounds.LoseScreen);
+
         AddUIElement(inLevelLostLevelMessage);
 
         System.Action[] actions = DelegateAction(
@@ -587,21 +590,36 @@ public class UIManager : MonoBehaviour
         AddUIElement(generalMapUI);
     }
 
-    public void LevelFillBarAnimate(float index) //TEMP
+    public void LevelFillBarAnimate(float index)
     {
+        SoundManager.instance.CallPlaySound(sounds.LevelBarFillOnWin);
+
         fillBarAnimator.SetTrigger("Fill" + index);
     }
 
-    private void ManualUpdateLevelFillBar(float amount) //TEMP
+    private void ManualUpdateLevelFillBar(float amount)
     {
         LeanTween.value(fillBarImage.gameObject, fillBarImage.fillAmount, amount, 1).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
         {
             fillBarImage.fillAmount = val;
-
         });
     }
-    public void ManualResetLevelFillBar() //TEMP
+    public void ManualResetLevelFillBar()
     {
+        if (fillIndex == 0)
+        {
+            SoundManager.instance.CallPlaySound(sounds.LevelBarDepleteOnLose0);
+        }
+        else if (fillIndex == 1)
+        {
+            SoundManager.instance.CallPlaySound(sounds.LevelBarDepleteOnLose1);
+        }
+        else if (fillIndex == 2)
+        {
+            SoundManager.instance.CallPlaySound(sounds.LevelBarDepleteOnLose2);
+        }
+
+
         fillBarAnimator.SetTrigger("ResetFill");
 
         fillIndex = 0;

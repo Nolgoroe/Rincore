@@ -16,21 +16,22 @@ public enum sounds
     UseBomb,
     UseJoker,
     UseRefreshTiles,
-    UseUndo,
     DealIn,
     DealOut,
     TilepPickup,
     TilePlace,
     TileConnect,
     LevelBarFillOnWin,
-    LevelBarDepleteOnLose,
-    CantUsePower,
-    CantPlaceTile,
-    ClusterTransferRingsOut,
-    ClusterTransferRingsIn,
+    LevelBarDepleteOnLose0,
+    LevelBarDepleteOnLose1,
+    LevelBarDepleteOnLose2,
+    ErrorSound,
+    ClusterTransfer,
     WinScreen,
     LoseScreen,
-    GainCoins
+    Lock,
+    UnLock,
+    BoosterFlip
 }
 
 public class SoundManager : MonoBehaviour
@@ -101,16 +102,17 @@ public class SoundManager : MonoBehaviour
     }
     private IEnumerator PlaySound(sounds sound)
     {
-        if (audioSources[sound].gameObject.activeInHierarchy) yield break;
+        yield break;
+        //if (audioSources[sound].gameObject.activeInHierarchy) yield break;
 
-        audioSources[sound].gameObject.SetActive(true);
+        //audioSources[sound].gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(audioSources[sound].clip.length);
+        //yield return new WaitForSeconds(audioSources[sound].clip.length);
 
-        if (!audioSources[sound].loop)
-        {
-            audioSources[sound].gameObject.SetActive(false);
-        }
+        //if (!audioSources[sound].loop)
+        //{
+        //    audioSources[sound].gameObject.SetActive(false);
+        //}
     }
 
     public void StopSound(sounds sound)

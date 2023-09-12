@@ -110,11 +110,7 @@ public class PowerupManager : MonoBehaviour
             {
                 PotionInLevelHelper helper = spawnedHelpers[indexOfHelper];
 
-                if (helper.connectedAnim)
-                {
-                    helper.connectedAnim.SetBool("IsOFF", false);
-                    helper.connectedAnim.SetBool("IsON", true);
-                }
+                FlipBooster(helper, true);
             }
 
             owned.amount += amount;
@@ -159,6 +155,8 @@ public class PowerupManager : MonoBehaviour
 
     private void ShakeInvolved()
     {
+        SoundManager.instance.CallPlaySound(sounds.ErrorSound);
+
         //tile shake
         if (localObjectToUsePowerOn == null) return;
         CameraShake shake;
@@ -269,14 +267,13 @@ public class PowerupManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        for (int i = 0; i < ownedPowerups.Count; i++)
+        for (int i = 0; i < potionPositions.Length; i++) //we do this by potion position since those are the only ones with helpers.
         {
             if(ownedPowerups[i].amount == 0)
             {
                 if(spawnedHelpers[i].connectedAnim)
                 {
-                    spawnedHelpers[i].connectedAnim.SetBool("IsOFF", true);
-                    spawnedHelpers[i].connectedAnim.SetBool("IsON", false);
+                    FlipBooster(spawnedHelpers[i], false);
                 }
             }
         }
@@ -414,6 +411,8 @@ public class PowerupManager : MonoBehaviour
 
     private void EnableAllRelaventSelectedHighlights()
     {
+        SoundManager.instance.CallPlaySound(sounds.SelectPowerup);
+
         if (currentPotionDisplay)
         {
             currentPotionDisplay.SetAsSelected(true);
@@ -472,8 +471,7 @@ public class PowerupManager : MonoBehaviour
             {
                 if (currentPotionDisplay.connectedAnim)
                 {
-                    currentPotionDisplay.connectedAnim.SetBool("IsOFF", true);
-                    currentPotionDisplay.connectedAnim.SetBool("IsON", false);
+                    FlipBooster(currentPotionDisplay, false);
                 }
             }
 
@@ -506,15 +504,23 @@ public class PowerupManager : MonoBehaviour
             switch (currentPowerUsing)
             {
                 case PowerupType.Switch:
+                    SoundManager.instance.CallPlaySound(sounds.UseJoker);
+
                     currentPotionDisplay.connectedAnim.SetTrigger("Switch");
                     break;
                 case PowerupType.Bomb:
+                    SoundManager.instance.CallPlaySound(sounds.UseBomb);
+
                     currentPotionDisplay.connectedAnim.SetTrigger("Bomb");
                     break;
                 case PowerupType.RefreshTiles:
+                    SoundManager.instance.CallPlaySound(sounds.UseRefreshTiles);
+
                     currentPotionDisplay.connectedAnim.SetTrigger("Refresh");
                     break;
                 case PowerupType.Joker:
+                    SoundManager.instance.CallPlaySound(sounds.UseJoker);
+
                     currentPotionDisplay.connectedAnim.SetTrigger("Joker");
                     break;
                 case PowerupType.Undo:
@@ -635,8 +641,6 @@ public class PowerupManager : MonoBehaviour
     }
     private bool CheckCanUsePotion()
     {
-
-
         if (localObjectToUsePowerOn == null) return false;
         IPowerUsable powerUsable;
 
@@ -651,6 +655,16 @@ public class PowerupManager : MonoBehaviour
         return potionPositions[index];
     }
 
+    private void FlipBooster(PotionInLevelHelper helper, bool isOn)
+    {
+        if (helper.connectedAnim)
+        {
+            SoundManager.instance.CallPlaySound(sounds.BoosterFlip);
+
+            helper.connectedAnim.SetBool("IsOFF", !isOn);
+            helper.connectedAnim.SetBool("IsON", isOn);
+        }
+    }
     public PowerupScriptableObject publicCurrentPowerSO => currentChosenPowerSO;
     public float publicUsePotionTime => usePotionTime;
 }

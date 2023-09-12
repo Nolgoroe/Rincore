@@ -353,6 +353,8 @@ public class InLevelUserControls : MonoBehaviour
 
     private void ReturnHome()
     {
+        SoundManager.instance.CallPlaySound(sounds.ErrorSound);
+
         LeanTween.cancel(currentTileToMove.gameObject);
 
         CellBase cellbasee = tileOriginalHolder as CellBase;
@@ -391,6 +393,8 @@ public class InLevelUserControls : MonoBehaviour
     }
     private void ReleasePotionData()
     {
+        SoundManager.instance.CallPlaySound(sounds.ReleasePowerup);
+
         PowerupManager.instance.ResetPowerUpData();
     }
 

@@ -54,6 +54,8 @@ public class UndoSystem : MonoBehaviour
         CellBase cellBase = undoEntries[lastIndex].currntCellParent as CellBase;
         if (!cellBase) yield break;
 
+        SoundManager.instance.CallPlaySound(sounds.TilepPickup);
+
         cellBase.GrabTileFrom();
         yield return new WaitForEndOfFrame();
 
@@ -92,6 +94,8 @@ public class UndoSystem : MonoBehaviour
 
             }
         }
+        SoundManager.instance.CallPlaySound(sounds.TilePlace);
+
 
         undoEntries.RemoveAt(lastIndex);
     }

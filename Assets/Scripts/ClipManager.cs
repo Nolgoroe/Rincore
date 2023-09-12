@@ -245,14 +245,17 @@ public class ClipManager : MonoBehaviour
                     countSameColorLeft++;
                 }
 
-                if(rightSymbol == slots[i].heldTile.subTileRight.subTileSymbol)
+                if(!GameManager.currentLevel.isLevelColorOnly)
                 {
-                    countSameSymbolRight++;
-                }
+                    if (rightSymbol == slots[i].heldTile.subTileRight.subTileSymbol)
+                    {
+                        countSameSymbolRight++;
+                    }
 
-                if(lefttSymbol == slots[i].heldTile.subTileLeft.subTileSymbol)
-                {
-                    countSameSymbolLeft++;
+                    if (lefttSymbol == slots[i].heldTile.subTileLeft.subTileSymbol)
+                    {
+                        countSameSymbolLeft++;
+                    }
                 }
             }
         }
@@ -318,6 +321,8 @@ public class ClipManager : MonoBehaviour
 
         StartCoroutine(DeactivateClipSlot(activeClipSlotsCount - 1)); //darken the slot
 
+        SoundManager.instance.CallPlaySound(sounds.DealOut);
+
         // move the tile GFX parent out of screen
         for (int i = 0; i < activeClipSlotsCount; i++)
         {
@@ -348,6 +353,8 @@ public class ClipManager : MonoBehaviour
             }
 
         }
+
+        SoundManager.instance.CallPlaySound(sounds.DealIn);
 
         // move the tile GFX parent back into screen
         for (int i = activeClipSlotsCount - 1; i > -1; i--)

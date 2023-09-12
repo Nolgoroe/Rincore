@@ -89,11 +89,15 @@ public class Slice : MonoBehaviour, IPowerUsable
     {
         if(isLock)
         {
+            SoundManager.instance.CallPlaySound(sounds.Lock);
+
             lockIconAnim.SetTrigger("Lock Now");
             lockIconAnim.ResetTrigger("Unlock Now");
         }
         else
         {
+            SoundManager.instance.CallPlaySound(sounds.UnLock);
+
             lockIconAnim.SetTrigger("Unlock Now");
             lockIconAnim.ResetTrigger("Lock Now");
         }
