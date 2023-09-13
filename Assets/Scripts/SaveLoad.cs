@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 
 public class SaveLoad : MonoBehaviour
 {
+    public static SaveLoad instance;
+
     public string UID_TEXT;
     public int delayLoading;
 
@@ -31,9 +33,11 @@ public class SaveLoad : MonoBehaviour
     public Player playerRef;
     public MapLogic mapLogic;
     public SavedData saveData;
+    public bool allowSaveGame;
 
     private void Awake()
     {
+        instance = this;
         path = Application.persistentDataPath + "/UniqueIDUser.txt"; //check if can shorten
     }
 
@@ -76,6 +80,8 @@ public class SaveLoad : MonoBehaviour
     }
     private void SaveData()
     {
+        if (!allowSaveGame) return;
+
         database.Child(UID_TEXT).Child(TEST_SAVE).SetRawJsonValueAsync(JsonUtility.ToJson(saveData));
 
 
@@ -85,7 +91,7 @@ public class SaveLoad : MonoBehaviour
     }
 
     [ContextMenu("Save")]
-    private void SaveAction()
+    public void SaveAction()
     {
         saveData.currentClusterIDReached = GameManager.instance.currentCluster.clusterID;
         saveData.savedCoins = playerRef.GetOwnedCoins;

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  worldName: 0
   levelNumInZone: 1
   ringType: 0
   beforeRingSpawnActions:
@@ -110,3 +109,4 @@ MonoBehaviour:
     leftTileColor: 3
     leftTileSymbol: 0
   levelTutorial: {fileID: 11400000, guid: e533bd300ceefc443ade2829a9dc8148, type: 2}
+  doLastTileAlgo: 0

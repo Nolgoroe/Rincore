@@ -55,7 +55,7 @@ public class TutorialManager : MonoBehaviour
             StartCoroutine(FinishTutorial());
         }
         else
-        {
+        { 
             StartCoroutine(RemoveCurrentHighlights());
             Destroy(currentMoveObject.gameObject);
 

@@ -492,6 +492,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InitClusterTransfer()
     {
+        SaveLoad.instance.SaveAction();
         ClearLevelData();
         gameRing.ClearActions();
 
@@ -532,7 +533,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-
+    [ContextMenu("Num Clusters")]
+    private void InspectorNumClsuters()
+    {
+        for (int i = 0; i < allClusters.Length; i++)
+        {
+            allClusters[i].clusterID = i + 1;
+        }
+    }
     public void OnLoadData()
     {
         currentIndexInCluster = 0;

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
 using System.ComponentModel;
-
+using System.IO;
 
 [System.Serializable]
 public class sliceToSpawnDataStruct
@@ -76,7 +76,6 @@ public class LevelSO : ScriptableObject
 
     [Header("algorithms")]
     public bool doLastTileAlgo;
-
 
 
     private void OnValidate()

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Level 61
   m_EditorClassIdentifier: 
-  worldName: 0
-  levelNumInZone: 0
+  levelNumInZone: 61
   ringType: 0
   beforeRingSpawnActions:
     m_PersistentCalls:
@@ -87,3 +86,4 @@ MonoBehaviour:
   stoneTiles: []
   arrayOfSpecificTilesInClip: []
   levelTutorial: {fileID: 0}
+  doLastTileAlgo: 0

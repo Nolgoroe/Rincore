@@ -6,7 +6,11 @@ public class PotionClickableZoneCustomButton : ClickableZoneCustomButton
 {
     public void CallUICloseElement()
     {
-        PowerupManager.instance.ResetPowerUpData();
+        if(!PowerupManager.USING_POWER)
+        {
+            PowerupManager.instance.ResetPowerUpData();
+        }
+
         if (connectedParent == null)
         {
             Debug.LogError("Parent isn't a basic ui element!!!");
