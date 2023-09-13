@@ -76,6 +76,7 @@ public class LevelSO : ScriptableObject
 
     [Header("algorithms")]
     public bool doLastTileAlgo;
+    public bool useTileCreationAlgos;
 
 
     private void OnValidate()

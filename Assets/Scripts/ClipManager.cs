@@ -170,10 +170,10 @@ public class ClipManager : MonoBehaviour
 
         slot.RecieveTileDisplayer(tile);
 
-
-        CheckRepeatInClip(slot);
-
-
+        if(GameManager.currentLevel.useTileCreationAlgos)
+        {
+            CheckRepeatInClip(slot);
+        }
     }
 
     private void CheckRepeatInClip(ClipSlot slot)

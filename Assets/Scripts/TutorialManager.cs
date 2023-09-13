@@ -68,6 +68,11 @@ public class TutorialManager : MonoBehaviour
 
     public IEnumerator FinishTutorial()
     {
+        if(coroutin != null)
+        {
+            StopCoroutine(coroutin);
+        }
+
         StartCoroutine(RemoveCurrentHighlights());
         UnLockAll();
         ToggleAllTutorialParts(false);
@@ -85,7 +90,6 @@ public class TutorialManager : MonoBehaviour
 
         PowerupManager.instance.CallCheckNoPotions();
 
-        StopAllCoroutines();
     }
     private void CheckManuallyLock()
     {
@@ -242,6 +246,8 @@ public class TutorialManager : MonoBehaviour
     }
     private IEnumerator MoveFromAtoB(bool isBack)
     {
+        if (currentMoveObjectAnim == null) yield break;
+
         if (isBack)
         {
             Vector3 targetPos = new Vector3(originObject.transform.position.x, originObject.transform.position.y + heightOffset, originObject.transform.position.z);
@@ -261,6 +267,7 @@ public class TutorialManager : MonoBehaviour
             LeanTween.move(currentMoveObject.gameObject, targetPos, moveTime);
 
             yield return new WaitForSeconds(moveTime);
+
             currentMoveObjectAnim.SetTrigger("Release");
         }
 

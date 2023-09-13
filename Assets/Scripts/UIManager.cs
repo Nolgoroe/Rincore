@@ -599,10 +599,12 @@ public class UIManager : MonoBehaviour
 
     private void ManualUpdateLevelFillBar(float amount)
     {
-        LeanTween.value(fillBarImage.gameObject, fillBarImage.fillAmount, amount, 1).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
-        {
-            fillBarImage.fillAmount = val;
-        });
+        fillBarImageInLevel.fillAmount = amount;
+        fillBarImage.fillAmount = amount;
+        //LeanTween.value(fillBarImage.gameObject, fillBarImage.fillAmount, amount, 1).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
+        //{
+        //    fillBarImage.fillAmount = val;
+        //});
     }
     public void ManualResetLevelFillBar()
     {
