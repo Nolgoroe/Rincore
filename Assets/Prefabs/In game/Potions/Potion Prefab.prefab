@@ -1023,8 +1023,8 @@ MonoBehaviour:
   priceText: {fileID: 4089973886765876892}
   buyWidndow: {fileID: 1058877631038062824}
   selectedImage: {fileID: 8302882122521183001}
-  normalCountSize: 35
-  noUsesCountSize: 50
+  normalCountSize: 50
+  noUsesCountSize: 100
   plusButton: {fileID: 3556269907435397743}
   connectedAnim: {fileID: 5598323002072783361}
   buyButton: {fileID: 2632258004957925612}
@@ -1371,8 +1371,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 79.03845, y: -63.237183}
-  m_SizeDelta: {x: -84.2331, y: -84.5888}
+  m_AnchoredPosition: {x: 79.03845, y: -60.8}
+  m_SizeDelta: {x: -67.349, y: -71.4905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2271011882986498675
 CanvasRenderer:
@@ -1430,17 +1430,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
-  m_fontSizeBase: 35
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 32.5
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 2.87
+  m_characterSpacing: 6.3
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
