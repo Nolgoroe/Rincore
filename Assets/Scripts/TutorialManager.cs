@@ -60,11 +60,15 @@ public class TutorialManager : MonoBehaviour
             Destroy(currentMoveObject.gameObject);
 
             yield return new WaitForEndOfFrame();
-            StopAllCoroutines();
+
+            PowerupManager.instance.CallCheckNoPotions();
+
             IS_DURING_TUTORIAL = false;
 
 
             CheckManuallyLock();
+
+            StopAllCoroutines();
         }
         else
         {
@@ -88,11 +92,13 @@ public class TutorialManager : MonoBehaviour
         Destroy(currentMoveObject.gameObject);
 
         yield return new WaitForEndOfFrame();
-        StopAllCoroutines();
         IS_DURING_TUTORIAL = false;
 
+        PowerupManager.instance.CallCheckNoPotions();
 
         CheckManuallyLock();
+
+        StopAllCoroutines();
     }
     private void CheckManuallyLock()
     {

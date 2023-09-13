@@ -21,6 +21,8 @@ public class SoundSpriteSwappingCustomButton : CustomButtonParent
 
     public override void OnClickButton()
     {
+        SoundManager.instance.CallPlaySound(sounds.ButtonClick);
+
         buttonEvents?.Invoke();
         buttonEventsInspector?.Invoke();
     }

@@ -14,6 +14,8 @@ public class PotionCustomButton : CustomButtonParent
     }
     public override void OnClickButton()
     {
+        SoundManager.instance.CallPlaySound(sounds.ButtonClick);
+
         buttonEvents?.Invoke();
 
         buttonEventsInspector?.Invoke();

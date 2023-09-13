@@ -21,6 +21,8 @@ public class LevelMapCustomButton : CustomButtonParent
     public LevelPresetData data;
     public override void OnClickButton()
     {
+        SoundManager.instance.CallPlaySound(sounds.ButtonClick);
+
         buttonEventsInspector?.Invoke();
     }
 

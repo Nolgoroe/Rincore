@@ -263,7 +263,11 @@ public class PowerupManager : MonoBehaviour
         InitUndoSystem();
     }
 
-    public IEnumerator CheckNoPotions()
+    public void CallCheckNoPotions()
+    {
+        StartCoroutine(CheckNoPotions());
+    }
+    private IEnumerator CheckNoPotions()
     {
         yield return new WaitForEndOfFrame();
 
@@ -467,7 +471,7 @@ public class PowerupManager : MonoBehaviour
         {
             currentPowerData.amount--;
 
-            if (currentPowerData.amount == 0)
+            if (currentPowerData.amount == 0 && !TutorialManager.IS_DURING_TUTORIAL)
             {
                 if (currentPotionDisplay.connectedAnim)
                 {
