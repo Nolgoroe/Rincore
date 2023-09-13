@@ -173,6 +173,8 @@ public class PowerupManager : MonoBehaviour
 
     public void ResetPowerUpData()
     {
+        SoundManager.instance.CallPlaySound(sounds.ReleasePowerup);
+
         DisableAllRelaventSelectedHighlights();
         currentPowerUsing = PowerupType.None;
         currentPowerLogic = null;
@@ -180,6 +182,12 @@ public class PowerupManager : MonoBehaviour
         currentPotionDisplay = null;
         localObjectToUsePowerOn = null;
         currentChosenPowerSO = null;
+
+        //maske sure to close all buy windows
+        foreach (var helper in spawnedHelpers)
+        {
+            helper.ToggleHoverWindow(false);
+        }
 
         USING_POWER = false;
     }
@@ -199,6 +207,8 @@ public class PowerupManager : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.CallPlaySound(sounds.ErrorSound);
+
             ResetPowerUpData();
 
             CameraShake shake;
@@ -246,9 +256,9 @@ public class PowerupManager : MonoBehaviour
 
 
 
-            BasicCustomButton potionButton = null;
+            PotionCustomButton potionButton = null;
 
-            go.TryGetComponent<BasicCustomButton>(out potionButton);
+            go.TryGetComponent<PotionCustomButton>(out potionButton);
 
 
             if (potionButton)
@@ -300,9 +310,9 @@ public class PowerupManager : MonoBehaviour
             potionData.buyButton.buttonEvents = null;
         }
 
-        BasicCustomButton potionButton = null;
+        PotionCustomButton potionButton = null;
 
-        go.TryGetComponent<BasicCustomButton>(out potionButton);
+        go.TryGetComponent<PotionCustomButton>(out potionButton);
 
         if (potionButton)
         {
@@ -334,9 +344,9 @@ public class PowerupManager : MonoBehaviour
             spawnedHelpers.Add(potionData);
         }
 
-        BasicCustomButton potionButton = null;
+        PotionCustomButton potionButton = null;
 
-        go.TryGetComponent<BasicCustomButton>(out potionButton);
+        go.TryGetComponent<PotionCustomButton>(out potionButton);
 
         if (potionButton)
         {
@@ -376,11 +386,13 @@ public class PowerupManager : MonoBehaviour
             yield break;
         }
 
+
         currentChosenPowerSO = allPowerups.Where(k => k.powerType == ownedPower.powerType).SingleOrDefault();
         currentPowerData = ownedPower;
         currentPowerUsing = ownedPower.powerType;
         currentPotionDisplay = potionHelper;
 
+        CheckUseSelectedSound();
 
         if (ownedPower.amount == 0)
         {
@@ -413,10 +425,35 @@ public class PowerupManager : MonoBehaviour
         UsePower(false);
     }
 
+    private void CheckUseSelectedSound()
+    {
+        switch (currentPowerUsing)
+        {
+            case PowerupType.Switch:
+                SoundManager.instance.CallPlaySound(sounds.SelectPowerup);
+                break;
+            case PowerupType.Bomb:
+                SoundManager.instance.CallPlaySound(sounds.SelectPowerup);
+                break;
+            case PowerupType.RefreshTiles:
+                SoundManager.instance.CallPlaySound(sounds.SelectPowerup);
+                break;
+            case PowerupType.Joker:
+                SoundManager.instance.CallPlaySound(sounds.SelectPowerup);
+                break;
+            case PowerupType.Undo:
+                if (UndoSystem.instance.undoEntries.Count > 0)
+                {
+                    SoundManager.instance.CallPlaySound(sounds.SelectPowerup);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     private void EnableAllRelaventSelectedHighlights()
     {
-        SoundManager.instance.CallPlaySound(sounds.SelectPowerup);
-
         if (currentPotionDisplay)
         {
             currentPotionDisplay.SetAsSelected(true);
@@ -617,13 +654,13 @@ public class PowerupManager : MonoBehaviour
 
     public void ToggleLockAllPotions(bool _isLock)
     {
-        BasicCustomButton tempButton = null;
+        PotionCustomButton tempButton = null;
 
         if(spawnedHelpers.Count > 0)
         {
             foreach (var helper in spawnedHelpers)
             {
-                helper.TryGetComponent<BasicCustomButton>(out tempButton);
+                helper.TryGetComponent<PotionCustomButton>(out tempButton);
 
                 if(tempButton)
                 {
@@ -635,9 +672,9 @@ public class PowerupManager : MonoBehaviour
 
     public void ToggleLockSpecificPotion(int index, bool _isLock)
     {
-        BasicCustomButton tempButton = null;
+        PotionCustomButton tempButton = null;
 
-        spawnedHelpers[index].TryGetComponent<BasicCustomButton>(out tempButton);
+        spawnedHelpers[index].TryGetComponent<PotionCustomButton>(out tempButton);
 
         if (tempButton)
         {
@@ -670,6 +707,7 @@ public class PowerupManager : MonoBehaviour
             helper.connectedAnim.SetBool("IsON", isOn);
         }
     }
+
     public PowerupScriptableObject publicCurrentPowerSO => currentChosenPowerSO;
     public float publicUsePotionTime => usePotionTime;
 }

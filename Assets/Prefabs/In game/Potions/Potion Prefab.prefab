@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2870912998170163885}
   - component: {fileID: 5358168043525212146}
   - component: {fileID: 8837994579692842581}
-  - component: {fileID: 3699411959007929884}
+  - component: {fileID: 8922054610843936045}
   - component: {fileID: 4790868755492590108}
   m_Layer: 5
-  m_Name: DarkBackground(Clone)
+  m_Name: DarkBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3699411959007929884
+--- !u!114 &8922054610843936045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,13 +87,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 161722654162701184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 593284bdf8ebf7b47b0e81e386b44e2d, type: 3}
+  m_Script: {fileID: 11500000, guid: b7b063d071ad67249918080d22a79575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isSolo: 0
   isOverrideSolo: 0
   isPermanent: 0
-  isInteractable: 0
+  isInteractable: 1
   group: {fileID: 0}
   textRefrences: []
   imageRefrences: []
@@ -101,15 +101,33 @@ MonoBehaviour:
   buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3699411959007929884}
-        m_TargetAssemblyTypeName: EmptyUISpaceCustomButton, Assembly-CSharp
+      - m_Target: {fileID: 8922054610843936045}
+        m_TargetAssemblyTypeName: PotionClickableZoneCustomButton, Assembly-CSharp
         m_MethodName: CallUICloseElement
         m_Mode: 1
         m_Arguments:
@@ -195,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -949,9 +967,9 @@ GameObject:
   - component: {fileID: 5186342315623865632}
   - component: {fileID: 5886568935544136089}
   - component: {fileID: 1143854937314579074}
-  - component: {fileID: 7812975444056655046}
   - component: {fileID: 292747581136103043}
   - component: {fileID: 5598323002072783361}
+  - component: {fileID: 4167633894541383988}
   m_Layer: 0
   m_Name: Potion Prefab
   m_TagString: Untagged
@@ -1022,7 +1040,41 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7812975444056655046
+--- !u!136 &292747581136103043
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6887527107417983302}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 82.25102
+  m_Height: 164.50204
+  m_Direction: 1
+  m_Center: {x: -5.899338, y: -4.76754, z: 0}
+--- !u!95 &5598323002072783361
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6887527107417983302}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 616f93f31e83c1a4780726b4b35ef4e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4167633894541383988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1031,7 +1083,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6887527107417983302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4bfdfd7eb4af14d8f528fef383fc81, type: 3}
+  m_Script: {fileID: 11500000, guid: 45b5ba1da0e2762478785ff3a9d07a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isSolo: 0
@@ -1071,40 +1123,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
---- !u!136 &292747581136103043
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6887527107417983302}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 82.25102
-  m_Height: 164.50204
-  m_Direction: 1
-  m_Center: {x: -5.899338, y: -4.76754, z: 0}
---- !u!95 &5598323002072783361
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6887527107417983302}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 616f93f31e83c1a4780726b4b35ef4e2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7701842534885974166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,7 +1187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

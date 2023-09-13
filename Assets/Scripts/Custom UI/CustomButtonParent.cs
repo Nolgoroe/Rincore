@@ -31,7 +31,7 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler
             !UIManager.IS_DURING_POTION_USAGE)
         {
             // play click sound
-            SoundManager.instance.CallPlaySound(sounds.ButtonClick);
+            //SoundManager.instance.CallPlaySound(sounds.ButtonClick);
             OnClickButton();
         }
     }

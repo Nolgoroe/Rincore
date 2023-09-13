@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PotionCustomButton : CustomButtonParent
 {
-    public PowerupType connecetdScriptableObjectType;
     [SerializeField] public Vector3 originalPos { get; private set; }
 
     public void SetOriginalPos()
@@ -14,7 +13,7 @@ public class PotionCustomButton : CustomButtonParent
     }
     public override void OnClickButton()
     {
-        SoundManager.instance.CallPlaySound(sounds.ButtonClick);
+        //SoundManager.instance.CallPlaySound(sounds.ButtonClick);
 
         buttonEvents?.Invoke();
 

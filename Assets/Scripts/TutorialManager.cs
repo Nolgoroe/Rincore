@@ -28,6 +28,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private float waitBeforeReset;
     [SerializeField] private float waitBeforeResetTap;
     [SerializeField] private float waitAfterTapDone;
+    [SerializeField] private float waitTimeBeforeFlip;
 
     [Header("Live data")]
     public static bool IS_DURING_TUTORIAL;
@@ -51,24 +52,7 @@ public class TutorialManager : MonoBehaviour
 
         if(currentTutorial.tutorialSteps.Length <= currentTutorialStepIndex)
         {
-            //finished tutorial
-            StartCoroutine(RemoveCurrentHighlights());
-            UnLockAll();
-            ToggleAllTutorialParts(false);
-
-            LeanTween.cancel(currentMoveObject.gameObject);
-            Destroy(currentMoveObject.gameObject);
-
-            yield return new WaitForEndOfFrame();
-            StopAllCoroutines();
-
-            IS_DURING_TUTORIAL = false;
-
-            CheckManuallyLock();
-
-            yield return new WaitForSeconds(2);
-
-            PowerupManager.instance.CallCheckNoPotions();
+            StartCoroutine(FinishTutorial());
         }
         else
         {
@@ -82,7 +66,7 @@ public class TutorialManager : MonoBehaviour
 
     }
 
-    public IEnumerator ManuallyFinishTutorial()
+    public IEnumerator FinishTutorial()
     {
         StartCoroutine(RemoveCurrentHighlights());
         UnLockAll();
@@ -92,11 +76,12 @@ public class TutorialManager : MonoBehaviour
         Destroy(currentMoveObject.gameObject);
 
         yield return new WaitForEndOfFrame();
+
         IS_DURING_TUTORIAL = false;
 
         CheckManuallyLock();
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(waitTimeBeforeFlip);
 
         PowerupManager.instance.CallCheckNoPotions();
 

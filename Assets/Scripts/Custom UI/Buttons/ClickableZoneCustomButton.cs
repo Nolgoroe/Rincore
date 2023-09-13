@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class ClickableZoneCustomButton : CustomButtonParent
 {
-    [SerializeField] private BasicUIElement connectedParent;
+    [SerializeField] protected BasicUIElement connectedParent;
     [SerializeField] private float timeWaitEnableClick = 0.5f;
 
 

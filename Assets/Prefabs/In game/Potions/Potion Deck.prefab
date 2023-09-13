@@ -1807,9 +1807,9 @@ GameObject:
   - component: {fileID: 7210224177916145640}
   - component: {fileID: 7210224177916145643}
   - component: {fileID: 7210224177916145642}
-  - component: {fileID: 7210224177916145653}
   - component: {fileID: 4072624958583462133}
   - component: {fileID: 7195149404654675863}
+  - component: {fileID: 8374207540483453912}
   m_Layer: 0
   m_Name: Undo Button (Part of in level UI)
   m_TagString: Untagged
@@ -1892,55 +1892,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7210224177916145653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7210224177916145655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4bfdfd7eb4af14d8f528fef383fc81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isSolo: 0
-  isOverrideSolo: 0
-  isPermanent: 0
-  isInteractable: 1
-  group: {fileID: 7210224177916145642}
-  textRefrences: []
-  imageRefrences: []
-  spriterRendererRefrences: []
-  buttonRefrences: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  buttonEventsInspector:
-    m_PersistentCalls:
-      m_Calls: []
-  isUseOnce: 0
 --- !u!114 &4072624958583462133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1980,6 +1931,55 @@ MonoBehaviour:
   Duration: 0.3
   Speed: 10
   ResetPosition: 1
+--- !u!114 &8374207540483453912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7210224177916145655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b5ba1da0e2762478785ff3a9d07a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSolo: 0
+  isOverrideSolo: 0
+  isPermanent: 0
+  isInteractable: 1
+  group: {fileID: 7210224177916145642}
+  textRefrences: []
+  imageRefrences: []
+  spriterRendererRefrences: []
+  buttonRefrences: []
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  buttonEventsInspector:
+    m_PersistentCalls:
+      m_Calls: []
+  isUseOnce: 0
 --- !u!1 &7210224178642042565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,8 +2296,78 @@ PrefabInstance:
       propertyPath: timeWaitEnableClick
       value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 288766dfd160f954e87874a70824433f, type: 3}
+--- !u!1 &5792154173098949652 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2948848526729385715, guid: 288766dfd160f954e87874a70824433f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8686801105905543911}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2110602964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792154173098949652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b063d071ad67249918080d22a79575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSolo: 0
+  isOverrideSolo: 0
+  isPermanent: 0
+  isInteractable: 1
+  group: {fileID: 0}
+  textRefrences: []
+  imageRefrences: []
+  spriterRendererRefrences: []
+  buttonRefrences: []
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  buttonEventsInspector:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ClickableZoneCustomButton, Assembly-CSharp
+        m_MethodName: CallUICloseElement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isUseOnce: 0
+  connectedParent: {fileID: 699837421729176454}
+  timeWaitEnableClick: 0.1
 --- !u!224 &5792154173098949653 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2948848526729385714, guid: 288766dfd160f954e87874a70824433f,

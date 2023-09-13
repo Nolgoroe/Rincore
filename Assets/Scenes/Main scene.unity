@@ -5609,6 +5609,7 @@ MonoBehaviour:
   waitBeforeReset: 1
   waitBeforeResetTap: 0.5
   waitAfterTapDone: 1.2
+  waitTimeBeforeFlip: 0.8
   originObject: {fileID: 0}
   targetObject: {fileID: 0}
   currentMoveObject: {fileID: 0}
@@ -10637,6 +10638,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454515671}
     m_Modifications:
+    - target: {fileID: 2110602964, guid: 37cc75ec84772584a89764f38b531ee5, type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7210224178642042565, guid: 37cc75ec84772584a89764f38b531ee5,
         type: 3}
       propertyPath: m_Name

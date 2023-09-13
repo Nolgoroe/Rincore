@@ -117,6 +117,7 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchBegin()
     {
+
         RaycastHit intersectionsArea = GetFirstIntersection3D(touchPos, tileGrabbingLayer);
 
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
@@ -393,8 +394,6 @@ public class InLevelUserControls : MonoBehaviour
     }
     private void ReleasePotionData()
     {
-        SoundManager.instance.CallPlaySound(sounds.ReleasePowerup);
-
         PowerupManager.instance.ResetPowerUpData();
     }
 
