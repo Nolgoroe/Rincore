@@ -187,8 +187,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -19.900002, y: 24.3}
-  m_SizeDelta: {x: 106.6, y: 55.04}
+  m_AnchoredPosition: {x: -13.92, y: 2.31}
+  m_SizeDelta: {x: 108.24, y: 90.57}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &438473898
 CanvasRenderer:
@@ -221,7 +221,8 @@ MonoBehaviour:
   m_text: 350
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3853ebcc61aeb22439cb171bc9cd414a, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 3a28cf19d850e1e49a1574b36eb0c05d, type: 2}
+  m_sharedMaterial: {fileID: 8067098004121750259, guid: 3853ebcc61aeb22439cb171bc9cd414a,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -245,7 +246,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.5
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -1.54
+  m_characterSpacing: -1.41
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -281,7 +282,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -5.351555, y: 12.750462, z: -14.5565605, w: -29.305977}
+  m_margin: {x: -0.098846436, y: 0.2021389, z: -0.08229552, w: 0.07602502}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -399,7 +400,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -57, y: 2.1}
-  m_SizeDelta: {x: 61.1995, y: 61.1995}
+  m_SizeDelta: {x: 73.78, y: 73.775}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1024705363
 CanvasRenderer:
@@ -1139,8 +1140,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.11}
-  m_SizeDelta: {x: 249.8, y: 94.59}
+  m_AnchoredPosition: {x: 0, y: 6.95}
+  m_SizeDelta: {x: 249.8, y: 143.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4467769493991948127
 CanvasRenderer:
@@ -1170,10 +1171,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DEAL
+  m_text: Deal
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6f4e6fc7f3b2a1b429d997d56e904093, type: 2}
-  m_sharedMaterial: {fileID: 1536024142968341442, guid: 6f4e6fc7f3b2a1b429d997d56e904093,
+  m_fontAsset: {fileID: 11400000, guid: 87cac059b6fcfba408da4d8f8a9f857d, type: 2}
+  m_sharedMaterial: {fileID: 1246675172694310182, guid: 87cac059b6fcfba408da4d8f8a9f857d,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1198,17 +1199,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 84.35
+  m_fontSize: 125.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 200
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -4.88
+  m_characterSpacing: -6
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1570,7 +1571,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4954917097498407160}
   m_LocalRotation: {x: -0.056065604, y: -0, z: -0, w: 0.9984271}
-  m_LocalPosition: {x: 0, y: 0, z: -6.7}
+  m_LocalPosition: {x: 0, y: 0, z: -7.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1579,8 +1580,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -200.5}
-  m_SizeDelta: {x: 304.76, y: 79.8}
+  m_AnchoredPosition: {x: 0, y: -180.80002}
+  m_SizeDelta: {x: 304.76, y: 111.26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4954917097498407109
 CanvasRenderer:
@@ -1612,8 +1613,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Level 3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3853ebcc61aeb22439cb171bc9cd414a, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 314b861a15a82a74ebf87f6578363f9e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9e1fa16fc64ba7149bf8c1ddb3b9ee3f, type: 2}
+  m_sharedMaterial: {fileID: 1246675172694310182, guid: 9e1fa16fc64ba7149bf8c1ddb3b9ee3f,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1637,17 +1639,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 94
+  m_fontSize: 108.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 114.98
-  m_fontStyle: 0
+  m_fontSizeMax: 150
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 1.13
+  m_characterSpacing: -3.19
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1673,7 +1675,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -27.874725, z: -0.0005188029, w: 0}
+  m_margin: {x: 0, y: 0.3754692, z: -0.0005188029, w: -13.176418}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
