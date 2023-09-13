@@ -471,9 +471,9 @@ public class PowerupManager : MonoBehaviour
         {
             currentPowerData.amount--;
 
-            if (currentPowerData.amount == 0 && !TutorialManager.IS_DURING_TUTORIAL)
+            if (currentPowerData.amount == 0)
             {
-                if (currentPotionDisplay.connectedAnim)
+                if (currentPotionDisplay.connectedAnim && !TutorialManager.IS_DURING_TUTORIAL)
                 {
                     FlipBooster(currentPotionDisplay, false);
                 }
@@ -662,7 +662,9 @@ public class PowerupManager : MonoBehaviour
 
     private void FlipBooster(PotionInLevelHelper helper, bool isOn)
     {
-        if (helper.connectedAnim)
+        bool isCurrentlyAnimPlaying = helper.connectedAnim.IsInTransition(0);
+
+        if (helper.connectedAnim && !isCurrentlyAnimPlaying)
         {
             helper.connectedAnim.SetBool("IsOFF", !isOn);
             helper.connectedAnim.SetBool("IsON", isOn);

@@ -60,15 +60,15 @@ public class TutorialManager : MonoBehaviour
             Destroy(currentMoveObject.gameObject);
 
             yield return new WaitForEndOfFrame();
-
-            PowerupManager.instance.CallCheckNoPotions();
+            StopAllCoroutines();
 
             IS_DURING_TUTORIAL = false;
 
-
             CheckManuallyLock();
 
-            StopAllCoroutines();
+            yield return new WaitForSeconds(2);
+
+            PowerupManager.instance.CallCheckNoPotions();
         }
         else
         {
@@ -94,9 +94,11 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         IS_DURING_TUTORIAL = false;
 
-        PowerupManager.instance.CallCheckNoPotions();
-
         CheckManuallyLock();
+
+        yield return new WaitForSeconds(2);
+
+        PowerupManager.instance.CallCheckNoPotions();
 
         StopAllCoroutines();
     }

@@ -606,15 +606,15 @@ public class UIManager : MonoBehaviour
     }
     public void ManualResetLevelFillBar()
     {
-        if (fillIndex == 0)
+        if (fillIndex == 1)
         {
             SoundManager.instance.CallPlaySound(sounds.LevelBarDepleteOnLose0);
         }
-        else if (fillIndex == 1)
+        else if (fillIndex == 2)
         {
             SoundManager.instance.CallPlaySound(sounds.LevelBarDepleteOnLose1);
         }
-        else if (fillIndex == 2)
+        else if (fillIndex == 3)
         {
             SoundManager.instance.CallPlaySound(sounds.LevelBarDepleteOnLose2);
         }

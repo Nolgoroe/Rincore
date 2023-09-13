@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(timeClipEnter);
             mapLogic.ToggleRings(gameRing, inLevel);
 
-            if(currentLevel.levelTutorial == null)
+            if (currentLevel.levelTutorial == null)
             {
                 powerupManager.CallCheckNoPotions();
                 //StartCoroutine(powerupManager.CheckNoPotions());
