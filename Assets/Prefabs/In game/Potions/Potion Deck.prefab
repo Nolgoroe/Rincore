@@ -1168,7 +1168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 23.1, y: -13.3}
+  m_AnchoredPosition: {x: 23.1, y: -13.300003}
   m_SizeDelta: {x: 55.92, y: 56.21}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &1413392328390602315
@@ -1342,8 +1342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.1000004, y: 12.8}
-  m_SizeDelta: {x: -22.89, y: -22.37}
+  m_AnchoredPosition: {x: -2.1000004, y: 10.98}
+  m_SizeDelta: {x: -19.32, y: -18.877}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &99394735016467484
 CanvasRenderer:
@@ -1375,8 +1375,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 50
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 561c5db072cd5f04ea837137d628c173, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ecc6fbb503729f845a6923c291f10b62, type: 2}
+  m_sharedMaterial: {fileID: 8073808223824468418, guid: ecc6fbb503729f845a6923c291f10b62,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1910,8 +1911,8 @@ MonoBehaviour:
   priceText: {fileID: 3615290592578305418}
   buyWidndow: {fileID: 699837421729176454}
   selectedImage: {fileID: 0}
-  normalCountSize: 30
-  noUsesCountSize: 40
+  normalCountSize: 40
+  noUsesCountSize: 60
   plusButton: {fileID: 4342947889557585049}
   connectedAnim: {fileID: 0}
   buyButton: {fileID: 7273917154858477881}
