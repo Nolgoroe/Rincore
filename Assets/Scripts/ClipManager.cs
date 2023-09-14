@@ -220,10 +220,10 @@ public class ClipManager : MonoBehaviour
 
     private bool CheckTilesWingsRepeat(ClipSlot slot)
     {
-        int countSameColorRight = 0;
-        int countSameColorLeft = 0;
-        int countSameSymbolRight = 0;
-        int countSameSymbolLeft = 0;
+        int countSameColorAndSymbolRight = 0;
+        int countSameColorAndSymbolLeft = 0;
+        //int countSameSymbolRight = 0;
+        //int countSameSymbolLeft = 0;
 
         SubTileColor rightColor = slot.heldTile.subTileRight.subTileColor;
         SubTileColor lefttColor = slot.heldTile.subTileLeft.subTileColor;
@@ -235,32 +235,37 @@ public class ClipManager : MonoBehaviour
         {
             if (slot != slots[i] && slot.heldTile && slots[i].heldTile)
             {
-                if(rightColor == slots[i].heldTile.subTileRight.subTileColor)
+                bool sameColor = rightColor == slots[i].heldTile.subTileRight.subTileColor;
+                bool sameSymbol = rightSymbol == slots[i].heldTile.subTileRight.subTileSymbol;
+                if (sameColor && sameSymbol)
                 {
-                    countSameColorRight++;
+                    countSameColorAndSymbolRight++;
                 }
 
-                if(lefttColor == slots[i].heldTile.subTileLeft.subTileColor)
+                sameColor = lefttColor == slots[i].heldTile.subTileLeft.subTileColor;
+                sameSymbol = lefttSymbol == slots[i].heldTile.subTileLeft.subTileSymbol;
+                if (lefttColor == slots[i].heldTile.subTileLeft.subTileColor)
                 {
-                    countSameColorLeft++;
+                    countSameColorAndSymbolLeft++;
                 }
 
-                if(!GameManager.currentLevel.isLevelColorOnly)
-                {
-                    if (rightSymbol == slots[i].heldTile.subTileRight.subTileSymbol)
-                    {
-                        countSameSymbolRight++;
-                    }
+                //if(!GameManager.currentLevel.isLevelColorOnly)
+                //{
+                //    if (rightSymbol == slots[i].heldTile.subTileRight.subTileSymbol)
+                //    {
+                //        countSameColorAndSymbolLeft++;
+                //    }
 
-                    if (lefttSymbol == slots[i].heldTile.subTileLeft.subTileSymbol)
-                    {
-                        countSameSymbolLeft++;
-                    }
-                }
+                //    if (lefttSymbol == slots[i].heldTile.subTileLeft.subTileSymbol)
+                //    {
+                //        countSameSymbolLeft++;
+                //    }
+                //}
             }
         }
 
-        return countSameColorRight >= limitTileWingRepeat || countSameColorLeft >= limitTileWingRepeat || countSameSymbolRight >= limitTileWingRepeat || countSameSymbolLeft >= limitTileWingRepeat;
+        return countSameColorAndSymbolRight >= limitTileWingRepeat || 
+               countSameColorAndSymbolLeft >= limitTileWingRepeat;
     }
 
     private void SpawnSpecificTileInSlotByLevelSO(ClipSlot slot)
