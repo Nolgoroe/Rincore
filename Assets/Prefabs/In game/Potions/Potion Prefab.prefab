@@ -1024,7 +1024,7 @@ MonoBehaviour:
   buyWidndow: {fileID: 1058877631038062824}
   selectedImage: {fileID: 8302882122521183001}
   normalCountSize: 50
-  noUsesCountSize: 100
+  noUsesCountSize: 75
   plusButton: {fileID: 3556269907435397743}
   connectedAnim: {fileID: 5598323002072783361}
   buyButton: {fileID: 2632258004957925612}
@@ -1404,8 +1404,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 60
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bfd92a17b481fb340b0e1203f43aa168, type: 2}
-  m_sharedMaterial: {fileID: 8067098004121750259, guid: bfd92a17b481fb340b0e1203f43aa168,
+  m_fontAsset: {fileID: 11400000, guid: ecc6fbb503729f845a6923c291f10b62, type: 2}
+  m_sharedMaterial: {fileID: 8073808223824468418, guid: ecc6fbb503729f845a6923c291f10b62,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1430,8 +1430,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1440,7 +1440,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 6.3
+  m_characterSpacing: 5.5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
