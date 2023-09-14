@@ -164,15 +164,23 @@ public class ClipManager : MonoBehaviour
     private void SpawnRandomTileInSlot(ClipSlot slot)
     {
         LevelSO currentLevel = GameManager.currentLevel;
+        int customPieces = GameManager.currentLevel.arrayOfSpecificTilesInClip.Length;
 
-        Tiletype tileType = ReturnCurrentTileType();
-        Tile tile = tileCreatorPreset.CreateTile(tileType, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
-
-        slot.RecieveTileDisplayer(tile);
-
-        if(GameManager.currentLevel.useTileCreationAlgos)
+        if (customPieces > 0 && currentIndexInSpecificArray < customPieces)
         {
-            CheckRepeatInClip(slot);
+            SpawnSpecificTileInSlotByLevelSO(slot);
+        }
+        else
+        {
+            Tiletype tileType = ReturnCurrentTileType();
+            Tile tile = tileCreatorPreset.CreateTile(tileType, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
+
+            slot.RecieveTileDisplayer(tile);
+
+            if (GameManager.currentLevel.useTileCreationAlgos)
+            {
+                CheckRepeatInClip(slot);
+            }
         }
     }
 

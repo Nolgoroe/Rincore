@@ -1208,6 +1208,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   playerRef: {fileID: 2069315016}
+  powerManager: {fileID: 1483196972}
   mapLogic: {fileID: 1960824553}
   saveData: {fileID: 246565977}
   allowSaveGame: 1
@@ -1238,8 +1239,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec6c9a7bc1a5064c830e6df21c8c352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentClusterIDReached: 1
-  savedCoins: -1
+  currentClusterIDReached: 0
+  savedCoins: 0
+  savedJokerCount: 0
+  savedSwitchCount: 0
+  savedBombCount: 0
+  savedRefreshCount: 0
+  savedUndoCount: 0
 --- !u!1 &284529806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,7 +1853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c29556600f25e649b1e100bf269e13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentClusterSO: {fileID: 11400000, guid: 8f9174b5cf536034caa2a70809185654, type: 2}
+  currentClusterSO: {fileID: 11400000, guid: 623b466e0d8cda44f8c7cf335a282684, type: 2}
   currentIndexInCluster: 0
   currentMaxClusterReached: 0
   levelDecksParent: {fileID: 1454515671}
@@ -5443,7 +5449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48965c3abe3507c408a5e66b028d2a03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateInterval: 0.5
+  updateInterval: 0.2
   posX: 100
   posY: 2300
   sizex: 150

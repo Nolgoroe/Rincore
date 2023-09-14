@@ -9,6 +9,11 @@ public class SavedData : MonoBehaviour
     [Header("Saved Data")]
     public int currentClusterIDReached;
     public int savedCoins;
+    public int savedJokerCount;
+    public int savedSwitchCount;
+    public int savedBombCount;
+    public int savedRefreshCount;
+    public int savedUndoCount;
 
 
     private void Awake()

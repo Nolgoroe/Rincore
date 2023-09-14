@@ -76,6 +76,12 @@ public class PowerupManager : MonoBehaviour
         customPotionButtons = new List<PotionCustomButton>();
     }
 
+    [ContextMenu("CallManualAddPotion")]
+    public void ManualAddPotionInspector()
+    {
+        AddPotion(PowerupType.Switch, 1);
+    }
+
     public void AddPotion(PowerupType powerType, int amount)
     {
         PowerupScriptableObject powerSO = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
@@ -106,7 +112,7 @@ public class PowerupManager : MonoBehaviour
         }
         else
         {
-            if(owned.amount == 0)
+            if(owned.amount == 0 && GameManager.IS_IN_LEVEL)
             {
                 PotionInLevelHelper helper = spawnedHelpers[indexOfHelper];
 
@@ -198,10 +204,15 @@ public class PowerupManager : MonoBehaviour
         GameManager.gameClip.RenewClip();
         StartCoroutine(PowerSucceededUsing());
     }
-    private void UndoAcion()
+    private void UndoAcion(bool is_Paid)
     {
         if(UndoSystem.instance.undoEntries.Count > 0)
         {
+            if (is_Paid)
+            {
+                OnUseCoins();
+            }
+
             UndoSystem.instance.CallUndoAction();
             StartCoroutine(PowerSucceededUsing());
         }
@@ -506,6 +517,8 @@ public class PowerupManager : MonoBehaviour
     {
         if (currentPowerData != null)
         {
+            SaveLoad.instance.SaveAction();
+
             currentPowerData.amount--;
 
             if (currentPowerData.amount == 0)
@@ -586,10 +599,7 @@ public class PowerupManager : MonoBehaviour
         }
         else
         {
-            if (is_Paid)
-            {
-                OnUseCoins();
-            }
+            UndoAcion(is_Paid);
         }
 
 
@@ -606,9 +616,6 @@ public class PowerupManager : MonoBehaviour
                 break;
             case PowerupType.Joker:
                 currentPowerLogic.JokerPower();
-                break;
-            case PowerupType.Undo:
-                UndoAcion();
                 break;
             default:
                 break;
@@ -707,6 +714,51 @@ public class PowerupManager : MonoBehaviour
             helper.connectedAnim.SetBool("IsON", isOn);
         }
     }
+
+    public int ReturnAmountOfPower(PowerupType type)
+    {
+        OwnedPowersAndAmounts owned = ownedPowerups.Where(k => k.powerType == type).SingleOrDefault();
+
+        if(owned == null)
+        {
+            Debug.LogError("Error!");
+            return -1;
+        }
+        else
+        {
+            return owned.amount;
+        }
+    }
+
+
+
+    public void InitPowerUpManager()
+    {
+        foreach (var power in ownedPowerups)
+        {
+            switch (power.powerType)
+            {
+                case PowerupType.Switch:
+                    power.amount = SavedData.instance.savedSwitchCount;
+                    break;
+                case PowerupType.Bomb:
+                    power.amount = SavedData.instance.savedBombCount;
+                    break;
+                case PowerupType.RefreshTiles:
+                    power.amount = SavedData.instance.savedRefreshCount;
+                    break;
+                case PowerupType.Joker:
+                    power.amount = SavedData.instance.savedJokerCount;
+                    break;
+                case PowerupType.Undo:
+                    power.amount = SavedData.instance.savedUndoCount;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 
     public PowerupScriptableObject publicCurrentPowerSO => currentChosenPowerSO;
     public float publicUsePotionTime => usePotionTime;

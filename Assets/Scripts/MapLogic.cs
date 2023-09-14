@@ -369,6 +369,8 @@ public class MapLogic : MonoBehaviour
 
     private IEnumerator ClusterTransfer(ClusterSO newCluster)
     {
+        SaveLoad.instance.SaveAction();
+
         SoundManager.instance.CallPlaySound(sounds.ClusterTransfer);
 
         yield return StartCoroutine(MoveParts(true)); // move current rings

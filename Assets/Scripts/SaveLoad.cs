@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,8 @@ public class SaveLoad : MonoBehaviour
 {
     public static SaveLoad instance;
 
-    public string UID_TEXT;
-    public int delayLoading;
+    [SerializeField] private string UID_TEXT;
+    [SerializeField] private int delayLoading;
 
     const string TEST_SAVE = "TEMP_SAVE_DATA";
 
@@ -30,10 +31,11 @@ public class SaveLoad : MonoBehaviour
 
 
     [Header("General refrences")]
-    public Player playerRef;
-    public MapLogic mapLogic;
-    public SavedData saveData;
-    public bool allowSaveGame;
+    [SerializeField] private Player playerRef;
+    [SerializeField] private PowerupManager powerManager;
+    [SerializeField] private MapLogic mapLogic;
+    [SerializeField] private SavedData saveData;
+    [SerializeField] private bool allowSaveGame;
 
     private void Awake()
     {
@@ -41,9 +43,17 @@ public class SaveLoad : MonoBehaviour
         path = Application.persistentDataPath + "/UniqueIDUser.txt"; //check if can shorten
     }
 
+
+
     private void Start()
     {
-        if(File.Exists(path))
+        StartCoroutine(InitSaveLoad());
+    }
+
+    private IEnumerator InitSaveLoad()
+    {
+        yield return new WaitForSeconds(2);
+        if (File.Exists(path))
         {
             UID_TEXT = File.ReadAllText(path);
         }
@@ -65,9 +75,7 @@ public class SaveLoad : MonoBehaviour
             database = FirebaseDatabase.DefaultInstance.RootReference; //This is a DatabaseReference type object
 
             onFirebaseInitialized?.Invoke();
-
         });
-
     }
 
     [ContextMenu("Delete local user")]
@@ -93,8 +101,13 @@ public class SaveLoad : MonoBehaviour
     [ContextMenu("Save")]
     public void SaveAction()
     {
-        saveData.currentClusterIDReached = GameManager.instance.currentCluster.clusterID;
+        saveData.currentClusterIDReached = GameManager.instance.currentCluster.clusterID - 1;
         saveData.savedCoins = playerRef.GetOwnedCoins;
+        saveData.savedBombCount = powerManager.ReturnAmountOfPower(PowerupType.Bomb);
+        saveData.savedJokerCount = powerManager.ReturnAmountOfPower(PowerupType.Joker);
+        saveData.savedRefreshCount = powerManager.ReturnAmountOfPower(PowerupType.RefreshTiles);
+        saveData.savedSwitchCount = powerManager.ReturnAmountOfPower(PowerupType.Switch);
+        saveData.savedUndoCount = powerManager.ReturnAmountOfPower(PowerupType.Undo);
 
         SaveData();
     }
@@ -140,7 +153,7 @@ public class SaveLoad : MonoBehaviour
             GameManager.instance.OnLoadData();
             mapLogic.OnLoadData();
             playerRef.OnLoadData();
-
+            powerManager.InitPowerUpManager();
 
             await Task.Delay(1000);
 

@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        //Application.targetFrameRate = 30;
+        Application.targetFrameRate = 300;
 
         // TO DO
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
@@ -492,7 +492,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InitClusterTransfer()
     {
-        SaveLoad.instance.SaveAction();
         ClearLevelData();
         gameRing.ClearActions();
 
@@ -544,7 +543,17 @@ public class GameManager : MonoBehaviour
     public void OnLoadData()
     {
         currentIndexInCluster = 0;
-        currentClusterSO = allClusters[SavedData.instance.currentClusterIDReached - 1]; // we do -1 since clusters start at 1, not at 0
+
+        int tempIndex = -10;
+        if(SavedData.instance.currentClusterIDReached - 1 < 0)
+        {
+            tempIndex = 0;
+        }
+        else
+        {
+            tempIndex = SavedData.instance.currentClusterIDReached;
+        }
+        currentClusterSO = allClusters[tempIndex];
         currentMaxClusterReached = currentClusterSO.clusterID;
 
 
