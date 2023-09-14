@@ -248,19 +248,6 @@ public class ClipManager : MonoBehaviour
                 {
                     countSameColorAndSymbolLeft++;
                 }
-
-                //if(!GameManager.currentLevel.isLevelColorOnly)
-                //{
-                //    if (rightSymbol == slots[i].heldTile.subTileRight.subTileSymbol)
-                //    {
-                //        countSameColorAndSymbolLeft++;
-                //    }
-
-                //    if (lefttSymbol == slots[i].heldTile.subTileLeft.subTileSymbol)
-                //    {
-                //        countSameSymbolLeft++;
-                //    }
-                //}
             }
         }
 
