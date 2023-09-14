@@ -491,10 +491,10 @@ public class TutorialManager : MonoBehaviour
         return tutorial.tutorialSteps[0].amountInClip; //hard coded for now
     }
 
-    private void Start()
-    {
-        InvokeRepeating("toTexture", 0, 2);
-    }
+    //private void Start()
+    //{
+    //    InvokeRepeating("toTexture", 0, 2);
+    //}
     [ContextMenu("Render Now")]
     private void toTexture()
     {

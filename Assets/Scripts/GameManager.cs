@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        Application.targetFrameRate = 30;
+        //Application.targetFrameRate = 30;
 
         // TO DO
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene

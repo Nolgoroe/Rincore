@@ -567,6 +567,13 @@ public class ClipManager : MonoBehaviour
 
             SpawnSpecificTileInSlot(slot, requiredRightColor, requiredLeftColor, requiredRightSymbol, requiredLeftSymbol);
         }
+        else
+        {
+            for (int i = 0; i < activeClipSlotsCount; i++)
+            {
+                SpawnRandomTileInSlot(slots[i]);
+            }
+        }
     }
 
 
