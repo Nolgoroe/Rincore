@@ -47,6 +47,7 @@ public class SaveLoad : MonoBehaviour
 
     private void Start()
     {
+        FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
         StartCoroutine(InitSaveLoad());
     }
 
