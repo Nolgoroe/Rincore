@@ -415,7 +415,7 @@ public class GameManager : MonoBehaviour
 
         UndoSystem.instance.ClearUndoSystem();
         powerupManager.DestroyPotions();
-        yield return StartCoroutine(tutorialManager.FinishTutorial());
+        //yield return StartCoroutine(tutorialManager.FinishTutorial());
 
         StartCoroutine(InitStartLevel(true));
     }

@@ -440,19 +440,27 @@ public class ClipManager : MonoBehaviour
 
     public bool RenewClip()
     {
-        //if (activeClipSlotsCount == slots.Length) return false;
+        DestroySlotTiles();
+        if(activeClipSlotsCount < slots.Length)
+        {
+            activeClipSlotsCount = activeClipSlotsCount + 1;
+        }
 
-        DestroyClipData();
+        BrightenAllClipSlotsImmediate();
+        foreach (ClipSlot slot in slots)
+        {
+            slot.transform.localPosition = slot.originalSlotPos;
+        }
 
-        BrightenAllClipSlots();
 
+        RespawnAllClipSlots();
         canUseDeal = true;
 
 
         return true;
     }
 
-    private void BrightenAllClipSlots()
+    private void RespawnAllClipSlots()
     {
         for (int i = 0; i < activeClipSlotsCount; i++)
         {

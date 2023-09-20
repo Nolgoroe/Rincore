@@ -125,6 +125,15 @@ public class LevelActions : ScriptableObject
             ringSlicesList.Remove(currentRing.ringSlices[currentSummonIndex]);
         }
 
+
+
+
+        List<SubTileColor> colorList = new List<SubTileColor>();
+        colorList.AddRange(currentLevel.levelAvailableColors);
+
+        List<SubTileSymbol> symbolList = new List<SubTileSymbol>();
+        symbolList.AddRange(currentLevel.levelAvailablesymbols);
+
         for (int i = 0; i < allSlices.Count; i++)
         {
             #region Set Slice Data
@@ -146,10 +155,24 @@ public class LevelActions : ScriptableObject
 
                     if(allSlices[i].RandomSliceValues)
                     {
-                        int randomColorIndex = Random.Range(0, currentLevel.levelAvailableColors.Length);
+                        int randomColorIndex = -1;
 
-                        (sliceConnectionData as SpecificColorCondition).requiredColor = currentLevel.levelAvailableColors[randomColorIndex];
-                        color = currentLevel.levelAvailableColors[randomColorIndex];
+                        if (colorList.Count <= 0)
+                        {
+                            randomColorIndex = Random.Range(0, currentLevel.levelAvailableColors.Length);
+                            (sliceConnectionData as SpecificColorCondition).requiredColor = currentLevel.levelAvailableColors[randomColorIndex];
+                            color = currentLevel.levelAvailableColors[randomColorIndex];
+                        }
+                        else
+                        {
+                            randomColorIndex = Random.Range(0, colorList.Count);
+
+                            (sliceConnectionData as SpecificColorCondition).requiredColor = colorList[randomColorIndex];
+                            color = colorList[randomColorIndex];
+                            colorList.RemoveAt(randomColorIndex);
+                        }
+
+
                     }
                     else
                     {
@@ -162,10 +185,22 @@ public class LevelActions : ScriptableObject
 
                     if (allSlices[i].RandomSliceValues)
                     {
-                        int randomSymbolIndex = Random.Range(0, currentLevel.levelAvailablesymbols.Length);
+                        int randomSymbolIndex = -1;
 
-                        (sliceConnectionData as SpecificSymbolCondition).requiredSymbol = currentLevel.levelAvailablesymbols[randomSymbolIndex];
-                        symbol = currentLevel.levelAvailablesymbols[randomSymbolIndex];
+                        if (symbolList.Count <= 0)
+                        {
+                            randomSymbolIndex = Random.Range(0, currentLevel.levelAvailablesymbols.Length);
+                            (sliceConnectionData as SpecificSymbolCondition).requiredSymbol = currentLevel.levelAvailablesymbols[randomSymbolIndex];
+                            symbol = currentLevel.levelAvailablesymbols[randomSymbolIndex];
+                        }
+                        else
+                        {
+                            randomSymbolIndex = Random.Range(0, symbolList.Count);
+                            (sliceConnectionData as SpecificSymbolCondition).requiredSymbol = symbolList[randomSymbolIndex];
+                            symbol = symbolList[randomSymbolIndex];
+                            symbolList.RemoveAt(randomSymbolIndex);
+                        }
+
                     }
                     else
                     {

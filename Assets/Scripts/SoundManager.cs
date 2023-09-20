@@ -114,6 +114,8 @@ public class SoundManager : MonoBehaviour
 
         //yield return new WaitForSeconds(audioSources[sound].clip.length);
 
+        if (isSFXMuted) return;
+
         audioSources[sound].Play();
         //if (!audioSources[sound].loop)
         //{
@@ -123,6 +125,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundDeal()
     {
+        if (isSFXMuted) return;
+
         int randomSound = Random.Range(0, dealSounds.Length);
         dealAudioSource.clip = dealSounds[randomSound];
 

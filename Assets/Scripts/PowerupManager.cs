@@ -294,9 +294,16 @@ public class PowerupManager : MonoBehaviour
 
         for (int i = 0; i < potionPositions.Length; i++) //we do this by potion position since those are the only ones with helpers.
         {
-            if(ownedPowerups[i].amount == 0)
+            if(ownedPowerups[i].amount > 0)
             {
-                if(spawnedHelpers[i].connectedAnim)
+                if(spawnedHelpers.Count > 0 && spawnedHelpers[i].connectedAnim)
+                {
+                    FlipBooster(spawnedHelpers[i], true);
+                }
+            }
+            else
+            {
+                if (spawnedHelpers.Count > 0 && spawnedHelpers[i].connectedAnim)
                 {
                     FlipBooster(spawnedHelpers[i], false);
                 }
@@ -517,8 +524,6 @@ public class PowerupManager : MonoBehaviour
     {
         if (currentPowerData != null)
         {
-            SaveLoad.instance.SaveAction();
-
             currentPowerData.amount--;
 
             if (currentPowerData.amount == 0)
@@ -536,6 +541,8 @@ public class PowerupManager : MonoBehaviour
 
             currentPotionDisplay.SetTextCustom(currentPowerData.amount.ToString());
         }
+
+        SaveLoad.instance.SaveAction();
 
         ResetPowerUpData();
 

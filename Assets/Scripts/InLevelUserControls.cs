@@ -214,14 +214,16 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchEnd()
     {
-        RaycastHit intersection = GetFirstIntersection3D(touchPos, tileInsertingLayer);
+        //RaycastHit intersection = GetFirstIntersection3D(touchPos, tileInsertingLayer);
+        RaycastHit[] intersection = GetIntersectionsArea3D(touchPos, tileInsertingLayer);
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
-        if (intersection.transform)
+        if (intersection.Length > 0 && intersection[0].transform)
         {
-            CellBase droopedOnObject = intersection.transform.GetComponent<CellBase>();
+            CellBase droopedOnObject = null;
+            intersection[0].transform.TryGetComponent<CellBase>(out droopedOnObject);
 
-            if(droopedOnObject == null)
+            if (droopedOnObject == null)
             {
                 Debug.LogError("no interface of type dropped on.");
                 return;
@@ -237,7 +239,7 @@ public class InLevelUserControls : MonoBehaviour
 
             if (TutorialManager.IS_DURING_TUTORIAL)
             {
-                if (TutorialManager.instance.ReturnHitCurrentNeededObject(intersection.transform))
+                if (TutorialManager.instance.ReturnHitCurrentNeededObject(intersection[0].transform))
                 {
                     droopedOnObject.DroppedOn(currentTileToMove, GameManager.gameRing);
 
