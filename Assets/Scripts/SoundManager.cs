@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public enum sounds
 {
@@ -33,11 +34,19 @@ public enum sounds
     CoinUse
 }
 
+[System.Serializable]
+public class AudioSourceData
+{
+    public bool canOverlap;
+    public sounds sound;
+    public AudioSource source;
+}
+
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    [SerializeField] private List<AudioSource> allAudioSources;
+    [SerializeField] private List<AudioSourceData> allAudioSources;
     [SerializeField] private Dictionary<sounds, AudioSource> audioSources;
 
     [Header("Deal")]
@@ -61,7 +70,7 @@ public class SoundManager : MonoBehaviour
 
         for (int i = 0; i < System.Enum.GetValues(typeof(sounds)).Length; i++)
         {
-            audioSources.Add((sounds)i, allAudioSources[i]);
+            audioSources.Add((sounds)i, allAudioSources[i].source);
         }
     }
 
@@ -114,7 +123,14 @@ public class SoundManager : MonoBehaviour
 
         //yield return new WaitForSeconds(audioSources[sound].clip.length);
 
+        AudioSourceData data = allAudioSources.Where(k => k.sound == sound).SingleOrDefault();
+
         if (isSFXMuted) return;
+
+        if (data == null) return;
+
+        if (audioSources[sound].isPlaying && !data.canOverlap) return;
+
 
         audioSources[sound].Play();
         //if (!audioSources[sound].loop)
@@ -155,7 +171,7 @@ public class SoundManager : MonoBehaviour
     {
         for (int i = 0; i < System.Enum.GetValues(typeof(sounds)).Length; i++)
         {
-            allAudioSources[i].name = ((sounds)i).ToString();
+            allAudioSources[i].source.name = ((sounds)i).ToString();
         }
     }
 }

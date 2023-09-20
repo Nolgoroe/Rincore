@@ -408,7 +408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -2.999939, y: -84.999756}
+  m_AnchoredPosition: {x: -2.999939, y: -85}
   m_SizeDelta: {x: 874.15, y: 874.1454}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &22526325
@@ -8475,32 +8475,84 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allAudioSources:
-  - {fileID: 1366926390}
-  - {fileID: 573910435}
-  - {fileID: 1076076351}
-  - {fileID: 2072075596}
-  - {fileID: 921217779}
-  - {fileID: 1963130584}
-  - {fileID: 1711000661}
-  - {fileID: 659381541}
-  - {fileID: 1437778790}
-  - {fileID: 563490815}
-  - {fileID: 461058538}
-  - {fileID: 1146577468}
-  - {fileID: 583460899}
-  - {fileID: 919435333}
-  - {fileID: 1662084511}
-  - {fileID: 867875244}
-  - {fileID: 784902436}
-  - {fileID: 2086388618}
-  - {fileID: 1085141158}
-  - {fileID: 1966385635}
-  - {fileID: 568506632}
-  - {fileID: 290331235}
-  - {fileID: 638158548}
-  - {fileID: 21639137}
-  - {fileID: 2124778631}
-  - {fileID: 219740244}
+  - canOverlap: 1
+    sound: 0
+    source: {fileID: 1366926390}
+  - canOverlap: 1
+    sound: 1
+    source: {fileID: 573910435}
+  - canOverlap: 1
+    sound: 2
+    source: {fileID: 1076076351}
+  - canOverlap: 1
+    sound: 3
+    source: {fileID: 2072075596}
+  - canOverlap: 1
+    sound: 4
+    source: {fileID: 921217779}
+  - canOverlap: 1
+    sound: 5
+    source: {fileID: 1963130584}
+  - canOverlap: 1
+    sound: 6
+    source: {fileID: 1711000661}
+  - canOverlap: 1
+    sound: 7
+    source: {fileID: 659381541}
+  - canOverlap: 1
+    sound: 8
+    source: {fileID: 1437778790}
+  - canOverlap: 1
+    sound: 9
+    source: {fileID: 563490815}
+  - canOverlap: 1
+    sound: 10
+    source: {fileID: 1711000661}
+  - canOverlap: 0
+    sound: 11
+    source: {fileID: 1146577468}
+  - canOverlap: 0
+    sound: 12
+    source: {fileID: 583460899}
+  - canOverlap: 0
+    sound: 13
+    source: {fileID: 919435333}
+  - canOverlap: 1
+    sound: 14
+    source: {fileID: 1662084511}
+  - canOverlap: 1
+    sound: 15
+    source: {fileID: 867875244}
+  - canOverlap: 1
+    sound: 16
+    source: {fileID: 784902436}
+  - canOverlap: 1
+    sound: 17
+    source: {fileID: 2086388618}
+  - canOverlap: 1
+    sound: 18
+    source: {fileID: 1085141158}
+  - canOverlap: 1
+    sound: 19
+    source: {fileID: 1966385635}
+  - canOverlap: 1
+    sound: 20
+    source: {fileID: 568506632}
+  - canOverlap: 1
+    sound: 21
+    source: {fileID: 290331235}
+  - canOverlap: 0
+    sound: 22
+    source: {fileID: 638158548}
+  - canOverlap: 0
+    sound: 23
+    source: {fileID: 21639137}
+  - canOverlap: 0
+    sound: 24
+    source: {fileID: 2124778631}
+  - canOverlap: 1
+    sound: 25
+    source: {fileID: 219740244}
   dealSounds:
   - {fileID: 8300000, guid: bae3b6719f445b846b30dd81c771462e, type: 3}
   - {fileID: 8300000, guid: a1ce51d7d8ced2949b8e87221faf04dd, type: 3}
