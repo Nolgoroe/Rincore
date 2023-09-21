@@ -390,7 +390,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         yield return new WaitForEndOfFrame();
-        toTexture();
+        ToTexture();
     }
 
     private IEnumerator RemoveCurrentHighlights()
@@ -405,7 +405,7 @@ public class TutorialManager : MonoBehaviour
 
         activeHighlights.Clear();
         yield return new WaitForEndOfFrame();
-        toTexture();
+        ToTexture();
     }
 
     private void LockAllExceptStep()
@@ -499,28 +499,37 @@ public class TutorialManager : MonoBehaviour
     //    InvokeRepeating("toTexture", 0, 2);
     //}
     [ContextMenu("Render Now")]
-    private void toTexture()
+    private void ToTexture()
     {
-        if (secondCam.targetTexture.width != Display.main.systemWidth || secondCam.targetTexture.height != Display.main.systemHeight)
+        if (secondCam.targetTexture && (secondCam.targetTexture.width != Display.main.systemWidth || secondCam.targetTexture.height != Display.main.systemHeight))
         {
-            RecreateRenderTexture(false);
+            RecreateRenderTexture();
+        }
+        else if(secondCam.targetTexture == null)
+        {
+            RecreateRenderTexture();
         }
         else
         {
-            Texture2D texture = new Texture2D(Display.main.systemWidth, Display.main.systemHeight, TextureFormat.ARGB32, false);
+            Texture2D texture = new Texture2D(Display.main.systemWidth, Display.main.systemHeight, TextureFormat.RGBA32, false);
             Graphics.CopyTexture(secondCam.targetTexture, texture);
 
             Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100.0f);
 
             maskImage.sprite = sprite;
+
+            //secondCam.targetTexture.antiAliasing = 4;
         }
     }
 
-    public void RecreateRenderTexture(bool isDen)
+    public void RecreateRenderTexture()
     {
-        secondCam.targetTexture = new RenderTexture(Display.main.systemWidth, Display.main.systemHeight, camDepth);
+        secondCam.targetTexture = new RenderTexture(Display.main.systemWidth, Display.main.systemHeight, 32);
+
         secondCam.Render();
-        toTexture();
+
+
+        ToTexture();
     }
 
 }

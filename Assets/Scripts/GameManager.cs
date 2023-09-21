@@ -423,6 +423,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator OnLevelExitWin(bool isClusterEnd)
     {
+        gameRing.LockAllCells(true);
+
         UIManager.IS_DURING_TRANSITION = true;
 
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
@@ -492,6 +494,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InitClusterTransfer()
     {
+        gameRing.LockAllCells(true);
+
         ClearLevelData();
         gameRing.ClearActions();
 

@@ -290,7 +290,21 @@ public class ClipManager : MonoBehaviour
     {
         Tiletype tileType = ReturnCurrentTileType();
 
-        Tile tile = tileCreatorPreset.CreateTile(tileType, leftSymbol, rightSymbol, leftColor, rightColor);
+        SubTileColor newRight = rightColor;
+        SubTileColor newLeft = leftColor;
+
+        if (rightColor == SubTileColor.Stone)
+        {
+            int randomColorIndex = Random.Range(0, GameManager.currentLevel.levelAvailableColors.Length);
+            newRight = GameManager.currentLevel.levelAvailableColors[randomColorIndex];
+
+        }
+        else if (leftColor == SubTileColor.Stone)
+        {
+            int randomColorIndex = Random.Range(0, GameManager.currentLevel.levelAvailableColors.Length);
+            newLeft = GameManager.currentLevel.levelAvailableColors[randomColorIndex];
+        }
+        Tile tile = tileCreatorPreset.CreateTile(tileType, leftSymbol, rightSymbol, newLeft, newRight);
         slot.RecieveTileDisplayer(tile);
     }
 
