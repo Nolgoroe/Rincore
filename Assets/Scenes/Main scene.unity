@@ -4533,10 +4533,10 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
-  m_Antialiasing: 1
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
-  m_Dithering: 0
+  m_Dithering: 1
   m_ClearDepth: 1
   m_AllowXRRendering: 1
   m_RequiresDepthTexture: 0
@@ -5248,7 +5248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8396226, g: 0.7757027, b: 0.72533435, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10532,6 +10532,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 379948431}
     m_Modifications:
+    - target: {fileID: 428085724466875996, guid: b459d0be8379a8949bfcc2ef163eed0f,
+        type: 3}
+      propertyPath: m_characterSpacing
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 8810363789021425053, guid: b459d0be8379a8949bfcc2ef163eed0f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10656,6 +10661,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1004760744}
     m_Modifications:
+    - target: {fileID: 2600823802861855178, guid: 13b37f09c2c45394bbade94045f39333,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -85
+      objectReference: {fileID: 0}
     - target: {fileID: 4787770182064365851, guid: 13b37f09c2c45394bbade94045f39333,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10929,6 +10939,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 379948431}
     m_Modifications:
+    - target: {fileID: 2295546924360524813, guid: d7a0469ed3de29e4c90238990c7a701b,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 5221052926760936617, guid: d7a0469ed3de29e4c90238990c7a701b,
         type: 3}
       propertyPath: m_Pivot.x
