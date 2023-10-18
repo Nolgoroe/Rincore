@@ -713,9 +713,9 @@ public class PowerupManager : MonoBehaviour
 
     private void FlipBooster(PotionInLevelHelper helper, bool isOn)
     {
-        bool isCurrentlyAnimPlaying = helper.connectedAnim.IsInTransition(0);
+        //bool isCurrentlyAnimPlaying = helper.connectedAnim.IsInTransition(0);
 
-        if (helper.connectedAnim && !isCurrentlyAnimPlaying)
+        if (helper.connectedAnim)
         {
             helper.connectedAnim.SetBool("IsOFF", !isOn);
             helper.connectedAnim.SetBool("IsON", isOn);
