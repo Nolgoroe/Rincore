@@ -492,6 +492,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [ContextMenu("Tansfer same cluster")]
+    public void CallCallClusterTempTransfer()
+    {
+        StartCoroutine(InitClusterTransfer());
+    }
+
     private IEnumerator InitClusterTransfer()
     {
         gameRing.LockAllCells(true);

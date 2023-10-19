@@ -58,12 +58,13 @@ public class MapLogic : MonoBehaviour
 
     [Header("Transition cluster Animation")]
     [SerializeField] private float delayBetweenRings;
-    [SerializeField] private float delayBetweenLastPieces;
+    //[SerializeField] private float delayBetweenLastPieces;
     [SerializeField] private float delayAfterLastPiece;
     [SerializeField] private float moveZAmountIn;
     [SerializeField] private float moveZAmountOut;
     [SerializeField] private float ringMoveTime;
     [SerializeField] private float lastPiecesMoveTime;
+    [SerializeField] private float delayBeforeStartLevel = 1;
     [SerializeField] private float waitTimeBeforePlayButton;
 
     private Vector3 translation = Vector3.zero;
@@ -362,6 +363,7 @@ public class MapLogic : MonoBehaviour
         summonedLastPieces.Clear();
     }
 
+
     public void CallClusterTransfer(ClusterSO newCluster)
     {
         StartCoroutine(ClusterTransfer(newCluster));
@@ -390,7 +392,7 @@ public class MapLogic : MonoBehaviour
 
         yield return StartCoroutine(MoveParts(false)); // move new rings
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(delayBeforeStartLevel);
         StartCoroutine(GameManager.instance.InitStartLevel(false));
     }
 
@@ -407,7 +409,7 @@ public class MapLogic : MonoBehaviour
         for (int i = 0; i < summonedLastPieces.Count; i++)
         {
             MoveAction(summonedLastPieces[i], destroyAtEnd, lastPiecesMoveTime);
-            yield return new WaitForSeconds(delayBetweenLastPieces);
+            //yield return new WaitForSeconds(delayBetweenLastPieces);
         }
 
         yield return new WaitForSeconds(delayAfterLastPiece);

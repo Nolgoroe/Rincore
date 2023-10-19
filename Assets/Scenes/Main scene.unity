@@ -6891,8 +6891,8 @@ MonoBehaviour:
   moveToX: 4.95
   leftParent: {fileID: 1211083229}
   rightParent: {fileID: 1211083228}
-  tweenTypeIn: 24
-  tweenTypeOut: 8
+  tweenTypeIn: 0
+  tweenTypeOut: 0
   tweenTypeInCurve:
     serializedVersion: 2
     m_Curve:
@@ -8253,13 +8253,13 @@ MonoBehaviour:
   originalClusterCameraParentPos: 0
   distanceCameraFirstRing: 31.5
   currentLevelCameraParentZPos: 0
-  delayBetweenRings: 0.2
-  delayBetweenLastPieces: 0.1
-  delayAfterLastPiece: 1
+  delayBetweenRings: 0.1
+  delayAfterLastPiece: 0.3
   moveZAmountIn: -40
   moveZAmountOut: -60
-  ringMoveTime: 3
-  lastPiecesMoveTime: 3
+  ringMoveTime: 1.5
+  lastPiecesMoveTime: 1.5
+  delayBeforeStartLevel: 1.5
   waitTimeBeforePlayButton: 3.2
 --- !u!1 &1963130582
 GameObject:
