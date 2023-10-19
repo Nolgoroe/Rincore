@@ -81,7 +81,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject leftParent;
     [SerializeField] private GameObject rightParent;
 
-    [SerializeField] private LeanTweenType tweenType;
+    [SerializeField] private LeanTweenType tweenTypeIn;
+    [SerializeField] private LeanTweenType tweenTypeOut;
+    [SerializeField] private AnimationCurve tweenTypeInCurve;
+    [SerializeField] private AnimationCurve tweenTypeOutCurve;
 
     [Header("Map setup")] //might move to a different script
     [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
@@ -718,14 +721,14 @@ public class UIManager : MonoBehaviour
         {
             yield return new WaitForSeconds(waitBeforeCurtainsInTime);
             SoundManager.instance.CallPlaySound(sounds.CurtainsIn);
-            LeanTween.moveLocalX(leftParent, moveToX, curtainsIntoMapTime).setEase(tweenType);
-            LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
+            LeanTween.moveLocalX(leftParent, moveToX, curtainsIntoMapTime).setEase(tweenTypeInCurve);
+            LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenTypeInCurve).setOnComplete(actionOnEnd);
         }
         else
         {
             SoundManager.instance.CallPlaySound(sounds.CurtainsOut);
-            LeanTween.moveLocalX(leftParent, 0, curtainsOutMapTime).setEase(tweenType);
-            LeanTween.moveLocalX(rightParent, 0, curtainsOutMapTime).setEase(tweenType).setOnComplete(actionOnEnd);
+            LeanTween.moveLocalX(leftParent, 0, curtainsOutMapTime).setEase(tweenTypeOutCurve);
+            LeanTween.moveLocalX(rightParent, 0, curtainsOutMapTime).setEase(tweenTypeOutCurve).setOnComplete(actionOnEnd);
         }
     }
 
