@@ -308,6 +308,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isUseOnce: 1
+  effectDisplayOnClick: 1
   data:
     connectedLevelSO: {fileID: 0}
     connectedCluster: {fileID: 0}
@@ -422,6 +423,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 12 Ring Slice Pivot Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865345569733224985, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ea00a43738a37469cd2276b6f0ba5a, type: 3}
@@ -768,6 +774,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 12 Ring Slice Pivot Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814464820567971844, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865345569733224985, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ea00a43738a37469cd2276b6f0ba5a, type: 3}
@@ -2777,6 +2793,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 12 Ring Slice Pivot Parent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1865345569733224985, guid: 31ea00a43738a37469cd2276b6f0ba5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ea00a43738a37469cd2276b6f0ba5a, type: 3}

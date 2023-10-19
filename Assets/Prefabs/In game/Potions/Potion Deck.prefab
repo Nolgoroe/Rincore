@@ -1133,6 +1133,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 0
 --- !u!1 &4342947889557585049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,7 +1757,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1088.98, y: 272}
+  m_SizeDelta: {x: 1135, y: 272}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7210224177713897963
 CanvasRenderer:
@@ -1981,6 +1982,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 0
 --- !u!1 &7210224178642042565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,6 +2369,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isUseOnce: 0
+  effectDisplayOnClick: 0
   connectedParent: {fileID: 699837421729176454}
   timeWaitEnableClick: 0.1
 --- !u!224 &5792154173098949653 stripped

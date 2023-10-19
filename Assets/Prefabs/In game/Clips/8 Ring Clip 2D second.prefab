@@ -678,7 +678,7 @@ MonoBehaviour:
   isSolo: 0
   isOverrideSolo: 0
   isPermanent: 0
-  isInteractable: 1
+  isInteractable: 0
   group: {fileID: 1916959640}
   textRefrences: []
   imageRefrences: []
@@ -712,6 +712,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 0
 --- !u!1 &2030081203
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,6 +938,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 0
 --- !u!1 &1159730204031328455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,6 +1478,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isUseOnce: 0
+  effectDisplayOnClick: 0
   spriteVerMuted: {fileID: 1184191497, guid: 198bf965306346f4b8fed0cac17187aa, type: 3}
   spriteVerUnMuted: {fileID: 71484632, guid: 198bf965306346f4b8fed0cac17187aa, type: 3}
   buttonEventsOnEnable:
@@ -1752,6 +1755,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 0
 --- !u!225 &4954917098394763098
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1961,6 +1965,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isUseOnce: 0
+  effectDisplayOnClick: 0
   spriteVerMuted: {fileID: -2074183495, guid: 198bf965306346f4b8fed0cac17187aa, type: 3}
   spriteVerUnMuted: {fileID: 1972943261, guid: 198bf965306346f4b8fed0cac17187aa, type: 3}
   buttonEventsOnEnable:
@@ -2404,6 +2409,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 0
 --- !u!1 &8166207557281787216
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,6 +2683,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 0
 --- !u!114 &5222871284003259004
 MonoBehaviour:
   m_ObjectHideFlags: 0
