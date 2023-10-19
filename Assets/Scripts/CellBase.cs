@@ -65,6 +65,9 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             {
                 //bad connection if we're inside here.
                 amountUnsuccessfullConnections++;
+
+                heldTile.ShakeNow();
+                leftCell.heldTile.ShakeNow();
             }
 
             SetConnectDataOnPlace(goodLeft, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
@@ -83,6 +86,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             {
                 //bad connection if we're inside here.
                 amountUnsuccessfullConnections++;
+                heldTile.ShakeNow();
+                rightCell.heldTile.ShakeNow();
             }
 
             SetConnectDataOnPlace(goodRight, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);     

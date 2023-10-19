@@ -22,4 +22,6 @@ public class Tile : TileParentLogic
 
         matToChange.SetTexture("_BaseMap", colorSymbolTexture);
     }
+
+
 }

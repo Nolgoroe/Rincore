@@ -213,4 +213,14 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         return subTileLeft.subTileColor != SubTileColor.Joker ||
             subTileLeft.subTileSymbol != SubTileSymbol.Joker;
     }
+
+    public void ShakeNow()
+    {
+        CameraShake shake;
+
+        TryGetComponent<CameraShake>(out shake);
+        if (shake == null) return;
+
+        shake.ShakeOnce();
+    }
 }
