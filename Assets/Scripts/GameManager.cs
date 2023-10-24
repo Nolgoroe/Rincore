@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeClipEnter = 0.4f;
     [SerializeField] private float delayClipHide = 0.4f;
     [SerializeField] private float delayRestartCluster =1f;
+    [SerializeField] private float delayLeaveLevel =1f;
 
     [Header("In game Data")]
     public LevelSO nextLevel;
@@ -150,6 +151,7 @@ public class GameManager : MonoBehaviour
 
         AddToEndlevelActions(ClearLevelData);
 
+        WinLevelActions += gameRing.ActivateRingEffectsOnWin;
 
         if (currentIndexInCluster + 1 == currentClusterSO.clusterLevels.Length)
         {
@@ -426,6 +428,7 @@ public class GameManager : MonoBehaviour
         gameRing.LockAllCells(true);
 
         UIManager.IS_DURING_TRANSITION = true;
+        yield return new WaitForSeconds(delayLeaveLevel);
 
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 
@@ -508,6 +511,8 @@ public class GameManager : MonoBehaviour
         bool isAtStartOfCluster = currentIndexInCluster == 0 ? true : false;
 
         RestartClusterData();
+
+        yield return new WaitForSeconds(delayLeaveLevel);
 
         yield return StartCoroutine(UIManager.instance.DisplayLevelCluster(true));
 

@@ -875,4 +875,3 @@ namespace CartoonFX
 	}
 #endif
 }
-;

@@ -1941,6 +1941,7 @@ MonoBehaviour:
   timeClipEnter: 0.4
   delayClipHide: 0.6
   delayRestartCluster: 1.2
+  delayLeaveLevel: 2
   nextLevel: {fileID: 0}
   currentLevelGeneralStatueAnimator: {fileID: 0}
   isAnimalLevel: 0
@@ -8618,7 +8619,7 @@ MonoBehaviour:
   - canOverlap: 1
     sound: 12
     source: {fileID: 583460899}
-  - canOverlap: 0
+  - canOverlap: 1
     sound: 13
     source: {fileID: 919435333}
   - canOverlap: 1

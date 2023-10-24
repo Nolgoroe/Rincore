@@ -29,6 +29,7 @@ public class Ring : MonoBehaviour
 
     [SerializeField] private SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
 
+    [SerializeField] private ParticleSystem[] effectsArray;
 
     [Header("Inspector Actions")]
     public GameObject tilePrefab;
@@ -259,6 +260,14 @@ public class Ring : MonoBehaviour
         }
     }
 
+    public void ActivateRingEffectsOnWin()
+    {
+        foreach (ParticleSystem effect in effectsArray)
+        {
+            effect.gameObject.SetActive(true);
+            effect.Play();
+        }
+    }
 
     public void LockAllCells(bool _isLock)
     {
