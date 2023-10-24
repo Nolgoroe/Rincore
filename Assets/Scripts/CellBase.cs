@@ -136,6 +136,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 
         if (isGood)
         {
+            GameManager.gameRing.ActivateGoodMatchEffects();
+
             mySlice.sliceData.onGoodConnectionActions?.Invoke();
         }
     }

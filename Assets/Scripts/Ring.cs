@@ -30,6 +30,7 @@ public class Ring : MonoBehaviour
     [SerializeField] private SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
 
     [SerializeField] private ParticleSystem[] effectsArray;
+    [SerializeField] private ParticleSystem[] goodMatchEffects;
 
     [Header("Inspector Actions")]
     public GameObject tilePrefab;
@@ -265,6 +266,13 @@ public class Ring : MonoBehaviour
         foreach (ParticleSystem effect in effectsArray)
         {
             effect.gameObject.SetActive(true);
+            effect.Play();
+        }
+    }
+    public void ActivateGoodMatchEffects()
+    {
+        foreach (ParticleSystem effect in goodMatchEffects)
+        {
             effect.Play();
         }
     }
