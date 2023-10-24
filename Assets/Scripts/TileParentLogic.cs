@@ -18,6 +18,11 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     public bool partOfBoard;
     public Tiletype tileType;
 
+    public ParticleSystem dealVFX;
+    public ParticleSystem trailVFX;
+    public GameObject moveVFXParent;
+
+
     public abstract void SetPlaceTileData(bool place, CellBase cellParent);
     public abstract void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor);
 
@@ -222,5 +227,21 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         if (shake == null) return;
 
         shake.ShakeOnce();
+    }
+
+    public void SetEffectsForDeal()
+    {
+        //dealVFX.gameObject.SetActive(true);
+        //trailVFX.gameObject.SetActive(false);
+    }
+    public void SetEffectsForNormalControls()
+    {
+        //dealVFX.gameObject.SetActive(false);
+        //trailVFX.gameObject.SetActive(true);
+    }
+
+    public void ActivateMoveVFX(bool _On)
+    {
+        moveVFXParent.SetActive(_On);
     }
 }

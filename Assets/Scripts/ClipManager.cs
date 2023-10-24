@@ -343,6 +343,7 @@ public class ClipManager : MonoBehaviour
 
             GameObject toMove = slots[i].tileGFXParent.gameObject;
 
+            slots[i].heldTile.SetEffectsForDeal();
             LeanTween.move(toMove, piecesDealPositionsOut, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
 
             yield return new WaitForSeconds(delayClipMove);
@@ -369,7 +370,6 @@ public class ClipManager : MonoBehaviour
 
         }
 
-
         // move the tile GFX parent back into screen
         for (int i = activeClipSlotsCount - 1; i > -1; i--)
         {
@@ -378,6 +378,7 @@ public class ClipManager : MonoBehaviour
             GameObject toMove = slots[i].tileGFXParent.gameObject;
 
             LeanTween.move(toMove, slots[i].originalSlotPos, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
+            slots[i].heldTile.SetEffectsForNormalControls();
 
             yield return new WaitForSeconds(delayClipMove);
         }
