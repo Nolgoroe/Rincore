@@ -244,6 +244,7 @@ GameObject:
   - component: {fileID: 1016919268939801213}
   - component: {fileID: 4796256615199048360}
   - component: {fileID: 6466169683708961734}
+  - component: {fileID: 3794426239733075319}
   m_Layer: 0
   m_Name: Reward prefab
   m_TagString: Untagged
@@ -333,6 +334,26 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &3794426239733075319
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5988370799907759243}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6a9a1c441506813408337a781cb9160f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5908356164237395428
 PrefabInstance:
   m_ObjectHideFlags: 0
