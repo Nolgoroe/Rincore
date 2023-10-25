@@ -15,6 +15,8 @@ public class ClipSlot : TileHolder, IGrabTileFrom
         recievedTile.transform.localScale = GameManager.GENERAL_TILE_SIZE;
 
         heldTile = recievedTile;
+
+        CallPlayVFX(VFX.tileDustClip, 0);
     }
 
     public void GrabTileFrom()

@@ -233,6 +233,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         }
 
         heldTile = recievedTile;
+
+        CallPlayVFX(VFX.tileDustRing, 0);
     }
 
     public int GetUnsuccessfullConnections()

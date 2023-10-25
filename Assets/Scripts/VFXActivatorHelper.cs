@@ -7,7 +7,9 @@ public enum VFX
 {
     bomb,
     joker,
-    sliceON
+    sliceON,
+    tileDustClip,
+    tileDustRing
 }
 
 [System.Serializable]

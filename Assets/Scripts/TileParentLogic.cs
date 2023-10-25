@@ -82,7 +82,7 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
             PowerupManager.instance.ResetPowerUpData(); // release power directly - no success
         }
 
-        cellParent.CallPlayVFX(VFX.bomb);
+        cellParent.CallPlayVFX(VFX.bomb, PowerupManager.instance.delayPotionEffectOnObject);
     }
 
     public void JokerPower()
@@ -174,7 +174,7 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
         if (holder)
         {
-            holder.CallPlayVFX(VFX.joker);
+            holder.CallPlayVFX(VFX.joker, PowerupManager.instance.delayPotionEffectOnObject);
         }
     }
 

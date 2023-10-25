@@ -19,13 +19,16 @@ public abstract class TileHolder : MonoBehaviour
     public abstract void AcceptTileToHolder(TileParentLogic recievedTile);
 
 
-    public void CallPlayVFX(VFX vfxType)
+    public void CallPlayVFX(VFX vfxType, float delayTime)
     {
-        StartCoroutine(PlayVFX(vfxType));
+        if(isActiveAndEnabled)
+        {
+            StartCoroutine(PlayVFX(vfxType, delayTime));
+        }
     }
-    public IEnumerator PlayVFX(VFX vfxType)
+    public IEnumerator PlayVFX(VFX vfxType, float delayTime)
     {
-        yield return new WaitForSeconds(PowerupManager.instance.delayPotionEffectOnObject);
+           yield return new WaitForSeconds(delayTime);
 
         if (vfxHelper)
         {
