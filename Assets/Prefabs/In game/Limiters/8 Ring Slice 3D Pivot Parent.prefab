@@ -58,7 +58,10 @@ MonoBehaviour:
   leftNeighborCell: {fileID: 0}
   isLock: 0
   vfxHelper: {fileID: 2925796002890657887}
+  toggledOnVFX: {fileID: 1037412788817544643}
   connectedDisplay: {fileID: 0}
+  completedSprite: {fileID: 0}
+  normalSprite: {fileID: 0}
   lockIconAnim: {fileID: 8048263533783476814}
 --- !u!64 &2611655226303025996
 MeshCollider:
@@ -498,11 +501,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7755692343396073973}
     m_Modifications:
-    - target: {fileID: 1725228409749102392, guid: 076ebd629cc352c4ba478613f07633cf,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2308211894349671578, guid: 076ebd629cc352c4ba478613f07633cf,
         type: 3}
       propertyPath: m_Name
@@ -563,11 +561,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4175717801377226983, guid: 076ebd629cc352c4ba478613f07633cf,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7865688589496402281, guid: 076ebd629cc352c4ba478613f07633cf,
         type: 3}
       propertyPath: boosterHighlightOnUse
@@ -575,6 +568,12 @@ PrefabInstance:
       objectReference: {fileID: 4751618193312257003}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 076ebd629cc352c4ba478613f07633cf, type: 3}
+--- !u!198 &1037412788817544643 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5465021943862408437, guid: 076ebd629cc352c4ba478613f07633cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 5022087459245715766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2925796002890657887 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7865688589496402281, guid: 076ebd629cc352c4ba478613f07633cf,

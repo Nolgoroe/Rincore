@@ -6,14 +6,15 @@ using System.Linq;
 public enum VFX
 {
     bomb,
-    joker
+    joker,
+    sliceON
 }
 
 [System.Serializable]
 public class VFXTypeObjectConnection
 {
     public VFX effectType;
-    public GameObject connectedObject;
+    public ParticleSystem connectedObject;
 }
 
 public class VFXActivatorHelper : MonoBehaviour
@@ -21,13 +22,14 @@ public class VFXActivatorHelper : MonoBehaviour
     [SerializeField] VFXTypeObjectConnection[] VFXarray;
     [SerializeField] SpriteRenderer boosterHighlightOnUse;
 
-    public void PlayVFX(VFX VFXToEnable)
+    public void PlayVFX(VFX VFXToEnable, bool _On)
     {
         VFXTypeObjectConnection connection = VFXarray.Where(x => x.effectType == VFXToEnable).FirstOrDefault();
 
-        if(connection != null)
+        if (connection != null)
         {
-            connection.connectedObject.SetActive(true);
+            connection.connectedObject.gameObject.SetActive(_On);
+            connection.connectedObject.Play();
         }
     }
 

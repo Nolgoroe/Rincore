@@ -29,7 +29,7 @@ public abstract class TileHolder : MonoBehaviour
 
         if (vfxHelper)
         {
-            vfxHelper.PlayVFX(vfxType);
+            vfxHelper.PlayVFX(vfxType, true);
         }
     }
 }

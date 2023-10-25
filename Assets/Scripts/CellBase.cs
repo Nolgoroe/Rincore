@@ -36,12 +36,24 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         {
             heldTile.SetSubtilesConnectedGFX(false, heldTile.subTileLeft, leftCell.heldTile.subTileRight);
             connectVFXLeft.gameObject.SetActive(false);
+
         }
 
         if (rightCell.heldTile)
         {
             heldTile.SetSubtilesConnectedGFX(false, heldTile.subTileRight, rightCell.heldTile.subTileLeft);
             connectVFXRight.gameObject.SetActive(false);
+        }
+
+        if (leftSlice.sliceData.onGoodConnectionActions != null)
+        {
+            leftSlice.ToggleConnectedDisplayON(false);
+
+        }
+
+        if (rightSlice.sliceData.onGoodConnectionActions != null)
+        {
+            rightSlice.ToggleConnectedDisplayON(false);
         }
     }
 
@@ -136,6 +148,9 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
 
         if (isGood)
         {
+            mySlice.ToggleConnectedDisplayON(true);
+
+
             GameManager.gameRing.ActivateGoodMatchEffects();
 
             mySlice.sliceData.onGoodConnectionActions?.Invoke();

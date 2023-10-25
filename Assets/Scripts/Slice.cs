@@ -25,9 +25,12 @@ public class Slice : MonoBehaviour, IPowerUsable
     public CellBase leftNeighborCell;
     public bool isLock;
     public VFXActivatorHelper vfxHelper;
+    public ParticleSystem toggledOnVFX;
 
     [Header("Dynamic Data")]
     public SliceDisplay3D connectedDisplay;
+    public Texture completedSprite;
+    public Texture normalSprite;
 
     [Header("temp here?")]
     //TEMP - will maybe change to lock sprite animation.
@@ -142,7 +145,7 @@ public class Slice : MonoBehaviour, IPowerUsable
 
         if (vfxHelper)
         {
-            vfxHelper.PlayVFX(vfxType);
+            vfxHelper.PlayVFX(vfxType, true);
         }
     }
 
@@ -154,6 +157,25 @@ public class Slice : MonoBehaviour, IPowerUsable
         }
 
         return false;
+    }
+
+    public void ToggleConnectedDisplayON(bool _On)
+    {
+        if (!connectedDisplay || !completedSprite || !normalSprite) return;
+
+        Material mat = connectedDisplay.limiterRenderer.material;
+
+        if (_On)
+        {
+            mat.SetTexture("_BaseMap", completedSprite);
+            vfxHelper.PlayVFX(VFX.sliceON, true);
+        }
+        else
+        {
+            mat.SetTexture("_BaseMap", normalSprite);
+            vfxHelper.PlayVFX(VFX.sliceON, false);
+
+        }
     }
 
 }

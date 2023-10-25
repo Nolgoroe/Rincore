@@ -240,36 +240,41 @@ MonoBehaviour:
     type: 3}
   sliceDisplayArray:
   - sliceEnum: 1
-    sliceMesh:
-    - {fileID: 8961701279757865181, guid: 96ed40944a020084a940949aa9ef1e6a, type: 3}
     slicePossibleTextures:
     - {fileID: 2800000, guid: 955d7790190a4a041bf19b9f17f682c1, type: 3}
+    completedSliceTextures:
+    - {fileID: 2800000, guid: 6b8aa954fbed41246b580ae296e07bec, type: 3}
   - sliceEnum: 2
-    sliceMesh:
-    - {fileID: 7481332353835916443, guid: 92250dc8c991f0f4b8c3a053ae4a7a67, type: 3}
     slicePossibleTextures:
     - {fileID: 2800000, guid: 9e77388466173f343938c5bc4f851e34, type: 3}
+    completedSliceTextures:
+    - {fileID: 2800000, guid: a0d0946b660e507489968b5050ef2877, type: 3}
   - sliceEnum: 3
-    sliceMesh:
-    - {fileID: 7689499480000819433, guid: 49068eeb159f0474b8d607bf9ed81928, type: 3}
     slicePossibleTextures:
     - {fileID: 2800000, guid: 8e652200d76ddfd43b4cf942975f6914, type: 3}
     - {fileID: 2800000, guid: 0de728c842c472f45828a1325d6e98de, type: 3}
     - {fileID: 2800000, guid: 8ab9a2c39b08ab247a8073df8c4c445d, type: 3}
     - {fileID: 2800000, guid: 84c0c56edae89134dba1e167c3192cd2, type: 3}
     - {fileID: 2800000, guid: e5e35e69a54455a48b643b6bba3f4b99, type: 3}
+    completedSliceTextures:
+    - {fileID: 2800000, guid: 6938985ad9aec744180aa87327f07677, type: 3}
+    - {fileID: 2800000, guid: f3851b58be0264247bd88b04a9e0a5d9, type: 3}
+    - {fileID: 2800000, guid: 30ebfbf5c10f7ae4580fe55581dffe82, type: 3}
+    - {fileID: 2800000, guid: 32d62aefaf3756d459c4759966dc2f78, type: 3}
+    - {fileID: 2800000, guid: 1d7f92649f6864d42bb100369b1d38db, type: 3}
   - sliceEnum: 4
-    sliceMesh:
-    - {fileID: 7689499480000819433, guid: 49068eeb159f0474b8d607bf9ed81928, type: 3}
-    - {fileID: 3482525204372062134, guid: 9ef0aedb4e86e284eb7198a51c7dac5f, type: 3}
-    - {fileID: -3646255738039642567, guid: 30550590a9913d04792b0c98eaa17d8f, type: 3}
-    - {fileID: 988693298645618661, guid: 0b11c6e64595573449f1646b02f6ae0b, type: 3}
     slicePossibleTextures:
     - {fileID: 2800000, guid: aebb53a70be9eb84b965a878f156646f, type: 3}
     - {fileID: 2800000, guid: 607e6c21d591f234eb709207815c2395, type: 3}
     - {fileID: 2800000, guid: 57e2f59eb7585fc4b9d8ab5822a0bc4a, type: 3}
     - {fileID: 2800000, guid: 971c242da1382654e8269e77ce282153, type: 3}
     - {fileID: 2800000, guid: 36f63992e1c389c43a0928cc507b2dea, type: 3}
+    completedSliceTextures:
+    - {fileID: 2800000, guid: d4e1ad196c7ab174e8f780a8fdef440f, type: 3}
+    - {fileID: 2800000, guid: 39de3ab21c454be429fd2e31a179ae12, type: 3}
+    - {fileID: 2800000, guid: e0b40f747ef37cb44b31a4cc1912e2d5, type: 3}
+    - {fileID: 2800000, guid: b9e18ead2a6b0844982f6bb408d45feb, type: 3}
+    - {fileID: 2800000, guid: 4fab8c188a962b44bbcec515dff35dff, type: 3}
   effectsArray:
   - {fileID: 6906765601734480583}
   - {fileID: 6044725784207389379}
@@ -2435,7 +2440,7 @@ PrefabInstance:
     - target: {fileID: 1018422324743418603, guid: cbfe6dad16ff5db4a8d186f560a7b219,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3939940141097909796, guid: cbfe6dad16ff5db4a8d186f560a7b219,
         type: 3}

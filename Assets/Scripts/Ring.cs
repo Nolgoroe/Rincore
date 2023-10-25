@@ -7,8 +7,9 @@ using System.Linq;
 public class SliceSpriteSetter
 {
     public SliceConditionsEnums sliceEnum;
-    public Mesh[] sliceMesh;
+    //public Mesh[] sliceMesh;
     public Texture[] slicePossibleTextures;
+    public Texture[] completedSliceTextures;
 }
 public class Ring : MonoBehaviour
 {
@@ -86,23 +87,28 @@ public class Ring : MonoBehaviour
         switch (sliceData.connectionType)
         {
             case SliceConditionsEnums.GeneralColor:
-                sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
+                sliceData.normalSprite = relaventSliceData.slicePossibleTextures[0];
+                sliceData.completedSprite = relaventSliceData.completedSliceTextures[0];
                 break;
             case SliceConditionsEnums.GeneralSymbol:
-                sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[0];
+                sliceData.normalSprite = relaventSliceData.slicePossibleTextures[0];
+                sliceData.completedSprite = relaventSliceData.completedSliceTextures[0];
+
                 break;
             case SliceConditionsEnums.SpecificColor:
-                sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredColor];
+                sliceData.normalSprite = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredColor];
+                sliceData.completedSprite = relaventSliceData.completedSliceTextures[(int)sliceData.requiredColor];
                 break;
             case SliceConditionsEnums.SpecificSymbol:
-                sliceDisplayObject.limiterRenderer.material.mainTexture = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredSymbol];
+                sliceData.normalSprite = relaventSliceData.slicePossibleTextures[(int)sliceData.requiredSymbol];
+                sliceData.completedSprite = relaventSliceData.completedSliceTextures[(int)sliceData.requiredSymbol];
                 break;
             default:
                 Debug.LogError("Problem with slice generation");
                 break;
         }
 
-
+        sliceDisplayObject.limiterRenderer.material.mainTexture = sliceData.normalSprite;
     }
 
     private void OnAddTileToRing()
