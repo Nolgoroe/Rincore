@@ -151,8 +151,6 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
             mySlice.ToggleConnectedDisplayON(true);
 
 
-            GameManager.gameRing.ActivateGoodMatchEffects();
-
             mySlice.sliceData.onGoodConnectionActions?.Invoke();
         }
     }

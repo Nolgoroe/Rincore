@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
         AddToEndlevelActions(ClearLevelData);
 
         WinLevelActions += gameRing.ActivateRingEffectsOnWin;
+        WinLevelActions += gameRing.ActivateAllGoodMatchEffects;
 
         if (currentIndexInCluster + 1 == currentClusterSO.clusterLevels.Length)
         {

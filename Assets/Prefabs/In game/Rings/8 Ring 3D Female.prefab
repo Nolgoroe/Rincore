@@ -277,7 +277,6 @@ MonoBehaviour:
     - {fileID: 2800000, guid: 4fab8c188a962b44bbcec515dff35dff, type: 3}
   effectsArray:
   - {fileID: 6906765601734480583}
-  - {fileID: 6044725784207389379}
   goodMatchEffects:
   - {fileID: 7244699572593920848}
   - {fileID: 7439592671720491698}
@@ -2389,13 +2388,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1018422324743418580, guid: cbfe6dad16ff5db4a8d186f560a7b219,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1018422324743418580, guid: cbfe6dad16ff5db4a8d186f560a7b219,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: m_LocalPosition.y
+      value: 0.69
       objectReference: {fileID: 0}
     - target: {fileID: 1018422324743418580, guid: cbfe6dad16ff5db4a8d186f560a7b219,
         type: 3}
@@ -2509,12 +2503,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbfe6dad16ff5db4a8d186f560a7b219, type: 3}
---- !u!198 &6044725784207389379 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1018422324743418602, guid: cbfe6dad16ff5db4a8d186f560a7b219,
-    type: 3}
-  m_PrefabInstance: {fileID: 6755689327423635497}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6044725784207389437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1018422324743418580, guid: cbfe6dad16ff5db4a8d186f560a7b219,

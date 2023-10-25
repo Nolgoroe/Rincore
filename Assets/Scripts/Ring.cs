@@ -275,7 +275,7 @@ public class Ring : MonoBehaviour
             effect.Play();
         }
     }
-    public void ActivateGoodMatchEffects()
+    public void ActivateAllGoodMatchEffects()
     {
         foreach (ParticleSystem effect in goodMatchEffects)
         {
