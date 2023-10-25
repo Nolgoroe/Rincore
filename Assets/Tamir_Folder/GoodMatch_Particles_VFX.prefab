@@ -5628,9 +5628,9 @@ ParticleSystem:
     m_TextureColorAffectsParticles: 1
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
-    randomDirectionAmount: 0.04
-    sphericalDirectionAmount: 0.59
-    randomPositionAmount: 0.06
+    randomDirectionAmount: 0.07
+    sphericalDirectionAmount: 0.16
+    randomPositionAmount: 0
     radius:
       value: 1
       mode: 0
@@ -10017,7 +10017,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
+      scalar: 0.4
       minScalar: 0.03
       maxCurve:
         serializedVersion: 2
