@@ -231,6 +231,8 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
 
     public void SetMoveEffects(bool trailOn, bool dealOn)
     {
+        if (!dealVFX || !trailVFX) return;
+
         dealVFX.gameObject.SetActive(trailOn);
         trailVFX.gameObject.SetActive(dealOn);
     }
