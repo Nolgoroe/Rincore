@@ -1904,7 +1904,7 @@ MonoBehaviour:
   timeClipEnter: 0.4
   delayClipHide: 0.6
   delayRestartCluster: 1.2
-  delayLeaveLevel: 2
+  delayLeaveLevel: 0.5
   nextLevel: {fileID: 0}
   currentLevelGeneralStatueAnimator: {fileID: 0}
   isAnimalLevel: 0
@@ -9982,6 +9982,7 @@ GameObject:
   - component: {fileID: 1854591565418619415}
   - component: {fileID: 9130554966087346120}
   - component: {fileID: 9130554966087346119}
+  - component: {fileID: 9130554966087346121}
   m_Layer: 5
   m_Name: Loading Screen
   m_TagString: Untagged
@@ -11546,3 +11547,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &9130554966087346121
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3261657655117614411}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e8b5abd48b1a8e743a79bae3e842666e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
