@@ -399,7 +399,7 @@ PrefabInstance:
     - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
         type: 3}
       propertyPath: ShapeModule.type
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
         type: 3}
@@ -409,7 +409,7 @@ PrefabInstance:
     - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
         type: 3}
       propertyPath: ShapeModule.m_Scale.x
-      value: 1.44
+      value: 1.79
       objectReference: {fileID: 0}
     - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
         type: 3}
@@ -420,6 +420,41 @@ PrefabInstance:
         type: 3}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
+        type: 3}
+      propertyPath: ShapeModule.alignToDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
+        type: 3}
+      propertyPath: TrailModule.minVertexDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
+        type: 3}
+      propertyPath: ShapeModule.randomPositionAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
+        type: 3}
+      propertyPath: TrailModule.widthOverTrail.maxCurve.m_Curve.Array.data[0].inSlope
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
+        type: 3}
+      propertyPath: TrailModule.widthOverTrail.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
+        type: 3}
+      propertyPath: TrailModule.widthOverTrail.maxCurve.m_Curve.Array.data[0].outSlope
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822538944640199850, guid: 876aaf37f7b990d4680a51562a1222aa,
+        type: 3}
+      propertyPath: TrailModule.widthOverTrail.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6822538944640199851, guid: 876aaf37f7b990d4680a51562a1222aa,
         type: 3}
