@@ -645,6 +645,7 @@ public class PowerupManager : MonoBehaviour
 
         UIManager.instance.ManualUpdateCoinTextInLevel();
     }
+    
     private IEnumerator CheckUseCoinsToUsePower(PowerupScriptableObject currentSO, OwnedPowersAndAmounts ownedPower, PotionInLevelHelper potionHelper)
     {
         if(player.GetOwnedCoins >= currentSO.price)

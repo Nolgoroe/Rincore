@@ -229,19 +229,9 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         shake.ShakeOnce();
     }
 
-    public void SetEffectsForDeal()
+    public void SetMoveEffects(bool trailOn, bool dealOn)
     {
-        //dealVFX.gameObject.SetActive(true);
-        //trailVFX.gameObject.SetActive(false);
-    }
-    public void SetEffectsForNormalControls()
-    {
-        //dealVFX.gameObject.SetActive(false);
-        //trailVFX.gameObject.SetActive(true);
-    }
-
-    public void ActivateMoveVFX(bool _On)
-    {
-        moveVFXParent.SetActive(_On);
+        dealVFX.gameObject.SetActive(trailOn);
+        trailVFX.gameObject.SetActive(dealOn);
     }
 }

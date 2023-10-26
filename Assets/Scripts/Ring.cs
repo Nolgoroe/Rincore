@@ -259,7 +259,7 @@ public class Ring : MonoBehaviour
         }
     }
 
-    public void CheckUpdateLeadingConnectionAnimator(Animator anim)
+    private void CheckUpdateLeadingConnectionAnimator(Animator anim)
     {
         if(currentLeadingAnimator == null)
         {
@@ -280,6 +280,13 @@ public class Ring : MonoBehaviour
         foreach (ParticleSystem effect in goodMatchEffects)
         {
             effect.Play();
+        }
+    }
+    public void ActivateAllTilesMoveEffects()
+    {
+        foreach (CellBase cell in ringCells)
+        {
+            cell.heldTile.SetMoveEffects(true, true);
         }
     }
 

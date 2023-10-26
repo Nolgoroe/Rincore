@@ -343,7 +343,7 @@ public class ClipManager : MonoBehaviour
 
             GameObject toMove = slots[i].tileGFXParent.gameObject;
 
-            slots[i].heldTile.SetEffectsForDeal();
+            slots[i].heldTile.SetMoveEffects(false, true);
             LeanTween.move(toMove, piecesDealPositionsOut, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
 
             yield return new WaitForSeconds(delayClipMove);
@@ -378,7 +378,7 @@ public class ClipManager : MonoBehaviour
             GameObject toMove = slots[i].tileGFXParent.gameObject;
 
             LeanTween.move(toMove, slots[i].originalSlotPos, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
-            slots[i].heldTile.SetEffectsForNormalControls();
+            slots[i].heldTile.SetMoveEffects(true, false);
 
             yield return new WaitForSeconds(delayClipMove);
         }

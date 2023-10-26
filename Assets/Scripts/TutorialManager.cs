@@ -35,6 +35,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Tutoriable originObject;
     [SerializeField] private Tutoriable targetObject;
     [SerializeField] private GameObject currentMoveObject;
+    [SerializeField] private TrailRenderer currentTrail;
     [SerializeField] private Animator currentMoveObjectAnim;
     [SerializeField] private TutorialSO currentTutorial;
     [SerializeField] private int currentTutorialStepIndex;
@@ -207,7 +208,13 @@ public class TutorialManager : MonoBehaviour
     {
         Vector3 targetPos = new Vector3(originObject.transform.position.x, originObject.transform.position.y + heightOffset, originObject.transform.position.z);
         currentMoveObject = Instantiate(prefabToSpawn, targetPos, prefabToSpawn.transform.rotation);
-        currentMoveObjectAnim = currentMoveObject.transform.GetChild(0).GetComponent<Animator>(); //temp hardcoded
+
+        currentTrail = currentMoveObject.GetComponentInChildren<TrailRenderer>(); //temp hardcoded
+        currentMoveObjectAnim = currentMoveObject.GetComponentInChildren<Animator>(); //temp hardcoded
+
+
+        if (!currentMoveObjectAnim || !currentTrail) return;
+
 
         MiddleManCoroutine(false);
     }
@@ -253,6 +260,8 @@ public class TutorialManager : MonoBehaviour
 
         if (isBack)
         {
+            currentTrail.enabled = false;
+
             Vector3 targetPos = new Vector3(originObject.transform.position.x, originObject.transform.position.y + heightOffset, originObject.transform.position.z);
 
             yield return new WaitForSeconds(waitBeforeReset);
@@ -261,6 +270,7 @@ public class TutorialManager : MonoBehaviour
         }
         else
         {
+            currentTrail.enabled = true;
             currentMoveObjectAnim.SetTrigger("Press&hold");
 
             yield return new WaitForSeconds(moveTime);
@@ -280,6 +290,8 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator TapInPlace()
     {
+        currentTrail.enabled = false;
+
         currentMoveObjectAnim.SetTrigger("Press&hold");
 
         yield return new WaitForSeconds(waitBeforeResetTap);

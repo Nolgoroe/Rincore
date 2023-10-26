@@ -768,6 +768,19 @@ public class UIManager : MonoBehaviour
 
 
 
+
+
+
+    [ContextMenu("Use coins manually")]
+    private void UseCointManual()
+    {
+        int currentCoins = player.GetOwnedCoins;
+        int newCoins = player.GetOwnedCoins - 5000;
+        StartCoroutine(CounterText(currentCoins, newCoins, publicCoinText));
+    }
+
+
+
 #if UNITY_EDITOR
 
     [MenuItem("Build Preperation/Prepare UI for build")]
