@@ -53,7 +53,6 @@ public class UIManager : MonoBehaviour
     [Header("Map Screen")]
     [SerializeField] private BasicCustomUIWindow generalSettings;
     [SerializeField] private BasicCustomUIWindow generalMapUI;
-    [SerializeField] private BasicCustomUIWindow overAllMapUI;
     [SerializeField] private BasicCustomButton playButton;
     [SerializeField] private TMP_Text levelNumText;
 
@@ -108,6 +107,8 @@ public class UIManager : MonoBehaviour
 
     [Header("general screens")]
     [SerializeField] private BasicCustomUIWindow loadingParent;
+    [SerializeField] private BasicCustomUIWindow logoScreen;
+    [SerializeField] private BasicCustomUIWindow overAllMapUI;
 
     private void Awake()
     {
@@ -637,10 +638,12 @@ public class UIManager : MonoBehaviour
             overAllMapUI,
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(FadeInCurtainswindow(false, false)) },
             new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(GameManager.instance.InitStartLevel(false)) },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(logoScreen)},
             new ButtonActionIndexPair { index = 0, action = () => CloseElement(overAllMapUI) });
 
 
         AddUIElement(overAllMapUI);
+        AddUIElement(logoScreen);
 
         overAllMapUI.OverrideSetMyElement(null, null, actions);
     }
