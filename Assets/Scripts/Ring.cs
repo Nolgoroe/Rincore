@@ -286,7 +286,10 @@ public class Ring : MonoBehaviour
     {
         foreach (CellBase cell in ringCells)
         {
-            cell.heldTile.SetMoveEffects(true, true);
+            if (cell.heldTile)
+            {
+                cell.heldTile.SetMoveEffects(true, true);
+            }
         }
     }
 
