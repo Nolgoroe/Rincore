@@ -233,7 +233,7 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     {
         if (!dealVFX || !trailVFX) return;
 
-        dealVFX.gameObject.SetActive(trailOn);
-        trailVFX.gameObject.SetActive(dealOn);
+        trailVFX.gameObject.SetActive(trailOn);
+        dealVFX.gameObject.SetActive(dealOn);
     }
 }
