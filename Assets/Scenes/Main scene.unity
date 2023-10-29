@@ -20324,6 +20324,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1960824552}
     m_Modifications:
+    - target: {fileID: 2675252683284923748, guid: 86bdb252685143f47aa42261f0b01e82,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 6916429061797608794, guid: 86bdb252685143f47aa42261f0b01e82,
         type: 3}
       propertyPath: m_RootOrder
@@ -21419,7 +21424,7 @@ MonoBehaviour:
   inLevelCoinCount: {fileID: 438473897}
   currentCurtainsLevelDelay: 0
   curtainsDelayOnStart: 0.3
-  waitBeforeCurtainsOutTime: 0.2
+  waitBeforeCurtainsOutTime: 0.6
   waitBeforeCurtainsInTime: 1.5
   waitTimeBeforeEffectIn: 0.45
   curtainsIntoMapTime: 1
