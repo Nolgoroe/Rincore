@@ -731,20 +731,32 @@ public class UIManager : MonoBehaviour
             LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenTypeInCurve).setOnComplete(actionOnEnd);
             yield return new WaitForSeconds(waitTimeBeforeEffectIn);
 
-            //Activate Effect
-            foreach (var effect in inDustCurtains)
-            {
-                effect.gameObject.SetActive(true);
-            }
+            ToggleDustCurtainsIn(true);
         }
         else
         {
+            ToggleDustCurtainsIn(false);
+
             SoundManager.instance.CallPlaySound(sounds.CurtainsOut);
             LeanTween.moveLocalX(leftParent, 0, curtainsOutMapTime).setEase(tweenTypeOutCurve);
             LeanTween.moveLocalX(rightParent, 0, curtainsOutMapTime).setEase(tweenTypeOutCurve).setOnComplete(actionOnEnd);
         }
     }
 
+    private void ToggleDustCurtainsIn(bool _On)
+    {
+        //Activate Dust In Effect
+        foreach (var effect in inDustCurtains)
+        {
+            effect.gameObject.SetActive(_On);
+        }
+
+        //DeActivate Dust In Effect
+        foreach (var effect in outDustCurtains)
+        {
+            effect.gameObject.SetActive(!_On);
+        }
+    }
     public void ManualDisplayCurtains()
     {
         leftParent.transform.localPosition = new Vector3(moveToX, leftParent.transform.localPosition.y, leftParent.transform.localPosition.z);
