@@ -74,11 +74,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float curtainsDelayOnStart;
     [SerializeField] private float waitBeforeCurtainsOutTime;
     [SerializeField] private float waitBeforeCurtainsInTime;
+    [SerializeField] private float waitTimeBeforeEffectIn;
     [SerializeField] private float curtainsIntoMapTime;
     [SerializeField] private float curtainsOutMapTime;
     [SerializeField] private float moveToX;
     [SerializeField] private GameObject leftParent;
     [SerializeField] private GameObject rightParent;
+    [SerializeField] private ParticleSystem inDustCurtains;
+    [SerializeField] private ParticleSystem outDustCurtains;
 
     [SerializeField] private LeanTweenType tweenTypeIn;
     [SerializeField] private LeanTweenType tweenTypeOut;
@@ -726,6 +729,10 @@ public class UIManager : MonoBehaviour
             SoundManager.instance.CallPlaySound(sounds.CurtainsIn);
             LeanTween.moveLocalX(leftParent, moveToX, curtainsIntoMapTime).setEase(tweenTypeInCurve);
             LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenTypeInCurve).setOnComplete(actionOnEnd);
+            yield return new WaitForSeconds(waitTimeBeforeEffectIn);
+            
+            //Activate Effect
+            inDustCurtains.gameObject.SetActive(true);
         }
         else
         {
