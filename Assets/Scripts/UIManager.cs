@@ -725,6 +725,7 @@ public class UIManager : MonoBehaviour
 
         if (_In)
         {
+            ToggleDustCurtainsOut(false);
             yield return new WaitForSeconds(waitBeforeCurtainsInTime);
             SoundManager.instance.CallPlaySound(sounds.CurtainsIn);
             LeanTween.moveLocalX(leftParent, moveToX, curtainsIntoMapTime).setEase(tweenTypeInCurve);
@@ -735,7 +736,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            ToggleDustCurtainsIn(false);
+            ToggleDustCurtainsOut(true);
 
             SoundManager.instance.CallPlaySound(sounds.CurtainsOut);
             LeanTween.moveLocalX(leftParent, 0, curtainsOutMapTime).setEase(tweenTypeOutCurve);
@@ -750,11 +751,13 @@ public class UIManager : MonoBehaviour
         {
             effect.gameObject.SetActive(_On);
         }
-
+    }
+    private void ToggleDustCurtainsOut(bool _On)
+    {
         //DeActivate Dust In Effect
         foreach (var effect in outDustCurtains)
         {
-            effect.gameObject.SetActive(!_On);
+            effect.gameObject.SetActive(_On);
         }
     }
     public void ManualDisplayCurtains()
