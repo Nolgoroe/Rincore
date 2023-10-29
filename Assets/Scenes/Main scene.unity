@@ -20448,6 +20448,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1211083226}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1211083230 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1006875469556881197, guid: 86bdb252685143f47aa42261f0b01e82,
+    type: 3}
+  m_PrefabInstance: {fileID: 1211083226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1211083231 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4186013575196237307, guid: 86bdb252685143f47aa42261f0b01e82,
+    type: 3}
+  m_PrefabInstance: {fileID: 1211083226}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1227877879
 GameObject:
   m_ObjectHideFlags: 0
@@ -21453,11 +21465,16 @@ MonoBehaviour:
   curtainsDelayOnStart: 0.3
   waitBeforeCurtainsOutTime: 0.3
   waitBeforeCurtainsInTime: 1.5
+  waitTimeBeforeEffectIn: 0
   curtainsIntoMapTime: 1
   curtainsOutMapTime: 1
   moveToX: 4.95
   leftParent: {fileID: 1211083229}
   rightParent: {fileID: 1211083228}
+  inDustCurtains: []
+  outDustCurtains:
+  - {fileID: 1211083231}
+  - {fileID: 1211083230}
   tweenTypeIn: 0
   tweenTypeOut: 0
   tweenTypeInCurve:
@@ -23467,7 +23484,7 @@ MonoBehaviour:
   - canOverlap: 1
     sound: 12
     source: {fileID: 583460899}
-  - canOverlap: 1
+  - canOverlap: 0
     sound: 13
     source: {fileID: 919435333}
   - canOverlap: 1
