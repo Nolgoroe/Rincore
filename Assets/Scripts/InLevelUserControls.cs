@@ -23,6 +23,7 @@ public class InLevelUserControls : MonoBehaviour
     [SerializeField] private TileParentLogic currentTileToMove;
     [SerializeField] private TileHolder tileOriginalHolder;
     [SerializeField] private TileHolder lastTileHolder;
+    [SerializeField] private TileHolder currentlyDroppedOn;
 
     [Header("Needed Classes")]
     [SerializeField] private Ring gameRing;
@@ -205,11 +206,30 @@ public class InLevelUserControls : MonoBehaviour
 
         SmoothPieceMover();
 
+        UpdateDroppedOnObjectDisplay();
         /// do VFX according to hits here.
     }
     private void SmoothPieceMover()
     {
         currentTileToMove.transform.position = Vector3.Lerp(currentTileToMove.transform.position, TargetPosOffset(), Time.deltaTime * tileFollowSpeed);
+    }
+
+    private void UpdateDroppedOnObjectDisplay()
+    {
+        //temp funciton to precision the controls
+
+        RaycastHit[] intersection = GetIntersectionsArea3D(touchPos, tileInsertingLayer);
+        currentlyDroppedOn = null;
+
+        if (intersection.Length > 0 && intersection[0].transform)
+        {
+            for (int i = 0; i < intersection.Length; i++)
+            {
+                Debug.Log(intersection[i].transform.name);
+            }
+
+            intersection[0].transform.TryGetComponent<TileHolder>(out currentlyDroppedOn);
+        }
     }
 
     private void OnTouchEnd()
@@ -416,7 +436,7 @@ public class InLevelUserControls : MonoBehaviour
 
         Vector3 posCheck = Camera.main.ScreenToWorldPoint(pointToCheck);
 
-        Gizmos.DrawWireSphere(posCheck + transform.right * 0, overlapRadius);
+        Gizmos.DrawWireSphere(posCheck, overlapRadius);
 
     }
 }
