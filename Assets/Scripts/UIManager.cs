@@ -80,8 +80,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float moveToX;
     [SerializeField] private GameObject leftParent;
     [SerializeField] private GameObject rightParent;
-    [SerializeField] private ParticleSystem inDustCurtains;
-    [SerializeField] private ParticleSystem outDustCurtains;
+    [SerializeField] private ParticleSystem[] inDustCurtains;
+    [SerializeField] private ParticleSystem[] outDustCurtains;
 
     [SerializeField] private LeanTweenType tweenTypeIn;
     [SerializeField] private LeanTweenType tweenTypeOut;
@@ -730,9 +730,12 @@ public class UIManager : MonoBehaviour
             LeanTween.moveLocalX(leftParent, moveToX, curtainsIntoMapTime).setEase(tweenTypeInCurve);
             LeanTween.moveLocalX(rightParent, -moveToX, curtainsIntoMapTime).setEase(tweenTypeInCurve).setOnComplete(actionOnEnd);
             yield return new WaitForSeconds(waitTimeBeforeEffectIn);
-            
+
             //Activate Effect
-            inDustCurtains.gameObject.SetActive(true);
+            foreach (var effect in inDustCurtains)
+            {
+                effect.gameObject.SetActive(true);
+            }
         }
         else
         {
