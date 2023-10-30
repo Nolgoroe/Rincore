@@ -15,4 +15,12 @@ public class GeneralAnimEvents : MonoBehaviour
     {
         connectedParticlesGO.SetActive(true);
     }
+    public void DeActivateConnectedEffect()
+    {
+        connectedParticles.gameObject.SetActive(false);
+    }
+    public void DeActivateConnectedEffectGO()
+    {
+        connectedParticlesGO.SetActive(false);
+    }
 }

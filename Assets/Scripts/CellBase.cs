@@ -150,6 +150,10 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         {
             mySlice.ToggleConnectedDisplayON(true);
 
+            if(mySlice.sliceData.onGoodConnectionActions != null)
+            {
+                SoundManager.instance.CallPlaySound(sounds.LimiterOn);
+            }
 
             mySlice.sliceData.onGoodConnectionActions?.Invoke();
         }

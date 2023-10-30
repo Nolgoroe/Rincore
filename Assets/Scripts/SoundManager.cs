@@ -31,7 +31,9 @@ public enum sounds
     Lock,
     UnLock,
     BoosterFlip,
-    CoinUse
+    CoinUse,
+    Logo,
+    LimiterOn
 }
 
 [System.Serializable]

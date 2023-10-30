@@ -647,7 +647,7 @@ public class UIManager : MonoBehaviour
 
         AddUIElement(overAllMapUI);
         AddUIElement(logoScreen);
-
+        SoundManager.instance.CallPlaySound(sounds.Logo);
         overAllMapUI.OverrideSetMyElement(null, null, actions);
     }
     private IEnumerator OnGoToLevelMapLogic(bool isAnimate)
