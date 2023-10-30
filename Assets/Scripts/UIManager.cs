@@ -113,6 +113,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow logoScreen;
     [SerializeField] private BasicCustomUIWindow overAllMapUI;
 
+    [Header("Win screen refrences")]
+    [SerializeField] private GameObject fireWorksEffectGO;
+
     private void Awake()
     {
         instance = this;
@@ -483,13 +486,26 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 1, action = () => ManualResetLevelFillBar() },//the new cluster is already set from the gamemanager before the win screen appears
             new ButtonActionIndexPair { index = 1, action = () => mapLogic.CallClusterTransfer(GameManager.instance.currentCluster) },//the new cluster is already set from the gamemanager before the win screen appears
             new ButtonActionIndexPair { index = 1, action = () => lootManager.DestroyAllLootChildren() },
+            new ButtonActionIndexPair { index = 1, action = () => DeactivateEffect(fireWorksEffectGO) },
             new ButtonActionIndexPair { index = 1, action = () => CloseElement(inLevelWinWindow) });
 
         inLevelWinWindow.OverrideSetMyElement(null, null, actions);
 
         AddUIElement(inLevelWinWindow);
     }
+    private void DeactivateEffect(GameObject toDeactivateGO = null, ParticleSystem toDeactivateParticle = null)
+    {
+        if(toDeactivateGO)
+        {
+            toDeactivateGO.SetActive(false);
+        }
 
+        if(toDeactivateParticle)
+        {
+            toDeactivateParticle.Stop();
+            toDeactivateParticle.gameObject.SetActive(false);
+        }
+    }
     private void ManualUpdateLevelNumText(string _InText)
     {
         levelNumText.text = _InText;

@@ -54,6 +54,10 @@ public class SoundManager : MonoBehaviour
     [Header("Deal")]
     [SerializeField] private AudioClip[] dealSounds;
     [SerializeField] private AudioSource dealAudioSource;
+    
+    [Header("Fireworks")]
+    [SerializeField] private AudioSource[] fireworkAudioSources;
+    [SerializeField] private AudioSource[] fireworkExplosionAudioSources;
 
 
     [Header("General")]
@@ -149,6 +153,31 @@ public class SoundManager : MonoBehaviour
         dealAudioSource.clip = dealSounds[randomSound];
 
         dealAudioSource.Play();
+    }
+    public void PlayFireworksRandom()
+    {
+        if (isSFXMuted) return;
+
+        int randomSound = Random.Range(0, fireworkAudioSources.Length);
+
+        if (!fireworkAudioSources[randomSound].isPlaying)
+        {
+            fireworkAudioSources[randomSound].Play();
+            return;
+        }
+    }
+    public void PlayFireworksExplosionsRandom()
+    {
+        if (isSFXMuted) return;
+
+        for (int i = 0; i < fireworkExplosionAudioSources.Length; i++)
+        {
+            if(!fireworkExplosionAudioSources[i].isPlaying)
+            {
+                fireworkExplosionAudioSources[i].Play();
+                return;
+            }
+        }
     }
     public void StopSound(sounds sound)
     {
