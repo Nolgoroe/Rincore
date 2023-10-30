@@ -12,6 +12,7 @@ Material:
   m_ValidKeywords:
   - _CFXR_ADDITIVE
   - _CFXR_SINGLE_CHANNEL
+  - _FLIPBOOK_BLENDING
   m_InvalidKeywords:
   - _
   - _CFXR_DITHERED_SHADOWS_OFF
@@ -68,7 +69,7 @@ Material:
     - _CFXR_DITHERED_SHADOWS: 0
     - _CFXR_OVERLAYBLEND: 0
     - _CFXR_OVERLAYTEX: 0
-    - _Cutoff: 0.1
+    - _Cutoff: 0.5
     - _DirLightScreenAtten: 1
     - _DirectLightingRamp: 1
     - _DissolveSmooth: 0.1
@@ -98,7 +99,7 @@ Material:
     - _UseDissolveOffsetUV: 0
     - _UseEF: 0
     - _UseEmission: 0
-    - _UseFB: 0
+    - _UseFB: 1
     - _UseFontColor: 0
     - _UseGradientMap: 0
     - _UseLighting: 0
