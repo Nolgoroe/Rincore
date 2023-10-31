@@ -139,6 +139,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isUseOnce: 0
+  effectDisplayOnClick: 1
   connectedParent: {fileID: 1058877631038062824}
   timeWaitEnableClick: 0.5
 --- !u!225 &4790868755492590108
@@ -586,6 +587,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 1
 --- !u!1 &4546884198422920192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,6 +1125,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isUseOnce: 0
+  effectDisplayOnClick: 1
 --- !u!1 &7701842534885974166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,11 +1986,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Explosion_prefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 7060110606874616088, guid: 48190cd4b7e5c87499c931fa0f8eb300,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7060110606874616103, guid: 48190cd4b7e5c87499c931fa0f8eb300,
         type: 3}
