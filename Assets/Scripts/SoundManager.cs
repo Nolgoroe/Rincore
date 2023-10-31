@@ -33,7 +33,8 @@ public enum sounds
     BoosterFlip,
     CoinUse,
     Logo,
-    LimiterOn
+    LimiterOn,
+    RingComplete
 }
 
 [System.Serializable]

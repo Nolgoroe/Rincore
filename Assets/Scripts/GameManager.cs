@@ -341,6 +341,8 @@ public class GameManager : MonoBehaviour
 
     public void BroadcastWinLevelActions()
     {
+        SoundManager.instance.CallPlaySound(sounds.RingComplete);
+
         WinLevelActions?.Invoke();
 
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "World1", currentLevel.levelNumInZone.ToString());
