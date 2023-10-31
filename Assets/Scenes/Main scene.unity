@@ -5506,6 +5506,7 @@ GameObject:
   - component: {fileID: 108667265}
   - component: {fileID: 108667264}
   - component: {fileID: 108667263}
+  - component: {fileID: 108667268}
   m_Layer: 0
   m_Name: Coins BG
   m_TagString: Untagged
@@ -5648,6 +5649,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108667261}
   m_CullTransparentMesh: 1
+--- !u!114 &108667268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108667261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149b3c820fc8636498db63c4c06d1498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectedParticles: {fileID: 0}
+  connectedParticlesGO: {fileID: 1849302542}
+  playOnAwake: 1
+  disableOnClose: 0
 --- !u!1 &112497724
 GameObject:
   m_ObjectHideFlags: 0
@@ -17755,6 +17772,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectedParticles: {fileID: 0}
   connectedParticlesGO: {fileID: 5226764575092903447}
+  playOnAwake: 0
+  disableOnClose: 0
 --- !u!1 &583460897
 GameObject:
   m_ObjectHideFlags: 0
@@ -21398,6 +21417,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313748377}
   m_CullTransparentMesh: 1
+--- !u!1001 &1322963722
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1990964306}
+    m_Modifications:
+    - target: {fileID: 636305083247375922, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 636305083247375922, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 636305083247375922, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 636305083247375922, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 638961003444612598, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: m_Name
+      value: Coin_Rain_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 727922721550127580, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 727922721550127580, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 727922721550127580, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 727922721550127580, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime0
+      value: 53006
+      objectReference: {fileID: 0}
+    - target: {fileID: 727922721550127580, guid: 5dac75db58481bf43902ac8b581cad37,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 60331
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5dac75db58481bf43902ac8b581cad37, type: 3}
 --- !u!1 &1332994306
 GameObject:
   m_ObjectHideFlags: 0
@@ -22914,6 +22992,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectedParticles: {fileID: 0}
   connectedParticlesGO: {fileID: 1167387945}
+  playOnAwake: 0
+  disableOnClose: 0
 --- !u!1 &1640969507
 GameObject:
   m_ObjectHideFlags: 0
@@ -28866,6 +28946,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 649113271}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1849302542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 638961003444612598, guid: 5dac75db58481bf43902ac8b581cad37,
+    type: 3}
+  m_PrefabInstance: {fileID: 1322963722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1849302543 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 636305083247375922, guid: 5dac75db58481bf43902ac8b581cad37,
+    type: 3}
+  m_PrefabInstance: {fileID: 1322963722}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1868794178
 GameObject:
   m_ObjectHideFlags: 0
@@ -29771,6 +29863,7 @@ Transform:
   m_Children:
   - {fileID: 1167387946}
   - {fileID: 5226764575092903443}
+  - {fileID: 1849302543}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47348,6 +47441,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385725, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
         type: 3}
