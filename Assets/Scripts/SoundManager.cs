@@ -161,11 +161,7 @@ public class SoundManager : MonoBehaviour
 
         int randomSound = Random.Range(0, fireworkAudioSources.Length);
 
-        if (!fireworkAudioSources[randomSound].isPlaying)
-        {
-            fireworkAudioSources[randomSound].Play();
-            return;
-        }
+        fireworkAudioSources[randomSound].Play();
     }
     public void PlayFireworksExplosionsRandom()
     {

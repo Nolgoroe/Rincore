@@ -11,6 +11,7 @@ public abstract class BasicUIElement : MonoBehaviour
 {
     public CustomButtonParent[] ButtonRefrences => buttonRefrences;
     public TMP_Text[] TextRefrences => textRefrences;
+    public Animator[] AnimatorRefrences => animatorRefrences;
 
 
     // these are public since they are used outside of their family
@@ -25,6 +26,7 @@ public abstract class BasicUIElement : MonoBehaviour
     [SerializeField] protected Image[] imageRefrences;
     [SerializeField] protected SpriteRenderer[] spriterRendererRefrences;
     [SerializeField] protected CustomButtonParent[] buttonRefrences;
+    [SerializeField] protected Animator[] animatorRefrences;
 
     [Tooltip("move by curve explanation for leantween:\n\n" +
         "In a curve we cannot go past 1 to the right as the curve moves from 0 to 1.\n\n" +

@@ -220,7 +220,7 @@ public class LootManager : MonoBehaviour
             string[] texts = new string[] { currentCoinsToGive.ToString() };
             Sprite[] sprites = new Sprite[] { coinSprite };
 
-            InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
+            InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos], currentCoinsToGive);
         }
 
 
@@ -230,10 +230,10 @@ public class LootManager : MonoBehaviour
             {
                 currentLootPos++;
 
-                string[] texts = new string[] { "X" + power.amount.ToString() };
+                string[] texts = new string[] { power.amount.ToString() };
                 Sprite[] sprites = new Sprite[] { power.powerSO.potionSprite};
 
-                InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
+                InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos], power.amount);
             }
         }
 
@@ -243,15 +243,39 @@ public class LootManager : MonoBehaviour
         currentLootPos = 0;
     }
 
-    private void InstantiateLootDisplay(string[] texts, Sprite[] sprites, Transform target)
+    private void InstantiateLootDisplay(string[] texts, Sprite[] sprites, Transform target, int amount)
     {
         target.gameObject.SetActive(true);
 
         UIElementDisplayerSegment displayer = Instantiate(lootDisplayPrefab, target);
 
         displayer.SetMyElement(texts, sprites);
+
+        StartCoroutine(SetCountAmountAnim(amount, displayer));
     }
 
+    private IEnumerator SetCountAmountAnim(int amount, UIElementDisplayerSegment displayer)
+    {
+        yield return new WaitForSeconds(0.7f);
+        Animator anim;
+
+        anim = displayer.AnimatorRefrences[0]; //temp harcoded
+
+        if (!anim) yield break;
+
+        if (amount < 10)
+        {
+            anim.SetTrigger("X");
+        }
+        else if (amount > 10 && amount < 100)
+        {
+            anim.SetTrigger("XX");
+        }
+        else if (amount> 99)
+        {
+            anim.SetTrigger("XXX");
+        }
+    }
     public void DestroyAllLootChildren()
     {
         foreach (Transform lootPos in rewardsPoses)
