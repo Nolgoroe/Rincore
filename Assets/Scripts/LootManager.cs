@@ -217,7 +217,7 @@ public class LootManager : MonoBehaviour
     {
         if (currentCoinsToGive > 0)
         {
-            string[] texts = new string[] { "X" + currentCoinsToGive.ToString() };
+            string[] texts = new string[] { currentCoinsToGive.ToString() };
             Sprite[] sprites = new Sprite[] { coinSprite };
 
             InstantiateLootDisplay(texts, sprites, rewardsPoses[currentLootPos]);
