@@ -16,12 +16,10 @@ public class Tile : TileParentLogic
         subTile.subTileColor = resultColor;
     }
 
-    public override void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture/*, Texture connectionTexture*/)
+    public override void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture, Texture connectionTexture = null)
     {
         Material matToChange = subTile.subtileMesh.material;
 
         matToChange.SetTexture("_BaseMap", colorSymbolTexture);
     }
-
-
 }

@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7732252674885132550}
-  - component: {fileID: 6206872633398215858}
+  - component: {fileID: 4485175118153371748}
   - component: {fileID: 4952841142134963327}
   - component: {fileID: 9163034227059721035}
   m_Layer: 7
@@ -202,7 +202,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6206872633398215858
+--- !u!114 &4485175118153371748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6919123850645470140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e0b29bb2e1944140857730d6b8a21f8, type: 3}
+  m_Script: {fileID: 11500000, guid: db684a957a9199048b0dcf566ddc8371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   subTileLeft:
@@ -227,6 +227,13 @@ MonoBehaviour:
   cellParent: {fileID: 0}
   partOfBoard: 0
   tileType: 0
+  dealVFX: {fileID: 0}
+  trailVFX: {fileID: 0}
+  moveVFXParent: {fileID: 0}
+  originalTexRight: {fileID: 0}
+  originalTexLeft: {fileID: 0}
+  completedTexRight: {fileID: 0}
+  completedTexLeft: {fileID: 0}
 --- !u!114 &4952841142134963327
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -36,13 +36,14 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         {
             heldTile.SetSubtilesConnectedGFX(false, heldTile.subTileLeft, leftCell.heldTile.subTileRight);
             connectVFXLeft.gameObject.SetActive(false);
-
+            leftCell.heldTile.ToggleConnectedDisplayON(false, true); // true is left since that's the side we want to darken 
         }
 
         if (rightCell.heldTile)
         {
             heldTile.SetSubtilesConnectedGFX(false, heldTile.subTileRight, rightCell.heldTile.subTileLeft);
             connectVFXRight.gameObject.SetActive(false);
+            rightCell.heldTile.ToggleConnectedDisplayON(false, false); // true is left since that's the side we want to darken 
         }
 
         if (leftSlice.sliceData.onGoodConnectionActions != null)
@@ -149,7 +150,6 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         if (isGood)
         {
             mySlice.ToggleConnectedDisplayON(true);
-
             if(mySlice.sliceData.onGoodConnectionActions != null)
             {
                 SoundManager.instance.CallPlaySound(sounds.LimiterOn);
@@ -165,11 +165,13 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         {
             if (isGood)
             {
-                connectVFXLeft.SetActivatedChild(); // set as good connection
+                connectVFXLeft.SetActivatedChild(); // set as good connection left
+                leftCell.heldTile.ToggleConnectedDisplayON(true, true); // true is right since that's the side we want to light up
             }
             else
             {
-                connectVFXLeft.SetDeActivatedChild(); // set as bad connection
+                connectVFXLeft.SetDeActivatedChild(); // set as bad connection left
+                leftCell.heldTile.ToggleConnectedDisplayON(false, true);
             }
 
         }
@@ -177,11 +179,13 @@ public abstract class CellBase : TileHolder, IGrabTileFrom, IPowerUsable
         {
             if (isGood)
             {
-                connectVFXRight.SetActivatedChild(); // set as good connection
+                connectVFXRight.SetActivatedChild(); // set as good connection right
+                rightCell.heldTile.ToggleConnectedDisplayON(true, false);
             }
             else
             {
-                connectVFXRight.SetDeActivatedChild(); // set as bad connection
+                connectVFXRight.SetDeActivatedChild(); // set as bad connection right
+                rightCell.heldTile.ToggleConnectedDisplayON(false, false);
             }
 
         }

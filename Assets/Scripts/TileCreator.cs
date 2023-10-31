@@ -49,10 +49,12 @@ public class ColorsAndMats
     public SubTileColor matColor;
     public Texture[] colorTexLeft;
     public Texture[] colorTexRight;
+    public Texture[] shineTexLeft;
+    public Texture[] shineTexRight;
 }
 
 [System.Serializable]
-public class SymbolToMat
+public class ShineMat
 {
     public SubTileSymbol mat;
     public Texture symbolTex;
@@ -63,17 +65,17 @@ public class TileCreator : ScriptableObject
 {
     [Header("Textures and Emission Maps")]
     [SerializeField] private ColorsAndMats[] colorsToMats;
-    [SerializeField] private SymbolToMat[] symbolToMat;
+    //[SerializeField] private ShineMat[] shineMat;
     [SerializeField] private ColorsAndMats[] colorsToMats12;
-    [SerializeField] private SymbolToMat[] symbolToMat12;
+    //[SerializeField] private ShineMat[] symbolToMat12;
     [SerializeField] private Texture jokerTexLeft, jokerTexRight;
     [SerializeField] private Material jokerMat;
 
     [SerializeField] private GameObject[] tilePrefabs;
 
-    public Tile CreateTile(Tiletype tileType, SubTileSymbol[] availableSymbols, SubTileColor[] availableColors)
+    public TileParentLogic CreateTile(Tiletype tileType, SubTileSymbol[] availableSymbols, SubTileColor[] availableColors)
     {
-        Tile tile = Instantiate(tilePrefabs[(int)tileType]).GetComponent<Tile>(); ;
+        TileParentLogic tile = Instantiate(tilePrefabs[(int)tileType]).GetComponent<TileParentLogic>(); ;
 
         if(tile == null)
         {
@@ -87,12 +89,12 @@ public class TileCreator : ScriptableObject
         //data set, then decide on textures, then display set - Left
         tile.SetSubTileSpawnData(tile.subTileLeft, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
         Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0], tempArray[1]);
 
         //data set, then decide on textures, then display set - Right
         tile.SetSubTileSpawnData(tile.subTileRight, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
         tempArray = ReturnTexturesByData(tile.subTileRight, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0], tempArray[1]);
 
         return tile;
     }
@@ -126,12 +128,12 @@ public class TileCreator : ScriptableObject
         //data set, then decide on textures, then display set - Left
         tile.SetSubTileSpawnData(tile.subTileLeft, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
         Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0], tempArray[1]);
 
         //data set, then decide on textures, then display set - Right
         tile.SetSubTileSpawnData(tile.subTileRight, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
         tempArray = ReturnTexturesByData(tile.subTileRight, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0], tempArray[1]);
     }
 
     private SubTileSymbol RollTileSymbol(SubTileSymbol[] availableSymbols)
@@ -167,6 +169,7 @@ public class TileCreator : ScriptableObject
         SubTileColor tileColor = tileData.subTileColor;
 
         Texture colorSymbolTexture = null;
+        Texture connectionTex = null;
 
         switch (tileType)
         {
@@ -194,20 +197,24 @@ public class TileCreator : ScriptableObject
                 if (tileData.isRight)
                 {
                     colorSymbolTexture = colorsToMats[(int)tileColor].colorTexRight[(int)tileSymbol];
+                    connectionTex = colorsToMats[(int)tileColor].shineTexRight[(int)tileSymbol];
                 }
                 else
                 {
                     colorSymbolTexture = colorsToMats[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                    connectionTex = colorsToMats[(int)tileColor].shineTexLeft[(int)tileSymbol];
                 }
                 break;
             case Tiletype.Corrupted12:
                 if (tileData.isRight)
                 {
                     colorSymbolTexture = colorsToMats12[(int)tileColor].colorTexRight[(int)tileSymbol];
+                    connectionTex = colorsToMats12[(int)tileColor].shineTexRight[(int)tileSymbol];
                 }
                 else
                 {
                     colorSymbolTexture = colorsToMats12[(int)tileColor].colorTexLeft[(int)tileSymbol];
+                    connectionTex = colorsToMats12[(int)tileColor].shineTexLeft[(int)tileSymbol];
                 }
                 break;
             case Tiletype.NoType:
@@ -216,7 +223,7 @@ public class TileCreator : ScriptableObject
                 break;
         }
 
-        return new Texture[] { colorSymbolTexture/*, connectionTex*/ };
+        return new Texture[] { colorSymbolTexture, connectionTex };
     }
 
     public Texture returnSpecificTex(SubTileColor tileColor, SubTileSymbol tileSymbol, bool isRight)

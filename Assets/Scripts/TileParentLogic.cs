@@ -26,7 +26,7 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
     public abstract void SetPlaceTileData(bool place, CellBase cellParent);
     public abstract void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor);
 
-    public abstract void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture/*, Texture connectionTexture*/);
+    public abstract void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture, Texture connectionTexture = null);
     public virtual void SetSubtilesConnectedGFX(bool isGoodConnect, SubTileData ownSubTile, SubTileData contestedSubTile)
     {
         //Material matToChangeOwn = ownSubTile.subtileMesh.material;
@@ -36,6 +36,10 @@ public abstract class TileParentLogic : MonoBehaviour, IPowerUsable
         //matToChangeContested.SetInt("Is_Piece_Match", isGoodConnect ? 1 : 0);
     }
 
+    public virtual void ToggleConnectedDisplayON(bool _On, bool isRight)
+    {
+
+    }
     public void SwitchPower()
     {
         if (cellParent)

@@ -48,7 +48,7 @@ public class LevelActions : ScriptableObject
                 type = Tiletype.Normal;
             }
 
-            Tile tile = null;
+            TileParentLogic tile = null;
 
             if (stoneTile.randomValues)
             {

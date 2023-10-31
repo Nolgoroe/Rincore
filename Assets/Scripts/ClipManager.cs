@@ -173,7 +173,7 @@ public class ClipManager : MonoBehaviour
         else
         {
             Tiletype tileType = ReturnCurrentTileType();
-            Tile tile = tileCreatorPreset.CreateTile(tileType, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
+            TileParentLogic tile = tileCreatorPreset.CreateTile(tileType, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
 
             slot.RecieveTileDisplayer(tile);
 
