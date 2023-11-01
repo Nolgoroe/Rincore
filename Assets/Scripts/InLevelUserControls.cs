@@ -234,6 +234,7 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchEnd()
     {
+        LeanTween.cancel(currentTileToMove.gameObject);
         //RaycastHit intersection = GetFirstIntersection3D(touchPos, tileInsertingLayer);
         RaycastHit[] intersection = GetIntersectionsArea3D(touchPos, tileInsertingLayer);
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
