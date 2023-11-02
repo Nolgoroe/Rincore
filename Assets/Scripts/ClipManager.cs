@@ -281,7 +281,7 @@ public class ClipManager : MonoBehaviour
         SubTileColor leftColor = currentLevel.arrayOfSpecificTilesInClip[currentIndexInSpecificArray].leftTileColor;
         SubTileColor rightColor = currentLevel.arrayOfSpecificTilesInClip[currentIndexInSpecificArray].rightTileColor;
 
-        Tile tile = tileCreatorPreset.CreateTile(tileType, leftSymbol, rightSymbol, leftColor, rightColor);
+        TileParentLogic tile = tileCreatorPreset.CreateTile(tileType, leftSymbol, rightSymbol, leftColor, rightColor);
         slot.RecieveTileDisplayer(tile);
 
         currentIndexInSpecificArray++;
@@ -304,7 +304,7 @@ public class ClipManager : MonoBehaviour
             int randomColorIndex = Random.Range(0, GameManager.currentLevel.levelAvailableColors.Length);
             newLeft = GameManager.currentLevel.levelAvailableColors[randomColorIndex];
         }
-        Tile tile = tileCreatorPreset.CreateTile(tileType, leftSymbol, rightSymbol, newLeft, newRight);
+        TileParentLogic tile = tileCreatorPreset.CreateTile(tileType, leftSymbol, rightSymbol, newLeft, newRight);
         slot.RecieveTileDisplayer(tile);
     }
 

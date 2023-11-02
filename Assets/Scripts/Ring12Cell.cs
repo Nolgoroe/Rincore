@@ -13,7 +13,7 @@ public class Ring12Cell : CellBase
 
         UndoSystem.instance.AddNewUndoEntry(tileToPlace.transform.parent, transform, tileToPlace);
 
-        Tile tile12Ring = GameManager.gameClip.tileCreatorPreset.CreateTile(Tiletype.Normal12, tileToPlace.subTileLeft.subTileSymbol, tileToPlace.subTileRight.subTileSymbol, tileToPlace.subTileLeft.subTileColor, tileToPlace.subTileRight.subTileColor);
+        TileParentLogic tile12Ring = GameManager.gameClip.tileCreatorPreset.CreateTile(Tiletype.Normal12, tileToPlace.subTileLeft.subTileSymbol, tileToPlace.subTileRight.subTileSymbol, tileToPlace.subTileLeft.subTileColor, tileToPlace.subTileRight.subTileColor);
 
         // Make sure that the new 12 ring tile spawned is located exactly where the 8 ring tile was released.
         // we do this to make sure the tile activates the drop in animation from the correct position.

@@ -98,9 +98,9 @@ public class TileCreator : ScriptableObject
 
         return tile;
     }
-    public Tile CreateTile(Tiletype tileType, SubTileSymbol symbolLeft, SubTileSymbol symbolRight, SubTileColor colorLeft, SubTileColor colorRight)
+    public TileParentLogic CreateTile(Tiletype tileType, SubTileSymbol symbolLeft, SubTileSymbol symbolRight, SubTileColor colorLeft, SubTileColor colorRight)
     {
-        Tile tile = Instantiate(tilePrefabs[(int)tileType]).GetComponent<Tile>();
+        TileParentLogic tile = Instantiate(tilePrefabs[(int)tileType]).GetComponent<TileParentLogic>();
 
         if (tile == null)
         {
@@ -113,12 +113,12 @@ public class TileCreator : ScriptableObject
         //data set, then decide on textures, then display set - Left
         tile.SetSubTileSpawnData(tile.subTileLeft, symbolLeft, colorLeft);
         Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0], tempArray[1]);
 
         //data set, then decide on textures, then display set - Right
         tile.SetSubTileSpawnData(tile.subTileRight, symbolRight, colorRight);
         tempArray = ReturnTexturesByData(tile.subTileRight, tileType);
-        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0]);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0], tempArray[1]);
 
         return tile;
     }
