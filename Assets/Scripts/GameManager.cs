@@ -499,8 +499,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("Tansfer same cluster")]
-    public void CallCallClusterTempTransfer()
+    [ContextMenu("Transfer same cluster")]
+    public void CallClusterTempTransfer()
     {
         StartCoroutine(InitClusterTransfer());
     }
