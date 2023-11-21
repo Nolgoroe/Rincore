@@ -27,7 +27,7 @@ public class SaveLoad : MonoBehaviour
 
     string path;
 
-    const string url = "https://rincore-a2735-default-rtdb.firebaseio.com/";
+    const string url = "https://ring-match-242e3-default-rtdb.firebaseio.com/";
 
 
     [Header("General refrences")]
@@ -47,7 +47,7 @@ public class SaveLoad : MonoBehaviour
 
     private void Start()
     {
-        FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
+        FirebaseDatabase.GetInstance(url).SetPersistenceEnabled(false);
         StartCoroutine(InitSaveLoad());
     }
 
@@ -73,7 +73,7 @@ public class SaveLoad : MonoBehaviour
                 return;
             }
 
-            database = FirebaseDatabase.DefaultInstance.RootReference; //This is a DatabaseReference type object
+            database = FirebaseDatabase.GetInstance(url).RootReference; //This is a DatabaseReference type object
 
             onFirebaseInitialized?.Invoke();
         });
@@ -119,7 +119,7 @@ public class SaveLoad : MonoBehaviour
         if (UID_TEXT != "")
         {
             //load this class
-            await FirebaseDatabase.DefaultInstance
+            await FirebaseDatabase.GetInstance(url)
                 .GetReference(UID_TEXT).Child(TEST_SAVE)
                 .GetValueAsync().ContinueWithOnMainThread(task => {
                     if (task.IsFaulted)

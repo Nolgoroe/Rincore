@@ -41,6 +41,8 @@ public class MyFireBaseRemoteConfig : MonoBehaviour
 
         FetchDataAsync();
     }
+
+    [ContextMenu("test")]
     [Preserve]
     public void ShowData()
     {
