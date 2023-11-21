@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using GameAnalyticsSDK;
+//using GameAnalyticsSDK;
 using System;
 
 public class GameManager : MonoBehaviour
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
         // consider changing Sigleton access to something else.
 
-        GameAnalytics.Initialize();
+        //GameAnalytics.Initialize();
 
         gameClip = clipManager;
         LeanTween.init(5000);
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
     //called from button click
     public void SetLevel()
     {
-        GameAnalytics.NewDesignEvent("Testing GA 1", 0);
+        //GameAnalytics.NewDesignEvent("Testing GA 1", 0);
 
         //first clean all subscribes if there are any.
         endLevelActions?.Invoke();
@@ -131,7 +131,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartLevel()
     {
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "World1", "Level " + currentLevel.levelNumInZone.ToString());
+        //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "World1", "Level " + currentLevel.levelNumInZone.ToString());
+        TinySauce.OnGameStarted("Cluster num " + currentClusterSO.clusterID + " Ring num " + currentLevel.levelNumInZone.ToString());
+        //GA HERE
 
         IS_IN_LEVEL = true;
 
@@ -341,18 +343,23 @@ public class GameManager : MonoBehaviour
 
     public void BroadcastWinLevelActions()
     {
+        TinySauce.OnGameFinished(true, 0, "Cluster num " + currentClusterSO.clusterID + " Ring num " + currentLevel.levelNumInZone.ToString());
+
         SoundManager.instance.CallPlaySound(sounds.RingComplete);
 
         WinLevelActions?.Invoke();
 
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "World1", currentLevel.levelNumInZone.ToString());
+        //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "World1", currentLevel.levelNumInZone.ToString());
 
-        GameAnalytics.NewErrorEvent(GAErrorSeverity.Critical, "I am testing GA");
+        //GA HERE
+        //GameAnalytics.NewErrorEvent(GAErrorSeverity.Critical, "I am testing GA");
 
     }
 
     public IEnumerator OnLevelExitResetSystem()
     {
+        TinySauce.OnGameFinished(false, 0, "Cluster Lost " + currentClusterSO.clusterID + " Ring num " + currentLevel.levelNumInZone.ToString());
+
         UIManager.IS_DURING_TRANSITION = true;
 
         gameRing.ClearActions();
